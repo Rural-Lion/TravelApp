@@ -1,0 +1,23 @@
+{
+  "name": "travelapp",
+  "version": "1.0.0",
+  "description": "Travel Planner for lazy travelers",
+  "main": "client/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "poststart": "webpack --watch",
+    "postinstall": "bower install",
+    "dev": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rural-Lion/TravelApp.git"
+  },
+  "author": "Rural-Lion",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rural-Lion/TravelApp/issues"
+  },
+  "homepage": "https://github.com/Rural-Lion/TravelApp#readme"
+}
