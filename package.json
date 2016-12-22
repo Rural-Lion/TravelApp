@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
     "poststart": "webpack -d --watch",
-    "postinstall": "bower install",
     "dev": "nodemon server/server.js",
     "prod": "webpack -p"
   },
