@@ -8,7 +8,7 @@ let app = express();
 
 app.use(bodyparser.json());
 
-app.use(express.static(__dirname + './../client'));
+app.use(express.static(__dirname + './../client/public'));
 
 app.listen(port);
 console.log('listening on', port);
