@@ -1,12 +1,8 @@
 let Sequelize = require('sequelize');
 
-const dnName = 'rurallion';
-const username = 'rurallion';
-const password = 'hackreactor69';
-
-var sequelize = new Sequelize(dnName, username, password, {
-  host: 'rurallion.cgnjbb8knqep.us-west-2.rds.amazonaws.com',
-  port: '3306',
+var sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   dialectOptions: {
     ssl: 'Amazon RDS'
   }
