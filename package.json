@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/Rural-Lion/TravelApp/issues"
   },
-  "homepage": "https://github.com/Rural-Lion/TravelApp#readme"
+  "homepage": "https://github.com/Rural-Lion/TravelApp#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
 }
