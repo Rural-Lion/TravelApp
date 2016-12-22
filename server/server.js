@@ -1,4 +1,5 @@
 let express = require('express');
+let db = require('../database/database.js');
 let bodyparser = require('body-parser');
 require('dotenv-safe').load();
 

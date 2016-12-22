@@ -11,7 +11,7 @@ git PR comment format:
 
 TO START APP:
 - configure environment variables to appropriate values in a file named '.env'
-  - compare the structure of this file to '.env.sample'
+  - compare the structure of this file to '.env.example'
 
 
 - if in dev
