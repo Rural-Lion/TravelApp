@@ -12,5 +12,13 @@ var sequelize = new Sequelize(dnName, username, password, {
   }
 });
 
+//Verifying DB Connection
+sequelize.authenticate().then(function(err) {
+  console.log('Connection has been established successfully'); 
+})
+.catch(function(err) {
+  console.log('Unable to connect to DB: ', err);
+});
+
 
 module.exports = sequelize;
