@@ -1,2 +1,6 @@
+public/
+lib/
+dist/
+.vscode
 node_modules/
 .DS_Store
