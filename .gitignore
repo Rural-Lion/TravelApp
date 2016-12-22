@@ -4,3 +4,6 @@ dist/
 .vscode
 node_modules/
 .DS_Store
+.env
+EXAMPLEDATA/
+npm-debug.log
