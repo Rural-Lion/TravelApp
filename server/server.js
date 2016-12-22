@@ -1,4 +1,5 @@
 let express = require('express');
+let sequelize = require('./database');
 let bodyparser = require('body-parser');
 require('dotenv-safe').load();
 
