@@ -1,5 +1,6 @@
 let express = require('express');
 let bodyparser = require('body-parser');
+require('dotenv-safe').load();
 
 let port = process.env.PORT || 8000;
 
