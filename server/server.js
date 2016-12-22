@@ -1,9 +1,9 @@
 let express = require('express');
 let bodyparser = require('body-parser');
 
-var port = process.env.PORT || 8000;
+let port = process.env.PORT || 8000;
 
-var app = express();
+let app = express();
 
 app.use(bodyparser.json());
 
