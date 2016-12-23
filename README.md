@@ -16,4 +16,3 @@ TO START APP:
 
 - if in dev
   - run 'npm run dev' to start nodemon
-  - run 'webpack --watch' to start webpack
