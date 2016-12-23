@@ -22,12 +22,12 @@ Organizations.sync().then(function() {
 });
 
 var RecAreas = db.define('recAreas', {
-  OrgRecAreaID: Sequelize.INTEGER,
+  OrgRecAreaID: Sequelize.STRING,
   GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   RecAreaEmail: Sequelize.STRING,
   RecAreaReservationURL: Sequelize.STRING,
-  RecAreaLongitude: Sequelize.INTEGER,
+  RecAreaLongitude: Sequelize.DECIMAL(10, 5),
   RecAreaID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -35,7 +35,7 @@ var RecAreas = db.define('recAreas', {
   RecAreaPhone: Sequelize.STRING,
   RecAreaDescription: Sequelize.STRING(1500),
   RecAreaMapURL: Sequelize.STRING,
-  RecAreaLatitude: Sequelize.INTEGER,
+  RecAreaLatitude: Sequelize.DECIMAL(10, 5),
   StayLimit: Sequelize.STRING,
   RecAreaFeeDescription: Sequelize.STRING(1500),
   RecAreaDirections: Sequelize.STRING(1500),
@@ -87,7 +87,7 @@ Activities.sync().then(function() {
 var Facilities = db.define('facilities', {
   FacilityDescription: Sequelize.STRING(1500),
   FacilityEmail: Sequelize.STRING(60),
-  FacilityLatitude: Sequelize.INTEGER,
+  FacilityLatitude: Sequelize.DECIMAL(10, 5),
   FacilityUseFeeDescription: Sequelize.STRING,
   LegacyFacilityID: Sequelize.STRING(20),
   OrgFacilityID: Sequelize.STRING,
@@ -104,7 +104,7 @@ var Facilities = db.define('facilities', {
   },
   FacilityReservationURL: Sequelize.STRING,
   StayLimit: Sequelize.STRING(500),
-  FacilityLongitude: Sequelize.INTEGER,
+  FacilityLongitude: Sequelize.DECIMAL(10, 5),
   FacilityPhone: Sequelize.STRING,
   Keywords: Sequelize.STRING(4000)
 });
@@ -207,7 +207,7 @@ Attributes.sync().then(function() {
 
 var PermitEntrance = db.define('permitentrance', {
   PermitEntranceDescription: Sequelize.STRING,
-  Longitude: Sequelize.INTEGER,
+  Longitude: Sequelize.DECIMAL(10, 5),
   PermitEntranceType: Sequelize.STRING,
   GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
@@ -220,7 +220,7 @@ var PermitEntrance = db.define('permitentrance', {
   Town: Sequelize.STRING(60),
   FacilityID: Sequelize.INTEGER,
   PermitEntranceName: Sequelize.STRING(512),
-  Latitude: Sequelize.INTEGER,
+  Latitude: Sequelize.DECIMAL(10, 5),
   PermitEntranceAccessible: Sequelize.STRING(10),
 });
 
