@@ -260,6 +260,31 @@ Campsites.sync().then(function() {
   console.log('Campsites created successfully');
 });
 
+//JOIN TABLES
+
+var OrgEntity = db.define('orgentity', {
+  EntityID: Sequelize.INTEGER,
+  EntityType: Sequelize.STRING(20),
+  OrgID: Sequelize.INTEGER,
+});
+
+OrgEntity.sync().then(function() {
+  console.log('OrgEntity created successfully');
+});
+
+var EntityActivity = db.define('entityactivity', {
+  EntityID: Sequelize.INTEGER,
+  EntityType: Sequelize.STRING(1024),
+  ActivityID: Sequelize.INTEGER,
+  ActivityDescription: Sequelize.STRING(1024),
+  ActivityFeeDescription: Sequelize.STRING(1024)
+});
+
+EntityActivity.sync().then(function() {
+  console.log('EntityActivity created successfully');
+});
+
+
 module.exports = {
   organizations: Organizations,
   recAreas: RecAreas,
@@ -273,5 +298,7 @@ module.exports = {
   attributes: Attributes,
   permitEntrance: PermitEntrance,
   permittedEquipment: PermittedEquipment,
-  campsites: Campsites
+  campsites: Campsites,
+  orgEntities: OrgEntity,
+  entityActivity: EntityActivity
 };

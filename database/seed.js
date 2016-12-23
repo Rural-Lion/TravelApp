@@ -3,6 +3,8 @@ require('dotenv-safe').load();
 let schemas = require('../database/schemas.js');
 let recAreasJSON = require('../RIDBFullExport_v1/RecAreas_API_v1.json');
 let activitiesJSON = require('../RIDBFullExport_v1/Activities_API_v1.json');
+let orgEntitiesJSON = require('../RIDBFullExport_v1/OrgEntities_API_v1.json');
+
 
 // var organizationsCaching = function () {
 //   let offset = 0;
@@ -82,4 +84,22 @@ var activitiesCaching = function () {
   
 };
    
-activitiesCaching();
+// activitiesCaching();
+
+var orgEntitiesCaching = function () {
+  const data = orgEntitiesJSON.RECDATA;
+  for (var i = 0; i < data.length; i++) {
+    // console.log('data: ', data[i].EntityID);
+    schemas.orgEntities.create({
+      EntityID: data[i].EntityID,
+      EntityType: data[i].EntityType,
+      OrgID: data[i].OrgID,
+    }).catch((err) => {
+      console.log('Error creating activities: ', err);
+    });
+  }
+  
+};
+
+orgEntitiesCaching();
+
