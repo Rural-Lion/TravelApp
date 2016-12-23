@@ -10,7 +10,7 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-if(module.hot) {
+if (module.hot) {
   module.hot.accept('./app.jsx', () => {
     const NewApp = require('./app.jsx').default;
     ReactDOM.render(
@@ -19,5 +19,5 @@ if(module.hot) {
       </AppContainer>,
       document.getElementById('root'),
     );
-  })
+  });
 }

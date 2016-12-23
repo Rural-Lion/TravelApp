@@ -10,11 +10,11 @@ const config = {
   entry: [
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
-    APP_DIR + '/index.jsx'
+    `${APP_DIR}/index.jsx`,
   ],
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
 
   module: {
@@ -22,21 +22,21 @@ const config = {
       {
         test: /\.jsx?/,
         include: APP_DIR,
-        loader: 'babel'
-      }
-    ]
+        loader: 'babel',
+      },
+    ],
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new DotenvPlugin({
       sample: './.env.example',
-      path: './.env'
+      path: './.env',
     }),
     new webpack.SourceMapDevToolPlugin(
             'bundle.js.map', null,
-            "[absolute-resource-path]", "[absolute-resource-path]")
-  ]
+            '[absolute-resource-path]', '[absolute-resource-path]'),
+  ],
 
 
 };
