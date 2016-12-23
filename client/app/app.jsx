@@ -4,10 +4,27 @@ const ACTIVITIES = [];
 const INTERESTS = [];
 
 
-function FancyBorder(props) {
+const FancyBorder = function (props) {
+  return (
+    <div className={`FancyBorder FancyBorder-${props.color}`}>
+      {props.children}
+    </div>
+  );
+};
 
-}
-class App extends Component {
+
+// class planVacation Button
+  // pass inputs
+  // pass selected buttons
+
+const planVacationButton = function (props) {
+  return (
+    <FancyBorder class="blue">
+      <button onClick={e => this.clickHandler(e)}>Plan My Vacation</button>
+    </FancyBorder>
+  );
+};
+
 
 // class landingPage
   // render
@@ -16,10 +33,38 @@ class App extends Component {
     // choose interests text
     // interest buttons
 
+class LandingPage extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      userQuery: {
+        budgetOfTrip: 0,
+        lengthOfTrip: 0,
+        startinglocation: [],
+        distanceOfTrip: 0,
+      },
+      interests: [],
+    };
 
-// class planVacation Button
-  // pass inputs
-  // pass selected buttons
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+  }
+
+  render() {
+    return (
+      <FancyBorder>
+        <h1>TravelApp</h1>
+        <Inputs />
+        <h5>Choose at least 2 interests</h5>
+        <InterestButtons interests={props.interests} />
+        <PlanVacationButton chosenInterests={this.state.interests} query={this.state.userQuery} />
+      </FancyBorder>
+    );
+  }
+ }
+
 
 // class inputs
   // pass input values up
@@ -66,7 +111,15 @@ class App extends Component {
 // class ActivityListEntry
   // renders
     // entry with given activity object
-
+class App extends Component {
+  render() {
+    return (
+      <FancyBorder color="brown">
+        <LandingPage />
+        <ResultsPage />
+      </FancyBorder>
+    );
+  }
 }
 
 export default App;
