@@ -1,4 +1,7 @@
-var Organizations = sequelize.define('organizations', {
+let Sequelize = require('sequelize');
+let db = require('./database.database.js');
+
+var Organizations = db.define('organizations', {
   OrgID: Sequelize.INTEGER,
   OrgImageURL: Sequelize.STRING,
   OrgURLText: Sequelize.STRING,
@@ -11,7 +14,7 @@ var Organizations = sequelize.define('organizations', {
   LastUpdatedDate: Sequelize.STRING
 });
 
-var RecAreas = sequelize.define('recAreas', {
+var RecAreas = db.define('recAreas', {
   OrgRecAreaID: Sequelize.INTEGER,
   GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
@@ -30,7 +33,7 @@ var RecAreas = sequelize.define('recAreas', {
   RecAreaName: Sequelize.STRING
 });
 
-var RecAreaAddress = sequilize.define('recAreaAddress', {
+var RecAreaAddress = db.define('recAreaAddress', {
   PostalCode: Sequelize.INTEGER,
   RecAreaAddressID: Sequelize.INTEGER,
   City: Sequelize.STRING,
@@ -44,7 +47,7 @@ var RecAreaAddress = sequilize.define('recAreaAddress', {
   AddressStateCode: Sequelize.STRING
 });
 
-var Activities = sequelize.define('activities', {
+var Activities = db.define('activities', {
   ActivityParentID: Sequelize.INTEGER,
   ActivityLevel: Sequelize.INTEGER,
   ActivityName: Sequelize.STRING,
@@ -52,7 +55,7 @@ var Activities = sequelize.define('activities', {
 });
 
 
-var Facilities = sequelize.define('facilities', {
+var Facilities = db.define('facilities', {
   FacilityDescription: Sequelize.STRING,
   FacilityEmail: Sequelize.STRING,
   FacilityLatitude: Sequelize.INTEGER,
@@ -74,7 +77,7 @@ var Facilities = sequelize.define('facilities', {
   Keywords: Sequelize.STRING
 });
 
-var FacilitiesAddress = sequelize.define('facilitiesAddress', {
+var FacilitiesAddress = db.define('facilitiesAddress', {
   PostalCode: Sequelize.INTEGER,
   FacilityAddressType: Sequelize.STRING,
   City: Sequelize.STRING,
@@ -87,7 +90,7 @@ var FacilitiesAddress = sequelize.define('facilitiesAddress', {
   AddressStateCode: Sequelize.STRING
 });
 
-var EntityLinks = sequelize.define('entityLinks', {
+var EntityLinks = db.define('entityLinks', {
   EntityID: Sequelize.INTEGER,
   Description: Sequelize.STRING,
   LinkType: Sequelize.STRING,
@@ -97,7 +100,7 @@ var EntityLinks = sequelize.define('entityLinks', {
   URL: Sequelize.STRING
 });
 
-var EntityMedia = sequelize.define('entityMedia', {
+var EntityMedia = db.define('entityMedia', {
   MediaID: Sequelize.INTEGER,
   Credits: Sequelize.STRING,
   EntityID: Sequelize.INTEGER,
@@ -113,7 +116,7 @@ var EntityMedia = sequelize.define('entityMedia', {
   Title: Sequelize.STRING
 });
 
-var Tours = sequelize.define('tours', {
+var Tours = db.define('tours', {
   TourName: Sequelize.STRING,
   CreatedDate: Sequelize.STRING,
   TourDescription: Sequelize.STRING,
@@ -125,13 +128,13 @@ var Tours = sequelize.define('tours', {
   LastUpdatedDate: Sequelize.STRING
 });
 
-var Attributes = sequelize.define('attributes', {
+var Attributes = db.define('attributes', {
   AttributeID: Sequelize.INTEGER,
   AttributeName: Sequelize.STRING,
   AttributeValue: Sequelize.STRING
 });
 
-var PermitEntrance = sequelize.define('permitentrance', {
+var PermitEntrance = db.define('permitentrance', {
   PermitEntranceDescription: Sequelize.STRING,
   Longitude: Sequelize.INTEGER,
   PermitEntranceType: Sequelize.STRING,
@@ -147,13 +150,13 @@ var PermitEntrance = sequelize.define('permitentrance', {
   PermitEntranceAccessible: Sequelize.BOOLEAN,
 });
 
-var PermittedEquipment = sequelize.define('permittedEquipment', {
+var PermittedEquipment = db.define('permittedEquipment', {
   PermittedEquipmentID: Sequelize.INTEGER,
   EquipmentName: Sequelize.STRING,
   MaxLength: Sequelize.INTEGER
 });
 
-var Campsites = sequelize.define('campsites', {
+var Campsites = db.define('campsites', {
   CampsiteID: Sequelize.INTEGER,
   CreatedDate: Sequelize.DATE,
   Loop: Sequelize.STRING,
