@@ -1,6 +1,6 @@
-
 const express = require('express');
 const db = require('../database/database.js');
+const schemas = require('../database/schemas.js');
 const bodyparser = require('body-parser');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');

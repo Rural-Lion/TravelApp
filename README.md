@@ -12,6 +12,12 @@ git PR comment format:
 TO START APP:
 - configure environment variables to appropriate values in a file named '.env'
   - compare the structure of this file to '.env.example'
+- Set up username root with password = '' (password is an empty string) in mysql (to reset your root pwd: http://dev.mysql.com/doc/refman/5.7/en/resetting-permissions.html)
+- run 'mysql.server stop'
+- run 'mysql.server start'
+- run 'mysql -u root -p'
+- enter password '' (password is an empty string)
+- run 'create database rurallion'
 
 
 - if in dev

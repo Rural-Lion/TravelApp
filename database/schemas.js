@@ -1,17 +1,24 @@
 let Sequelize = require('sequelize');
-let db = require('./database.database.js');
+let db = require('./database.js');
 
 var Organizations = db.define('organizations', {
-  OrgID: Sequelize.INTEGER,
+  OrgID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
   OrgImageURL: Sequelize.STRING,
   OrgURLText: Sequelize.STRING,
   OrgURLAddress: Sequelize.STRING,
-  OrgType: Sequelize.STRING,
-  OrgAbbrevName: Sequelize.STRING,
-  OrgName: Sequelize.STRING,
-  OrgJurisdictionType: Sequelize.STRING,
+  OrgType: Sequelize.STRING(40),
+  OrgAbbrevName: Sequelize.STRING(20),
+  OrgName: Sequelize.STRING(60),
+  OrgJurisdictionType: Sequelize.STRING(20),
   OrgParentID: Sequelize.INTEGER,
   LastUpdatedDate: Sequelize.STRING
+});
+
+Organizations.sync().then(function() {
+  console.log('Organizations created successfully');
 });
 
 var RecAreas = db.define('recAreas', {
@@ -21,99 +28,149 @@ var RecAreas = db.define('recAreas', {
   RecAreaEmail: Sequelize.STRING,
   RecAreaReservationURL: Sequelize.STRING,
   RecAreaLongitude: Sequelize.INTEGER,
-  RecAreaID: Sequelize.INTEGER,
+  RecAreaID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
   RecAreaPhone: Sequelize.STRING,
   RecAreaDescription: Sequelize.STRING(1500),
   RecAreaMapURL: Sequelize.STRING,
   RecAreaLatitude: Sequelize.INTEGER,
   StayLimit: Sequelize.STRING,
-  RecAreaFeeDescription: Sequelize.STRING,
-  RecAreaDirections: Sequelize.STRING,
-  Keywords: Sequelize.STRING,
+  RecAreaFeeDescription: Sequelize.STRING(1500),
+  RecAreaDirections: Sequelize.STRING(1500),
+  Keywords: Sequelize.STRING(4000),
   RecAreaName: Sequelize.STRING
 });
 
+RecAreas.sync().then(function() {
+  console.log('RecAreas created successfully');
+});
+
+
 var RecAreaAddress = db.define('recAreaAddress', {
-  PostalCode: Sequelize.INTEGER,
-  RecAreaAddressID: Sequelize.INTEGER,
-  City: Sequelize.STRING,
+  PostalCode: Sequelize.STRING(20),
+  RecAreaAddressID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
+  City: Sequelize.STRING(60),
   RecAreaID: Sequelize.INTEGER,
-  RecAreaAddressType: Sequelize.STRING,
-  AddressCountryCode: Sequelize.STRING,
+  RecAreaAddressType: Sequelize.STRING(20),
+  AddressCountryCode: Sequelize.STRING(5),
   RecAreaStreetAddress2: Sequelize.STRING,
   RecAreaStreetAddress3: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   RecAreaStreetAddress1: Sequelize.STRING,
-  AddressStateCode: Sequelize.STRING
+  AddressStateCode: Sequelize.STRING(20)
+});
+
+RecAreaAddress.sync().then(function() {
+  console.log('RecAreaAddress created successfully');
 });
 
 var Activities = db.define('activities', {
   ActivityParentID: Sequelize.INTEGER,
   ActivityLevel: Sequelize.INTEGER,
-  ActivityName: Sequelize.STRING,
-  ActivityID: Sequelize.INTEGER
+  ActivityName: Sequelize.STRING(60),
+  ActivityID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  }
+});
+
+Activities.sync().then(function() {
+  console.log('Activities created successfully');
 });
 
 
 var Facilities = db.define('facilities', {
-  FacilityDescription: Sequelize.STRING,
-  FacilityEmail: Sequelize.STRING,
+  FacilityDescription: Sequelize.STRING(1500),
+  FacilityEmail: Sequelize.STRING(60),
   FacilityLatitude: Sequelize.INTEGER,
   FacilityUseFeeDescription: Sequelize.STRING,
-  LegacyFacilityID: Sequelize.STRING,
+  LegacyFacilityID: Sequelize.STRING(20),
   OrgFacilityID: Sequelize.STRING,
   FacilityMapURL: Sequelize.STRING,
   FacilityName: Sequelize.STRING,
   GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
-  FacilityTypeDescription: Sequelize.STRING,
-  FacilityAdaAccess: Sequelize.STRING,
-  FacilityDirections: Sequelize.STRING,
-  FacilityID: Sequelize.INTEGER,
+  FacilityTypeDescription: Sequelize.STRING(1024),
+  FacilityAdaAccess: Sequelize.STRING(1024),
+  FacilityDirections: Sequelize.STRING(1500),
+  FacilityID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
   FacilityReservationURL: Sequelize.STRING,
-  StayLimit: Sequelize.STRING,
+  StayLimit: Sequelize.STRING(500),
   FacilityLongitude: Sequelize.INTEGER,
   FacilityPhone: Sequelize.STRING,
-  Keywords: Sequelize.STRING
+  Keywords: Sequelize.STRING(4000)
+});
+
+Facilities.sync().then(function() {
+  console.log('Facilities created successfully');
 });
 
 var FacilitiesAddress = db.define('facilitiesAddress', {
-  PostalCode: Sequelize.INTEGER,
-  FacilityAddressType: Sequelize.STRING,
-  City: Sequelize.STRING,
+  PostalCode: Sequelize.STRING(20),
+  FacilityAddressType: Sequelize.STRING(20),
+  City: Sequelize.STRING(60),
   FacilityID: Sequelize.INTEGER,
   FacilityStreetAddress3: Sequelize.STRING,
   FacilityStreetAddress2: Sequelize.STRING,
-  FacilityAddressID: Sequelize.INTEGER,
+  FacilityAddressID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
   FacilityStreetAddress1: Sequelize.STRING,
-  AddressCountryCode: Sequelize.STRING,
-  AddressStateCode: Sequelize.STRING
+  AddressCountryCode: Sequelize.STRING(5),
+  AddressStateCode: Sequelize.STRING(20)
+});
+
+FacilitiesAddress.sync().then(function() {
+  console.log('FacilitiesAddress created successfully');
 });
 
 var EntityLinks = db.define('entityLinks', {
   EntityID: Sequelize.INTEGER,
-  Description: Sequelize.STRING,
-  LinkType: Sequelize.STRING,
-  Title: Sequelize.STRING,
-  EntityLinkID: Sequelize.INTEGER,
-  EntityType: Sequelize.STRING,
-  URL: Sequelize.STRING
+  Description: Sequelize.STRING(1500),
+  LinkType: Sequelize.STRING(500),
+  Title: Sequelize.STRING(500),
+  EntityLinkID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
+  EntityType: Sequelize.STRING(50),
+  URL: Sequelize.STRING(2000)
+});
+
+EntityLinks.sync().then(function() {
+  console.log('EntityLinks created successfully');
 });
 
 var EntityMedia = db.define('entityMedia', {
   MediaID: Sequelize.INTEGER,
-  Credits: Sequelize.STRING,
+  Credits: Sequelize.STRING(1000),
   EntityID: Sequelize.INTEGER,
-  MediaType: Sequelize.STRING,
-  EmbedCode: Sequelize.STRING,
+  MediaType: Sequelize.STRING(500),
+  EmbedCode: Sequelize.STRING(1500),
   Width: Sequelize.INTEGER,
   Height: Sequelize.INTEGER,
-  Subtitle: Sequelize.STRING,
-  EntityType: Sequelize.STRING,
-  URL: Sequelize.STRING,
-  EntityMediaID: Sequelize.INTEGER,
-  Description: Sequelize.STRING,
-  Title: Sequelize.STRING
+  Subtitle: Sequelize.STRING(1000),
+  EntityType: Sequelize.STRING(50),
+  URL: Sequelize.STRING(2000),
+  EntityMediaID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
+  Description: Sequelize.STRING(1500),
+  Title: Sequelize.STRING(500)
+});
+
+EntityMedia.sync().then(function() {
+  console.log('EntityMedia created successfully');
 });
 
 var Tours = db.define('tours', {
@@ -123,15 +180,29 @@ var Tours = db.define('tours', {
   TourType: Sequelize.STRING,
   FacilityID: Sequelize.INTEGER,
   TourDuration: Sequelize.INTEGER,
-  TourID: Sequelize.INTEGER,
-  TourAccessible: false,
+  TourID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
+  TourAccessible: Sequelize.STRING(10),
   LastUpdatedDate: Sequelize.STRING
 });
 
+Tours.sync().then(function() {
+  console.log('Tours created successfully');
+});
+
 var Attributes = db.define('attributes', {
-  AttributeID: Sequelize.INTEGER,
-  AttributeName: Sequelize.STRING,
+  AttributeID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
+  AttributeName: Sequelize.STRING(60),
   AttributeValue: Sequelize.STRING
+});
+
+Attributes.sync().then(function() {
+  console.log('Attributes created successfully');
 });
 
 var PermitEntrance = db.define('permitentrance', {
@@ -140,30 +211,67 @@ var PermitEntrance = db.define('permitentrance', {
   PermitEntranceType: Sequelize.STRING,
   GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
-  PermitEntranceID: Sequelize.INTEGER,
-  District: Sequelize.STRING,
+  PermitEntranceID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
+  District: Sequelize.STRING(60),
   CreatedDate: Sequelize.STRING,
-  Town: Sequelize.STRING,
+  Town: Sequelize.STRING(60),
   FacilityID: Sequelize.INTEGER,
-  PermitEntranceName: Sequelize.STRING,
+  PermitEntranceName: Sequelize.STRING(512),
   Latitude: Sequelize.INTEGER,
-  PermitEntranceAccessible: Sequelize.BOOLEAN,
+  PermitEntranceAccessible: Sequelize.STRING(10),
+});
+
+PermitEntrance.sync().then(function() {
+  console.log('PermitEntrance created successfully');
 });
 
 var PermittedEquipment = db.define('permittedEquipment', {
-  PermittedEquipmentID: Sequelize.INTEGER,
+  PermittedEquipmentID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
   EquipmentName: Sequelize.STRING,
   MaxLength: Sequelize.INTEGER
 });
 
+PermittedEquipment.sync().then(function() {
+  console.log('PermittedEquipment created successfully');
+});
+
 var Campsites = db.define('campsites', {
-  CampsiteID: Sequelize.INTEGER,
+  CampsiteID: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
   CreatedDate: Sequelize.DATE,
   Loop: Sequelize.STRING,
   FacilityID: Sequelize.INTEGER,
   CampsiteName: Sequelize.INTEGER,
-  CampsiteAccessible: Sequelize.BOOLEAN,
+  CampsiteAccessible: Sequelize.STRING(10),
   CampsiteType: Sequelize.INTEGER,
   TypeOfUse: Sequelize.STRING,
   LastUpdatedDate: Sequelize.DATE
 });
+
+Campsites.sync().then(function() {
+  console.log('Campsites created successfully');
+});
+
+module.exports = {
+  organizations: Organizations,
+  recAreas: RecAreas,
+  recAreaAddress: RecAreaAddress,
+  activities: Activities,
+  facilities: Facilities,
+  facilitiesAddress: FacilitiesAddress,
+  entityLinks: EntityLinks,
+  entityMedia: EntityMedia,
+  tours: Tours,
+  attributes: Attributes,
+  permitEntrance: PermitEntrance,
+  permittedEquipment: PermittedEquipment,
+  campsites: Campsites
+};
