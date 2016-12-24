@@ -85,7 +85,7 @@ Activities.sync().then(function() {
 
 
 var Facilities = db.define('facilities', {
-  FacilityDescription: Sequelize.STRING(1500),
+  FacilityDescription: Sequelize.STRING(4000),
   FacilityEmail: Sequelize.STRING(60),
   FacilityLatitude: Sequelize.DECIMAL(10, 5),
   FacilityUseFeeDescription: Sequelize.STRING,
@@ -138,10 +138,7 @@ var EntityLinks = db.define('entityLinks', {
   Description: Sequelize.STRING(1500),
   LinkType: Sequelize.STRING(500),
   Title: Sequelize.STRING(500),
-  EntityLinkID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
+  EntityLinkID: Sequelize.INTEGER,
   EntityType: Sequelize.STRING(50),
   URL: Sequelize.STRING(2000)
 });
@@ -161,10 +158,7 @@ var EntityMedia = db.define('entityMedia', {
   Subtitle: Sequelize.STRING(1000),
   EntityType: Sequelize.STRING(50),
   URL: Sequelize.STRING(2000),
-  EntityMediaID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
+  EntityMediaID: Sequelize.INTEGER,
   Description: Sequelize.STRING(1500),
   Title: Sequelize.STRING(500)
 });
