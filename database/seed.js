@@ -12,9 +12,9 @@ let facilitiesAddressesJSON = require('../RIDBFullExport_v1/FacilityAddresses_AP
 let entityLinksJSON = require('../RIDBFullExport_v1/Links_API_v1.json');
 let entityMediasJSON = require('../RIDBFullExport_v1/Media_API_v1.json');
 let toursJSON = require('../RIDBFullExport_v1/Tours_API_v1.json');
+let attributesJSON = require('../RIDBFullExport_v1/Attributes_API_v1.json');
 let orgEntitiesJSON = require('../RIDBFullExport_v1/OrgEntities_API_v1.json');
 let entityActivitesJSON = require('../RIDBFullExport_v1/EntityActivities_API_v1.json');
-let attributesJSON = require('../RIDBFullExport_v1/Attributes_API_v1.json');
 
 ///// Creation of Datasets /////
 const organizationsdata = organizationsJSON.RECDATA;
@@ -26,6 +26,7 @@ const facilitiesAddressesdata = facilitiesAddressesJSON.RECDATA;
 const entityLinksdata = entityLinksJSON.RECDATA;
 const entityMediasdata = entityMediasJSON.RECDATA;
 const toursdata = toursJSON.RECDATA;
+const attributesdata = attributesJSON.RECDATA;
 const orgEntitiesdata = orgEntitiesJSON.RECDATA;
 const entityActivitesdata = entityActivitesJSON.RECDATA;
 ///////////////////////
@@ -67,6 +68,7 @@ const entityActivitesSet = makeSets(entityActivitesdata, 20);
 const facilitiesSet = makeSets(facilitiesdata, 10);
 const entityLinksSet = makeSets(entityLinksdata, 20);
 const entityMediaSet = makeSets(entityMediasdata, 20);
+const attributesSet = makeSets(attributesdata, 100);
 ///////////////////////////////////////////////////////////////////
 
 ///// Declarations of individual caching functions //////
@@ -139,7 +141,8 @@ const facilitiesCaching = function (array) {
 // caching(facilitiesAddressesdata, schemas.facilitiesAddress);
 // delayCall(entityLinksSet, caching, 0, schemas.entityLinks);
 // delayCall(entityMediaSet, caching, 0, schemas.entityMedia);
-caching(toursdata, schemas.tours);
+// caching(toursdata, schemas.tours);
+delayCall(attributesSet, caching, 0, schemas.attributes);
 // caching(orgEntitiesdata, schemas.orgEntities);
 // delayCall(entityActivitesSet, caching, 0, schemas.entityActivity);
 /////////////////////////////////////
