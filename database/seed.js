@@ -4,7 +4,7 @@ let schemas = require('../database/schemas.js');
 let recAreasJSON = require('../RIDBFullExport_v1/RecAreas_API_v1.json');
 let activitiesJSON = require('../RIDBFullExport_v1/Activities_API_v1.json');
 let orgEntitiesJSON = require('../RIDBFullExport_v1/OrgEntities_API_v1.json');
-
+let entityActivitesJSON = require('../RIDBFullExport_v1/EntityActivities_API_v1.json');
 
 // var organizationsCaching = function () {
 //   let offset = 0;
@@ -88,18 +88,70 @@ var activitiesCaching = function () {
 
 var orgEntitiesCaching = function () {
   const data = orgEntitiesJSON.RECDATA;
-  for (var i = 0; i < data.length; i++) {
-    // console.log('data: ', data[i].EntityID);
-    schemas.orgEntities.create({
-      EntityID: data[i].EntityID,
-      EntityType: data[i].EntityType,
-      OrgID: data[i].OrgID,
-    }).catch((err) => {
-      console.log('Error creating activities: ', err);
-    });
-  }
-  
+  schemas.orgEntities.bulkCreate(data).catch((err) => {
+    console.log('Error creating orgEntities: ', err);
+  });
 };
 
-orgEntitiesCaching();
+// orgEntitiesCaching();
+const data1 = entityActivitesJSON.RECDATA;
+console.log(data1.length);
+const set1 = data1.slice(0, 10000);
+const set2 = data1.slice(10000, 20000);
+const set3 = data1.slice(20000, 30000);
+const set4 = data1.slice(30000, 40000);
+const set5 = data1.slice(40000, 50000);
+const set6 = data1.slice(50000, 60000);
+const set7 = data1.slice(60000, 70000);
+const set8 = data1.slice(70000, 80000);
+const set9 = data1.slice(80000, 90000);
+const set10 = data1.slice(90000, 100000);
+const set11 = data1.slice(100000, 110000);
+const set12 = data1.slice(110000);
+
+var entityActivityCaching = function (set) {
+  schemas.entityActivity.bulkCreate(set).catch((err) => {
+    console.log('Error creating entityActivity: ', err);
+  });
+};
+
+setTimeout(function() {
+  return entityActivityCaching(set1);
+}, 2000);
+setTimeout(function() {
+  return entityActivityCaching(set2);
+}, 4000);
+setTimeout(function() {
+  return entityActivityCaching(set3);
+}, 6000);
+setTimeout(function() {
+  return entityActivityCaching(set4);
+}, 8000);
+setTimeout(function() {
+  return entityActivityCaching(set5);
+}, 10000);
+setTimeout(function() {
+  return entityActivityCaching(set6);
+}, 12000);
+setTimeout(function() {
+  return entityActivityCaching(set7);
+}, 14000);
+setTimeout(function() {
+  return entityActivityCaching(set8);
+}, 16000);
+setTimeout(function() {
+  return entityActivityCaching(set9);
+}, 18000);
+setTimeout(function() {
+  return entityActivityCaching(set10);
+}, 20000);
+setTimeout(function() {
+  return entityActivityCaching(set11);
+}, 22000);
+setTimeout(function() {
+  return entityActivityCaching(set12);
+}, 24000);
+
+
+
 

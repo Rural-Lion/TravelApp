@@ -280,7 +280,7 @@ var EntityActivity = db.define('entityactivity', {
   ActivityFeeDescription: Sequelize.STRING(1024)
 });
 
-EntityActivity.sync().then(function() {
+EntityActivity.sync({force: true}).then(function() {
   console.log('EntityActivity created successfully');
 });
 
