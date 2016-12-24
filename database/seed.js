@@ -11,6 +11,7 @@ let facilitiesJSON = require('../RIDBFullExport_v1/Facilities_API_v1.json');
 let facilitiesAddressesJSON = require('../RIDBFullExport_v1/FacilityAddresses_API_v1.json');
 let entityLinksJSON = require('../RIDBFullExport_v1/Links_API_v1.json');
 let entityMediasJSON = require('../RIDBFullExport_v1/Media_API_v1.json');
+let toursJSON = require('../RIDBFullExport_v1/Tours_API_v1.json');
 let orgEntitiesJSON = require('../RIDBFullExport_v1/OrgEntities_API_v1.json');
 let entityActivitesJSON = require('../RIDBFullExport_v1/EntityActivities_API_v1.json');
 let attributesJSON = require('../RIDBFullExport_v1/Attributes_API_v1.json');
@@ -24,6 +25,7 @@ const facilitiesdata = facilitiesJSON.RECDATA;
 const facilitiesAddressesdata = facilitiesAddressesJSON.RECDATA;
 const entityLinksdata = entityLinksJSON.RECDATA;
 const entityMediasdata = entityMediasJSON.RECDATA;
+const toursdata = toursJSON.RECDATA;
 const orgEntitiesdata = orgEntitiesJSON.RECDATA;
 const entityActivitesdata = entityActivitesJSON.RECDATA;
 ///////////////////////
@@ -137,6 +139,7 @@ const facilitiesCaching = function (array) {
 // caching(facilitiesAddressesdata, schemas.facilitiesAddress);
 // delayCall(entityLinksSet, caching, 0, schemas.entityLinks);
 // delayCall(entityMediaSet, caching, 0, schemas.entityMedia);
+caching(toursdata, schemas.tours);
 // caching(orgEntitiesdata, schemas.orgEntities);
 // delayCall(entityActivitesSet, caching, 0, schemas.entityActivity);
 /////////////////////////////////////

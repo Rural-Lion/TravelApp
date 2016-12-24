@@ -170,7 +170,7 @@ EntityMedia.sync().then(function() {
 var Tours = db.define('tours', {
   TourName: Sequelize.STRING,
   CreatedDate: Sequelize.STRING,
-  TourDescription: Sequelize.STRING,
+  TourDescription: Sequelize.STRING(1024),
   TourType: Sequelize.STRING,
   FacilityID: Sequelize.INTEGER,
   TourDuration: Sequelize.INTEGER,
