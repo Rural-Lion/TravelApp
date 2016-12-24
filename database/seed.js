@@ -7,6 +7,8 @@ let organizationsJSON = require('../RIDBFullExport_v1/Organizations_API_v1.json'
 let recAreasJSON = require('../RIDBFullExport_v1/RecAreas_API_v1.json');
 let recAreasAdressesJSON = require('../RIDBFullExport_v1/RecAreaAddresses_API_v1');
 let activitiesJSON = require('../RIDBFullExport_v1/Activities_API_v1.json');
+let facilitiesJSON = require('../RIDBFullExport_v1/Facilities_API_v1.json');
+let facilitiesAddressesJSON = require('../RIDBFullExport_v1/FacilityAddresses_API_v1.json');
 let orgEntitiesJSON = require('../RIDBFullExport_v1/OrgEntities_API_v1.json');
 let entityActivitesJSON = require('../RIDBFullExport_v1/EntityActivities_API_v1.json');
 let attributesJSON = require('../RIDBFullExport_v1/Attributes_API_v1.json');
@@ -14,10 +16,12 @@ let attributesJSON = require('../RIDBFullExport_v1/Attributes_API_v1.json');
 ///// Creation of Datasets /////
 const organizationsdata = organizationsJSON.RECDATA;
 const recAreasdata = recAreasJSON.RECDATA;
-const recAreasAdresses = recAreasAdressesJSON.RECDATA;
+const recAreasAdressesdata = recAreasAdressesJSON.RECDATA;
 const activitiesdata = activitiesJSON.RECDATA;
+const facilitiesdata = facilitiesJSON.RECDATA;
+const facilitiesAddressesdata = facilitiesAddressesJSON.RECDATA;
 const orgEntitiesdata = orgEntitiesJSON.RECDATA;
-const entityActivites = entityActivitesJSON.RECDATA;
+const entityActivitesdata = entityActivitesJSON.RECDATA;
 ///////////////////////
 
 /////  Helper functions  /////
@@ -54,8 +58,7 @@ const caching = function(data, schema) {
 ////////////////////////////////////////
 
 ///// Preparing datasets when large JSON files //////
-const entityActivitesSet = makeSets(entityActivites, 20);
-
+const entityActivitesSet = makeSets(entityActivitesdata, 20);
 ///////////////////////////////////////////////////////////////////
 
 ///// Declarations of individual caching functions //////
@@ -85,6 +88,35 @@ var recAreasCaching = function () {
     });
   }
 };
+
+//facilities schema does not match the API schema hence, bulkCreate does not execute.
+var facilitiesCaching = function () {
+  for (var i = 0; i < facilitiesdata.length; i++) {
+    schemas.facilities.create({
+      FacilityDescription: facilitiesdata[i].FacilityDescription,
+      FacilityEmail: facilitiesdata[i].FacilityEmail,
+      FacilityLatitude: facilitiesdata[i].FacilityLatitude,
+      FacilityUseFeeDescription: facilitiesdata[i].FacilityUseFeeDescription,
+      LegacyFacilityID: facilitiesdata[i].LegacyFacilityID,
+      OrgFacilityID: facilitiesdata[i].OrgFacilityID,
+      FacilityMapURL: facilitiesdata[i].FacilityMapURL,
+      FacilityName: facilitiesdata[i].FacilityName,
+      GEOJSON: facilitiesdata[i].GEOJSON,
+      LastUpdatedDate: facilitiesdata[i].LastUpdatedDate,
+      FacilityTypeDescription: facilitiesdata[i].FacilityTypeDescription,
+      FacilityAdaAccess: facilitiesdata[i].FacilityAdaAccess,
+      FacilityDirections: facilitiesdata[i].FacilityDirections,
+      FacilityID: facilitiesdata[i].FacilityID,
+      FacilityReservationURL: facilitiesdata[i].FacilityReservationURL,
+      StayLimit: facilitiesdata[i].StayLimit,
+      FacilityLongitude: facilitiesdata[i].FacilityLongitude,
+      FacilityPhone: facilitiesdata[i].FacilityPhone,
+      Keywords: facilitiesdata[i].Keywords
+    }).catch((err) => {
+      console.log('Error creating facilities: ', err);
+    });
+  }
+};
 ////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -92,8 +124,9 @@ var recAreasCaching = function () {
 
 /////caching functions//////
 // caching(organizationsdata, schemas.organizations);
-caching(recAreasAdresses, schemas.recAreaAddress);
+// caching(recAreasAdressesdata, schemas.recAreaAddress);
 // caching(activitiesdata, schemas.activities);
+caching(facilitiesAddressesdata, schemas.facilitiesAddress);
 // caching(orgEntitiesdata, schemas.orgEntities);
 // delayCall(entityActivitesSet, caching, 0, schemas.entityActivity);
 /////////////////////////////////////
@@ -101,6 +134,7 @@ caching(recAreasAdresses, schemas.recAreaAddress);
 
 ///// Individual caching functions //////
 // recAreasCaching();
+// facilitiesCaching();
 //////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////
