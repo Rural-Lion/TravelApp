@@ -200,7 +200,7 @@ Attributes.sync().then(function() {
 });
 
 var PermitEntrance = db.define('permitentrance', {
-  PermitEntranceDescription: Sequelize.STRING,
+  PermitEntranceDescription: Sequelize.STRING(1024),
   Longitude: Sequelize.DECIMAL(10, 5),
   PermitEntranceType: Sequelize.STRING,
   GEOJSON: Sequelize.STRING,
