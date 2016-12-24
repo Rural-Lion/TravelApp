@@ -23,7 +23,7 @@ Organizations.sync().then(function() {
 
 var RecAreas = db.define('recAreas', {
   OrgRecAreaID: Sequelize.STRING,
-  GEOJSON: Sequelize.STRING,
+  // GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   RecAreaEmail: Sequelize.STRING,
   RecAreaReservationURL: Sequelize.STRING,
@@ -280,7 +280,7 @@ var EntityActivity = db.define('entityactivity', {
   ActivityFeeDescription: Sequelize.STRING(1024)
 });
 
-EntityActivity.sync({force: true}).then(function() {
+EntityActivity.sync().then(function() {
   console.log('EntityActivity created successfully');
 });
 
