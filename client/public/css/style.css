@@ -1,0 +1,111 @@
+/*.FancyBorder {
+  border: 3px solid black;
+}
+
+.FancyBorder-pink {
+  border-color: deeppink;
+}
+
+.FancyBorder-red {
+  border-color: red;
+}
+.FancyBorder-orange {
+  border-color: orange;
+}
+.FancyBorder-yellow {
+  border-color: yellow;
+}
+.FancyBorder-green {
+  border-color: green;
+}
+.FancyBorder-blue {
+  border-color: blue;
+}*/
+
+.FancyBorder-purple {
+  border-color: purple;
+}
+.FancyBorder-black {
+  border-color: black;
+}
+.FancyBorder-brown {
+  border-color: brown;
+}
+.FancyBorder-turquoise {
+  border-color: turquoise;
+}
+
+.finalizeButton {
+  width: 100%;
+}
+
+.goBackButton {
+  width: 100%;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.centered {
+  display: block;
+  margin: auto;
+  width: 80%;
+}
+
+.lpInput {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+.mapContainer {
+  width: 100%;
+  height: 80vh;
+  margin: 5px
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  border: 2px solid black;
+}
+
+.activityListEntry {
+  border: 2px solid black;
+  margin: 5px;
+}
+
+.activityList {
+  background-color: white;
+  overflow-y: auto;
+  height: 80vh;
+  border: 2px solid black;
+}
+
+.activityListContainer {
+  margin: 5px
+}
+
+.resultsPage {
+  background: saddlebrown;
+  height: 100vh;
+}
+
+.landingPage {
+  background: sandybrown;
+  height: 100vh;
+}
+
+.mapAndList {
+  background-color: sandybrown;
+  height: 90vh
+}
+
+.navBar {
+  height:5vh
+}
+
+

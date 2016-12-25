@@ -22,3 +22,17 @@ TO START APP:
 
 - if in dev
   - run 'npm run dev' to start nodemon
+
+
+
+REQUESTS:
+'/api/relatedRecAreas' = [obj{
+    img:String, 
+    description:string, 
+    address: string, 
+    phoneNumber: string, 
+    activities: [string,string],
+    website: String,
+    name: string
+    coordinates: [num, num]
+}]
