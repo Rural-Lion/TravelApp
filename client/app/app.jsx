@@ -207,7 +207,7 @@ const LandingPage = function (props) {
         </div>
         <div className="row">
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered">
-            [// renders plan vacation button]
+              [//planVacationButton:sends api request to get list of activities,then sets state]
             <PlanVacationButton handlePlanButtonClick={props.handlePlanButtonClick} />
           </div>
         </div>
