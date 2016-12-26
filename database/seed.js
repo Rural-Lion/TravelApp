@@ -82,7 +82,7 @@ const entityLinksSet = makeSets(entityLinksdata, 20);
 const entityMediaSet = makeSets(entityMediasdata, 20);
 const attributesSet = makeSets(attributesdata, 100);
 const permitEntranceSet = makeSets(permitEntrancedata, 5);
-const permittedEquipmentSet = makeSets(permittedEquipmentdata, 600);
+const permittedEquipmentSet = makeSets(permittedEquipmentdata, 200);
 const CampsitesSet = makeSets(Campsitesdata, 20);
 ///////////////////////////////////////////////////////////////////
 
