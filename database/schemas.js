@@ -223,10 +223,7 @@ PermitEntrance.sync().then(function() {
 });
 
 var PermittedEquipment = db.define('permittedEquipment', {
-  PermittedEquipmentID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
+  PermittedEquipmentID: Sequelize.INTEGER,
   EquipmentName: Sequelize.STRING,
   MaxLength: Sequelize.INTEGER
 });
@@ -240,14 +237,14 @@ var Campsites = db.define('campsites', {
     type: Sequelize.INTEGER,
     primaryKey: true,
   },
-  CreatedDate: Sequelize.DATE,
+  CreatedDate: Sequelize.STRING,
   Loop: Sequelize.STRING,
   FacilityID: Sequelize.INTEGER,
-  CampsiteName: Sequelize.INTEGER,
+  CampsiteName: Sequelize.STRING,
   CampsiteAccessible: Sequelize.STRING(10),
-  CampsiteType: Sequelize.INTEGER,
+  CampsiteType: Sequelize.STRING,
   TypeOfUse: Sequelize.STRING,
-  LastUpdatedDate: Sequelize.DATE
+  LastUpdatedDate: Sequelize.STRING
 });
 
 Campsites.sync().then(function() {

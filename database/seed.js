@@ -1,3 +1,6 @@
+let myLog = console.log;
+console.log = function() {};
+
 let request = require('request');
 require('dotenv-safe').load();
 let schemas = require('../database/schemas.js');
@@ -14,6 +17,8 @@ let entityMediasJSON = require('../RIDBFullExport_v1/Media_API_v1.json');
 let toursJSON = require('../RIDBFullExport_v1/Tours_API_v1.json');
 let attributesJSON = require('../RIDBFullExport_v1/Attributes_API_v1.json');
 let permitEntranceJSON = require('../RIDBFullExport_v1/PermitEntrances_API_v1.json');
+let permittedEquipmentJSON = require('../RIDBFullExport_v1/PermittedEquipment_API_v1.json');
+let CampsitesJSON = require('../RIDBFullExport_v1/Campsites_API_v1.json');
 let orgEntitiesJSON = require('../RIDBFullExport_v1/OrgEntities_API_v1.json');
 let entityActivitesJSON = require('../RIDBFullExport_v1/EntityActivities_API_v1.json');
 
@@ -30,6 +35,8 @@ const entityMediasdata = entityMediasJSON.RECDATA;
 const toursdata = toursJSON.RECDATA;
 const attributesdata = attributesJSON.RECDATA;
 const permitEntrancedata = permitEntranceJSON.RECDATA;
+const permittedEquipmentdata = permittedEquipmentJSON.RECDATA;
+const Campsitesdata = CampsitesJSON.RECDATA;
 const orgEntitiesdata = orgEntitiesJSON.RECDATA;
 const entityActivitesdata = entityActivitesJSON.RECDATA;
 ///////////////////////
@@ -55,13 +62,15 @@ const delayCall = function(array, func, index, schema) {
     } else {
       return;
     }
-  }, 2000);
+  }, 200);
 };
 
 const caching = function(data, schema) {
+  myLog('before');
   schema.bulkCreate(data).then(function() {
+    myLog('in');
   }).catch((err) => {
-    console.log('Error creating organization: ', err);
+    myLog('Error creating organization: ', err);
   });
 };
 ////////////////////////////////////////
@@ -73,6 +82,8 @@ const entityLinksSet = makeSets(entityLinksdata, 20);
 const entityMediaSet = makeSets(entityMediasdata, 20);
 const attributesSet = makeSets(attributesdata, 100);
 const permitEntranceSet = makeSets(permitEntrancedata, 5);
+const permittedEquipmentSet = makeSets(permittedEquipmentdata, 600);
+const CampsitesSet = makeSets(Campsitesdata, 20);
 ///////////////////////////////////////////////////////////////////
 
 ///// Declarations of individual caching functions //////
@@ -147,7 +158,9 @@ const facilitiesCaching = function (array) {
 // delayCall(entityMediaSet, caching, 0, schemas.entityMedia);
 // caching(toursdata, schemas.tours);
 // delayCall(attributesSet, caching, 0, schemas.attributes);
-delayCall(permitEntranceSet, caching, 0, schemas.permitEntrance);
+// delayCall(permitEntranceSet, caching, 0, schemas.permitEntrance);
+delayCall(permittedEquipmentSet, caching, 0, schemas.permittedEquipment);
+// delayCall(CampsitesSet, caching, 0, schemas.campsites);
 // caching(orgEntitiesdata, schemas.orgEntities);
 // delayCall(entityActivitesSet, caching, 0, schemas.entityActivity);
 /////////////////////////////////////
