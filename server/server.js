@@ -5,7 +5,6 @@ const bodyparser = require('body-parser');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('webpack')(require('../webpack.config.js'));
-const schemas = require('../database/schemas.js');
 
 require('dotenv-safe').load();
 

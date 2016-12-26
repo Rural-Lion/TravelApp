@@ -367,8 +367,60 @@ module.exports = {
   permittedEquipment: PermittedEquipment,
   campsites: Campsites,
   orgEntities: OrgEntity,
-<<<<<<< cca3f51574d0374ecb8fe3c03ff19fdf817ce7a9
   entityActivity: EntityActivity,
   recAreasFacilities: RecAreasFacilities,
   trails: Trails
 };
+
+Organizations.hasMany(RecAreas);
+RecAreas.belongsTo(Organizations);
+Organizations.hasMany(Facilities);
+Facilities.belongsTo(Organizations);
+
+RecAreas.hasOne(RecAreaAddress);
+RecAreaAddress.belongsTo(RecAreas);
+RecAreas.hasMany(Activities, { through: EntityActivity }); // Many to Many Relationship through Entity Activity join table
+Activities.hasMany(RecAreas, { through: EntityActivity }); 
+RecAreas.hasMany(EntityLinks); // Has 0 or 1 or many??? Look up
+EntityLinks.belongsTo(RecAreas);
+RecAreas.hasMany(EntityMedia); // Has 0 or 1 or many??? Look up
+EntityMedia.belongsTo(RecAreas);
+
+Facilities.hasOne(FacilitiesAddress);
+FacilitiesAddress.belongsTo(Facilities);
+Facilities.hasMany(Activities, { through: EntityActivity }); // Many to Many Relationship through EntityActivity join table
+Activities.hasMany(Facilities, { through: EntityActivity });
+Facilities.hasMany(EntityLinks); // Has 0 or 1 or many?? Look up
+EntityLinks.belongsTo(Facilities);
+Facilities.hasMany(EntityMedia); // Has 0 or 1 or many??? Look up
+EntityMedia.belongsTo(Facilities);
+Facilities.hasMany(Tours);
+Tours.BelongsTo(Facilitiy);
+Faciliites.hasMany(Campsites);
+Campsites.belongsTo(Facilities);
+Facilities.hasMany(PermitEntrance);
+PermitEntrance.belongsTo(Facilities);
+
+Tours.hasMany(EntityMedia);
+EntityMedia.belongsTo(Tours);
+Tours.hasMany(Attributes);
+Attributes.belongsTo(Tours); // data assigns attribute multiple times for different tours, permit entrances and campsites
+
+PermitEntrance.hasMany(EntityMedia);
+EntityMedia.belongsTo(PermitEntrance);
+PermitEntrance.hasMany(Attributes);
+Attributes.belongsTo(PermitEntrance); // One attribute can belong to tour, campsite and permit entrace - I believe (Look up)
+
+Campsites.hasMany(EntityMedia);
+EntityMedia.belongsTo(Campsites);
+Campsites.hasMany(Attributes);
+Attributes.belongsTo(Campsites); // One attribute can belong to tour, campsite and permit entrace - I believe (Look up)
+Campsites.hasMany(PermittedEquipment);
+PermittedEquipment.belongsTo(Campsite); // data assigns equipment multiple times for different campsite IDs
+
+// Join TABLES
+orgEntities - // links organizations with recareas and facilities
+EntityActivity - // joins activities with recareas and facilities
+RecAreaFacility - // Joins facilities to RecAreas
+
+//Also need to incorporate Trails

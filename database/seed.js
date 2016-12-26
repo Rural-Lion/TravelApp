@@ -16,6 +16,7 @@
 let request = require('request');
 require('dotenv-safe').load();
 let schemas = require('../database/schemas.js');
+<<<<<<< 2916c67b8512c7756991a6128f7dc32d4146ca24
 
 ///// Section 2 - Importing all JSON files for caching /////
 const organizationsJSON = require('../RIDBFullExport_v1/Organizations_API_v1.json');
@@ -158,6 +159,7 @@ const facilitiesCaching = (array) => {
   }
 };
 
+<<<<<<< 2916c67b8512c7756991a6128f7dc32d4146ca24
 //No JSON file available for trails so we are using the node Request module to query the API
 const trailsCaching = () => {
   let offset = 0;
