@@ -372,11 +372,10 @@ module.exports = {
   trails: Trails
 };
 
-Organizations.hasMany(RecAreas);
-RecAreas.belongsTo(Organizations);
-Organizations.hasMany(Facilities);
-Facilities.belongsTo(Organizations);
-
+Organizations.hasMany(RecAreas, {through: orgEntities});
+RecAreas.hasMany(Organizations, {through: orgEntities});
+Organizations.hasMany(Facilities, {through: orgEntities});
+Facilities.hasMany(Organizations, {through: orgEntities});
 RecAreas.hasOne(RecAreaAddress);
 RecAreaAddress.belongsTo(RecAreas);
 RecAreas.hasMany(Activities, { through: EntityActivity }); // Many to Many Relationship through Entity Activity join table
@@ -422,5 +421,10 @@ PermittedEquipment.belongsTo(Campsite); // data assigns equipment multiple times
 orgEntities - // links organizations with recareas and facilities
 EntityActivity - // joins activities with recareas and facilities
 RecAreaFacility - // Joins facilities to RecAreas
+
+// 3 things I'm unsure of 
+  // 1. orgentities is a join table fpr 2 separate joins - can you use a join table for 2 joins?
+  // 2. Attributes has a belongs to for permit entrance, tours and campsites - can one table belongsTo mutliple tables?
+  // 3. Can you use hasMany for 0,1 or many? EntityLinks and EntityMedia - does hasMany check for 0,1 and many? 
 
 //Also need to incorporate Trails
