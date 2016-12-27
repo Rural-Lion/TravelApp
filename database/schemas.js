@@ -342,6 +342,7 @@ EntityActivity.sync().then(() => {
   console.log('EntityActivity created successfully');
 });
 
+<<<<<<< 154db28ade81c425f0a7ea69962f3f860700b9da
 const RecAreasFacilities = db.define('recareasfacilities', {
   RecAreaID: Sequelize.INTEGER,
   FacilityID: Sequelize.INTEGER
@@ -372,7 +373,9 @@ module.exports = {
   trails: Trails
 };
 
-// Sequelize Relationships
+///////////////////////////////
+/// Sequelize Relationships ///
+///////////////////////////////
 
 Organizations.belongsToMany(RecAreas, { through: 'orgEntities' }); 
 RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
@@ -381,7 +384,6 @@ Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'E
 
 RecAreas.hasOne(RecAreaAddress);
 RecAreaAddress.belongsTo(RecAreas);
-// EntityActivity is a junction table linking Activities to both recAreas and Facilities
 RecAreas.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
 Activities.belongsToMany(RecAreas, { through: 'EntityActivity' }); 
 RecAreas.hasMany(EntityLinks);
@@ -426,8 +428,21 @@ PermittedEquipment.belongsTo(Campsites);
 // Still need to incorporate Trails
 // Still need to link Facilities to RecAreas via RecAreaFacility (can test later)
 
-<<<<<<< 3965575bd7ee33733474ad5d812e7eaa13e21a49
-//Also need to incorporate Trails
-=======
->>>>>>> DATABASE-BE:Finish schema relationships-RS
+module.exports = {
+  organizations: Organizations,
+  recAreas: RecAreas,
+  recAreaAddress: RecAreaAddress,
+  activities: Activities,
+  facilities: Facilities,
+  facilitiesAddress: FacilitiesAddress,
+  entityLinks: EntityLinks,
+  entityMedia: EntityMedia,
+  tours: Tours,
+  attributes: Attributes,
+  permitEntrance: PermitEntrance,
+  permittedEquipment: PermittedEquipment,
+  campsites: Campsites,
+  orgEntities: OrgEntity,
+  entityActivity: EntityActivity
+};
 
