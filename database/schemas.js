@@ -426,7 +426,7 @@ Campsites.hasMany(PermittedEquipment);
 PermittedEquipment.belongsTo(Campsites); 
 
 // Still need to incorporate Trails
-// Still need to link Facilities to RecAreas via RecAreaFacility (can test later)
+// Still need to link Facilities to RecAreas via RecAreaFacility 
 
 module.exports = {
   organizations: Organizations,
