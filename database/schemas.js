@@ -374,7 +374,6 @@ module.exports = {
 
 // Sequelize Relationships
 
-// OrgEntities is a junction table linking Organizations to both RecAreas and Facilities
 Organizations.belongsToMany(RecAreas, { through: 'orgEntities' }); 
 RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
 Organizations.belongsToMany(Facilities, { through: 'orgEntities' });
@@ -399,8 +398,8 @@ EntityLinks.belongsTo(Facilities);
 Facilities.hasMany(EntityMedia); 
 EntityMedia.belongsTo(Facilities);
 Facilities.hasMany(Tours);
-Tours.BelongsTo(Facilitiy);
-Faciliites.hasMany(Campsites);
+Tours.belongsTo(Facilities);
+Facilities.hasMany(Campsites);
 Campsites.belongsTo(Facilities);
 Facilities.hasMany(PermitEntrance);
 PermitEntrance.belongsTo(Facilities);
@@ -422,12 +421,13 @@ Campsites.hasMany(Attributes);
 Attributes.belongsTo(Campsites, { foreignKey: 'EntityID' }); 
 Campsites.hasMany(PermittedEquipment);
 // Permitted Equipment Table defines equipment for each campsite - similar to the Attributes Table
-PermittedEquipment.belongsTo(Campsite); 
+PermittedEquipment.belongsTo(Campsites); 
 
-// 3 things I'm unsure of (Check by testing)
-  // 1. orgentities is a join table for 2 separate joins (Facilities and RecAreas) - can you use a join table for 2 joins? Same for Activities
-  // 2. Attributes has a belongsTo for permit entrance, tours and campsites - can one table belongsTo mutliple tables?
-  // 3. Link Facilities to RecAreas via RecAreaFacility (can test later)
+// Still need to incorporate Trails
+// Still need to link Facilities to RecAreas via RecAreaFacility (can test later)
 
+<<<<<<< 3965575bd7ee33733474ad5d812e7eaa13e21a49
 //Also need to incorporate Trails
+=======
+>>>>>>> DATABASE-BE:Finish schema relationships-RS
 
