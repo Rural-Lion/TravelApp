@@ -87,16 +87,14 @@ Activities.sync().then(function() {
 var Facilities = db.define('facilities', {
   FacilityDescription: Sequelize.STRING(4000),
   FacilityEmail: Sequelize.STRING(60),
-  FacilityLatitude: Sequelize.DECIMAL(10, 5),
+  FacilityLatitude: Sequelize.DECIMAL(10, 6),
   FacilityUseFeeDescription: Sequelize.STRING,
   LegacyFacilityID: Sequelize.STRING(20),
   OrgFacilityID: Sequelize.STRING,
   FacilityMapURL: Sequelize.STRING,
   FacilityName: Sequelize.STRING,
-  GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   FacilityTypeDescription: Sequelize.STRING(1024),
-  FacilityAdaAccess: Sequelize.STRING(1024),
   FacilityDirections: Sequelize.STRING(1500),
   FacilityID: {
     type: Sequelize.INTEGER,
@@ -138,7 +136,6 @@ var EntityLinks = db.define('entityLinks', {
   Description: Sequelize.STRING(1500),
   LinkType: Sequelize.STRING(500),
   Title: Sequelize.STRING(500),
-  EntityLinkID: Sequelize.INTEGER,
   EntityType: Sequelize.STRING(50),
   URL: Sequelize.STRING(2000)
 });
@@ -203,7 +200,6 @@ var PermitEntrance = db.define('permitentrance', {
   PermitEntranceDescription: Sequelize.STRING(1024),
   Longitude: Sequelize.DECIMAL(10, 5),
   PermitEntranceType: Sequelize.STRING,
-  GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   PermitEntranceID: {
     type: Sequelize.INTEGER,
@@ -223,7 +219,6 @@ PermitEntrance.sync().then(function() {
 });
 
 var PermittedEquipment = db.define('permittedEquipment', {
-  PermittedEquipmentID: Sequelize.INTEGER,
   EquipmentName: Sequelize.STRING,
   MaxLength: Sequelize.INTEGER
 });
