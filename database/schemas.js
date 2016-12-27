@@ -367,6 +367,7 @@ module.exports = {
   permittedEquipment: PermittedEquipment,
   campsites: Campsites,
   orgEntities: OrgEntity,
+<<<<<<< cca3f51574d0374ecb8fe3c03ff19fdf817ce7a9
   entityActivity: EntityActivity,
   recAreasFacilities: RecAreasFacilities,
   trails: Trails
