@@ -18,24 +18,26 @@ const permittedEquipmentJSON = require('../RIDBFullExport_v1/PermittedEquipment_
 const CampsitesJSON = require('../RIDBFullExport_v1/Campsites_API_v1.json');
 const orgEntitiesJSON = require('../RIDBFullExport_v1/OrgEntities_API_v1.json');
 const entityActivitesJSON = require('../RIDBFullExport_v1/EntityActivities_API_v1.json');
+const recAreaFacilitiesJSON = require('../RIDBFullExport_v1/RecAreaFacilities_API_v1.json');
 ////////////////////////////////////////////////////////////////////
 
 ///// Creation of Datasets /////
-const organizationsdata = organizationsJSON.RECDATA;
-const recAreasdata = recAreasJSON.RECDATA;
-const recAreasAdressesdata = recAreasAdressesJSON.RECDATA;
-const activitiesdata = activitiesJSON.RECDATA;
-const facilitiesdata = facilitiesJSON.RECDATA;
-const facilitiesAddressesdata = facilitiesAddressesJSON.RECDATA;
-const entityLinksdata = entityLinksJSON.RECDATA;
-const entityMediasdata = entityMediasJSON.RECDATA;
-const toursdata = toursJSON.RECDATA;
-const attributesdata = attributesJSON.RECDATA;
-const permitEntrancedata = permitEntranceJSON.RECDATA;
-const permittedEquipmentdata = permittedEquipmentJSON.RECDATA;
-const Campsitesdata = CampsitesJSON.RECDATA;
-const orgEntitiesdata = orgEntitiesJSON.RECDATA;
-const entityActivitesdata = entityActivitesJSON.RECDATA;
+const organizationsData = organizationsJSON.RECDATA;
+const recAreasData = recAreasJSON.RECDATA;
+const recAreasAdressesData = recAreasAdressesJSON.RECDATA;
+const activitiesData = activitiesJSON.RECDATA;
+const facilitiesData = facilitiesJSON.RECDATA;
+const facilitiesAddressesData = facilitiesAddressesJSON.RECDATA;
+const entityLinksData = entityLinksJSON.RECDATA;
+const entityMediasData = entityMediasJSON.RECDATA;
+const toursData = toursJSON.RECDATA;
+const attributesData = attributesJSON.RECDATA;
+const permitEntranceData = permitEntranceJSON.RECDATA;
+const permittedEquipmentData = permittedEquipmentJSON.RECDATA;
+const CampsitesData = CampsitesJSON.RECDATA;
+const orgEntitiesData = orgEntitiesJSON.RECDATA;
+const entityActivitesData = entityActivitesJSON.RECDATA;
+const recAreaFacilitiesData = recAreaFacilitiesJSON.RECDATA;
 //////////////////////////////////////////
 
 /////  Helper functions  /////
@@ -74,38 +76,38 @@ const caching = function(data, schema) {
 ////////////////////////////////////////
 
 ///// Preparing datasets when large JSON files //////
-const entityActivitesSet = makeSets(entityActivitesdata, 20);
-const facilitiesSet = makeSets(facilitiesdata, 10);
-const entityLinksSet = makeSets(entityLinksdata, 20);
-const entityMediaSet = makeSets(entityMediasdata, 20);
-const attributesSet = makeSets(attributesdata, 100);
-const permitEntranceSet = makeSets(permitEntrancedata, 5);
-const permittedEquipmentSet = makeSets(permittedEquipmentdata, 100);
-const CampsitesSet = makeSets(Campsitesdata, 20);
+const entityActivitesSet = makeSets(entityActivitesData, 20);
+const facilitiesSet = makeSets(facilitiesData, 10);
+const entityLinksSet = makeSets(entityLinksData, 20);
+const entityMediaSet = makeSets(entityMediasData, 20);
+const attributesSet = makeSets(attributesData, 100);
+const permitEntranceSet = makeSets(permitEntranceData, 5);
+const permittedEquipmentSet = makeSets(permittedEquipmentData, 100);
+const CampsitesSet = makeSets(CampsitesData, 20);
 //////////////////////////////////////////////////////////////////////
 
 ///// Declarations of individual caching functions //////
 
 //recAreas schema does not match the API schema hence, bulkCreate does not execute.
 const recAreasCaching = () => {
-  for (var i = 0; i < recAreasdata.length; i++) {
+  for (var i = 0; i < recAreasData.length; i++) {
     schemas.recAreas.create({
-      OrgRecAreaID: recAreasdata[i].OrgRecAreaID,
-      GEOJSON: recAreasdata[i].GEOJSON,
-      LastUpdatedDate: recAreasdata[i].LastUpdatedDate,
-      RecAreaEmail: recAreasdata[i].RecAreaEmail,
-      RecAreaReservationURL: recAreasdata[i].RecAreaReservationURL,
-      RecAreaLongitude: recAreasdata[i].RecAreaLongitude,
-      RecAreaID: recAreasdata[i].RecAreaID,
-      RecAreaPhone: recAreasdata[i].RecAreaPhone,
-      RecAreaDescription: recAreasdata[i].RecAreaDescription,
-      RecAreaMapURL: recAreasdata[i].RecAreaMapURL,
-      RecAreaLatitude: recAreasdata[i].RecAreaLatitude,
-      StayLimit: recAreasdata[i].StayLimit,
-      RecAreaFeeDescription: recAreasdata[i].RecAreaFeeDescription,
-      RecAreaDirections: recAreasdata[i].RecAreaDirections,
-      Keywords: recAreasdata[i].Keywords,
-      RecAreaName: recAreasdata[i].RecAreaName
+      OrgRecAreaID: recAreasData[i].OrgRecAreaID,
+      GEOJSON: recAreasData[i].GEOJSON,
+      LastUpdatedDate: recAreasData[i].LastUpdatedDate,
+      RecAreaEmail: recAreasData[i].RecAreaEmail,
+      RecAreaReservationURL: recAreasData[i].RecAreaReservationURL,
+      RecAreaLongitude: recAreasData[i].RecAreaLongitude,
+      RecAreaID: recAreasData[i].RecAreaID,
+      RecAreaPhone: recAreasData[i].RecAreaPhone,
+      RecAreaDescription: recAreasData[i].RecAreaDescription,
+      RecAreaMapURL: recAreasData[i].RecAreaMapURL,
+      RecAreaLatitude: recAreasData[i].RecAreaLatitude,
+      StayLimit: recAreasData[i].StayLimit,
+      RecAreaFeeDescription: recAreasData[i].RecAreaFeeDescription,
+      RecAreaDirections: recAreasData[i].RecAreaDirections,
+      Keywords: recAreasData[i].Keywords,
+      RecAreaName: recAreasData[i].RecAreaName
     }).catch((err) => {
       console.log('Error creating recAreas: ', err);
     });
@@ -147,19 +149,20 @@ const facilitiesCaching = (array) => {
 ////// Calls of  functions to cache in DB /////
 
 /////caching functions//////
-// caching(organizationsdata, schemas.organizations);
-// caching(recAreasAdressesdata, schemas.recAreaAddress);
-// caching(activitiesdata, schemas.activities);
-// caching(facilitiesAddressesdata, schemas.facilitiesAddress);
+// caching(organizationsData, schemas.organizations);
+// caching(recAreasAdressesData, schemas.recAreaAddress);
+// caching(activitiesData, schemas.activities);
+// caching(facilitiesAddressesData, schemas.facilitiesAddress);
 // delayCall(entityLinksSet, caching, 0, schemas.entityLinks);
 // delayCall(entityMediaSet, caching, 0, schemas.entityMedia);
-// caching(toursdata, schemas.tours);
+// caching(toursData, schemas.tours);
 // delayCall(attributesSet, caching, 0, schemas.attributes);
 // delayCall(permitEntranceSet, caching, 0, schemas.permitEntrance);
-delayCall(permittedEquipmentSet, caching, 0, schemas.permittedEquipment);
+// delayCall(permittedEquipmentSet, caching, 0, schemas.permittedEquipment);
 // delayCall(CampsitesSet, caching, 0, schemas.campsites);
-// caching(orgEntitiesdata, schemas.orgEntities);
+// caching(orgEntitiesData, schemas.orgEntities);
 // delayCall(entityActivitesSet, caching, 0, schemas.entityActivity);
+caching(recAreaFacilitiesData, schemas.recAreasFacilities);
 //////////////////////////////////////
 
 
