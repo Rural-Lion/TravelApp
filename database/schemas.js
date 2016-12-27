@@ -372,26 +372,31 @@ module.exports = {
   trails: Trails
 };
 
-Organizations.hasMany(RecAreas, {through: orgEntities});
-RecAreas.hasMany(Organizations, {through: orgEntities});
-Organizations.hasMany(Facilities, {through: orgEntities});
-Facilities.hasMany(Organizations, {through: orgEntities});
+// Sequelize Relationships
+
+// OrgEntities is a junction table linking Organizations to both RecAreas and Facilities
+Organizations.belongsToMany(RecAreas, { through: 'orgEntities' }); 
+RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
+Organizations.belongsToMany(Facilities, { through: 'orgEntities' });
+Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
+
 RecAreas.hasOne(RecAreaAddress);
 RecAreaAddress.belongsTo(RecAreas);
-RecAreas.hasMany(Activities, { through: EntityActivity }); // Many to Many Relationship through Entity Activity join table
-Activities.hasMany(RecAreas, { through: EntityActivity }); 
-RecAreas.hasMany(EntityLinks); // Has 0 or 1 or many??? Look up
+// EntityActivity is a junction table linking Activities to both recAreas and Facilities
+RecAreas.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
+Activities.belongsToMany(RecAreas, { through: 'EntityActivity' }); 
+RecAreas.hasMany(EntityLinks);
 EntityLinks.belongsTo(RecAreas);
-RecAreas.hasMany(EntityMedia); // Has 0 or 1 or many??? Look up
+RecAreas.hasMany(EntityMedia);
 EntityMedia.belongsTo(RecAreas);
 
 Facilities.hasOne(FacilitiesAddress);
 FacilitiesAddress.belongsTo(Facilities);
-Facilities.hasMany(Activities, { through: EntityActivity }); // Many to Many Relationship through EntityActivity join table
-Activities.hasMany(Facilities, { through: EntityActivity });
-Facilities.hasMany(EntityLinks); // Has 0 or 1 or many?? Look up
+Facilities.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
+Activities.belongsToMany(Facilities, { through: 'EntityActivity' });
+Facilities.hasMany(EntityLinks); 
 EntityLinks.belongsTo(Facilities);
-Facilities.hasMany(EntityMedia); // Has 0 or 1 or many??? Look up
+Facilities.hasMany(EntityMedia); 
 EntityMedia.belongsTo(Facilities);
 Facilities.hasMany(Tours);
 Tours.BelongsTo(Facilitiy);
@@ -403,28 +408,26 @@ PermitEntrance.belongsTo(Facilities);
 Tours.hasMany(EntityMedia);
 EntityMedia.belongsTo(Tours);
 Tours.hasMany(Attributes);
-Attributes.belongsTo(Tours); // data assigns attribute multiple times for different tours, permit entrances and campsites
+// Attributes Table defines attributes for each tour, permit entrance and campsite
+Attributes.belongsTo(Tours, { foreignKey: 'EntityID' }); 
 
 PermitEntrance.hasMany(EntityMedia);
 EntityMedia.belongsTo(PermitEntrance);
 PermitEntrance.hasMany(Attributes);
-Attributes.belongsTo(PermitEntrance); // One attribute can belong to tour, campsite and permit entrace - I believe (Look up)
+Attributes.belongsTo(PermitEntrance, { foreignKey: 'EntityID' }); 
 
 Campsites.hasMany(EntityMedia);
 EntityMedia.belongsTo(Campsites);
 Campsites.hasMany(Attributes);
-Attributes.belongsTo(Campsites); // One attribute can belong to tour, campsite and permit entrace - I believe (Look up)
+Attributes.belongsTo(Campsites, { foreignKey: 'EntityID' }); 
 Campsites.hasMany(PermittedEquipment);
-PermittedEquipment.belongsTo(Campsite); // data assigns equipment multiple times for different campsite IDs
+// Permitted Equipment Table defines equipment for each campsite - similar to the Attributes Table
+PermittedEquipment.belongsTo(Campsite); 
 
-// Join TABLES
-orgEntities - // links organizations with recareas and facilities
-EntityActivity - // joins activities with recareas and facilities
-RecAreaFacility - // Joins facilities to RecAreas
-
-// 3 things I'm unsure of 
-  // 1. orgentities is a join table fpr 2 separate joins - can you use a join table for 2 joins?
-  // 2. Attributes has a belongs to for permit entrance, tours and campsites - can one table belongsTo mutliple tables?
-  // 3. Can you use hasMany for 0,1 or many? EntityLinks and EntityMedia - does hasMany check for 0,1 and many? 
+// 3 things I'm unsure of (Check by testing)
+  // 1. orgentities is a join table for 2 separate joins (Facilities and RecAreas) - can you use a join table for 2 joins? Same for Activities
+  // 2. Attributes has a belongsTo for permit entrance, tours and campsites - can one table belongsTo mutliple tables?
+  // 3. Link Facilities to RecAreas via RecAreaFacility (can test later)
 
 //Also need to incorporate Trails
+
