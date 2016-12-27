@@ -18,7 +18,8 @@ TO START APP:
 - run 'mysql -u root -p'
 - enter password '' (password is an empty string)
 - run 'create database rurallion'
-
+- it is recommended but not necessary  to use MySql WorkBench to visualize the different tables and confirm that caching was successful
+- Open database/seed.js
 
 - if in dev
   - run 'npm run dev' to start nodemon

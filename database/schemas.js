@@ -1,7 +1,7 @@
 let Sequelize = require('sequelize');
 let db = require('./database.js');
 
-var Organizations = db.define('organizations', {
+const Organizations = db.define('organizations', {
   OrgID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -17,17 +17,17 @@ var Organizations = db.define('organizations', {
   LastUpdatedDate: Sequelize.STRING
 });
 
-Organizations.sync().then(function() {
+Organizations.sync().then(() => {
   console.log('Organizations created successfully');
 });
 
-var RecAreas = db.define('recAreas', {
-  OrgRecAreaID: Sequelize.INTEGER,
-  GEOJSON: Sequelize.STRING,
+const RecAreas = db.define('recAreas', {
+  OrgRecAreaID: Sequelize.STRING,
+  // GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   RecAreaEmail: Sequelize.STRING,
   RecAreaReservationURL: Sequelize.STRING,
-  RecAreaLongitude: Sequelize.INTEGER,
+  RecAreaLongitude: Sequelize.DECIMAL(10, 5),
   RecAreaID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -35,7 +35,7 @@ var RecAreas = db.define('recAreas', {
   RecAreaPhone: Sequelize.STRING,
   RecAreaDescription: Sequelize.STRING(1500),
   RecAreaMapURL: Sequelize.STRING,
-  RecAreaLatitude: Sequelize.INTEGER,
+  RecAreaLatitude: Sequelize.DECIMAL(10, 5),
   StayLimit: Sequelize.STRING,
   RecAreaFeeDescription: Sequelize.STRING(1500),
   RecAreaDirections: Sequelize.STRING(1500),
@@ -43,12 +43,12 @@ var RecAreas = db.define('recAreas', {
   RecAreaName: Sequelize.STRING
 });
 
-RecAreas.sync().then(function() {
+RecAreas.sync().then(() => {
   console.log('RecAreas created successfully');
 });
 
 
-var RecAreaAddress = db.define('recAreaAddress', {
+const RecAreaAddress = db.define('recAreaAddress', {
   PostalCode: Sequelize.STRING(20),
   RecAreaAddressID: {
     type: Sequelize.INTEGER,
@@ -65,11 +65,11 @@ var RecAreaAddress = db.define('recAreaAddress', {
   AddressStateCode: Sequelize.STRING(20)
 });
 
-RecAreaAddress.sync().then(function() {
+RecAreaAddress.sync().then(() => {
   console.log('RecAreaAddress created successfully');
 });
 
-var Activities = db.define('activities', {
+const Activities = db.define('activities', {
   ActivityParentID: Sequelize.INTEGER,
   ActivityLevel: Sequelize.INTEGER,
   ActivityName: Sequelize.STRING(60),
@@ -79,24 +79,22 @@ var Activities = db.define('activities', {
   }
 });
 
-Activities.sync().then(function() {
+Activities.sync().then(() => {
   console.log('Activities created successfully');
 });
 
 
-var Facilities = db.define('facilities', {
-  FacilityDescription: Sequelize.STRING(1500),
+const Facilities = db.define('facilities', {
+  FacilityDescription: Sequelize.STRING(4000),
   FacilityEmail: Sequelize.STRING(60),
-  FacilityLatitude: Sequelize.INTEGER,
+  FacilityLatitude: Sequelize.DECIMAL(10, 6),
   FacilityUseFeeDescription: Sequelize.STRING,
   LegacyFacilityID: Sequelize.STRING(20),
   OrgFacilityID: Sequelize.STRING,
   FacilityMapURL: Sequelize.STRING,
   FacilityName: Sequelize.STRING,
-  GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   FacilityTypeDescription: Sequelize.STRING(1024),
-  FacilityAdaAccess: Sequelize.STRING(1024),
   FacilityDirections: Sequelize.STRING(1500),
   FacilityID: {
     type: Sequelize.INTEGER,
@@ -104,16 +102,16 @@ var Facilities = db.define('facilities', {
   },
   FacilityReservationURL: Sequelize.STRING,
   StayLimit: Sequelize.STRING(500),
-  FacilityLongitude: Sequelize.INTEGER,
+  FacilityLongitude: Sequelize.DECIMAL(10, 5),
   FacilityPhone: Sequelize.STRING,
   Keywords: Sequelize.STRING(4000)
 });
 
-Facilities.sync().then(function() {
+Facilities.sync().then(() => {
   console.log('Facilities created successfully');
 });
 
-var FacilitiesAddress = db.define('facilitiesAddress', {
+const FacilitiesAddress = db.define('facilitiesAddress', {
   PostalCode: Sequelize.STRING(20),
   FacilityAddressType: Sequelize.STRING(20),
   City: Sequelize.STRING(60),
@@ -129,28 +127,24 @@ var FacilitiesAddress = db.define('facilitiesAddress', {
   AddressStateCode: Sequelize.STRING(20)
 });
 
-FacilitiesAddress.sync().then(function() {
+FacilitiesAddress.sync().then(() => {
   console.log('FacilitiesAddress created successfully');
 });
 
-var EntityLinks = db.define('entityLinks', {
+const EntityLinks = db.define('entityLinks', {
   EntityID: Sequelize.INTEGER,
   Description: Sequelize.STRING(1500),
   LinkType: Sequelize.STRING(500),
   Title: Sequelize.STRING(500),
-  EntityLinkID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
   EntityType: Sequelize.STRING(50),
   URL: Sequelize.STRING(2000)
 });
 
-EntityLinks.sync().then(function() {
+EntityLinks.sync().then(() => {
   console.log('EntityLinks created successfully');
 });
 
-var EntityMedia = db.define('entityMedia', {
+const EntityMedia = db.define('entityMedia', {
   MediaID: Sequelize.INTEGER,
   Credits: Sequelize.STRING(1000),
   EntityID: Sequelize.INTEGER,
@@ -161,22 +155,19 @@ var EntityMedia = db.define('entityMedia', {
   Subtitle: Sequelize.STRING(1000),
   EntityType: Sequelize.STRING(50),
   URL: Sequelize.STRING(2000),
-  EntityMediaID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
+  EntityMediaID: Sequelize.INTEGER,
   Description: Sequelize.STRING(1500),
   Title: Sequelize.STRING(500)
 });
 
-EntityMedia.sync().then(function() {
+EntityMedia.sync().then(() => {
   console.log('EntityMedia created successfully');
 });
 
-var Tours = db.define('tours', {
+const Tours = db.define('tours', {
   TourName: Sequelize.STRING,
   CreatedDate: Sequelize.STRING,
-  TourDescription: Sequelize.STRING,
+  TourDescription: Sequelize.STRING(1024),
   TourType: Sequelize.STRING,
   FacilityID: Sequelize.INTEGER,
   TourDuration: Sequelize.INTEGER,
@@ -188,11 +179,11 @@ var Tours = db.define('tours', {
   LastUpdatedDate: Sequelize.STRING
 });
 
-Tours.sync().then(function() {
+Tours.sync().then(() => {
   console.log('Tours created successfully');
 });
 
-var Attributes = db.define('attributes', {
+const Attributes = db.define('attributes', {
   AttributeID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -201,15 +192,14 @@ var Attributes = db.define('attributes', {
   AttributeValue: Sequelize.STRING
 });
 
-Attributes.sync().then(function() {
+Attributes.sync().then(() => {
   console.log('Attributes created successfully');
 });
 
-var PermitEntrance = db.define('permitentrance', {
-  PermitEntranceDescription: Sequelize.STRING,
-  Longitude: Sequelize.INTEGER,
+const PermitEntrance = db.define('permitentrance', {
+  PermitEntranceDescription: Sequelize.STRING(1024),
+  Longitude: Sequelize.DECIMAL(10, 5),
   PermitEntranceType: Sequelize.STRING,
-  GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   PermitEntranceID: {
     type: Sequelize.INTEGER,
@@ -220,45 +210,147 @@ var PermitEntrance = db.define('permitentrance', {
   Town: Sequelize.STRING(60),
   FacilityID: Sequelize.INTEGER,
   PermitEntranceName: Sequelize.STRING(512),
-  Latitude: Sequelize.INTEGER,
+  Latitude: Sequelize.DECIMAL(10, 5),
   PermitEntranceAccessible: Sequelize.STRING(10),
 });
 
-PermitEntrance.sync().then(function() {
+PermitEntrance.sync().then(() => {
   console.log('PermitEntrance created successfully');
 });
 
-var PermittedEquipment = db.define('permittedEquipment', {
-  PermittedEquipmentID: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
+const PermittedEquipment = db.define('permittedEquipment', {
   EquipmentName: Sequelize.STRING,
   MaxLength: Sequelize.INTEGER
 });
 
-PermittedEquipment.sync().then(function() {
+PermittedEquipment.sync().then(() => {
   console.log('PermittedEquipment created successfully');
 });
 
-var Campsites = db.define('campsites', {
+const Campsites = db.define('campsites', {
   CampsiteID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
   },
-  CreatedDate: Sequelize.DATE,
+  CreatedDate: Sequelize.STRING,
   Loop: Sequelize.STRING,
   FacilityID: Sequelize.INTEGER,
-  CampsiteName: Sequelize.INTEGER,
+  CampsiteName: Sequelize.STRING,
   CampsiteAccessible: Sequelize.STRING(10),
-  CampsiteType: Sequelize.INTEGER,
+  CampsiteType: Sequelize.STRING,
   TypeOfUse: Sequelize.STRING,
-  LastUpdatedDate: Sequelize.DATE
+  LastUpdatedDate: Sequelize.STRING
 });
 
-Campsites.sync().then(function() {
+Campsites.sync().then(() => {
   console.log('Campsites created successfully');
 });
+
+const Trails = db.define('trails', {
+  TypicalTreadWidth: Sequelize.STRING(30),
+  MinimumTrailWidth: Sequelize.STRING(15),
+  TypicalTreadCrossSlope: Sequelize.STRING(10),
+  TerraMotorized: Sequelize.STRING(3),
+  AllowedSnowUse: Sequelize.STRING(3),
+  PackSaddleRestricted: Sequelize.STRING(11),
+  TrailSurface: Sequelize.STRING(40),
+  TrailNo: Sequelize.STRING(30),
+  AllowedTerraUse: Sequelize.STRING(6),
+  XcountrySkiAccptDisc: Sequelize.STRING(100),
+  TrailUSFSID: Sequelize.INTEGER,
+  NonmotorWatercraftManaged: Sequelize.STRING(100),
+  XcountrySkiManaged: Sequelize.STRING(100),
+  BicycleManaged: Sequelize.STRING(100),
+  ShapeLength: Sequelize.FLOAT(8),
+  MVUMSymbol: Sequelize.INTEGER(4),
+  MotorcycleManaged: Sequelize.STRING(100),
+  GEOM: Sequelize.TEXT,
+  TrailName: Sequelize.STRING(30),
+  NonmotorWatercraftAccptDisc: Sequelize.STRING(100),
+  MotorcycleAccptDisc: Sequelize.STRING(100),
+  SegmentLength: Sequelize.FLOAT(8),
+  MotorcycleRestricted: Sequelize.STRING(11),
+  SnowmobileManaged: Sequelize.STRING(100),
+  EMP: Sequelize.FLOAT(8),
+  MotorWatercraftManaged: Sequelize.STRING(100),
+  PackSaddleManaged: Sequelize.STRING(100),
+  ATVAccptDisc: Sequelize.STRING(100),
+  SnowshoeAccptDisc: Sequelize.STRING(100),
+  SurfaceFirmness: Sequelize.STRING(20),
+  SnowshoeRestricted: Sequelize.STRING(11),
+  SnowmobileRestricted: Sequelize.STRING(11),
+  Attributesubset: Sequelize.STRING(50),
+  SpecialMgmtArea: Sequelize.STRING(50),
+  FourwdAccptDisc: Sequelize.STRING(100),
+  MotorWatercraftRestricted: Sequelize.STRING(11),
+  NonmotorWatercraftRestricted: Sequelize.STRING(11),
+  HikerPedestrianAccptDisc: Sequelize.STRING(100),
+  ATVManaged: Sequelize.STRING(100),
+  TrailType: Sequelize.STRING(5),
+  BicycleRestricted: Sequelize.STRING(11),
+  GISMiles: Sequelize.FLOAT(8),
+  AdminOrg: Sequelize.STRING(10),
+  HikerPedestrianRestricted: Sequelize.STRING(11),
+  SecurityId: Sequelize.STRING(4),
+  AccessibilityStatus: Sequelize.STRING(40),
+  BMP: Sequelize.FLOAT(8),
+  HikerPedestrianManaged: Sequelize.STRING(100),
+  FourwdRestricted: Sequelize.STRING(11),
+  TypicalTrailGrade: Sequelize.STRING(20),
+  WaterMotorized: Sequelize.STRING(3),
+  ATVRestricted: Sequelize.STRING(11),
+  SnowmobileAccptDisc: Sequelize.STRING(100),
+  SnowshoeManaged: Sequelize.STRING(100),
+  XcountrySkiRestricted: Sequelize.STRING(11),
+  TrailClass: Sequelize.STRING(1),
+  TerraBaseSymbology: Sequelize.STRING(5),
+  ManagingOrg: Sequelize.STRING(10),
+  FourwdManaged: Sequelize.STRING(100),
+  LastUpdatedDate: Sequelize.DATE(3),
+  NationalTrailDesignation: Sequelize.INTEGER(4),
+  MotorWatercraftAccptDisc: Sequelize.STRING(100),
+  BicycleAccptDisc: Sequelize.STRING(100),
+  SnowMotorized: Sequelize.STRING(3),
+  PackSaddleAccptDisc: Sequelize.STRING(100),
+  TrailCn: Sequelize.STRING(34)
+})
+
+Trails.sync().then(() => {
+  console.log('Trails created successfully');
+});
+
+//////////////////////////// Join Tables ////////////////////////////////
+const OrgEntity = db.define('orgentity', {
+  EntityID: Sequelize.INTEGER,
+  EntityType: Sequelize.STRING(20),
+  OrgID: Sequelize.INTEGER,
+});
+
+OrgEntity.sync().then(() => {
+  console.log('OrgEntity created successfully');
+});
+
+const EntityActivity = db.define('entityactivity', {
+  EntityID: Sequelize.INTEGER,
+  EntityType: Sequelize.STRING(1024),
+  ActivityID: Sequelize.INTEGER,
+  ActivityDescription: Sequelize.STRING(1024),
+  ActivityFeeDescription: Sequelize.STRING(1024)
+});
+
+EntityActivity.sync().then(() => {
+  console.log('EntityActivity created successfully');
+});
+
+const RecAreasFacilities = db.define('recareasfacilities', {
+  RecAreaID: Sequelize.INTEGER,
+  FacilityID: Sequelize.INTEGER
+});
+
+RecAreasFacilities.sync().then(() => {
+  console.log('RecAreasFacilities created successfully');
+});
+////////////////////////////////////////////////////////////////////////////////
 
 module.exports = {
   organizations: Organizations,
@@ -273,5 +365,9 @@ module.exports = {
   attributes: Attributes,
   permitEntrance: PermitEntrance,
   permittedEquipment: PermittedEquipment,
-  campsites: Campsites
+  campsites: Campsites,
+  orgEntities: OrgEntity,
+  entityActivity: EntityActivity,
+  recAreasFacilities: RecAreasFacilities,
+  trails: Trails
 };
