@@ -246,8 +246,80 @@ Campsites.sync().then(() => {
   console.log('Campsites created successfully');
 });
 
-//////////////////////////// Join Tables ////////////////////////////////
+const Trails = db.define('trails', {
+  TypicalTreadWidth: Sequelize.STRING(30),
+  MinimumTrailWidth: Sequelize.STRING(15),
+  TypicalTreadCrossSlope: Sequelize.STRING(10),
+  TerraMotorized: Sequelize.STRING(3),
+  AllowedSnowUse: Sequelize.STRING(3),
+  PackSaddleRestricted: Sequelize.STRING(11),
+  TrailSurface: Sequelize.STRING(40),
+  TrailNo: Sequelize.STRING(30),
+  AllowedTerraUse: Sequelize.STRING(6),
+  XcountrySkiAccptDisc: Sequelize.STRING(100),
+  TrailUSFSID: Sequelize.INTEGER,
+  NonmotorWatercraftManaged: Sequelize.STRING(100),
+  XcountrySkiManaged: Sequelize.STRING(100),
+  BicycleManaged: Sequelize.STRING(100),
+  ShapeLength: Sequelize.FLOAT(8),
+  MVUMSymbol: Sequelize.INTEGER(4),
+  MotorcycleManaged: Sequelize.STRING(100),
+  GEOM: Sequelize.TEXT,
+  TrailName: Sequelize.STRING(30),
+  NonmotorWatercraftAccptDisc: Sequelize.STRING(100),
+  MotorcycleAccptDisc: Sequelize.STRING(100),
+  SegmentLength: Sequelize.FLOAT(8),
+  MotorcycleRestricted: Sequelize.STRING(11),
+  SnowmobileManaged: Sequelize.STRING(100),
+  EMP: Sequelize.FLOAT(8),
+  MotorWatercraftManaged: Sequelize.STRING(100),
+  PackSaddleManaged: Sequelize.STRING(100),
+  ATVAccptDisc: Sequelize.STRING(100),
+  SnowshoeAccptDisc: Sequelize.STRING(100),
+  SurfaceFirmness: Sequelize.STRING(20),
+  SnowshoeRestricted: Sequelize.STRING(11),
+  SnowmobileRestricted: Sequelize.STRING(11),
+  Attributesubset: Sequelize.STRING(50),
+  SpecialMgmtArea: Sequelize.STRING(50),
+  FourwdAccptDisc: Sequelize.STRING(100),
+  MotorWatercraftRestricted: Sequelize.STRING(11),
+  NonmotorWatercraftRestricted: Sequelize.STRING(11),
+  HikerPedestrianAccptDisc: Sequelize.STRING(100),
+  ATVManaged: Sequelize.STRING(100),
+  TrailType: Sequelize.STRING(5),
+  BicycleRestricted: Sequelize.STRING(11),
+  GISMiles: Sequelize.FLOAT(8),
+  AdminOrg: Sequelize.STRING(10),
+  HikerPedestrianRestricted: Sequelize.STRING(11),
+  SecurityId: Sequelize.STRING(4),
+  AccessibilityStatus: Sequelize.STRING(40),
+  BMP: Sequelize.FLOAT(8),
+  HikerPedestrianManaged: Sequelize.STRING(100),
+  FourwdRestricted: Sequelize.STRING(11),
+  TypicalTrailGrade: Sequelize.STRING(20),
+  WaterMotorized: Sequelize.STRING(3),
+  ATVRestricted: Sequelize.STRING(11),
+  SnowmobileAccptDisc: Sequelize.STRING(100),
+  SnowshoeManaged: Sequelize.STRING(100),
+  XcountrySkiRestricted: Sequelize.STRING(11),
+  TrailClass: Sequelize.STRING(1),
+  TerraBaseSymbology: Sequelize.STRING(5),
+  ManagingOrg: Sequelize.STRING(10),
+  FourwdManaged: Sequelize.STRING(100),
+  LastUpdatedDate: Sequelize.DATE(3),
+  NationalTrailDesignation: Sequelize.INTEGER(4),
+  MotorWatercraftAccptDisc: Sequelize.STRING(100),
+  BicycleAccptDisc: Sequelize.STRING(100),
+  SnowMotorized: Sequelize.STRING(3),
+  PackSaddleAccptDisc: Sequelize.STRING(100),
+  TrailCn: Sequelize.STRING(34)
+})
 
+Trails.sync().then(() => {
+  console.log('Trails created successfully');
+});
+
+//////////////////////////// Join Tables ////////////////////////////////
 const OrgEntity = db.define('orgentity', {
   EntityID: Sequelize.INTEGER,
   EntityType: Sequelize.STRING(20),
@@ -278,7 +350,6 @@ const RecAreasFacilities = db.define('recareasfacilities', {
 RecAreasFacilities.sync().then(() => {
   console.log('RecAreasFacilities created successfully');
 });
-
 ////////////////////////////////////////////////////////////////////////////////
 
 module.exports = {
@@ -297,5 +368,6 @@ module.exports = {
   campsites: Campsites,
   orgEntities: OrgEntity,
   entityActivity: EntityActivity,
-  recAreasFacilities: RecAreasFacilities
+  recAreasFacilities: RecAreasFacilities,
+  trails: Trails
 };
