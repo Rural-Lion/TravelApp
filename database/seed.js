@@ -1,8 +1,23 @@
+//// Section 1 - HOW TO USE THE SEED FILE ////
+
+// 1- Complete 'TO START APP' section in the README.md file
+// 2- Create an account: https://ridb.recreation.gov/index.cfm?action=login
+// 3- Download the 'JSON Format' from the 'RIDB Recreation Data' section
+// 4- Copy/Paste the downloaded 'RIDBFullExport_v1' folder in the App Root folder
+// 5- Uncomment the first function invocation in the 'Section 7 - Calls of  functions to cache in DB'  at the bottom of this file -  caching(organizationsData, schemas.organizations) -
+// 6- From the root folder, run 'node database/seed.js'
+// 7- Comment out the same first function - caching(organizationsData, schemas.organizations) -
+// 8- Confirm that caching was successful with MySql WorkBench
+// 9- Repeat steps 5 to 8 for every function invocation in the parts 1 & 2 of the  'Section 7 - Calls of  functions to cache in DB' at the bottom of this file
+
+///////////////////////////////////////////////////////////////
+
+
 let request = require('request');
 require('dotenv-safe').load();
 let schemas = require('../database/schemas.js');
 
-///// Importing all JSON files for caching /////
+///// Section 2 - Importing all JSON files for caching /////
 const organizationsJSON = require('../RIDBFullExport_v1/Organizations_API_v1.json');
 const recAreasJSON = require('../RIDBFullExport_v1/RecAreas_API_v1.json');
 const recAreasAdressesJSON = require('../RIDBFullExport_v1/RecAreaAddresses_API_v1');
@@ -21,7 +36,7 @@ const entityActivitesJSON = require('../RIDBFullExport_v1/EntityActivities_API_v
 const recAreaFacilitiesJSON = require('../RIDBFullExport_v1/RecAreaFacilities_API_v1.json');
 ////////////////////////////////////////////////////////////////////
 
-///// Creation of Datasets /////
+///// Section 3 - Creation of Datasets /////
 const organizationsData = organizationsJSON.RECDATA;
 const recAreasData = recAreasJSON.RECDATA;
 const recAreasAdressesData = recAreasAdressesJSON.RECDATA;
@@ -40,7 +55,7 @@ const entityActivitesData = entityActivitesJSON.RECDATA;
 const recAreaFacilitiesData = recAreaFacilitiesJSON.RECDATA;
 //////////////////////////////////////////
 
-/////  Helper functions  /////
+/////  Section 4 - Helper functions  /////
 
 //makeSets will help us divide the datasets when too large
 const makeSets = (array, divider) => {
@@ -75,7 +90,7 @@ const caching = function(data, schema) {
 };
 ////////////////////////////////////////
 
-///// Preparing datasets when large JSON files //////
+///// Section 5 - Preparing datasets when large JSON files //////
 const entityActivitesSet = makeSets(entityActivitesData, 20);
 const facilitiesSet = makeSets(facilitiesData, 10);
 const entityLinksSet = makeSets(entityLinksData, 20);
@@ -86,7 +101,7 @@ const permittedEquipmentSet = makeSets(permittedEquipmentData, 100);
 const CampsitesSet = makeSets(CampsitesData, 20);
 //////////////////////////////////////////////////////////////////////
 
-///// Declarations of individual caching functions //////
+///// Section 6 - Declarations of individual caching functions //////
 
 //recAreas schema does not match the API schema hence, bulkCreate does not execute.
 const recAreasCaching = () => {
@@ -143,6 +158,7 @@ const facilitiesCaching = (array) => {
   }
 };
 
+//No JSON file available for trails so we are using the node Request module to query the API
 const trailsCaching = () => {
   let offset = 0;
   let params = {offset: offset};
@@ -235,9 +251,9 @@ const trailsCaching = () => {
 ////////////////////////////////////////////////////////////////////////////////////
 
 
-////// Calls of  functions to cache in DB /////
+////// Section 7 - Calls of  functions to cache in DB /////
 
-/////caching functions//////
+///// Part 1 - caching functions//////
 // caching(organizationsData, schemas.organizations);
 // caching(recAreasAdressesData, schemas.recAreaAddress);
 // caching(activitiesData, schemas.activities);
@@ -255,10 +271,10 @@ const trailsCaching = () => {
 //////////////////////////////////////
 
 
-///// Individual caching functions //////
+///// Part 2 - Individual caching functions //////
 // recAreasCaching();
 // delayCall(facilitiesSet, facilitiesCaching, 0);
-trailsCaching();
+// trailsCaching();
 //////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////
