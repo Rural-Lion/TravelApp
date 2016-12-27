@@ -342,7 +342,6 @@ EntityActivity.sync().then(() => {
   console.log('EntityActivity created successfully');
 });
 
-<<<<<<< 154db28ade81c425f0a7ea69962f3f860700b9da
 const RecAreasFacilities = db.define('recareasfacilities', {
   RecAreaID: Sequelize.INTEGER,
   FacilityID: Sequelize.INTEGER
@@ -352,26 +351,6 @@ RecAreasFacilities.sync().then(() => {
   console.log('RecAreasFacilities created successfully');
 });
 ////////////////////////////////////////////////////////////////////////////////
-
-module.exports = {
-  organizations: Organizations,
-  recAreas: RecAreas,
-  recAreaAddress: RecAreaAddress,
-  activities: Activities,
-  facilities: Facilities,
-  facilitiesAddress: FacilitiesAddress,
-  entityLinks: EntityLinks,
-  entityMedia: EntityMedia,
-  tours: Tours,
-  attributes: Attributes,
-  permitEntrance: PermitEntrance,
-  permittedEquipment: PermittedEquipment,
-  campsites: Campsites,
-  orgEntities: OrgEntity,
-  entityActivity: EntityActivity,
-  recAreasFacilities: RecAreasFacilities,
-  trails: Trails
-};
 
 ///////////////////////////////
 /// Sequelize Relationships ///
@@ -409,7 +388,6 @@ PermitEntrance.belongsTo(Facilities);
 Tours.hasMany(EntityMedia);
 EntityMedia.belongsTo(Tours);
 Tours.hasMany(Attributes);
-// Attributes Table defines attributes for each tour, permit entrance and campsite
 Attributes.belongsTo(Tours, { foreignKey: 'EntityID' }); 
 
 PermitEntrance.hasMany(EntityMedia);
@@ -422,11 +400,11 @@ EntityMedia.belongsTo(Campsites);
 Campsites.hasMany(Attributes);
 Attributes.belongsTo(Campsites, { foreignKey: 'EntityID' }); 
 Campsites.hasMany(PermittedEquipment);
-// Permitted Equipment Table defines equipment for each campsite - similar to the Attributes Table
 PermittedEquipment.belongsTo(Campsites); 
 
-// Still need to incorporate Trails
-// Still need to link Facilities to RecAreas via RecAreaFacility 
+// Still need to 
+// 1. Incorporate Trails
+// 2. To link Facilities to RecAreas via RecAreaFacility 
 
 module.exports = {
   organizations: Organizations,
