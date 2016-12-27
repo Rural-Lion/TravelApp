@@ -48,7 +48,7 @@ class App extends Component {
     }
     this.setState({
       userInterests: newArray,
-    });
+    });   
   }
 
   handleInputOnChange(e) {
@@ -56,7 +56,7 @@ class App extends Component {
     const key = e.target.dataset.tag;
     userQuery[key] = e.target.value;
     this.setState({
-      userQuery,
+      userQuery: userQuery
     });
   }
 
@@ -65,7 +65,7 @@ class App extends Component {
     .then((res) => {
       this.setState({
         activities: generateActivities(res.data.RECDATA),
-      });
+      }, () => {console.log("Activities", this.state.activities)});
     });
   }
 
