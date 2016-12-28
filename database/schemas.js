@@ -352,6 +352,60 @@ RecAreasFacilities.sync().then(() => {
 });
 ////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////
+/// Sequelize Relationships ///
+///////////////////////////////
+
+Organizations.belongsToMany(RecAreas, { through: 'orgEntities' }); 
+RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
+Organizations.belongsToMany(Facilities, { through: 'orgEntities' });
+Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
+
+RecAreas.hasOne(RecAreaAddress);
+RecAreaAddress.belongsTo(RecAreas);
+RecAreas.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
+Activities.belongsToMany(RecAreas, { through: 'EntityActivity' }); 
+RecAreas.hasMany(EntityLinks);
+EntityLinks.belongsTo(RecAreas);
+RecAreas.hasMany(EntityMedia);
+EntityMedia.belongsTo(RecAreas);
+
+Facilities.hasOne(FacilitiesAddress);
+FacilitiesAddress.belongsTo(Facilities);
+Facilities.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
+Activities.belongsToMany(Facilities, { through: 'EntityActivity' });
+Facilities.hasMany(EntityLinks); 
+EntityLinks.belongsTo(Facilities);
+Facilities.hasMany(EntityMedia); 
+EntityMedia.belongsTo(Facilities);
+Facilities.hasMany(Tours);
+Tours.belongsTo(Facilities);
+Facilities.hasMany(Campsites);
+Campsites.belongsTo(Facilities);
+Facilities.hasMany(PermitEntrance);
+PermitEntrance.belongsTo(Facilities);
+
+Tours.hasMany(EntityMedia);
+EntityMedia.belongsTo(Tours);
+Tours.hasMany(Attributes);
+Attributes.belongsTo(Tours, { foreignKey: 'EntityID' }); 
+
+PermitEntrance.hasMany(EntityMedia);
+EntityMedia.belongsTo(PermitEntrance);
+PermitEntrance.hasMany(Attributes);
+Attributes.belongsTo(PermitEntrance, { foreignKey: 'EntityID' }); 
+
+Campsites.hasMany(EntityMedia);
+EntityMedia.belongsTo(Campsites);
+Campsites.hasMany(Attributes);
+Attributes.belongsTo(Campsites, { foreignKey: 'EntityID' }); 
+Campsites.hasMany(PermittedEquipment);
+PermittedEquipment.belongsTo(Campsites); 
+
+// Still need to 
+// 1. Incorporate Trails
+// 2. To link Facilities to RecAreas via RecAreaFacility 
+
 module.exports = {
   organizations: Organizations,
   recAreas: RecAreas,
@@ -367,7 +421,6 @@ module.exports = {
   permittedEquipment: PermittedEquipment,
   campsites: Campsites,
   orgEntities: OrgEntity,
-  entityActivity: EntityActivity,
-  recAreasFacilities: RecAreasFacilities,
-  trails: Trails
+  entityActivity: EntityActivity
 };
+
