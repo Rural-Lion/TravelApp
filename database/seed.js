@@ -277,3 +277,10 @@ const trailsCaching = () => {
 
 ////////////////////////////////////////////////////////////////
 
+// EntityLinks 41638/46306
+// EntityMedia 14645/16715
+// Attributes (not sure)
+// PermittedEquipment 537946/???
+// Campsites 100906/101013
+// 
+

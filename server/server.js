@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../database/database.js');
 const schemas = require('../database/schemas.js');
+const routes = require('./routing');
 const bodyparser = require('body-parser');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -15,6 +16,7 @@ const app = express();
 app.use(bodyparser.json());
 app.use(webpackMiddleware(webpackConfig, {}));
 app.use(webpackHotMiddleware(webpackConfig));
+routes(app, express);
 app.use(express.static(`${__dirname}./../client/public`));
 
 app.listen(port);

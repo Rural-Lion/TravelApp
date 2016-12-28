@@ -419,6 +419,8 @@ module.exports = {
   permittedEquipment: PermittedEquipment,
   campsites: Campsites,
   orgEntities: OrgEntity,
-  entityActivity: EntityActivity
+  entityActivity: EntityActivity,
+  recAreasFacilities: RecAreasFacilities,
+  trails: Trails
 };
 
