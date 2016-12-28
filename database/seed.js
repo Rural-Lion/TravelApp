@@ -91,6 +91,7 @@ const caching = function(data, schema) {
 ////////////////////////////////////////
 
 ///// Section 5 - Preparing datasets when large JSON files //////
+const recAreasSet = makeSets(recAreasData, 10);
 const entityActivitesSet = makeSets(entityActivitesData, 20);
 const facilitiesSet = makeSets(facilitiesData, 10);
 const entityLinksSet = makeSets(entityLinksData, 20);
@@ -104,25 +105,24 @@ const CampsitesSet = makeSets(CampsitesData, 20);
 ///// Section 6 - Declarations of individual caching functions //////
 
 //recAreas schema does not match the API schema hence, bulkCreate does not execute.
-const recAreasCaching = () => {
-  for (var i = 0; i < recAreasData.length; i++) {
+const recAreasCaching = (array) => {
+  for (var i = 0; i < array.length; i++) {
     schemas.recAreas.create({
-      OrgRecAreaID: recAreasData[i].OrgRecAreaID,
-      GEOJSON: recAreasData[i].GEOJSON,
-      LastUpdatedDate: recAreasData[i].LastUpdatedDate,
-      RecAreaEmail: recAreasData[i].RecAreaEmail,
-      RecAreaReservationURL: recAreasData[i].RecAreaReservationURL,
-      RecAreaLongitude: recAreasData[i].RecAreaLongitude,
-      RecAreaID: recAreasData[i].RecAreaID,
-      RecAreaPhone: recAreasData[i].RecAreaPhone,
-      RecAreaDescription: recAreasData[i].RecAreaDescription,
-      RecAreaMapURL: recAreasData[i].RecAreaMapURL,
-      RecAreaLatitude: recAreasData[i].RecAreaLatitude,
-      StayLimit: recAreasData[i].StayLimit,
-      RecAreaFeeDescription: recAreasData[i].RecAreaFeeDescription,
-      RecAreaDirections: recAreasData[i].RecAreaDirections,
-      Keywords: recAreasData[i].Keywords,
-      RecAreaName: recAreasData[i].RecAreaName
+      OrgRecAreaID: array[i].OrgRecAreaID,
+      LastUpdatedDate: array[i].LastUpdatedDate,
+      RecAreaEmail: array[i].RecAreaEmail,
+      RecAreaReservationURL: array[i].RecAreaReservationURL,
+      RecAreaLongitude: array[i].RecAreaLongitude,
+      RecAreaID: array[i].RecAreaID,
+      RecAreaPhone: array[i].RecAreaPhone,
+      RecAreaDescription: array[i].RecAreaDescription,
+      RecAreaMapURL: array[i].RecAreaMapURL,
+      RecAreaLatitude: array[i].RecAreaLatitude,
+      StayLimit: array[i].StayLimit,
+      RecAreaFeeDescription: array[i].RecAreaFeeDescription,
+      RecAreaDirections: array[i].RecAreaDirections,
+      Keywords: array[i].Keywords,
+      RecAreaName: array[i].RecAreaName
     }).catch((err) => {
       console.log('Error creating recAreas: ', err);
     });
@@ -271,8 +271,8 @@ const trailsCaching = () => {
 
 
 ///// Part 2 - Individual caching functions //////
-// recAreasCaching();
-// delayCall(facilitiesSet, facilitiesCaching, 0);
+// delayCall(recAreasSet, recAreasCaching, 0);
+delayCall(facilitiesSet, facilitiesCaching, 0);
 // trailsCaching();
 //////////////////////////////////////////////////////
 

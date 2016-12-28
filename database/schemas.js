@@ -23,22 +23,21 @@ Organizations.sync().then(() => {
 
 const RecAreas = db.define('recAreas', {
   OrgRecAreaID: Sequelize.STRING,
-  // GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   RecAreaEmail: Sequelize.STRING,
   RecAreaReservationURL: Sequelize.STRING,
-  RecAreaLongitude: Sequelize.DECIMAL(10, 5),
+  RecAreaLongitude: Sequelize.TEXT,
   RecAreaID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
   },
   RecAreaPhone: Sequelize.STRING,
-  RecAreaDescription: Sequelize.STRING(1500),
+  RecAreaDescription: Sequelize.TEXT,
   RecAreaMapURL: Sequelize.STRING,
-  RecAreaLatitude: Sequelize.DECIMAL(10, 5),
+  RecAreaLatitude: Sequelize.TEXT,
   StayLimit: Sequelize.STRING,
-  RecAreaFeeDescription: Sequelize.STRING(1500),
-  RecAreaDirections: Sequelize.STRING(1500),
+  RecAreaFeeDescription: Sequelize.STRING(2000),
+  RecAreaDirections: Sequelize.TEXT,
   Keywords: Sequelize.STRING(4000),
   RecAreaName: Sequelize.STRING
 });
@@ -87,22 +86,22 @@ Activities.sync().then(() => {
 const Facilities = db.define('facilities', {
   FacilityDescription: Sequelize.STRING(4000),
   FacilityEmail: Sequelize.STRING(60),
-  FacilityLatitude: Sequelize.DECIMAL(10, 6),
-  FacilityUseFeeDescription: Sequelize.STRING,
+  FacilityLatitude: Sequelize.TEXT,
+  FacilityUseFeeDescription: Sequelize.STRING(500),
   LegacyFacilityID: Sequelize.STRING(20),
   OrgFacilityID: Sequelize.STRING,
   FacilityMapURL: Sequelize.STRING,
   FacilityName: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   FacilityTypeDescription: Sequelize.STRING(1024),
-  FacilityDirections: Sequelize.STRING(1500),
+  FacilityDirections: Sequelize.TEXT,
   FacilityID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
   },
   FacilityReservationURL: Sequelize.STRING,
   StayLimit: Sequelize.STRING(500),
-  FacilityLongitude: Sequelize.DECIMAL(10, 5),
+  FacilityLongitude: Sequelize.TEXT,
   FacilityPhone: Sequelize.STRING,
   Keywords: Sequelize.STRING(4000)
 });
