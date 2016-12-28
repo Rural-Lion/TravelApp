@@ -12,7 +12,6 @@
 
 ///////////////////////////////////////////////////////////////
 
-
 let request = require('request');
 require('dotenv-safe').load();
 let schemas = require('../database/schemas.js');
@@ -273,7 +272,7 @@ const trailsCaching = () => {
 ///// Part 2 - Individual caching functions //////
 // delayCall(recAreasSet, recAreasCaching, 0);
 // delayCall(facilitiesSet, facilitiesCaching, 0);
-trailsCaching();
+// trailsCaching();
 //////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////
