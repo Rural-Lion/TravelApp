@@ -23,22 +23,21 @@ Organizations.sync().then(() => {
 
 const RecAreas = db.define('recAreas', {
   OrgRecAreaID: Sequelize.STRING,
-  // GEOJSON: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   RecAreaEmail: Sequelize.STRING,
   RecAreaReservationURL: Sequelize.STRING,
-  RecAreaLongitude: Sequelize.DECIMAL(10, 5),
+  RecAreaLongitude: Sequelize.TEXT,
   RecAreaID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
   },
   RecAreaPhone: Sequelize.STRING,
-  RecAreaDescription: Sequelize.STRING(1500),
+  RecAreaDescription: Sequelize.TEXT,
   RecAreaMapURL: Sequelize.STRING,
-  RecAreaLatitude: Sequelize.DECIMAL(10, 5),
+  RecAreaLatitude: Sequelize.TEXT,
   StayLimit: Sequelize.STRING,
-  RecAreaFeeDescription: Sequelize.STRING(1500),
-  RecAreaDirections: Sequelize.STRING(1500),
+  RecAreaFeeDescription: Sequelize.STRING(2000),
+  RecAreaDirections: Sequelize.TEXT,
   Keywords: Sequelize.STRING(4000),
   RecAreaName: Sequelize.STRING
 });
@@ -87,22 +86,22 @@ Activities.sync().then(() => {
 const Facilities = db.define('facilities', {
   FacilityDescription: Sequelize.STRING(4000),
   FacilityEmail: Sequelize.STRING(60),
-  FacilityLatitude: Sequelize.DECIMAL(10, 6),
-  FacilityUseFeeDescription: Sequelize.STRING,
+  FacilityLatitude: Sequelize.TEXT,
+  FacilityUseFeeDescription: Sequelize.STRING(500),
   LegacyFacilityID: Sequelize.STRING(20),
   OrgFacilityID: Sequelize.STRING,
   FacilityMapURL: Sequelize.STRING,
   FacilityName: Sequelize.STRING,
   LastUpdatedDate: Sequelize.STRING,
   FacilityTypeDescription: Sequelize.STRING(1024),
-  FacilityDirections: Sequelize.STRING(1500),
+  FacilityDirections: Sequelize.TEXT,
   FacilityID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
   },
   FacilityReservationURL: Sequelize.STRING,
   StayLimit: Sequelize.STRING(500),
-  FacilityLongitude: Sequelize.DECIMAL(10, 5),
+  FacilityLongitude: Sequelize.TEXT,
   FacilityPhone: Sequelize.STRING,
   Keywords: Sequelize.STRING(4000)
 });
@@ -133,7 +132,7 @@ FacilitiesAddress.sync().then(() => {
 
 const EntityLinks = db.define('entityLinks', {
   EntityID: Sequelize.INTEGER,
-  Description: Sequelize.STRING(1500),
+  Description: Sequelize.STRING(2500),
   LinkType: Sequelize.STRING(500),
   Title: Sequelize.STRING(500),
   EntityType: Sequelize.STRING(50),
@@ -145,7 +144,6 @@ EntityLinks.sync().then(() => {
 });
 
 const EntityMedia = db.define('entityMedia', {
-  MediaID: Sequelize.INTEGER,
   Credits: Sequelize.STRING(1000),
   EntityID: Sequelize.INTEGER,
   MediaType: Sequelize.STRING(500),
@@ -156,7 +154,7 @@ const EntityMedia = db.define('entityMedia', {
   EntityType: Sequelize.STRING(50),
   URL: Sequelize.STRING(2000),
   EntityMediaID: Sequelize.INTEGER,
-  Description: Sequelize.STRING(1500),
+  Description: Sequelize.TEXT,
   Title: Sequelize.STRING(500)
 });
 
@@ -302,7 +300,7 @@ const Trails = db.define('trails', {
   SnowmobileAccptDisc: Sequelize.STRING(100),
   SnowshoeManaged: Sequelize.STRING(100),
   XcountrySkiRestricted: Sequelize.STRING(11),
-  TrailClass: Sequelize.STRING(1),
+  TrailClass: Sequelize.STRING(10),
   TerraBaseSymbology: Sequelize.STRING(5),
   ManagingOrg: Sequelize.STRING(10),
   FourwdManaged: Sequelize.STRING(100),
@@ -312,10 +310,10 @@ const Trails = db.define('trails', {
   BicycleAccptDisc: Sequelize.STRING(100),
   SnowMotorized: Sequelize.STRING(3),
   PackSaddleAccptDisc: Sequelize.STRING(100),
-  TrailCn: Sequelize.STRING(34)
+  TrailCn: Sequelize.STRING(50)
 })
 
-Trails.sync().then(() => {
+Trails.sync({force: true}).then(() => {
   console.log('Trails created successfully');
 });
 
