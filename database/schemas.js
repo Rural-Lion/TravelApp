@@ -132,7 +132,7 @@ FacilitiesAddress.sync().then(() => {
 
 const EntityLinks = db.define('entityLinks', {
   EntityID: Sequelize.INTEGER,
-  Description: Sequelize.STRING(1500),
+  Description: Sequelize.STRING(2500),
   LinkType: Sequelize.STRING(500),
   Title: Sequelize.STRING(500),
   EntityType: Sequelize.STRING(50),
@@ -144,7 +144,6 @@ EntityLinks.sync().then(() => {
 });
 
 const EntityMedia = db.define('entityMedia', {
-  MediaID: Sequelize.INTEGER,
   Credits: Sequelize.STRING(1000),
   EntityID: Sequelize.INTEGER,
   MediaType: Sequelize.STRING(500),
@@ -155,7 +154,7 @@ const EntityMedia = db.define('entityMedia', {
   EntityType: Sequelize.STRING(50),
   URL: Sequelize.STRING(2000),
   EntityMediaID: Sequelize.INTEGER,
-  Description: Sequelize.STRING(1500),
+  Description: Sequelize.TEXT,
   Title: Sequelize.STRING(500)
 });
 
@@ -301,7 +300,7 @@ const Trails = db.define('trails', {
   SnowmobileAccptDisc: Sequelize.STRING(100),
   SnowshoeManaged: Sequelize.STRING(100),
   XcountrySkiRestricted: Sequelize.STRING(11),
-  TrailClass: Sequelize.STRING(1),
+  TrailClass: Sequelize.STRING(10),
   TerraBaseSymbology: Sequelize.STRING(5),
   ManagingOrg: Sequelize.STRING(10),
   FourwdManaged: Sequelize.STRING(100),
@@ -311,10 +310,10 @@ const Trails = db.define('trails', {
   BicycleAccptDisc: Sequelize.STRING(100),
   SnowMotorized: Sequelize.STRING(3),
   PackSaddleAccptDisc: Sequelize.STRING(100),
-  TrailCn: Sequelize.STRING(34)
+  TrailCn: Sequelize.STRING(50)
 })
 
-Trails.sync().then(() => {
+Trails.sync({force: true}).then(() => {
   console.log('Trails created successfully');
 });
 

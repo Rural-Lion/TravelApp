@@ -272,8 +272,8 @@ const trailsCaching = () => {
 
 ///// Part 2 - Individual caching functions //////
 // delayCall(recAreasSet, recAreasCaching, 0);
-delayCall(facilitiesSet, facilitiesCaching, 0);
-// trailsCaching();
+// delayCall(facilitiesSet, facilitiesCaching, 0);
+trailsCaching();
 //////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////
