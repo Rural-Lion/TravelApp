@@ -354,15 +354,15 @@ RecAreasFacilities.sync().then(() => {
 /// Sequelize Relationships ///
 ///////////////////////////////
 
-Organizations.belongsToMany(RecAreas, { through: 'orgEntities' }); 
+Organizations.belongsToMany(RecAreas, { through: 'orgEntities', foreignKey: 'OrgID' }); 
 RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
-Organizations.belongsToMany(Facilities, { through: 'orgEntities' });
+Organizations.belongsToMany(Facilities, { through: 'orgEntities', foreignKey: 'OrgID' });
 Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
 
 RecAreas.hasOne(RecAreaAddress);
 RecAreaAddress.belongsTo(RecAreas);
 RecAreas.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
-Activities.belongsToMany(RecAreas, { through: 'EntityActivity' }); 
+Activities.belongsToMany(RecAreas, { through: 'EntityActivity', foreignKey: 'ActivityID' }); 
 RecAreas.hasMany(EntityLinks);
 EntityLinks.belongsTo(RecAreas);
 RecAreas.hasMany(EntityMedia);
@@ -371,7 +371,7 @@ EntityMedia.belongsTo(RecAreas);
 Facilities.hasOne(FacilitiesAddress);
 FacilitiesAddress.belongsTo(Facilities);
 Facilities.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
-Activities.belongsToMany(Facilities, { through: 'EntityActivity' });
+Activities.belongsToMany(Facilities, { through: 'EntityActivity', foreignKey: 'ActivityID' });
 Facilities.hasMany(EntityLinks); 
 EntityLinks.belongsTo(Facilities);
 Facilities.hasMany(EntityMedia); 
