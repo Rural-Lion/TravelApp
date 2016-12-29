@@ -360,41 +360,41 @@ Organizations.belongsToMany(Facilities, { through: 'orgEntities', foreignKey: 'O
 Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
 
 RecAreas.hasOne(RecAreaAddress, { foreignKey: 'RecAreaID' });
-RecAreaAddress.belongsTo(RecAreas, { foreignKey: 'RecAreaID', targetKey: 'RecAreaID' });
+RecAreaAddress.belongsTo(RecAreas, { foreignKey: 'RecAreaID' });
 RecAreas.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
 Activities.belongsToMany(RecAreas, { through: 'EntityActivities', foreignKey: 'ActivityID' }); 
 RecAreas.hasMany(EntityLinks, {foreignKey: 'EntityID'});
 EntityLinks.belongsTo(RecAreas, {foreignKey: 'EntityID'});
-RecAreas.hasMany(EntityMedia);
-EntityMedia.belongsTo(RecAreas);
+RecAreas.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(RecAreas, {foreignKey: 'EntityID' });
 
 Facilities.hasOne(FacilitiesAddress);
 FacilitiesAddress.belongsTo(Facilities);
 Facilities.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
 Activities.belongsToMany(Facilities, { through: 'EntityActivities', foreignKey: 'ActivityID' });
-Facilities.hasMany(EntityLinks, {foreignKey: 'EntityID'}); 
-EntityLinks.belongsTo(Facilities, {foreignKey: 'EntityID'});
-Facilities.hasMany(EntityMedia); 
-EntityMedia.belongsTo(Facilities);
-Facilities.hasMany(Tours);
-Tours.belongsTo(Facilities);
+Facilities.hasMany(EntityLinks, {foreignKey: 'EntityID' }); 
+EntityLinks.belongsTo(Facilities, {foreignKey: 'EntityID' });
+Facilities.hasMany(EntityMedia, {foreignKey: 'EntityID' }); 
+EntityMedia.belongsTo(Facilities, {foreignKey: 'EntityID' });
+Facilities.hasMany(Tours, {foreignKey: 'FacilityID' });
+Tours.belongsTo(Facilities, {foreignKey: 'FacilityID' });
 Facilities.hasMany(Campsites);
 Campsites.belongsTo(Facilities);
 Facilities.hasMany(PermitEntrance);
 PermitEntrance.belongsTo(Facilities);
 
-Tours.hasMany(EntityMedia);
-EntityMedia.belongsTo(Tours);
+Tours.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(Tours, {foreignKey: 'EntityID' });
 Tours.hasMany(Attributes);
 Attributes.belongsTo(Tours, { foreignKey: 'EntityID' }); 
 
-PermitEntrance.hasMany(EntityMedia);
-EntityMedia.belongsTo(PermitEntrance);
+PermitEntrance.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(PermitEntrance, {foreignKey: 'EntityID' });
 PermitEntrance.hasMany(Attributes);
 Attributes.belongsTo(PermitEntrance, { foreignKey: 'EntityID' }); 
 
-Campsites.hasMany(EntityMedia);
-EntityMedia.belongsTo(Campsites);
+Campsites.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(Campsites, {foreignKey: 'EntityID' });
 Campsites.hasMany(Attributes);
 Attributes.belongsTo(Campsites, { foreignKey: 'EntityID' }); 
 Campsites.hasMany(PermittedEquipment);

@@ -82,14 +82,14 @@ module.exports.getFacilitiesActivities = function(req, res) {
 module.exports.getRecAddress = function(req, res) {
   let {query: {recArea}} = req;
   schemas.recAreas.findOne({
-    where: {RecAreaName: recArea},
-    include: [{ 
-      model: schemas.recAreaAddress
-    }]
+    where: {RecAreaName: recArea}
   })
-  .then(function(address) {
-    console.log(address);
-    res.send(address);
+  .then(function(recreationArea) {
+    recreationArea.getRecAreaAddress()
+    .then(function(address) {
+      console.log(address);
+      res.send(address);
+    });
   })
   .catch((err) => console.log('error', err));
 };
@@ -123,6 +123,57 @@ module.exports.getFacilityLinks = function(req, res) {
     .then(function(links) {
       console.log(links);
       res.send(links);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getRecMedia = function(req, res) {
+  let {query: {recArea}} = req;
+  console.log("getting in here");
+  schemas.recAreas.findOne({
+    where: {RecAreaName: recArea}
+  })
+  .then(function(recreationArea) {
+    console.log(recreationArea);
+    recreationArea.getEntityMedia()
+    .then(function(media) {
+      console.log(media);
+      res.send(media);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getFacilityMedia = function(req, res) {
+  let {query: {facility}} = req;
+  console.log("getting in here");
+  schemas.facilities.findOne({
+    where: {FacilityName: facility}
+  })
+  .then(function(fac) {
+    console.log(fac);
+    fac.getEntityMedia()
+    .then(function(media) {
+      console.log(media);
+      res.send(media);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getFacilityTours = function(req, res) {
+  let {query: {facility}} = req;
+  console.log("getting in here");
+  schemas.facilities.findOne({
+    where: {FacilityName: facility}
+  })
+  .then(function(fac) {
+    console.log(fac);
+    fac.getTours()
+    .then(function(tours) {
+      console.log(tours);
+      res.send(tours);
     });
   })
   .catch((err) => console.log('error', err));
