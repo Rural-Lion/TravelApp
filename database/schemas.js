@@ -54,7 +54,10 @@ const RecAreaAddress = db.define('recAreaAddress', {
     primaryKey: true,
   },
   City: Sequelize.STRING(60),
-  RecAreaID: Sequelize.INTEGER,
+  RecAreaID: {
+    type: Sequelize.INTEGER,
+    unique: true,
+  },
   RecAreaAddressType: Sequelize.STRING(20),
   AddressCountryCode: Sequelize.STRING(5),
   RecAreaStreetAddress2: Sequelize.STRING,
