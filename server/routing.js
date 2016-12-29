@@ -25,4 +25,7 @@ module.exports = function(app, express) {
   // Get EntityMedia for RecAreas and Facilities
   app.get('/recMedia', routeLogic.getRecMedia);
   app.get('/facilityMedia', routeLogic.getFacilityMedia);
+
+  // Get Tours for Facilities
+  app.get('/facilityTours', routeLogic.getFacilityTours);
 }
