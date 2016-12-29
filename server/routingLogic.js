@@ -93,3 +93,37 @@ module.exports.getRecAddress = function(req, res) {
   })
   .catch((err) => console.log('error', err));
 };
+
+module.exports.getRecLinks = function(req, res) {
+  let {query: {recArea}} = req;
+  console.log("getting in here");
+  schemas.recAreas.findOne({
+    where: {RecAreaName: recArea}
+  })
+  .then(function(recreationArea) {
+    console.log(recreationArea);
+    recreationArea.getEntityLinks()
+    .then(function(links) {
+      console.log(links);
+      res.send(links);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getFacilityLinks = function(req, res) {
+  let {query: {facility}} = req;
+  console.log("getting in here");
+  schemas.facilities.findOne({
+    where: {FacilityName: facility}
+  })
+  .then(function(fac) {
+    console.log(fac);
+    fac.getEntityLinks()
+    .then(function(links) {
+      console.log(links);
+      res.send(links);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};

@@ -54,10 +54,7 @@ const RecAreaAddress = db.define('recAreaAddress', {
     primaryKey: true,
   },
   City: Sequelize.STRING(60),
-  RecAreaID: {
-    type: Sequelize.INTEGER,
-    unique: true,
-  },
+  RecAreaID: Sequelize.INTEGER,
   RecAreaAddressType: Sequelize.STRING(20),
   AddressCountryCode: Sequelize.STRING(5),
   RecAreaStreetAddress2: Sequelize.STRING,
@@ -362,12 +359,12 @@ RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'Ent
 Organizations.belongsToMany(Facilities, { through: 'orgEntities', foreignKey: 'OrgID' });
 Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
 
-RecAreas.hasOne(RecAreaAddress, { foreignKey: 'RecAreaID', targetKey: 'RecAreaID' });
+RecAreas.hasOne(RecAreaAddress, { foreignKey: 'RecAreaID' });
 RecAreaAddress.belongsTo(RecAreas, { foreignKey: 'RecAreaID', targetKey: 'RecAreaID' });
 RecAreas.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
 Activities.belongsToMany(RecAreas, { through: 'EntityActivities', foreignKey: 'ActivityID' }); 
-RecAreas.hasMany(EntityLinks);
-EntityLinks.belongsTo(RecAreas);
+RecAreas.hasMany(EntityLinks, {foreignKey: 'EntityID'});
+EntityLinks.belongsTo(RecAreas, {foreignKey: 'EntityID'});
 RecAreas.hasMany(EntityMedia);
 EntityMedia.belongsTo(RecAreas);
 
@@ -375,8 +372,8 @@ Facilities.hasOne(FacilitiesAddress);
 FacilitiesAddress.belongsTo(Facilities);
 Facilities.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
 Activities.belongsToMany(Facilities, { through: 'EntityActivities', foreignKey: 'ActivityID' });
-Facilities.hasMany(EntityLinks); 
-EntityLinks.belongsTo(Facilities);
+Facilities.hasMany(EntityLinks, {foreignKey: 'EntityID'}); 
+EntityLinks.belongsTo(Facilities, {foreignKey: 'EntityID'});
 Facilities.hasMany(EntityMedia); 
 EntityMedia.belongsTo(Facilities);
 Facilities.hasMany(Tours);

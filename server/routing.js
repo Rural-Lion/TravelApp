@@ -17,4 +17,8 @@ module.exports = function(app, express) {
   // Get Addresses for RecAreas and Facilities
   // app.get('/recAddress', routeLogic.getRecAddress);
   // app.get('/facilityAddress', routeLogic.getFacilityAddress);
+
+  // Get EntityLinks for RecAreas and Facilities
+  app.get('/recLinks', routeLogic.getRecLinks);
+  app.get('/facilityLinks', routeLogic.getFacilityLinks);
 }
