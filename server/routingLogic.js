@@ -1,6 +1,26 @@
 let Sequelize = require('sequelize');
 let schemas = require('../database/schemas.js');
 
+module.exports.getRecArea = function(req, res) {
+  let {query: {recArea}} = req;
+  schemas.recAreas.findOne({
+    where: {RecAreaName: recArea}
+  }).then(function(recreationArea) {
+    res.send(recreationArea);
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getFacility = function(req, res) {
+  let {query: {facility}} = req;
+  schemas.facilities.findOne({
+    where: {FacilityName: facility}
+  }).then(function(fac) {
+    res.send(fac);
+  })
+  .catch((err) => console.log('error', err));
+};
+
 module.exports.getRecOrganization = function(req, res) {
   let {query: { recArea }} = req;
   schemas.recAreas.findOne({ 
@@ -42,4 +62,19 @@ module.exports.getRecActivities = function(req, res) {
     });
   })
   .catch((err) => console.log('error', err));
-}
+};
+
+module.exports.getFacilitiesActivities = function(req, res) {
+  let {query: { facility }} = req;
+  schemas.facilities.findOne({
+    where: {FacilityName: facility}
+  }).then(function(fac) {
+    console.log(fac);
+    fac.getActivities()
+    .then(function(activities) {
+      console.log(activities);
+      res.send(activities);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
