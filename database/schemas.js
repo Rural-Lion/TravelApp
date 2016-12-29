@@ -359,8 +359,8 @@ RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'Ent
 Organizations.belongsToMany(Facilities, { through: 'orgEntities', foreignKey: 'OrgID' });
 Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
 
-RecAreas.hasOne(RecAreaAddress, { through: 'RecAreaID' });
-RecAreaAddress.belongsTo(RecAreas);
+RecAreas.hasOne(RecAreaAddress, { foreignKey: 'RecAreaID', targetKey: 'RecAreaID' });
+RecAreaAddress.belongsTo(RecAreas, { foreignKey: 'RecAreaID', targetKey: 'RecAreaID' });
 RecAreas.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
 Activities.belongsToMany(RecAreas, { through: 'EntityActivities', foreignKey: 'ActivityID' }); 
 RecAreas.hasMany(EntityLinks);
@@ -399,6 +399,10 @@ Campsites.hasMany(Attributes);
 Attributes.belongsTo(Campsites, { foreignKey: 'EntityID' }); 
 Campsites.hasMany(PermittedEquipment);
 PermittedEquipment.belongsTo(Campsites); 
+
+db.sync().then(() => {
+  console.log('Syncing Sequelize Relationships');
+});
 
 // Still need to 
 // 1. Incorporate Trails

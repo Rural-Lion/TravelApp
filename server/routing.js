@@ -1,7 +1,8 @@
 const routeLogic= require('./routingLogic');
 
 module.exports = function(app, express) {
-  // Get RecAreas and Facilities
+
+  // Get RecAreas and Facilities Info
   app.get('/recArea', routeLogic.getRecArea);
   app.get('/facility', routeLogic.getFacility);
 

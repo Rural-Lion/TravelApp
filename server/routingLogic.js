@@ -78,3 +78,18 @@ module.exports.getFacilitiesActivities = function(req, res) {
   })
   .catch((err) => console.log('error', err));
 };
+
+module.exports.getRecAddress = function(req, res) {
+  let {query: {recArea}} = req;
+  schemas.recAreas.findOne({
+    where: {RecAreaName: recArea},
+    include: [{ 
+      model: schemas.recAreaAddress
+    }]
+  })
+  .then(function(address) {
+    console.log(address);
+    res.send(address);
+  })
+  .catch((err) => console.log('error', err));
+};
