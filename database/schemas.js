@@ -354,51 +354,55 @@ RecAreasFacilities.sync().then(() => {
 /// Sequelize Relationships ///
 ///////////////////////////////
 
-Organizations.belongsToMany(RecAreas, { through: 'orgEntities' }); 
+Organizations.belongsToMany(RecAreas, { through: 'orgEntities', foreignKey: 'OrgID' }); 
 RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
-Organizations.belongsToMany(Facilities, { through: 'orgEntities' });
+Organizations.belongsToMany(Facilities, { through: 'orgEntities', foreignKey: 'OrgID' });
 Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
 
-RecAreas.hasOne(RecAreaAddress);
-RecAreaAddress.belongsTo(RecAreas);
-RecAreas.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
-Activities.belongsToMany(RecAreas, { through: 'EntityActivity' }); 
-RecAreas.hasMany(EntityLinks);
-EntityLinks.belongsTo(RecAreas);
-RecAreas.hasMany(EntityMedia);
-EntityMedia.belongsTo(RecAreas);
+RecAreas.hasOne(RecAreaAddress, { foreignKey: 'RecAreaID' });
+RecAreaAddress.belongsTo(RecAreas, { foreignKey: 'RecAreaID' });
+RecAreas.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
+Activities.belongsToMany(RecAreas, { through: 'EntityActivities', foreignKey: 'ActivityID' }); 
+RecAreas.hasMany(EntityLinks, {foreignKey: 'EntityID'});
+EntityLinks.belongsTo(RecAreas, {foreignKey: 'EntityID'});
+RecAreas.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(RecAreas, {foreignKey: 'EntityID' });
 
-Facilities.hasOne(FacilitiesAddress);
-FacilitiesAddress.belongsTo(Facilities);
-Facilities.belongsToMany(Activities, { through: 'EntityActivity', foreignKey: 'EntityID' }); 
-Activities.belongsToMany(Facilities, { through: 'EntityActivity' });
-Facilities.hasMany(EntityLinks); 
-EntityLinks.belongsTo(Facilities);
-Facilities.hasMany(EntityMedia); 
-EntityMedia.belongsTo(Facilities);
-Facilities.hasMany(Tours);
-Tours.belongsTo(Facilities);
-Facilities.hasMany(Campsites);
-Campsites.belongsTo(Facilities);
-Facilities.hasMany(PermitEntrance);
-PermitEntrance.belongsTo(Facilities);
+Facilities.hasOne(FacilitiesAddress, { foreignKey: 'FacilityID' });
+FacilitiesAddress.belongsTo(Facilities, { foreignKey: 'FacilityID' });
+Facilities.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
+Activities.belongsToMany(Facilities, { through: 'EntityActivities', foreignKey: 'ActivityID' });
+Facilities.hasMany(EntityLinks, { foreignKey: 'EntityID' }); 
+EntityLinks.belongsTo(Facilities, { foreignKey: 'EntityID' });
+Facilities.hasMany(EntityMedia, { foreignKey: 'EntityID' }); 
+EntityMedia.belongsTo(Facilities, { foreignKey: 'EntityID' });
+Facilities.hasMany(Tours, { foreignKey: 'FacilityID' });
+Tours.belongsTo(Facilities, { foreignKey: 'FacilityID' });
+Facilities.hasMany(Campsites, { foreignKey: 'FacilityID' });
+Campsites.belongsTo(Facilities, { foreignKey: 'FacilityID' });
+Facilities.hasMany(PermitEntrance, { foreignKey: 'FacilityID' });
+PermitEntrance.belongsTo(Facilities, { foreignKey: 'FacilityID' });
 
-Tours.hasMany(EntityMedia);
-EntityMedia.belongsTo(Tours);
-Tours.hasMany(Attributes);
+Tours.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(Tours, {foreignKey: 'EntityID' });
+Tours.hasMany(Attributes, {foreignKey: 'EntityID' });
 Attributes.belongsTo(Tours, { foreignKey: 'EntityID' }); 
 
-PermitEntrance.hasMany(EntityMedia);
-EntityMedia.belongsTo(PermitEntrance);
-PermitEntrance.hasMany(Attributes);
+PermitEntrance.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(PermitEntrance, {foreignKey: 'EntityID' });
+PermitEntrance.hasMany(Attributes, {foreignKey: 'EntityID' });
 Attributes.belongsTo(PermitEntrance, { foreignKey: 'EntityID' }); 
 
-Campsites.hasMany(EntityMedia);
-EntityMedia.belongsTo(Campsites);
-Campsites.hasMany(Attributes);
+Campsites.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(Campsites, {foreignKey: 'EntityID' });
+Campsites.hasMany(Attributes, {foreignKey: 'EntityID' });
 Attributes.belongsTo(Campsites, { foreignKey: 'EntityID' }); 
-Campsites.hasMany(PermittedEquipment);
-PermittedEquipment.belongsTo(Campsites); 
+Campsites.hasMany(PermittedEquipment, { foreignKey: 'CampsiteID' });
+PermittedEquipment.belongsTo(Campsites, { foreignKey: 'CampsiteID' }); 
+
+db.sync().then(() => {
+  console.log('Syncing Sequelize Relationships');
+});
 
 // Still need to 
 // 1. Incorporate Trails
@@ -419,6 +423,8 @@ module.exports = {
   permittedEquipment: PermittedEquipment,
   campsites: Campsites,
   orgEntities: OrgEntity,
-  entityActivity: EntityActivity
+  entityActivity: EntityActivity,
+  recAreasFacilities: RecAreasFacilities,
+  trails: Trails
 };
 
