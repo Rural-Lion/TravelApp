@@ -227,3 +227,21 @@ module.exports.getFacilityPermitEntrances = function(req, res) {
   })
   .catch((err) => console.log('error', err));
 };
+
+module.exports.getTourMedia = function(req, res) {
+  let {query: {tour}} = req;
+  console.log("getting in here");
+  schemas.tours.findOne({
+    where: {TourName: tour}
+  })
+  .then(function(tour) {
+    console.log(tour);
+    tour.getEntityMedia()
+    .then(function(media) {
+      console.log(media);
+      res.send(media);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
