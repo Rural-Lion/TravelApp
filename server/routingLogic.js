@@ -193,3 +193,37 @@ module.exports.getFacilityTours = function(req, res) {
   })
   .catch((err) => console.log('error', err));
 };
+
+module.exports.getFacilityCampsites = function(req, res) {
+  let {query: {facility}} = req;
+  console.log("getting in here");
+  schemas.facilities.findOne({
+    where: {FacilityName: facility}
+  })
+  .then(function(fac) {
+    console.log(fac);
+    fac.getCampsites()
+    .then(function(campsites) {
+      console.log(campsites);
+      res.send(campsites);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getFacilityCampsites = function(req, res) {
+  let {query: {facility}} = req;
+  console.log("getting in here");
+  schemas.facilities.findOne({
+    where: {FacilityName: facility}
+  })
+  .then(function(fac) {
+    console.log(fac);
+    fac.getCampsites()
+    .then(function(campsites) {
+      console.log(campsites);
+      res.send(campsites);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
