@@ -28,6 +28,11 @@ module.exports = function(app, express) {
 
   // Get Tours for Facilities
   app.get('/facilityTours', routeLogic.getFacilityTours);
-  
+
+  // Get Facility Campsites
+  app.get('/facilityCampsites', routeLogic.getFacilityCampsites);
+
+  // Get Facility Permit Entrances
+  // app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances);
 
 }

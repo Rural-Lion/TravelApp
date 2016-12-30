@@ -211,7 +211,7 @@ module.exports.getFacilityCampsites = function(req, res) {
   .catch((err) => console.log('error', err));
 };
 
-module.exports.getFacilityCampsites = function(req, res) {
+module.exports.getFacilityPermitEntrances = function(req, res) {
   let {query: {facility}} = req;
   console.log("getting in here");
   schemas.facilities.findOne({
@@ -219,10 +219,10 @@ module.exports.getFacilityCampsites = function(req, res) {
   })
   .then(function(fac) {
     console.log(fac);
-    fac.getCampsites()
-    .then(function(campsites) {
-      console.log(campsites);
-      res.send(campsites);
+    fac.getPermitEntrance()
+    .then(function(entrances) {
+      console.log(entrances);
+      res.send(entrances);
     });
   })
   .catch((err) => console.log('error', err));

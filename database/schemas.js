@@ -385,20 +385,20 @@ PermitEntrance.belongsTo(Facilities, { foreignKey: 'FacilityID' });
 
 Tours.hasMany(EntityMedia, {foreignKey: 'EntityID' });
 EntityMedia.belongsTo(Tours, {foreignKey: 'EntityID' });
-Tours.hasMany(Attributes);
+Tours.hasMany(Attributes, {foreignKey: 'EntityID' });
 Attributes.belongsTo(Tours, { foreignKey: 'EntityID' }); 
 
 PermitEntrance.hasMany(EntityMedia, {foreignKey: 'EntityID' });
 EntityMedia.belongsTo(PermitEntrance, {foreignKey: 'EntityID' });
-PermitEntrance.hasMany(Attributes);
+PermitEntrance.hasMany(Attributes, {foreignKey: 'EntityID' });
 Attributes.belongsTo(PermitEntrance, { foreignKey: 'EntityID' }); 
 
 Campsites.hasMany(EntityMedia, {foreignKey: 'EntityID' });
 EntityMedia.belongsTo(Campsites, {foreignKey: 'EntityID' });
-Campsites.hasMany(Attributes);
+Campsites.hasMany(Attributes, {foreignKey: 'EntityID' });
 Attributes.belongsTo(Campsites, { foreignKey: 'EntityID' }); 
-Campsites.hasMany(PermittedEquipment);
-PermittedEquipment.belongsTo(Campsites); 
+Campsites.hasMany(PermittedEquipment, { foreignKey: 'CampsiteID' });
+PermittedEquipment.belongsTo(Campsites, { foreignKey: 'CampsiteID' }); 
 
 db.sync().then(() => {
   console.log('Syncing Sequelize Relationships');
