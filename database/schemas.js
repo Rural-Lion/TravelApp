@@ -368,8 +368,8 @@ EntityLinks.belongsTo(RecAreas, {foreignKey: 'EntityID'});
 RecAreas.hasMany(EntityMedia, {foreignKey: 'EntityID' });
 EntityMedia.belongsTo(RecAreas, {foreignKey: 'EntityID' });
 
-Facilities.hasOne(FacilitiesAddress);
-FacilitiesAddress.belongsTo(Facilities);
+Facilities.hasOne(FacilitiesAddress, { foreignKey: 'FacilityID' });
+FacilitiesAddress.belongsTo(Facilities, { foreignKey: 'FacilityID' });
 Facilities.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
 Activities.belongsToMany(Facilities, { through: 'EntityActivities', foreignKey: 'ActivityID' });
 Facilities.hasMany(EntityLinks, {foreignKey: 'EntityID' }); 

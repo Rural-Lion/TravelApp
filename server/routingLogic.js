@@ -94,6 +94,21 @@ module.exports.getRecAddress = function(req, res) {
   .catch((err) => console.log('error', err));
 };
 
+module.exports.getFacilityAddress = function(req, res) {
+  let {query: {facility}} = req;
+  schemas.facilities.findOne({
+    where: {FacilityName: facility}
+  })
+  .then(function(fac) {
+    fac.getFacilitiesAddress()
+    .then(function(address) {
+      console.log(address);
+      res.send(address);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
 module.exports.getRecLinks = function(req, res) {
   let {query: {recArea}} = req;
   console.log("getting in here");
