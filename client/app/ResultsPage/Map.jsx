@@ -2,22 +2,42 @@ import React, { Component, PropTypes } from 'react';
 import {FancyBorder} from '../helpers.js';
 
 class Map extends Component {
-  constructor() {
-    super();
-    this.state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      //start: props.userQuery.startingLocation
+    };
   }
-  componentDidMount() {
-    this.map = new google.maps.Map(this.refs.map, {
-      center: {lat: 37.775, lng: -122.419},
-      zoom: 10
+  initMap(ref) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'address': this.props.userQuery.startingLocation}, function(results, status) {
+      console.log("GEOCODING", results, status);
+      if (status === 'OK') {
+        console.log("status OK")
+        this.map = new google.maps.Map(ref, {
+          center: results[0].geometry.location,
+          zoom: 10
+        });
+      } else {
+        this.map = new google.maps.Map(ref, {
+          center: {lat: 37.775, lng: -122.419},
+          zoom: 10
+        });
+      }
     });
+  };
+  componentDidMount() {
+    this.initMap(this.refs.map);
   }
   //GOOGLE MAPS JS API:
   render() {
+    this.initMap(this.refs.map);
+    let query = this.props.userQuery.startingLocation;
     return (
       <div>
         <div className="row">
           <h1 className="text-center">Results Map</h1>
+          <p>test test test {query}</p>
         </div>
         <div className="row mapContainer" ref="map">
         </div>

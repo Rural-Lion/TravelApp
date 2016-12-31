@@ -24,7 +24,7 @@ class App extends Component {
       userQuery: {
         budgetOfTrip: 0,
         lengthOfTrip: 0,
-        startingLocation: 'honolulu',
+        startingLocation: '',
         distanceOfTrip: 0,
       },
       // users interests, generated from clicking interest buttons on landing page
@@ -57,7 +57,7 @@ class App extends Component {
     userQuery[key] = e.target.value;
     this.setState({
       userQuery: userQuery
-    });
+    }, () => {console.log(userQuery.startingLocation)});
   }
 
   handlePlanButtonClick() {
@@ -68,7 +68,7 @@ class App extends Component {
       }, () => {console.log("Activities", this.state.activities)});
     });
   }
-
+  
   render() {
     return (
       <FancyBorder color="red">
