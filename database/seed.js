@@ -259,7 +259,7 @@ const trailsCaching = () => {
 // delayCall(entityLinksSet, caching, 0, schemas.entityLinks);
 // delayCall(entityMediaSet, caching, 0, schemas.entityMedia);
 // caching(toursData, schemas.tours);
-// delayCall(attributesSet, caching, 0, schemas.attributes);
+delayCall(attributesSet, caching, 0, schemas.attributes);
 // delayCall(permitEntranceSet, caching, 0, schemas.permitEntrance);
 // delayCall(permittedEquipmentSet, caching, 0, schemas.permittedEquipment);
 // delayCall(CampsitesSet, caching, 0, schemas.campsites);

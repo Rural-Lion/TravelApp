@@ -245,3 +245,37 @@ module.exports.getTourMedia = function(req, res) {
   .catch((err) => console.log('error', err));
 };
 
+module.exports.getTourAttributes = function(req, res) {
+  let {query: {tour}} = req;
+  console.log("getting in here");
+  schemas.tours.findOne({
+    where: {TourName: tour}
+  })
+  .then(function(tour) {
+    console.log(tour);
+    tour.getAttributes()
+    .then(function(attributes) {
+      console.log(attributes);
+      res.send(attributes);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getCampsitesEquipment = function(req, res) {
+  let {query: {campsite}} = req;
+  console.log("getting in here");
+  schemas.campsites.findOne({
+    where: {CampsiteName: campsite}
+  })
+  .then(function(camp) {
+    console.log(camp);
+    camp.getPermittedEquipment()
+    .then(function(equipment) {
+      console.log(equipment);
+      res.send(equipment);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+

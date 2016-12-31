@@ -33,10 +33,13 @@ module.exports = function(app, express) {
   app.get('/facilityCampsites', routeLogic.getFacilityCampsites);
 
   // Get Facility Permit Entrances
-  // app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances);
+  // app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances); // error get function is not defined
 
   // Get Entitymedia and Attributes for Tours
   app.get('/tourMedia', routeLogic.getTourMedia);
-  // app.get('/tourAttributes', routeLogic.getTourAttributes);
+  app.get('/tourAttributes', routeLogic.getTourAttributes); // couldn't load attributes into database???
+
+  // Get Campsite Equipment
+  app.get('/campsiteEquipment', routeLogic.getCampsitesEquipment); // error get function is not defined
 
 }
