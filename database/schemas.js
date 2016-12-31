@@ -217,6 +217,7 @@ PermitEntrance.sync().then(() => {
 });
 
 const PermittedEquipment = db.define('permittedEquipment', {
+  CampsiteID: Sequelize.INTEGER,
   EquipmentName: Sequelize.STRING,
   MaxLength: Sequelize.INTEGER
 });
