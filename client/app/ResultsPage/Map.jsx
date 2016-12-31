@@ -8,7 +8,9 @@ class Map extends Component {
       //start: props.userQuery.startingLocation
     };
   }
+   //GOOGLE MAPS JS API:
   initMap(ref) {
+    console.log("initMap called")
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': this.props.userQuery.startingLocation}, function(results, status) {
       console.log("GEOCODING", results, status);
@@ -19,6 +21,7 @@ class Map extends Component {
           zoom: 10
         });
       } else {
+        console.log("status not ok")
         this.map = new google.maps.Map(ref, {
           center: {lat: 37.775, lng: -122.419},
           zoom: 10
@@ -29,10 +32,10 @@ class Map extends Component {
   componentDidMount() {
     this.initMap(this.refs.map);
   }
-  //GOOGLE MAPS JS API:
+ 
   render() {
-    this.initMap(this.refs.map);
     let query = this.props.userQuery.startingLocation;
+    if (query) this.initMap(this.refs.map);
     return (
       <div>
         <div className="row">
