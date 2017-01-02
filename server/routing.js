@@ -35,6 +35,9 @@ module.exports = function(app, express) {
   // Get Facility Permit Entrances
   app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances); 
 
+  // Get activities for RecArea and Facility
+  app.get('/activities', routeLogic.getActivities);
+
   // Get Entitymedia and Attributes for Tours
   // app.get('/tourMedia', routeLogic.getTourMedia);
   // app.get('/tourAttributes', routeLogic.getTourAttributes); 
