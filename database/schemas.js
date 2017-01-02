@@ -313,7 +313,7 @@ const Trails = db.define('trails', {
   TrailCn: Sequelize.STRING(50)
 })
 
-Trails.sync({force: true}).then(() => {
+Trails.sync().then(() => {
   console.log('Trails created successfully');
 });
 
