@@ -11,23 +11,42 @@ import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import Map from './Map.jsx';
 
-const ResultsPage = props => (
-  <div className="resultsPage">
-    <FancyBorder color="orange">
-      <div className="row">
-        <NavBar />
+
+class ResultsPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userQuery: props.userQuery,
+      entities: props.entities,
+    };
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      userQuery: nextProps.userQuery,
+      entities: nextProps.entities,
+    });
+  }
+  render() {
+    return (
+      <div className="resultsPage">
+        <FancyBorder color="orange">
+          <div className="row">
+            <NavBar />
+          </div>
+          <div className="row mapAndList">
+            <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
+              <Map userQuery={this.state.userQuery} entities={this.state.entities} />
+            </div>
+            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <EntityList entities={this.state.entities} />
+            </div>
+          </div>
+        </FancyBorder>
       </div>
-      <div className="row mapAndList">
-        <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
-          <Map userQuery={props.userQuery} entities={props.entities} />
-        </div>
-        <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <EntityList entities={props.entities} />
-        </div>
-      </div>
-    </FancyBorder>
-  </div>
-  );
+    );
+  }
+}
+
 
 ResultsPage.propTypes = {
   userQuery: PropTypes.object,
