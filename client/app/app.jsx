@@ -6,13 +6,13 @@
       // interestButton
   // ResultsPage
     // NavBar
-    // ActivityList
-      // ActivityListEntry
+    // EntityList
+      // EntityListEntry
     // Map
 
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
-import {INTERESTS, generateActivities, FancyBorder} from './helpers.js';
+import { INTERESTS, generateActivities, FancyBorder } from './helpers.js';
 import LandingPage from './LandingPage/LandingPage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
 
@@ -30,7 +30,7 @@ class App extends Component {
       // users interests, generated from clicking interest buttons on landing page
       userInterests: [],
       // list of results, generated from api call, used by results page
-      activities: [],
+      entities: [],
     };
 
     this.handleInterestButtonClick = this.handleInterestButtonClick.bind(this);
@@ -48,7 +48,7 @@ class App extends Component {
     }
     this.setState({
       userInterests: newArray,
-    });   
+    });
   }
 
   handleInputOnChange(e) {
@@ -56,19 +56,19 @@ class App extends Component {
     const key = e.target.dataset.tag;
     userQuery[key] = e.target.value;
     this.setState({
-      userQuery: userQuery
-    }, () => {console.log(userQuery.startingLocation)});
+      userQuery,
+    }, () => { console.log(userQuery.startingLocation); });
   }
 
   handlePlanButtonClick() {
     axios.get('https://ridb.recreation.gov/api/v1/recareas?apiKey=2CE3A404B8824CFEA7652104FCEEE328&full=TRUE&limit=10')
     .then((res) => {
       this.setState({
-        activities: generateActivities(res.data.RECDATA),
-      }, () => {console.log("Activities", this.state.activities)});
+        entities: generateActivities(res.data.RECDATA),
+      }, () => { console.log('Activities', this.state.activities); });
     });
   }
-  
+
   render() {
     return (
       <FancyBorder color="red">
@@ -81,7 +81,7 @@ class App extends Component {
         <ResultsPage
           activities={this.state.activities}
           userQuery={this.state.userQuery}
-          selectedActivities={this.state.activities}
+          entities={this.state.entities}
         />
       </FancyBorder>
     );

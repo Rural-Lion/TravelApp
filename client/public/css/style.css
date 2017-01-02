@@ -1,4 +1,4 @@
-/*.FancyBorder {
+.FancyBorder {
   border: 3px solid black;
 }
 
@@ -20,7 +20,7 @@
 }
 .FancyBorder-blue {
   border-color: blue;
-}*/
+}
 
 .FancyBorder-purple {
   border-color: purple;
@@ -73,19 +73,19 @@
   border: 2px solid black;
 }
 
-.activityListEntry {
+.EntityListEntry {
   border: 2px solid black;
   margin: 5px;
 }
 
-.activityList {
+.EntityList {
   background-color: white;
   overflow-y: auto;
   height: 80vh;
   border: 2px solid black;
 }
 
-.activityListContainer {
+.EntityListContainer {
   margin: 5px
 }
 

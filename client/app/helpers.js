@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-//interests for interest buttons are hard coded in
-const INTERESTS = ['hiking', 'skiing', 'boating', 'historical', 'mountains', 'fishing'];
+// interests for interest buttons are hard coded in
+const INTERESTS = ['biking', 'boating', 'historic & cultural site', 'camping', 'fishing', 'hiking', 'off highway vehicle', 'picnicking', 'recreational vehicles', 'visitor center', 'water sports', 'wildlife viewing', 'other recreation concession site'];
 
 // function for creating objects from the results of api request to the US website
 const generateActivities = res => res.map(({
@@ -15,7 +15,7 @@ const generateActivities = res => res.map(({
                    MEDIA,
                }) => {
   const activities = ACTIVITY.map(({ ActivityName }) => ActivityName);
-  
+
   return {
     img: MEDIA,
     name: RecAreaName,
@@ -45,4 +45,4 @@ FancyBorder.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
 };
 
-export {INTERESTS, generateActivities, FancyBorder};
+export { INTERESTS, generateActivities, FancyBorder };
