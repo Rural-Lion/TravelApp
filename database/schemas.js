@@ -217,6 +217,7 @@ PermitEntrance.sync().then(() => {
 });
 
 const PermittedEquipment = db.define('permittedEquipment', {
+  CampsiteID: Sequelize.INTEGER,
   EquipmentName: Sequelize.STRING,
   MaxLength: Sequelize.INTEGER
 });
@@ -354,15 +355,15 @@ RecAreasFacilities.sync().then(() => {
 /// Sequelize Relationships ///
 ///////////////////////////////
 
-Organizations.belongsToMany(RecAreas, { through: 'orgEntities', foreignKey: 'OrgID' }); 
-RecAreas.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
-Organizations.belongsToMany(Facilities, { through: 'orgEntities', foreignKey: 'OrgID' });
-Facilities.belongsToMany(Organizations, { through: 'orgEntities', foreignKey: 'EntityID' });
+Organizations.belongsToMany(RecAreas, { through: 'orgentities', foreignKey: 'OrgID' }); 
+RecAreas.belongsToMany(Organizations, { through: 'orgentities', foreignKey: 'EntityID' });
+Organizations.belongsToMany(Facilities, { through: 'orgentities', foreignKey: 'OrgID' });
+Facilities.belongsToMany(Organizations, { through: 'orgentities', foreignKey: 'EntityID' });
 
 RecAreas.hasOne(RecAreaAddress, { foreignKey: 'RecAreaID' });
 RecAreaAddress.belongsTo(RecAreas, { foreignKey: 'RecAreaID' });
-RecAreas.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
-Activities.belongsToMany(RecAreas, { through: 'EntityActivities', foreignKey: 'ActivityID' }); 
+RecAreas.belongsToMany(Activities, { through: 'entityactivities', foreignKey: 'EntityID' }); 
+Activities.belongsToMany(RecAreas, { through: 'entityactivities', foreignKey: 'ActivityID' }); 
 RecAreas.hasMany(EntityLinks, {foreignKey: 'EntityID'});
 EntityLinks.belongsTo(RecAreas, {foreignKey: 'EntityID'});
 RecAreas.hasMany(EntityMedia, {foreignKey: 'EntityID' });
@@ -370,8 +371,8 @@ EntityMedia.belongsTo(RecAreas, {foreignKey: 'EntityID' });
 
 Facilities.hasOne(FacilitiesAddress, { foreignKey: 'FacilityID' });
 FacilitiesAddress.belongsTo(Facilities, { foreignKey: 'FacilityID' });
-Facilities.belongsToMany(Activities, { through: 'EntityActivities', foreignKey: 'EntityID' }); 
-Activities.belongsToMany(Facilities, { through: 'EntityActivities', foreignKey: 'ActivityID' });
+Facilities.belongsToMany(Activities, { through: 'entityactivities', foreignKey: 'EntityID' }); 
+Activities.belongsToMany(Facilities, { through: 'entityactivities', foreignKey: 'ActivityID' });
 Facilities.hasMany(EntityLinks, { foreignKey: 'EntityID' }); 
 EntityLinks.belongsTo(Facilities, { foreignKey: 'EntityID' });
 Facilities.hasMany(EntityMedia, { foreignKey: 'EntityID' }); 

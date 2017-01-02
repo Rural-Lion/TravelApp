@@ -33,6 +33,16 @@ module.exports = function(app, express) {
   app.get('/facilityCampsites', routeLogic.getFacilityCampsites);
 
   // Get Facility Permit Entrances
-  // app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances);
+  app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances); 
+
+  // Get activities for RecArea and Facility
+  app.get('/activities', routeLogic.getActivities);
+
+  // Get Entitymedia and Attributes for Tours
+  // app.get('/tourMedia', routeLogic.getTourMedia);
+  // app.get('/tourAttributes', routeLogic.getTourAttributes); 
+
+  // Get Campsite Equipment
+  // app.get('/campsiteEquipment', routeLogic.getCampsitesEquipment); 
 
 }

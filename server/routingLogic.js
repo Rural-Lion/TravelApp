@@ -4,7 +4,11 @@ let schemas = require('../database/schemas.js');
 module.exports.getRecArea = function(req, res) {
   let {query: {recArea}} = req;
   schemas.recAreas.findOne({
-    where: {RecAreaName: recArea}
+    where: {RecAreaName: recArea},
+    include: [
+      {model: schemas.recAreaAddress}, 
+      {model: schemas.activities}
+      ]
   }).then(function(recreationArea) {
     res.send(recreationArea);
   })
@@ -28,7 +32,7 @@ module.exports.getRecOrganization = function(req, res) {
   }).then(function(recreationArea) {
     recreationArea.getOrganizations()
     .then(function(organization) {
-      console.log(organization);
+      console.log("organization for recArea", organization);
       res.send(organization[0].OrgName);
     });
   })
@@ -224,6 +228,72 @@ module.exports.getFacilityPermitEntrances = function(req, res) {
       console.log(entrances);
       res.send(entrances);
     });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getTourMedia = function(req, res) {
+  let {query: {tour}} = req;
+  console.log("getting in here");
+  schemas.tours.findOne({
+    where: {TourName: tour}
+  })
+  .then(function(tour) {
+    console.log(tour);
+    tour.getEntityMedia()
+    .then(function(media) {
+      console.log(media);
+      res.send(media);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getTourAttributes = function(req, res) {
+  let {query: {tour}} = req;
+  console.log("getting in here");
+  schemas.tours.findOne({
+    where: {TourName: tour}
+  })
+  .then(function(tour) {
+    console.log(tour);
+    tour.getAttributes()
+    .then(function(attributes) {
+      console.log(attributes);
+      res.send(attributes);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getCampsitesEquipment = function(req, res) {
+  let {query: {campsite}} = req;
+  console.log("getting in here");
+  schemas.campsites.findOne({
+    where: {CampsiteName: campsite}
+  })
+  .then(function(camp) {
+    console.log(camp);
+    camp.getPermittedEquipment()
+    .then(function(equipment) {
+      console.log(equipment);
+      res.send(equipment);
+    });
+  })
+  .catch((err) => console.log('error', err));
+};
+
+module.exports.getActivities = function(req, res) {
+  let {query: {activity}} = req;
+  schemas.activities.findOne({
+    where: {ActivityName: activity},
+    include: [
+      {model: schemas.recAreas}, 
+      {model: schemas.facilities}
+      ]
+  }).then(function(activity) {
+    console.log(activity);
+    res.send(activity);
   })
   .catch((err) => console.log('error', err));
 };
