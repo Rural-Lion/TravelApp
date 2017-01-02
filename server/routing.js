@@ -33,7 +33,7 @@ module.exports = function(app, express) {
   app.get('/facilityCampsites', routeLogic.getFacilityCampsites);
 
   // Get Facility Permit Entrances
-  // app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances); 
+  app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances); 
 
   // Get Entitymedia and Attributes for Tours
   // app.get('/tourMedia', routeLogic.getTourMedia);
