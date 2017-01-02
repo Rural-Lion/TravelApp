@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import {FancyBorder} from '../helpers.js';
+import { FancyBorder } from '../helpers.js';
 
 
-const ActivityListEntry = props => (
+const EntityListEntry = props => (
   <FancyBorder color="green">
-    <div className="row activityListEntry">
+    <div className="row EntityListEntry">
       <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <FancyBorder color="blue"><div className="text-center">{props.index}</div></FancyBorder>
       </div>
@@ -38,9 +38,9 @@ const ActivityListEntry = props => (
   </FancyBorder>
   );
 
-ActivityListEntry.propTypes = {
+EntityListEntry.propTypes = {
   activity: PropTypes.object,
   index: PropTypes.number,
 };
 
-export default ActivityListEntry;
+export default EntityListEntry;
