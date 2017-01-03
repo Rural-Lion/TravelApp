@@ -21,7 +21,7 @@ const generateActivities = res => res.map(({
     name: RecAreaName,
     phoneNumber: RecAreaPhone,
     description: RecAreaDescription,
-    coordinates: [RecAreaLongitude, RecAreaLatitude],
+    coordinates: [RecAreaLatitude, RecAreaLongitude],
     address: `${RecAreaStreetAddress1} ${City}, ${AddressStateCode} ${PostalCode}`,
     activities,
   };

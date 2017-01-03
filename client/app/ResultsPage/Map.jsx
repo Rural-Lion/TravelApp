@@ -24,7 +24,7 @@ class Map extends Component {
     const props = this.props;
     geocoder.geocode({ address: this.props.userQuery.startingLocation }, (results, status) => {
       const locations = props.entities.map(
-      item => ({ lat: item.coordinates[1], lng: item.coordinates[0] }));
+      item => ({ lat: item.coordinates[0], lng: item.coordinates[1] }));
       if (status === 'OK') {
         map = new google.maps.Map(ref, {
           center: results[0].geometry.location,
@@ -49,12 +49,13 @@ class Map extends Component {
         { imagePath: './maps/img/m' });
     });
   }
+  getDirections() {
 
+  }
 
   render() {
     const query = this.props.userQuery.startingLocation;
     if (this.props.entities.length || query) {
-      console.log('rerendering');
       this.initMap(this.refs.map);
     }
     return (
@@ -89,7 +90,8 @@ class Map extends Component {
 }
 Map.propTypes = {
   userQuery: PropTypes.object,
-  entities: PropTypes.array,
+  entities: PropTypes.arrayOf(PropTypes.object),
+  waypoints: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Map;
