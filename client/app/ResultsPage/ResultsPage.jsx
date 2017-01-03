@@ -16,13 +16,11 @@ class ResultsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userQuery: props.userQuery,
       entities: props.entities,
     };
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      userQuery: nextProps.userQuery,
       entities: nextProps.entities,
     });
   }
@@ -35,7 +33,7 @@ class ResultsPage extends Component {
           </div>
           <div className="row mapAndList">
             <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
-              <Map userQuery={this.state.userQuery} entities={this.state.entities} />
+              <Map userQuery={this.props.userQuery} entities={this.state.entities} />
             </div>
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
               <EntityList entities={this.state.entities} />
