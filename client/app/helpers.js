@@ -27,17 +27,16 @@ const generateActivities = res => res.map(({
   };
 });
 
-const getCoordinates = function (location) {
-  let latLng;
+const getCoordinates = function (location, cb) {
   const geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: location }, (results, status) => {
     if (status === 'OK') {
-      latLng = results[0].geometry.location;
+      console.log('GEOCODING STATUS OK');
+      cb(results[0].geometry.location);
     } else {
-      latLng = null;
+      cb(null);
     }
   });
-  return latLng;
 };
 
 // for questions on the proptypes after the components, check it out on docs. they are pretty cool

@@ -58,32 +58,36 @@ class App extends Component {
     userQuery[key] = e.target.value;
     this.setState({
       userQuery,
-    }, () => { console.log(userQuery.startingLocation); });
+    });
   }
 
   handlePlanButtonClick() {
-    const latLng = getCoordinates(this.state.userQuery.startingLocation);
-    if (latLng) {
-      const userQuery = Object.assign({}, this.state.userQuery);
-      userQuery.startingLocationCoordinates = latLng;
-      this.setState(
-        userQuery,
-      );
-      axios.get('/entitiesWithinRadius', {
-        params: {
-          latitude: latLng.lat,
-          longitude: latLng.lng,
-          distance: this.state.userQuery.distanceOfTrip,
-          activities: this.state.userInterests,
-        },
-      })
-      .then((res) => {
-        console.log('RES', res);
-        this.setState({
-          entities: generateActivities(res.data.RECDATA),
-        }, () => { console.log('entities in app', this.state.entities); });
-      });
-    }
+    // TODO later - set the state somewhere to have the coordinates of staring location
+    //  const userQuery = Object.assign({}, this.state.userQuery);
+    //     userQuery.startingLocationCoordinates = latLng;
+    //     this.setState(
+    //       userQuery,
+    //     );
+    const state = this.state;
+    const sendRequest = function (latLng) {
+      if (latLng) {
+        axios.get('/entitiesWithinRadius', {
+          params: {
+            latitude: latLng.lat(),
+            longitude: latLng.lng(),
+            distance: state.userQuery.distanceOfTrip,
+            activities: JSON.stringify(state.userInterests),
+          },
+        })
+        .then((res) => {
+          console.log('RES', res);
+          this.setState({
+            entities: generateActivities(res.data.RECDATA),
+          }, () => { console.log('entities in app', state.entities); });
+        });
+      }
+    };
+    getCoordinates(this.state.userQuery.startingLocation, sendRequest);
   }
 
   render() {

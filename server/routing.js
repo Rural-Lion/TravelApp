@@ -1,10 +1,8 @@
-const routeLogic= require('./routingLogic');
+const routeLogic = require('./routingLogic');
 
-module.exports = function(app, express) {
-
+module.exports = function (app, express) {
   // Get Entites with Radius
   app.get('/entitiesWithinRadius', routeLogic.getEntitiesWithinRadius);
-
   // Get RecAreas and Facilities Info
   app.get('/recArea', routeLogic.getRecArea);
   app.get('/facility', routeLogic.getFacility);
@@ -17,7 +15,7 @@ module.exports = function(app, express) {
   app.get('/recActivities', routeLogic.getRecActivities);
   app.get('/facilityActivities', routeLogic.getFacilitiesActivities);
 
-  // Get Addresses for RecAreas and Facilities 
+  // Get Addresses for RecAreas and Facilities
   app.get('/recAddress', routeLogic.getRecAddress);
   app.get('/facilityAddress', routeLogic.getFacilityAddress);
 
@@ -36,16 +34,15 @@ module.exports = function(app, express) {
   app.get('/facilityCampsites', routeLogic.getFacilityCampsites);
 
   // Get Facility Permit Entrances
-  app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances); 
+  app.get('/facilityEntrances', routeLogic.getFacilityPermitEntrances);
 
   // Get activities for RecArea and Facility
   app.get('/activities', routeLogic.getActivities);
 
   // Get Entitymedia and Attributes for Tours
   // app.get('/tourMedia', routeLogic.getTourMedia);
-  // app.get('/tourAttributes', routeLogic.getTourAttributes); 
+  // app.get('/tourAttributes', routeLogic.getTourAttributes);
 
   // Get Campsite Equipment
-  // app.get('/campsiteEquipment', routeLogic.getCampsitesEquipment); 
-
-}
+  // app.get('/campsiteEquipment', routeLogic.getCampsitesEquipment);
+};
