@@ -68,26 +68,36 @@ class App extends Component {
     //     this.setState(
     //       userQuery,
     //     );
-    const state = this.state;
-    const sendRequest = function (latLng) {
-      if (latLng) {
-        axios.get('/entitiesWithinRadius', {
-          params: {
-            latitude: latLng.lat(),
-            longitude: latLng.lng(),
-            distance: state.userQuery.distanceOfTrip,
-            activities: JSON.stringify(state.userInterests),
-          },
-        })
-        .then((res) => {
-          console.log('RES', res);
-          this.setState({
-            entities: generateActivities(res.data.RECDATA),
-          }, () => { console.log('entities in app', state.entities); });
-        });
-      }
-    };
-    getCoordinates(this.state.userQuery.startingLocation, sendRequest);
+
+    // TO UNCOMMENT WHEN RESPONSE IS IN THE RIGHT FORMAT:
+    // const state = this.state;
+    // const sendRequest = function (latLng) {
+    //   if (latLng) {
+    //     axios.get('/entitiesWithinRadius', {
+    //       params: {
+    //         latitude: latLng.lat(),
+    //         longitude: latLng.lng(),
+    //         distance: state.userQuery.distanceOfTrip,
+    //         activities: JSON.stringify(state.userInterests),
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log('RES', res);
+    //       this.setState({
+    //         entities: generateActivities(res.data.RECDATA),
+    //       }, () => { console.log('entities in app', state.entities); });
+    //     });
+    //   }
+    // };
+    // getCoordinates(this.state.userQuery.startingLocation, sendRequest);
+
+
+    axios.get('https://ridb.recreation.gov/api/v1/recareas?apiKey=2CE3A404B8824CFEA7652104FCEEE328&full=TRUE&limit=10')
+    .then((res) => {
+      this.setState({
+        entities: generateActivities(res.data.RECDATA),
+      }, () => { console.log('entities in app', this.state.entities); });
+    });
   }
 
   render() {
