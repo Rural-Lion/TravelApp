@@ -30,16 +30,17 @@ class ResultsPage extends Component {
     });
   }
 
-  handleEntityClick(e, activity) {
-    console.log(e);
-    console.log(activity);
+  handleEntityClick(e, entity) {
     this.setState({
-      selectedEntity: activity,
+      selectedEntity: entity,
+      showModal: true,
     });
   }
 
   handleEntityModalCloseClick() {
-
+    this.setState({
+      showModal: false,
+    });
   }
 
   render() {
@@ -57,8 +58,8 @@ class ResultsPage extends Component {
               <EntityList entities={this.props.entities} handleEntityClick={this.handleEntityClick} />
             </div>
           </div>
-          <div className="conatiner">
-            {this.state.showModal ? <EntityPopup entity={this.state.selectedEntity} handleEntityModalCloseClick={this.state.handleEntityModalCloseClick} /> : null }
+          <div className="container">
+            {this.state.showModal ? <EntityPopup showModal={this.state.showModal} entity={this.state.selectedEntity} handleEntityModalCloseClick={this.handleEntityModalCloseClick} /> : null }
           </div>
         </FancyBorder>
       </div>
