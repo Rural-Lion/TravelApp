@@ -7,7 +7,10 @@ import EntityListEntry from './EntityListEntry.jsx';
 const EntityList = (props) => {
   const entities = props.entities;
   const entityList = entities.map((entity, index) =>
-    <EntityListEntry entity={entity} index={index} key={index} handleEntityClick={props.handleEntityClick} />);
+    <EntityListEntry
+entity={entity} index={index} key={index} handleEntityClick={props.handleEntityClick}
+      handleAddToItineraryClick={props.handleAddToItineraryClick}
+    />);
 
   return (
     <div>
@@ -29,6 +32,7 @@ const EntityList = (props) => {
 EntityList.propTypes = {
   entities: PropTypes.arrayOf(PropTypes.object),
   handleEntityClick: PropTypes.func,
+  handleAddToItineraryClick: PropTypes.func,
 };
 
 export default EntityList;

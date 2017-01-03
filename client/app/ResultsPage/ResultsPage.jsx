@@ -17,12 +17,14 @@ class ResultsPage extends Component {
     super(props);
     this.state = {
       entities: props.entities,
+      waypoints: [],
       selectedEntity: {},
       showModal: false,
     };
 
     this.handleEntityClick = this.handleEntityClick.bind(this);
     this.handleEntityModalCloseClick = this.handleEntityModalCloseClick.bind(this);
+    this.handleAddToItineraryClick = this.handleAddToItineraryClick.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -43,6 +45,19 @@ class ResultsPage extends Component {
     });
   }
 
+  handleAddToItineraryClick(e) {
+    const waypoints = this.state.waypoints.slice();
+    const indexOf = waypoints.indexOf(e.currentTarget.dataset.latlng);
+    if (indexOf === -1) {
+      waypoints.push(e.currentTarget.dataset.latlng);
+    } else {
+      waypoints.splice(indexOf, 1);
+    }
+    this.setState({
+      waypoints,
+    });
+  }
+
   render() {
     return (
       <div className="resultsPage">
@@ -55,7 +70,10 @@ class ResultsPage extends Component {
               <Map userQuery={this.props.userQuery} entities={this.state.entities} />
             </div>
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-              <EntityList entities={this.props.entities} handleEntityClick={this.handleEntityClick} />
+              <EntityList
+entities={this.props.entities} handleEntityClick={this.handleEntityClick}
+                handleAddToItineraryClick={this.handleAddToItineraryClick} 
+              />
             </div>
           </div>
           <div className="container">
