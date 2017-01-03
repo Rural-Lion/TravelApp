@@ -9,7 +9,7 @@ import { FancyBorder } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
-import Map from './Map.jsx';
+import MapContainer from './Map/MapContainer.jsx';
 
 
 class ResultsPage extends Component {
@@ -74,7 +74,7 @@ class ResultsPage extends Component {
           </div>
           <div className="row mapAndList">
             <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
-              <Map
+              <MapContainer
                 userQuery={this.props.userQuery}
                 entities={this.state.entities}
                 waypoints={this.state.waypoints}
