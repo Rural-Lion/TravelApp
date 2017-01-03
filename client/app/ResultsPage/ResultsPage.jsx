@@ -74,15 +74,11 @@ class ResultsPage extends Component {
           </div>
           <div className="row mapAndList">
             <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
-<<<<<<< HEAD
               <Map
                 userQuery={this.props.userQuery}
                 entities={this.state.entities}
                 waypoints={this.state.waypoints}
               />
-=======
-              <Map userQuery={this.props.userQuery} entities={this.state.entities} waypoints={this.state.waypoints} />
->>>>>>> MAP-FE:start directions functionality-EB
             </div>
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
               <EntityList
