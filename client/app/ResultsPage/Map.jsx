@@ -5,9 +5,7 @@ import { FancyBorder } from '../helpers.js';
 class Map extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // start: props.userQuery.startingLocation
-    };
+    this.state = {};
   }
 
   componentDidMount() {

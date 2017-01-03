@@ -12,7 +12,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
-import { INTERESTS, generateActivities, FancyBorder } from './helpers.js';
+import { INTERESTS, generateActivities, FancyBorder } from './helpers';
 import LandingPage from './LandingPage/LandingPage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
 
@@ -65,7 +65,7 @@ class App extends Component {
     .then((res) => {
       this.setState({
         entities: generateActivities(res.data.RECDATA),
-      }, () => { console.log('Activities', this.state.activities); });
+      }, () => { console.log('entities in app', this.state.entities) ;});
     });
   }
 
@@ -79,7 +79,6 @@ class App extends Component {
           handleChange={this.handleInputOnChange}
         />
         <ResultsPage
-          activities={this.state.activities}
           userQuery={this.state.userQuery}
           entities={this.state.entities}
         />
