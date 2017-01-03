@@ -44,7 +44,7 @@ const EntityPopup = props => (
                   <FancyBorder color="blue"><div>{props.entity.activities.join(', ').toLowerCase()}</div></FancyBorder>
                 </div>
               </div>
-              <div className="row">
+              <div className="row entityDescriptionRow">
                 <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 Description:
               </div>
