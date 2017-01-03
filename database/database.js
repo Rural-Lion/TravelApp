@@ -7,6 +7,9 @@ var db = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env
   port: process.env.DB_PORT,
   dialectOptions: {
     ssl: 'Amazon RDS'
+  },
+  pool: {
+    maxIdleTime: 30000
   }
 });
 

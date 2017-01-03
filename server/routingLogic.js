@@ -1,5 +1,6 @@
 let Sequelize = require('sequelize');
 let schemas = require('../database/schemas.js');
+let db = require('../database/database.js');
 
 module.exports.getRecArea = function(req, res) {
   let {query: {recArea}} = req;
@@ -7,7 +8,8 @@ module.exports.getRecArea = function(req, res) {
     where: {RecAreaName: recArea},
     include: [
       {model: schemas.recAreaAddress}, 
-      {model: schemas.activities}
+      {model: schemas.activities}, 
+      {model: schemas.entityMedia }
       ]
   }).then(function(recreationArea) {
     res.send(recreationArea);
@@ -296,4 +298,18 @@ module.exports.getActivities = function(req, res) {
     res.send(activity);
   })
   .catch((err) => console.log('error', err));
+};
+
+module.exports.getEntitiesWithinRadius = (req, res) => {
+  let {query: {latitude, longitude, distance, activities}} = req;
+  console.log('activities: ', activities.slice(1, activities.length-1));
+  // activityList = activities.slice(1, activities.length-1).split(', ').join(',');
+  db.query(`SELECT * FROM recAreas LEFT JOIN entityactivities ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} AND ActivityName IN (${activities.slice(1, activities.length-1)})`)
+  .then(function(recAreas) {
+    db.query(`SELECT * FROM facilities LEFT JOIN entityactivities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance} AND ActivityName IN (${activities.slice(1, activities.length-1)})`)
+    .then(function(facilities) {
+      res.send(recAreas[0].concat(facilities[0]));
+    });
+  })
+  .catch((err) => console.log('error: ', err));
 };
