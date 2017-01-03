@@ -27,6 +27,18 @@ const generateActivities = res => res.map(({
   };
 });
 
+const getCoordinates = function (location, cb) {
+  const geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: location }, (results, status) => {
+    if (status === 'OK') {
+      console.log('GEOCODING STATUS OK');
+      cb(results[0].geometry.location);
+    } else {
+      cb(null);
+    }
+  });
+};
+
 // for questions on the proptypes after the components, check it out on docs. they are pretty cool
 
 // all components are being passed through this function,
@@ -45,4 +57,5 @@ FancyBorder.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
 };
 
-export { INTERESTS, generateActivities, FancyBorder };
+
+export { INTERESTS, generateActivities, getCoordinates, FancyBorder };

@@ -55,7 +55,7 @@ class ResultsPage extends Component {
     }
     this.setState({
       waypoints,
-    }, () => { console.log('WAYPOINTS', waypoints) ;});
+    }, () => { console.log('WAYPOINTS', waypoints); });
   }
 
   render() {
@@ -67,12 +67,17 @@ class ResultsPage extends Component {
           </div>
           <div className="row mapAndList">
             <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
-              <Map userQuery={this.props.userQuery} entities={this.state.entities} />
+              <Map
+                userQuery={this.props.userQuery}
+                entities={this.state.entities}
+                waypoints={this.state.waypoints} 
+              />
             </div>
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
               <EntityList
                 entities={this.props.entities} handleEntityClick={this.handleEntityClick}
                 handleAddToItineraryClick={this.handleAddToItineraryClick}
+                waypoints={this.state.waypoints}
               />
             </div>
           </div>
