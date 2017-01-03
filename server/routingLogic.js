@@ -300,16 +300,26 @@ module.exports.getActivities = function(req, res) {
   .catch((err) => console.log('error', err));
 };
 
+// module.exports.getEntitiesWithinRadius = (req, res) => {
+//   let {query: {latitude, longitude, distance, activities}} = req;
+//   console.log('activities: ', activities.slice(1, activities.length-1));
+//   // activityList = activities.slice(1, activities.length-1).split(', ').join(',');
+//   db.query(`SELECT * FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)}) LIMIT 50 OFFSET 0`, {type: db.QueryTypes.SELECT})
+//   .then(function(entities) {
+//           res.send(entities);
+//   })
+//   .catch((err) => console.log('error: ', err));
+// };
+
 module.exports.getEntitiesWithinRadius = (req, res) => {
   let {query: {latitude, longitude, distance, activities}} = req;
   console.log('activities: ', activities.slice(1, activities.length-1));
   // activityList = activities.slice(1, activities.length-1).split(', ').join(',');
-  db.query(`SELECT * FROM recAreas LEFT JOIN entityactivities ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} AND ActivityName IN (${activities.slice(1, activities.length-1)})`)
-  .then(function(recAreas) {
-    db.query(`SELECT * FROM facilities LEFT JOIN entityactivities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance} AND ActivityName IN (${activities.slice(1, activities.length-1)})`)
-    .then(function(facilities) {
-      res.send(recAreas[0].concat(facilities[0]));
-    });
+  db.query(`SELECT entityactivities.EntityID, recAreas.RecAreaDescription, recAreas.RecAreaLongitude, recAreas.RecAreaLatitude, recAreas.RecAreaName, facilities.FacilityDescription, facilities.FacilityLongitude, facilities.FacilityLatitude, facilities.FacilityName, entityMedia.URL, activities.ActivityName  FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)})`, {type: db.QueryTypes.SELECT})
+  .then(function(entities) {
+    console.log('number of entities: ', entities.length);
+    res.send(entities);
   })
   .catch((err) => console.log('error: ', err));
 };
+
