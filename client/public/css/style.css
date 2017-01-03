@@ -1,4 +1,4 @@
-.FancyBorder {
+/*.FancyBorder {
   border: 3px solid black;
 }
 
@@ -33,7 +33,7 @@
 }
 .FancyBorder-turquoise {
   border-color: turquoise;
-}
+}*/
 
 .finalizeButton {
   width: 100%;
@@ -106,6 +106,14 @@
 
 .navBar {
   height:5vh
+}
+
+.entityContactsRow {
+  padding-top: 20px
+}
+
+.entityDescriptionRow {
+  padding-top: 20px
 }
 
 

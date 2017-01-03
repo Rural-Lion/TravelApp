@@ -5,10 +5,10 @@
     // Map
 
 import React, { Component, PropTypes } from 'react';
-import axios from 'axios';
-import { FancyBorder } from '../helpers.js';
+import { FancyBorder } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
+import EntityPopup from './EntityPopup.jsx';
 import Map from './Map.jsx';
 
 
@@ -17,13 +17,32 @@ class ResultsPage extends Component {
     super(props);
     this.state = {
       entities: props.entities,
+      selectedEntity: {},
+      showModal: false,
     };
+
+    this.handleEntityClick = this.handleEntityClick.bind(this);
+    this.handleEntityModalCloseClick = this.handleEntityModalCloseClick.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
       entities: nextProps.entities,
     });
   }
+
+  handleEntityClick(e, entity) {
+    this.setState({
+      selectedEntity: entity,
+      showModal: true,
+    });
+  }
+
+  handleEntityModalCloseClick() {
+    this.setState({
+      showModal: false,
+    });
+  }
+
   render() {
     return (
       <div className="resultsPage">
@@ -36,8 +55,11 @@ class ResultsPage extends Component {
               <Map userQuery={this.props.userQuery} entities={this.state.entities} />
             </div>
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-              <EntityList entities={this.state.entities} />
+              <EntityList entities={this.props.entities} handleEntityClick={this.handleEntityClick} />
             </div>
+          </div>
+          <div className="container">
+            {this.state.showModal ? <EntityPopup showModal={this.state.showModal} entity={this.state.selectedEntity} handleEntityModalCloseClick={this.handleEntityModalCloseClick} /> : null }
           </div>
         </FancyBorder>
       </div>
@@ -45,11 +67,9 @@ class ResultsPage extends Component {
   }
 }
 
-
 ResultsPage.propTypes = {
   userQuery: PropTypes.object,
   entities: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default ResultsPage;
-
