@@ -170,6 +170,7 @@
   background-color: #c2e0a4;
   border-width: 0px;
   font-size: 15px;
+  color: black;
 }
 
 .includedInterestButton { 
@@ -179,6 +180,7 @@
   background-color: #667c50;
   border-width: 0px;
   font-size: 15px;
+    color: white;
 }
 
 .planVacationButton {
