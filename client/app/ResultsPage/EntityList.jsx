@@ -6,8 +6,8 @@ import EntityListEntry from './EntityListEntry.jsx';
   // currently gets array of activities from US API
 const EntityList = (props) => {
   const entities = props.entities;
-  const entityList = entities.map((activity, index) =>
-    <EntityListEntry activity={activity} index={index} key={index} />);
+  const entityList = entities.map((entity, index) =>
+    <EntityListEntry entity={entity} index={index} key={index} handleEntityClick={props.handleEntityClick} />);
 
   return (
     <div>
@@ -28,6 +28,7 @@ const EntityList = (props) => {
 
 EntityList.propTypes = {
   entities: PropTypes.arrayOf(PropTypes.object),
+  handleEntityClick: PropTypes.func,
 };
 
 export default EntityList;
