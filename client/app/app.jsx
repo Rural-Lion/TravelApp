@@ -12,7 +12,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
-import { INTERESTS, generateActivities, FancyBorder } from './helpers';
+import { INTERESTS, generateActivities, getCoordinates, FancyBorder } from './helpers';
 import LandingPage from './LandingPage/LandingPage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
 
@@ -26,6 +26,7 @@ class App extends Component {
         lengthOfTrip: 0,
         startingLocation: '',
         distanceOfTrip: 0,
+        startingLocationCoordinates: {},
       },
       // users interests, generated from clicking interest buttons on landing page
       userInterests: [],
@@ -61,12 +62,28 @@ class App extends Component {
   }
 
   handlePlanButtonClick() {
-    axios.get('https://ridb.recreation.gov/api/v1/recareas?apiKey=2CE3A404B8824CFEA7652104FCEEE328&full=TRUE&limit=10')
-    .then((res) => {
-      this.setState({
-        entities: generateActivities(res.data.RECDATA),
-      }, () => { console.log('entities in app', this.state.entities) ;});
-    });
+    const latLng = getCoordinates(this.state.userQuery.startingLocation);
+    if (latLng) {
+      const userQuery = Object.assign({}, this.state.userQuery);
+      userQuery.startingLocationCoordinates = latLng;
+      this.setState(
+        userQuery,
+      );
+      axios.get('/entitiesWithinRadius', {
+        params: {
+          latitude: latLng.lat,
+          longitude: latLng.lng,
+          distance: this.state.userQuery.distanceOfTrip,
+          activities: this.state.userInterests,
+        },
+      })
+      .then((res) => {
+        console.log('RES', res);
+        this.setState({
+          entities: generateActivities(res.data.RECDATA),
+        }, () => { console.log('entities in app', this.state.entities); });
+      });
+    }
   }
 
   render() {
