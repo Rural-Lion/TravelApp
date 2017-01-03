@@ -30,10 +30,16 @@ const EntityPopup = props => (
         <div className="modal-content">
           <div className="row EntityListEntry">
             <div className="modal-header">
-              <button type="button" className="close" onClick={() => { props.handleEntityModalCloseClick(); }}>
+              <button
+                type="button"
+                className="close"
+                onClick={() => { props.handleEntityModalCloseClick(); }}
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
-              <FancyBorder color="blue"><h4 className="modal-title">{props.entity.name}</h4></FancyBorder>
+              <FancyBorder color="blue">
+                <h4 className="modal-title">{props.entity.name}</h4>
+              </FancyBorder>
             </div>
             <div className="modal-body">
               <div className="row">
@@ -41,7 +47,7 @@ const EntityPopup = props => (
                 Activities:
               </div>
                 <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <FancyBorder color="blue"><div>{props.entity.activities.join(', ').toLowerCase()}</div></FancyBorder>
+                  <FancyBorder color="blue"><div>{props.entity.activities.join(', ')}</div></FancyBorder>
                 </div>
               </div>
               <div className="row entityDescriptionRow">
@@ -63,7 +69,13 @@ const EntityPopup = props => (
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => { props.handleEntityModalCloseClick(); }}>Close</button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => { props.handleEntityModalCloseClick(); }}
+                >
+                Close
+                </button>
               </div>
             </div>
           </div>
@@ -75,8 +87,8 @@ const EntityPopup = props => (
 
 EntityPopup.propTypes = {
   entity: PropTypes.object,
-  index: PropTypes.number,
   handleEntityModalCloseClick: PropTypes.func,
+  showModal: PropTypes.bool,
 };
 
 export default EntityPopup;

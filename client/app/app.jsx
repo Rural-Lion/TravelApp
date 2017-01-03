@@ -133,6 +133,7 @@ class App extends Component {
   render() {
     return (
       <FancyBorder color="red">
+
         <Router history={hashHistory}>
           { this.routes }
         </Router>

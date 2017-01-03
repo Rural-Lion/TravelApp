@@ -17,7 +17,7 @@ const EntityListEntry = props => (
           <FancyBorder color="blue"><div>{props.entity.name}</div></FancyBorder>
         </div>
         <div className="row">
-          <FancyBorder color="blue"><div>{props.entity.activities.join(', ').toLowerCase()}</div></FancyBorder>
+          <FancyBorder color="blue"><div>{props.entity.activities.join(', ')}</div></FancyBorder>
         </div>
       </div>
     </div>

@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import {FancyBorder} from '../helpers.js';
+import { FancyBorder } from '../helpers.js';
 import InterestButton from './InterestButton.jsx';
 
 const InterestButtons = (props) => {
+  console.log(props.userInterests);
   const interests = props.interests;
   // generates buttons based off of INTERESTS array. currently hard coded
   const buttons = interests.map((interest, index) =>
@@ -11,6 +12,7 @@ const InterestButtons = (props) => {
         interest={interest}
         key={index}
         handleInterestButtonClick={props.handleInterestButtonClick}
+        userInterests={props.userInterests}
       /></div>);
 
   return (
@@ -22,6 +24,7 @@ const InterestButtons = (props) => {
 };
 
 InterestButtons.propTypes = {
+  userInterests: PropTypes.array,
   interests: PropTypes.arrayOf(PropTypes.string),
   handleInterestButtonClick: PropTypes.func,
 };
