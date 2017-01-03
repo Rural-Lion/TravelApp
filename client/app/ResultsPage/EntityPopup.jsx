@@ -10,8 +10,8 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    'border-width': '0px',
-    'background-color': 'rgba(0, 0, 0, 0)',
+    borderWidth: '0px',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
   },
 };
 
