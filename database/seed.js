@@ -159,9 +159,10 @@ const facilitiesCaching = (array) => {
 
 //No JSON file available for trails so we are using the node Request module to query the API
 const trailsCaching = () => {
-  let offset = 0;
-  let params = {offset: offset};
+  let offset = 10163;
+  
   while(offset < 27209) {
+    let params = {offset: offset};
     request({ 
       url: 'https://ridb.recreation.gov/api/v1/trails/USFS/?apikey=' + process.env.RIDB_API_KEY,
       qs: params }, (err, resp, body) => {
@@ -272,7 +273,7 @@ const trailsCaching = () => {
 ///// Part 2 - Individual caching functions //////
 // delayCall(recAreasSet, recAreasCaching, 0);
 // delayCall(facilitiesSet, facilitiesCaching, 0);
-// trailsCaching();
+trailsCaching();
 //////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////

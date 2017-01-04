@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Rural-Lion/TravelApp#readme",
   "dependencies": {
     "axios": "^0.15.3",
+    "bluebird": "^3.4.7",
     "body-parser": "^1.15.2",
     "dotenv": "^2.0.0",
     "dotenv-safe": "^3.0.0",
