@@ -307,26 +307,12 @@ module.exports.getEntrances = function(req, res) {
 
 module.exports.getEntitiesWithinRadius = (req, res) => {
   let {query: {latitude, longitude, distance, activities}} = req;
-  console.log('activities: ', activities.slice(1, activities.length-1));
-  // activityList = activities.slice(1, activities.length-1).split(', ').join(',');
-  db.query(`SELECT * FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)})`, {type: db.QueryTypes.SELECT})
+  db.query(`SELECT * FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)}) LIMIT 50`, {type: db.QueryTypes.SELECT})
   .then(function(entities) {
           res.send(entities);
   })
   .catch((err) => console.log('error: ', err));
 };
-
-
-
-// module.exports.getTrailsWithinRadius = (req, res) => {
-//   let {query: {latitude, longitude}} = req;
-
-//   db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 32, 10) AS DECIMAL(10, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 32, 10) AS DECIMAL(10, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 12, 10) AS DECIMAL(10, 8)) - (${longitude})))) * 6371 <= 1000)`, {type: db.QueryTypes.SELECT})
-//   .then(function(entities) {
-//           res.send(entities);
-//   })
-//   .catch((err) => console.log('error: ', err));
-// };
 
 // module.exports.getEntitiesWithinRadius = (req, res) => {
 //   let {query: {latitude, longitude, distance, activities}} = req;
@@ -350,6 +336,18 @@ module.exports.getEntitiesWithinRadius = (req, res) => {
 //     res.send(recreationArea);
 //   })
 //   .catch((err) => console.log('error', err));
+// };
+
+
+
+// module.exports.getTrailsWithinRadius = (req, res) => {
+//   let {query: {latitude, longitude}} = req;
+
+//   db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 32, 10) AS DECIMAL(10, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 32, 10) AS DECIMAL(10, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 12, 10) AS DECIMAL(10, 8)) - (${longitude})))) * 6371 <= 1000)`, {type: db.QueryTypes.SELECT})
+//   .then(function(entities) {
+//           res.send(entities);
+//   })
+//   .catch((err) => console.log('error: ', err));
 // };
 
 module.exports.getTrailsWithinRadius = (req, res) => {
