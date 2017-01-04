@@ -97,30 +97,34 @@ class App extends Component {
     // TODO later - set the state somewhere to have the coordinates of staring location
     //  const userQuery = Object.assign({}, this.state.userQuery);
     //     userQuery.startingLocationCoordinates = latLng;
+        var latLng = { lat: 37.775, lng: -122.419 };
     //     this.setState(
     //       userQuery,
     //     );
 
     // TO UNCOMMENT WHEN RESPONSE IS IN THE RIGHT FORMAT:
-    // const state = this.state;
-    // const sendRequest = function (latLng) {
-    //   if (latLng) {
-    //     axios.get('/entitiesWithinRadius', {
-    //       params: {
-    //         latitude: latLng.lat(),
-    //         longitude: latLng.lng(),
-    //         distance: state.userQuery.distanceOfTrip,
-    //         activities: JSON.stringify(state.userInterests),
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log('RES', res);
-    //       this.setState({
-    //         entities: generateActivities(res.data.RECDATA),
-    //       }, () => { console.log('entities in app', state.entities); });
-    //     });
-    //   }
-    // };
+    const state = this.state;
+    const sendRequest = function (latLng) {
+      if (latLng) {
+        console.log("before get call");
+        axios.get('/entitiesWithinRadius', {
+          params: {
+            latitude: latLng.lat,
+            longitude: latLng.lng,
+            distance: state.userQuery.distanceOfTrip,
+            activities: JSON.stringify(state.userInterests)
+          },
+        })
+        .then((res) => {
+          console.log('RES', res);
+          this.setState({
+            entities: generateActivities(res.data.RECDATA),
+          }, () => { console.log('entities in app', state.entities); });
+        })
+        .catch((err) => console.log('error loading get request', err));
+      }
+    };
+    sendRequest(latLng);
     // getCoordinates(this.state.userQuery.startingLocation, sendRequest);
 
 
@@ -129,14 +133,14 @@ class App extends Component {
     // .then((res, err) => {
     //   console.log(err);
     //   console.log('this is res ', res);
-      // this.setState({
-      //   entities: generateActivities(res.data.RECDATA),
-      // });
+    //   this.setState({
+    //     entities: generateActivities(res.data.RECDATA),
+    //   });
     // });
 
-    this.setState({
-      entities: generateActivities(cache.RECDATA),
-    });
+    // this.setState({
+    //   entities: generateActivities(cache.RECDATA),
+    // });
   }
 
   render() {

@@ -19,7 +19,7 @@ const generateActivities = res => res.map(({
                   ACTIVITY,
                    MEDIA,
                }) => {
-  const activities = ACTIVITY.map(({ ActivityName }) => toTitleCase(ActivityName));
+  // const activities = ACTIVITY.map(({ ActivityName }) => toTitleCase(ActivityName));
 
   return {
     img: MEDIA,

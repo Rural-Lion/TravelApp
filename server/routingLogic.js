@@ -306,8 +306,11 @@ module.exports.getEntrances = function(req, res) {
 };
 
 module.exports.getEntitiesWithinRadius = (req, res) => {
+  console.log('getting called in radiius');
   let {query: {latitude, longitude, distance, activities}} = req;
-  db.query(`SELECT * FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)}) LIMIT 50`, {type: db.QueryTypes.SELECT})
+  console.log('activities: ', activities.slice(1, activities.length-1));
+  // activityList = activities.slice(1, activities.length-1).split(', ').join(',');
+  db.query(`SELECT * FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)}) LIMIT 10 OFFSET 0`, {type: db.QueryTypes.SELECT})
   .then(function(entities) {
           res.send(entities);
   })
@@ -339,7 +342,6 @@ module.exports.getEntitiesWithinRadius = (req, res) => {
 // };
 
 
-
 // module.exports.getTrailsWithinRadius = (req, res) => {
 //   let {query: {latitude, longitude}} = req;
 
@@ -359,3 +361,27 @@ module.exports.getTrailsWithinRadius = (req, res) => {
   })
   .catch((err) => console.log('error: ', err));
 };
+
+// module.exports.getEntitiesWithinRadius = (req, res) => {
+//   let {query: {latitude, longitude, distance, activities}} = req;
+//   northLat = geolib.computeDestinationPoint({latitude, longitude}, 1000*distance, 0).latitude;
+//   southLat = geolib.computeDestinationPoint({latitude, longitude}, 1000*distance, 180).latitude;
+//   eastLong = geolib.computeDestinationPoint({latitude, longitude}, 1000*distance, 90).longitude;
+//   westLong = geolib.computeDestinationPoint({latitude, longitude}, 1000*distance, 270).longitude;
+//   schemas.recAreas.findAll({
+//     where: {
+//       $and: {
+//         RecAreaLongitude: { between: [westLong, eastLong] },
+//         RecAreaLatitude: { between: [southLat, northLat] }
+//       }
+//     },
+//     attributes: ['RecAreaID', 'RecAreaPhone', 'RecAreaDescription', 'RecAreaLatitude', 'RecAreaLongitude', 'RecAreaName'], 
+//     include: [
+//       {model: schemas.activities}, 
+//       {model: schemas.entityMedia}
+//       ]
+//   }).then(function(recreationArea) {
+//     res.send(recreationArea);
+//   })
+//   .catch((err) => console.log('error', err));
+// };
