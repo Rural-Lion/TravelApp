@@ -1,21 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import {FancyBorder} from '../helpers.js';
+import { FancyBorder } from '../helpers.js';
+import { Link } from 'react-router';
 
-
-const PlanVacationButton = props => (
+const PlanVacationButton = () => (
   <FancyBorder color="yellow">
-    <button
-      className="centered"
-      onClick={() => props.handlePlanButtonClick()}
-    >
-    Plan My Vacation
-    </button>
+    <Link to="/results">
+      <button className="centered">Plan My Vacation</button>
+    </Link>
   </FancyBorder>
 
 );
-
-PlanVacationButton.propTypes = {
-  handlePlanButtonClick: PropTypes.func,
-};
 
 export default PlanVacationButton;

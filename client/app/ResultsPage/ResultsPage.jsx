@@ -26,6 +26,10 @@ class ResultsPage extends Component {
     this.handleEntityModalCloseClick = this.handleEntityModalCloseClick.bind(this);
     this.handleAddToItineraryClick = this.handleAddToItineraryClick.bind(this);
   }
+  componentWillMount() {
+    this.props.handlePlanButtonClick();
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       entities: nextProps.entities,
@@ -70,7 +74,7 @@ class ResultsPage extends Component {
               <Map
                 userQuery={this.props.userQuery}
                 entities={this.state.entities}
-                waypoints={this.state.waypoints} 
+                waypoints={this.state.waypoints}
               />
             </div>
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -93,6 +97,7 @@ class ResultsPage extends Component {
 ResultsPage.propTypes = {
   userQuery: PropTypes.object,
   entities: PropTypes.arrayOf(PropTypes.object),
+  handlePlanButtonClick: PropTypes.func,
 };
 
 export default ResultsPage;

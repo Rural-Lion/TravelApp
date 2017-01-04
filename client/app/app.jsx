@@ -41,6 +41,31 @@ class App extends Component {
     this.handleInterestButtonClick = this.handleInterestButtonClick.bind(this);
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handlePlanButtonClick = this.handlePlanButtonClick.bind(this);
+
+    this.routes = (
+      <div>
+        <Route
+          path="/"
+          component={() =>
+          (<LandingPage
+            interests={INTERESTS}
+            handleInterestButtonClick={this.handleInterestButtonClick}
+            handlePlanButtonClick={this.handlePlanButtonClick}
+            handleChange={this.handleInputOnChange}
+          />)}
+        />
+        <Route
+          path="/results"
+          component={() =>
+          (<ResultsPage
+            userQuery={this.state.userQuery}
+            entities={this.state.entities}
+            handlePlanButtonClick={this.handlePlanButtonClick}
+          />)}
+        />
+        <Route path="*" component={NotFound} />
+      </div>
+    );
   }
 
   handleInterestButtonClick(e) {
@@ -103,29 +128,12 @@ class App extends Component {
       }, () => { console.log('entities in app', this.state.entities); });
     });
   }
+
   render() {
     return (
       <FancyBorder color="red">
         <Router history={hashHistory}>
-          <Route
-            path="/"
-            component={() =>
-              (<LandingPage
-                interests={INTERESTS}
-                handleInterestButtonClick={this.handleInterestButtonClick}
-                handlePlanButtonClick={this.handlePlanButtonClick}
-                handleChange={this.handleInputOnChange}
-              />)}
-          />
-          <Route
-            path="/results"
-            component={() =>
-              (<ResultsPage
-                userQuery={this.state.userQuery}
-                entities={this.state.entities}
-              />)}
-          />
-          <Route path="*" component={NotFound} />
+          { this.routes }
         </Router>
       </FancyBorder>
     );
