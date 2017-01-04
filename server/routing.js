@@ -41,6 +41,5 @@ module.exports = function (app, express) {
 
   app.get('/permitEntrances', routeLogic.getEntrances);
 
-
 };
 
