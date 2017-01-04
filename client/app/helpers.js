@@ -10,25 +10,23 @@ const interests = ['biking', 'boating', 'historic & cultural site', 'camping', '
 const INTERESTS = interests.map(interest => toTitleCase(interest));
 // function for creating objects from the results of api request to the US website
 const generateActivities = res => res.map(({
-                  RECAREAADDRESS: [{ PostalCode, RecAreaStreetAddress1, City, AddressStateCode }],
-                  RecAreaLatitude,
-                  RecAreaLongitude,
-                  RecAreaName,
-                  RecAreaPhone,
-                  RecAreaDescription,
-                  ACTIVITY,
-                   MEDIA,
+                  FacilityLatitude,
+                  FacilityLongitude,
+                  FacilityName,
+                  FacilityPhone,
+                  FacilityDescription, 
+                  FacilityEmail,
+                  URL
                }) => {
   // const activities = ACTIVITY.map(({ ActivityName }) => toTitleCase(ActivityName));
 
   return {
-    img: MEDIA,
-    name: RecAreaName,
-    phoneNumber: RecAreaPhone,
-    description: RecAreaDescription,
-    coordinates: [RecAreaLatitude, RecAreaLongitude],
-    address: `${RecAreaStreetAddress1} ${City}, ${AddressStateCode} ${PostalCode}`,
-    activities,
+    name: FacilityName,
+    image: URL, 
+    email: FacilityEmail,
+    phoneNumber: FacilityPhone,
+    description: FacilityDescription,
+    coordinates: [FacilityLatitude, FacilityLongitude]
   };
 });
 

@@ -121,7 +121,7 @@ class App extends Component {
           console.log(that); // getting undefined value for this also need to deal with address and latitude/longitude of specific map requests cannot setState
           that.setState({
             entities: generateActivities(res.data),
-          }, () => { console.log('entities in app', state.entities); });
+          }, () => { console.log('entities in app', that.state.entities); });
         })
         .catch((err) => console.log('error loading get request', err));
       }
