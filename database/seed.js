@@ -158,94 +158,53 @@ const facilitiesCaching = (array) => {
 };
 
 //No JSON file available for trails so we are using the node Request module to query the API
+let offset = 0;
 const trailsCaching = () => {
-  let offset = 0;
-  let params = {offset: offset};
-  while(offset < 27209) {
-    request({ 
-      url: 'https://ridb.recreation.gov/api/v1/trails/USFS/?apikey=' + process.env.RIDB_API_KEY,
-      qs: params }, (err, resp, body) => {
-      if (err) {
-        console.log('Error: ', err);
+  setTimeout(function() {
+    if (offset < 27209) {
+      let params = {offset: offset};
+      request({ 
+        url: 'https://ridb.recreation.gov/api/v1/trails/USFS/?apikey=' + process.env.RIDB_API_KEY,
+        qs: params }, (err, resp, body) => {
+        if (err) {
+          console.log('Error: ', err);
+          return;
+        }
+        let trailsData = JSON.parse(body).RECDATA;
+        for (var i = 0; i < trailsData.length; i++) {
+          schemas.trails.create({ 
+            TrailNo: trailsData[i].TrailNo,
+            TrailUSFSID: trailsData[i].TrailUSFSID,
+            ShapeLength: trailsData[i].ShapeLength,
+            MVUMSymbol: trailsData[i].MVUMSymbol,
+            GEOM: trailsData[i].GEOM,
+            TrailName: trailsData[i].TrailName,
+            SegmentLength: trailsData[i].SegmentLength,
+            EMP: trailsData[i].EMP,
+            Attributesubset: trailsData[i].Attributesubset,
+            TrailType: trailsData[i].TrailType,
+            GISMiles: trailsData[i].GISMiles,
+            AdminOrg: trailsData[i].AdminOrg,
+            SecurityId: trailsData[i].SecurityId,
+            BMP: trailsData[i].BMP,
+            TrailClass: trailsData[i].TrailClass,
+            TerraBaseSymbology: trailsData[i].TerraBaseSymbology,
+            ManagingOrg: trailsData[i].ManagingOrg,
+            LastUpdatedDate: trailsData[i].LastUpdatedDate,
+            NationalTrailDesignation: trailsData[i].NationalTrailDesignation,
+            TrailCn: trailsData[i].TrailCn
+          }).catch((err) => {
+            console.log('Error creating trails: ', err);
+          });
+        }
         return;
-      }
-      let trailsData = JSON.parse(body).RECDATA;
-      for (var i = 0; i < trailsData.length; i++) {
-        schemas.trails.create({ 
-          TypicalTreadWidth:  trailsData[i].TypicalTreadWidth,
-          MinimumTrailWidth: trailsData[i].MinimumTrailWidth,
-          TypicalTreadCrossSlope: trailsData[i].TypicalTreadCrossSlope,
-          TerraMotorized: trailsData[i].TerraMotorized,
-          AllowedSnowUse: trailsData[i].AllowedSnowUse,
-          PackSaddleRestricted: trailsData[i].PackSaddleRestricted,
-          TrailSurface: trailsData[i].TrailSurface,
-          TrailNo: trailsData[i].TrailNo,
-          AllowedTerraUse: trailsData[i].AllowedTerraUse,
-          XcountrySkiAccptDisc: trailsData[i].XcountrySkiAccptDisc,
-          TrailUSFSID: trailsData[i].TrailUSFSID,
-          NonmotorWatercraftManaged: trailsData[i].NonmotorWatercraftManaged,
-          XcountrySkiManaged: trailsData[i].XcountrySkiManaged,
-          BicycleManaged: trailsData[i].BicycleManaged,
-          ShapeLength: trailsData[i].ShapeLength,
-          MVUMSymbol: trailsData[i].MVUMSymbol,
-          MotorcycleManaged: trailsData[i].MotorcycleManaged,
-          GEOM: trailsData[i].GEOM,
-          TrailName: trailsData[i].TrailName,
-          NonmotorWatercraftAccptDisc: trailsData[i].NonmotorWatercraftAccptDisc,
-          MotorcycleAccptDisc: trailsData[i].MotorcycleAccptDisc,
-          SegmentLength: trailsData[i].SegmentLength,
-          MotorcycleRestricted: trailsData[i].MotorcycleRestricted,
-          SnowmobileManaged: trailsData[i].SnowmobileManaged,
-          EMP: trailsData[i].EMP,
-          MotorWatercraftManaged: trailsData[i].MotorWatercraftManaged,
-          PackSaddleManaged: trailsData[i].PackSaddleManaged,
-          ATVAccptDisc: trailsData[i].ATVAccptDisc,
-          SnowshoeAccptDisc: trailsData[i].SnowshoeAccptDisc,
-          SurfaceFirmness: trailsData[i].SurfaceFirmness,
-          SnowshoeRestricted: trailsData[i].SnowshoeRestricted,
-          SnowmobileRestricted: trailsData[i].SnowmobileRestricted,
-          Attributesubset: trailsData[i].Attributesubset,
-          SpecialMgmtArea: trailsData[i].SpecialMgmtArea,
-          FourwdAccptDisc: trailsData[i].FourwdAccptDisc,
-          MotorWatercraftRestricted: trailsData[i].MotorWatercraftRestricted,
-          NonmotorWatercraftRestricted: trailsData[i].NonmotorWatercraftRestricted,
-          HikerPedestrianAccptDisc: trailsData[i].HikerPedestrianAccptDisc,
-          ATVManaged: trailsData[i].ATVManaged,
-          TrailType: trailsData[i].TrailType,
-          BicycleRestricted: trailsData[i].BicycleRestricted,
-          GISMiles: trailsData[i].GISMiles,
-          AdminOrg: trailsData[i].AdminOrg,
-          HikerPedestrianRestricted: trailsData[i].HikerPedestrianRestricted,
-          SecurityId: trailsData[i].SecurityId,
-          AccessibilityStatus: trailsData[i].AccessibilityStatus,
-          BMP: trailsData[i].BMP,
-          HikerPedestrianManaged: trailsData[i].HikerPedestrianManaged,
-          FourwdRestricted: trailsData[i].FourwdRestricted,
-          TypicalTrailGrade: trailsData[i].TypicalTrailGrade,
-          WaterMotorized: trailsData[i].WaterMotorized,
-          ATVRestricted: trailsData[i].ATVRestricted,
-          SnowmobileAccptDisc: trailsData[i].SnowmobileAccptDisc,
-          SnowshoeManaged: trailsData[i].SnowshoeManaged,
-          XcountrySkiRestricted: trailsData[i].XcountrySkiRestricted,
-          TrailClass: trailsData[i].TrailClass,
-          TerraBaseSymbology: trailsData[i].TerraBaseSymbology,
-          ManagingOrg: trailsData[i].ManagingOrg,
-          FourwdManaged: trailsData[i].FourwdManaged,
-          LastUpdatedDate: trailsData[i].LastUpdatedDate,
-          NationalTrailDesignation: trailsData[i].NationalTrailDesignation,
-          MotorWatercraftAccptDisc: trailsData[i].MotorWatercraftAccptDisc,
-          BicycleAccptDisc: trailsData[i].BicycleAccptDisc,
-          SnowMotorized:trailsData[i].SnowMotorized,
-          PackSaddleAccptDisc: trailsData[i].PackSaddleAccptDisc,
-          TrailCn: trailsData[i].TrailCn
-        }).catch((err) => {
-          console.log('Error creating trails: ', err);
-        });
-      }
+      });
+      offset += 50;
+      trailsCaching();
+    } else {
       return;
-    });
-    offset += 50;
-  }
+    }
+  }, 25000);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -272,7 +231,7 @@ const trailsCaching = () => {
 ///// Part 2 - Individual caching functions //////
 // delayCall(recAreasSet, recAreasCaching, 0);
 // delayCall(facilitiesSet, facilitiesCaching, 0);
-// trailsCaching();
+trailsCaching();
 //////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////

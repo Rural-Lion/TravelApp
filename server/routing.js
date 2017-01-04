@@ -3,6 +3,10 @@ const routeLogic = require('./routingLogic');
 module.exports = function (app, express) {
   // Get Entites with Radius
   app.get('/entitiesWithinRadius', routeLogic.getEntitiesWithinRadius);
+
+  // Get Trails with Radius
+  app.get('/trailsWithinRadius', routeLogic.getTrailsWithinRadius);
+
   // Get RecAreas and Facilities Info
   app.get('/recArea', routeLogic.getRecArea);
   app.get('/facility', routeLogic.getFacility);
