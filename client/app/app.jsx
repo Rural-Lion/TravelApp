@@ -10,8 +10,8 @@
       // EntityListEntry
     // Map
 
-import React, { Component, PropTypes } from 'react';
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
+import React, { Component } from 'react';
+import { Router, Route, hashHistory } from 'react-router';
 import axios from 'axios';
 import { INTERESTS, generateActivities, getCoordinates, FancyBorder } from './helpers';
 import LandingPage from './LandingPage/LandingPage.jsx';
