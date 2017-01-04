@@ -78,7 +78,7 @@ const delayCall = (array, func, index, schema) => {
     } else {
       return;
     }
-  }, 1000);
+  }, 3000);
 };
 
 //caching will insert the datasets/sub-datasets in our schemas
@@ -271,7 +271,7 @@ const trailsCaching = () => {
 
 ///// Part 2 - Individual caching functions //////
 // delayCall(recAreasSet, recAreasCaching, 0);
-delayCall(facilitiesSet, facilitiesCaching, 0);
+// delayCall(facilitiesSet, facilitiesCaching, 0);
 // trailsCaching();
 //////////////////////////////////////////////////////
 
