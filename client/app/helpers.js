@@ -39,7 +39,6 @@ const getCoordinates = function (location, cb) {
       console.log('GEOCODING STATUS OK');
       cb(results[0].geometry.location);
     } else {
-      console.error(status);
       cb(null);
     }
   });

@@ -2,7 +2,8 @@
 const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const MapMarkerClusterer = (entities, map) => {
-  const markers = entities.map(({ coordinates: [lat, lng] }, index) =>
+  if (map) {
+    const markers = entities.map(({ coordinates: [lat, lng] }, index) =>
       new google.maps.Marker({
         position: { lat, lng },
         label: labels[index % labels.length],
@@ -10,7 +11,8 @@ const MapMarkerClusterer = (entities, map) => {
       }),
     );
 
-  return new MarkerClusterer(map, markers, { imagePath: './maps/img/m' });
+    return new MarkerClusterer(map, markers, { imagePath: './maps/img/m' });
+  }
 };
 
 

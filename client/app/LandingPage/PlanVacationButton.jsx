@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const PlanVacationButton = () => (
   <FancyBorder color="yellow">
     <Link to="/results">
-      <button className="centered">Plan My Vacation</button>
+      <button className="centered planVacationButton">Plan My Vacation</button>
     </Link>
   </FancyBorder>
 

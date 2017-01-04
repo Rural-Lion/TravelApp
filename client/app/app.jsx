@@ -53,6 +53,7 @@ class App extends Component {
             handlePlanButtonClick={this.handlePlanButtonClick}
             handleChange={this.handleInputOnChange}
             userQuery={this.state.userQuery}
+            userInterests={this.state.userInterests}
           />)}
         />
         <Route
