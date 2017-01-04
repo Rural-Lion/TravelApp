@@ -41,10 +41,6 @@ module.exports = function (app, express) {
 
   app.get('/permitEntrances', routeLogic.getEntrances);
 
-  // Get Entitymedia and Attributes for Tours
-  // app.get('/tourMedia', routeLogic.getTourMedia);
-  // app.get('/tourAttributes', routeLogic.getTourAttributes);
 
-  // Get Campsite Equipment
-  // app.get('/campsiteEquipment', routeLogic.getCampsitesEquipment);
 };
+

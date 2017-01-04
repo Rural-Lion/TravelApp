@@ -21,7 +21,14 @@ module.exports.getRecArea = function(req, res) {
 module.exports.getFacility = function(req, res) {
   let {query: {facility}} = req;
   schemas.facilities.findOne({
-    where: {FacilityName: facility}
+    where: {FacilityName: facility},
+    include: [
+      {model: schemas.permitEntrances},
+      {model: schemas.activities},
+      {model: schemas.entityMedia},
+      {model: schemas.campsites},
+      {model: schemas.tours}
+    ]
   }).then(function(fac) {
     res.send(fac);
   })
