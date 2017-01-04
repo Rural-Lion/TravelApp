@@ -39,10 +39,7 @@ module.exports = function (app, express) {
   // Get activities for RecArea and Facility
   app.get('/activities', routeLogic.getActivities);
 
-  // Get Entitymedia and Attributes for Tours
-  // app.get('/tourMedia', routeLogic.getTourMedia);
-  // app.get('/tourAttributes', routeLogic.getTourAttributes);
+  app.get('/permitEntrances', routeLogic.getEntrances);
 
-  // Get Campsite Equipment
-  // app.get('/campsiteEquipment', routeLogic.getCampsitesEquipment);
 };
+
