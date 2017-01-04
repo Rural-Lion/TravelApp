@@ -219,7 +219,7 @@ module.exports.getFacilityPermitEntrances = function(req, res) {
   console.log("getting in here");
   schemas.facilities.findOne({
     where: {FacilityName: facility},
-    include: [{model: schemas.permitEntraces}]
+    include: [{model: schemas.permitEntrances}]
   })
   .then(function(fac) {
     res.send(fac);
