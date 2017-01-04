@@ -5,11 +5,13 @@ const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const EntityListEntry = props => (
   <FancyBorder color="green">
-    <div className="row EntityListEntry" onClick={props.handleAddToItineraryClick} data-latlng={props.entity.coordinates}>
+    <div className="row EntityListEntry" onClick={e => props.handleAddToItineraryClick(e, props.entity)}>
       <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <FancyBorder color="blue"><div className="text-center">{labels[props.index]}</div></FancyBorder>
         <FancyBorder color="blue">
-          <div className="text-center" onClick={e => props.handleEntityClick(e, props.entity)}>Read more</div>
+          <div>
+            <button className="btn-primary" onClick={e => props.handleEntityClick(e, props.entity)}>Read more</button>
+          </div>
         </FancyBorder>
       </div>
       <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
@@ -17,7 +19,7 @@ const EntityListEntry = props => (
           <FancyBorder color="blue"><div>{props.entity.name}</div></FancyBorder>
         </div>
         <div className="row">
-          <FancyBorder color="blue"><div>{props.entity.activities.join(', ').toLowerCase()}</div></FancyBorder>
+          <FancyBorder color="blue"><div>{props.entity.activities.join(', ')}</div></FancyBorder>
         </div>
       </div>
     </div>

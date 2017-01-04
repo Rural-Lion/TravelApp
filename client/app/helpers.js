@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
 // interests for interest buttons are hard coded in
-const INTERESTS = ['biking', 'boating', 'historic & cultural site', 'camping', 'fishing', 'hiking', 'off highway vehicle', 'picnicking', 'recreational vehicles', 'visitor center', 'water sports', 'wildlife viewing', 'other recreation concession site'];
 
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+const interests = ['biking', 'boating', 'historic & cultural site', 'camping', 'fishing', 'hiking', 'off highway vehicle', 'picnicking', 'recreational vehicles', 'visitor center', 'water sports', 'wildlife viewing', 'other recreation concession site'];
+
+const INTERESTS = interests.map(interest => toTitleCase(interest));
 // function for creating objects from the results of api request to the US website
 const generateActivities = res => res.map(({
                   RECAREAADDRESS: [{ PostalCode, RecAreaStreetAddress1, City, AddressStateCode }],
@@ -14,7 +19,7 @@ const generateActivities = res => res.map(({
                   ACTIVITY,
                    MEDIA,
                }) => {
-  const activities = ACTIVITY.map(({ ActivityName }) => ActivityName);
+  const activities = ACTIVITY.map(({ ActivityName }) => toTitleCase(ActivityName));
 
   return {
     img: MEDIA,
@@ -54,7 +59,6 @@ const FancyBorder = function (props) {
 
 FancyBorder.propTypes = {
   color: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element),
 };
 
 
