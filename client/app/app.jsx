@@ -11,10 +11,14 @@
     // Map
 
 import React, { Component, PropTypes } from 'react';
+import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 import axios from 'axios';
 import { INTERESTS, generateActivities, getCoordinates, FancyBorder } from './helpers';
 import LandingPage from './LandingPage/LandingPage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
+
+const NotFound = () => (
+  <h1>404.. This page is not found!</h1>);
 
 class App extends Component {
   constructor() {
@@ -37,6 +41,32 @@ class App extends Component {
     this.handleInterestButtonClick = this.handleInterestButtonClick.bind(this);
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handlePlanButtonClick = this.handlePlanButtonClick.bind(this);
+
+    this.routes = (
+      <div>
+        <Route
+          path="/"
+          component={() =>
+          (<LandingPage
+            interests={INTERESTS}
+            handleInterestButtonClick={this.handleInterestButtonClick}
+            handlePlanButtonClick={this.handlePlanButtonClick}
+            handleChange={this.handleInputOnChange}
+            userQuery={this.state.userQuery}
+          />)}
+        />
+        <Route
+          path="/results"
+          component={() =>
+          (<ResultsPage
+            userQuery={this.state.userQuery}
+            entities={this.state.entities}
+            handlePlanButtonClick={this.handlePlanButtonClick}
+          />)}
+        />
+        <Route path="*" component={NotFound} />
+      </div>
+    );
   }
 
   handleInterestButtonClick(e) {
@@ -91,7 +121,7 @@ class App extends Component {
     // };
     // getCoordinates(this.state.userQuery.startingLocation, sendRequest);
 
-
+    // COMMENT OUT AFTER UNCOMMENTING THE PREVIOUS BIT:
     axios.get('https://ridb.recreation.gov/api/v1/recareas?apiKey=2CE3A404B8824CFEA7652104FCEEE328&full=TRUE&limit=10')
     .then((res) => {
       this.setState({
@@ -103,18 +133,12 @@ class App extends Component {
   render() {
     return (
       <FancyBorder color="red">
-        <LandingPage
-          interests={INTERESTS}
-          handleInterestButtonClick={this.handleInterestButtonClick}
-          handlePlanButtonClick={this.handlePlanButtonClick}
-          handleChange={this.handleInputOnChange}
-        />
-        <ResultsPage
-          userQuery={this.state.userQuery}
-          entities={this.state.entities}
-        />
+        <Router history={hashHistory}>
+          { this.routes }
+        </Router>
       </FancyBorder>
     );
   }
 }
+
 export default App;

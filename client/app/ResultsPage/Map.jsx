@@ -8,7 +8,7 @@ class Map extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.initMap(this.refs.map);
   }
 
@@ -54,10 +54,6 @@ class Map extends Component {
   }
 
   render() {
-    const query = this.props.userQuery.startingLocation;
-    if (this.props.entities.length || query) {
-      this.initMap(this.refs.map);
-    }
     return (
       <div>
         <div className="row">

@@ -22,7 +22,7 @@ const LandingPage = function (props) {
         <div className="row">
           <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-centered">
             <div className="row">
-              <Inputs handleChange={props.handleChange} />
+              <Inputs handleChange={props.handleChange} userQuery={props.userQuery} />
             </div>
           </div>
         </div>
@@ -58,6 +58,7 @@ LandingPage.propTypes = {
   handleInterestButtonClick: PropTypes.func,
   handleChange: PropTypes.func,
   handlePlanButtonClick: PropTypes.func,
+  userQuery: PropTypes.object,
 };
 
 export default LandingPage;

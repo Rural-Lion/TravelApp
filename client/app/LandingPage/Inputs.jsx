@@ -11,6 +11,7 @@ const Inputs = props => (
           onChange={e => props.handleChange(e)}
           className="lpInput"
           type="text"
+          value={props.userQuery.budgetOfTrip}
         />
       </FancyBorder>
     </div>
@@ -22,6 +23,7 @@ const Inputs = props => (
           onChange={e => props.handleChange(e)}
           className="lpInput"
           type="text"
+          value={props.userQuery.lengthOfTrip}
         />
       </FancyBorder>
     </div>
@@ -33,6 +35,7 @@ const Inputs = props => (
           onChange={e => props.handleChange(e)}
           className="lpInput"
           type="text"
+          value={props.userQuery.startingLocation}
         />
       </FancyBorder>
     </div>
@@ -44,6 +47,7 @@ const Inputs = props => (
           onChange={e => props.handleChange(e)}
           className="lpInput"
           type="text"
+          value={props.userQuery.distanceOfTrip}
         />
       </FancyBorder>
     </div>
@@ -52,6 +56,7 @@ const Inputs = props => (
 
 Inputs.propTypes = {
   handleChange: PropTypes.func,
+  userQuery: PropTypes.object,
 };
 
 export default Inputs;
