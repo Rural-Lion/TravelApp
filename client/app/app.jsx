@@ -94,6 +94,7 @@ class App extends Component {
 
   handlePlanButtonClick() {
     console.log('called');
+    var that = this; 
     // TODO later - set the state somewhere to have the coordinates of staring location
     //  const userQuery = Object.assign({}, this.state.userQuery);
     //     userQuery.startingLocationCoordinates = latLng;
@@ -115,10 +116,11 @@ class App extends Component {
             activities: JSON.stringify(state.userInterests)
           },
         })
-        .then((res) => {
+        .then(function(res) {
           console.log('RES', res);
-          this.setState({
-            entities: generateActivities(res.data.RECDATA),
+          console.log(that); // getting undefined value for this also need to deal with address and latitude/longitude of specific map requests cannot setState
+          that.setState({
+            entities: generateActivities(res.data),
           }, () => { console.log('entities in app', state.entities); });
         })
         .catch((err) => console.log('error loading get request', err));
@@ -153,6 +155,7 @@ class App extends Component {
       </FancyBorder>
     );
   }
+
 }
 
 export default App;
