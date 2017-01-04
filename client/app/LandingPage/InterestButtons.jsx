@@ -3,18 +3,16 @@ import { FancyBorder } from '../helpers.js';
 import InterestButton from './InterestButton.jsx';
 
 const InterestButtons = (props) => {
-  console.log(props.userInterests);
   const interests = props.interests;
   // generates buttons based off of INTERESTS array. currently hard coded
   const buttons = interests.map((interest, index) =>
-    <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    (<div className="col-xs-4 col-sm-4 col-md-4 col-lg-4" key={index}>
       <InterestButton
         interest={interest}
-        key={index}
         handleInterestButtonClick={props.handleInterestButtonClick}
         userInterests={props.userInterests}
-      /></div>);
-
+      /></div>),
+    );
   return (
     // renders buttons
     <FancyBorder color="green">

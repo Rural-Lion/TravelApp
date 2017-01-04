@@ -8,22 +8,29 @@ const EntityList = (props) => {
   const entities = props.entities;
   const entityList = entities.map((entity, index) =>
     <EntityListEntry
-entity={entity} index={index} key={index} handleEntityClick={props.handleEntityClick}
+      entity={entity}
+      index={index}
+      key={index}
+      handleEntityClick={props.handleEntityClick}
       handleAddToItineraryClick={props.handleAddToItineraryClick}
     />);
 
   return (
     <div>
-      <div className="row">
-        <h1 className="text-center">Results List</h1>
-      </div>
-      <div className="row EntityListContainer">
-        <div className="EntityList">
-          <FancyBorder color="yellow">
-            {entityList}
-          </FancyBorder>
+      <FancyBorder color="green">
+        <div>
+          <h1 className="text-center">Results List</h1>
         </div>
-      </div>
+      </FancyBorder>
+      <FancyBorder color="green">
+        <div className="row EntityListContainer">
+          <div className="EntityList">
+            <FancyBorder color="blue">
+              {entityList}
+            </FancyBorder>
+          </div>
+        </div>
+      </FancyBorder>
     </div>
 
   );

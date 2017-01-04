@@ -62,30 +62,35 @@ class ResultsPage extends Component {
     }
     this.setState({
       waypoints,
-    }, () => { console.log('WAYPOINTS', waypoints); });
+    }, () => { console.log(this.state.waypoints); });
   }
 
   render() {
     return (
       <div className="resultsPage">
         <FancyBorder color="orange">
-          <div className="row">
+          <div className="container">
             <NavBar />
           </div>
           <div className="row mapAndList">
             <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
-              <MapContainer
-                userQuery={this.props.userQuery}
-                entities={this.state.entities}
-                waypoints={this.state.waypoints}
-              />
+              <FancyBorder color="yellow">
+                <MapContainer
+                  userQuery={this.props.userQuery}
+                  entities={this.state.entities}
+                  waypoints={this.state.waypoints}
+                />
+              </FancyBorder>
             </div>
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-              <EntityList
-                entities={this.props.entities} handleEntityClick={this.handleEntityClick}
-                handleAddToItineraryClick={this.handleAddToItineraryClick}
-                waypoints={this.state.waypoints}
-              />
+              <FancyBorder color="yellow">
+                <EntityList
+                  entities={this.props.entities}
+                  handleEntityClick={this.handleEntityClick}
+                  handleAddToItineraryClick={this.handleAddToItineraryClick}
+                  waypoints={this.state.waypoints}
+                />
+              </FancyBorder>
             </div>
           </div>
           <div className="container">
