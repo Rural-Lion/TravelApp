@@ -194,7 +194,7 @@ Attributes.sync().then(() => {
   console.log('Attributes created successfully');
 });
 
-const PermitEntrance = db.define('permitentrance', {
+const PermitEntrances = db.define('permitentrance', {
   PermitEntranceDescription: Sequelize.STRING(1024),
   Longitude: Sequelize.DECIMAL(10, 5),
   PermitEntranceType: Sequelize.STRING,
@@ -212,7 +212,7 @@ const PermitEntrance = db.define('permitentrance', {
   PermitEntranceAccessible: Sequelize.STRING(10),
 });
 
-PermitEntrance.sync().then(() => {
+PermitEntrances.sync().then(() => {
   console.log('PermitEntrance created successfully');
 });
 
@@ -381,18 +381,18 @@ Facilities.hasMany(Tours, { foreignKey: 'FacilityID' });
 Tours.belongsTo(Facilities, { foreignKey: 'FacilityID' });
 Facilities.hasMany(Campsites, { foreignKey: 'FacilityID' });
 Campsites.belongsTo(Facilities, { foreignKey: 'FacilityID' });
-Facilities.hasMany(PermitEntrance, { foreignKey: 'FacilityID' });
-PermitEntrance.belongsTo(Facilities, { foreignKey: 'FacilityID' });
+Facilities.hasMany(PermitEntrances, { foreignKey: 'FacilityID' });
+PermitEntrances.belongsTo(Facilities, { foreignKey: 'FacilityID' });
 
 Tours.hasMany(EntityMedia, {foreignKey: 'EntityID' });
 EntityMedia.belongsTo(Tours, {foreignKey: 'EntityID' });
 Tours.hasMany(Attributes, {foreignKey: 'EntityID' });
 Attributes.belongsTo(Tours, { foreignKey: 'EntityID' }); 
 
-PermitEntrance.hasMany(EntityMedia, {foreignKey: 'EntityID' });
-EntityMedia.belongsTo(PermitEntrance, {foreignKey: 'EntityID' });
-PermitEntrance.hasMany(Attributes, {foreignKey: 'EntityID' });
-Attributes.belongsTo(PermitEntrance, { foreignKey: 'EntityID' }); 
+PermitEntrances.hasMany(EntityMedia, {foreignKey: 'EntityID' });
+EntityMedia.belongsTo(PermitEntrances, {foreignKey: 'EntityID' });
+PermitEntrances.hasMany(Attributes, {foreignKey: 'EntityID' });
+Attributes.belongsTo(PermitEntrances, { foreignKey: 'EntityID' }); 
 
 Campsites.hasMany(EntityMedia, {foreignKey: 'EntityID' });
 EntityMedia.belongsTo(Campsites, {foreignKey: 'EntityID' });
@@ -420,7 +420,7 @@ module.exports = {
   entityMedia: EntityMedia,
   tours: Tours,
   attributes: Attributes,
-  permitEntrance: PermitEntrance,
+  permitEntrances: PermitEntrances,
   permittedEquipment: PermittedEquipment,
   campsites: Campsites,
   orgEntities: OrgEntity,
