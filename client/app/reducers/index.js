@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import inputs from './inputs.js';
-import activities from './activities.js';
+import userQuery from './userQueryReducer.js';
+// import activities from './activities.js';
 
 const travelApp = combineReducers({
-  inputs,
-  activities,
+  userQuery,
+  //activities,
 });
 
 export default travelApp;

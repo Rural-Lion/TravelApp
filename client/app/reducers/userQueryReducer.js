@@ -14,7 +14,7 @@ const initialState = {
   distanceOfTrip: 0,
 };
 
-const setInputs = (state = initialState, action) => {
+const userQuery = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_LOCATION':
       return Object.assign({}, state, {
@@ -22,19 +22,19 @@ const setInputs = (state = initialState, action) => {
       });
     case 'SET_BUDGET':
       return Object.assign({}, state, {
-        startingLocation: action.budget,
+        budgetOfTrip: action.budget,
       });
     case 'SET_LENGTH':
       return Object.assign({}, state, {
-        startingLocation: action.length,
+        lengthOfTrip: action.length,
       });
     case 'SET_DISTANCE':
       return Object.assign({}, state, {
-        startingLocation: action.distance,
+        distanceOfTrip: action.distance,
       });
     default:
       return state;
   }
 };
 
-export default setInputs;
+export default userQuery;

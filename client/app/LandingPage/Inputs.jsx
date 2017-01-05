@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
+import { setLocation, setBudget, setDistance, setLength } from '../actions/inputActions.js';
 
 const Inputs = props => (
   <FancyBorder color="yellow" >
