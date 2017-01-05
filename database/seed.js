@@ -15,6 +15,9 @@
 let request = require('request');
 require('dotenv-safe').load();
 let schemas = require('../database/schemas.js');
+let db = require('../database/database.js');
+const client = require('../database/database-redis.js');
+
 
 ///// Section 2 - Importing all JSON files for caching /////
 const organizationsJSON = require('../RIDBFullExport_v1/Organizations_API_v1.json');
@@ -231,8 +234,39 @@ const trailsCaching = () => {
 ///// Part 2 - Individual caching functions //////
 // delayCall(recAreasSet, recAreasCaching, 0);
 // delayCall(facilitiesSet, facilitiesCaching, 0);
-trailsCaching();
+// trailsCaching();
 //////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////
 
+
+///////////////////////////////////////////////////////////////////////
+////////////         REDIS SEEDING         ////////////////
+///////////////////////////////////////////////////////////////////////
+
+
+const trailsForFacilities = () => {
+  let ids = [];
+  let facilitiesShort = [];
+  schemas.facilities.findAll()
+  .then(function(facilities) {
+    facilities.forEach(function(facility) {
+      db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${facility.FacilityLatitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${facility.FacilityLatitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${facility.FacilityLongitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+      .then(function(trails) {
+        client.set(facility.FacilityID, JSON.stringify(trails));
+      })
+      .catch((err) => console.log('error: ', err));
+    });
+  })
+  .catch((err) => console.log('error: ', err));
+};
+
+
+// trailsForFacilities();
+// client.get(202087, function(err, res) {
+//   console.log('response: ', JSON.parse(res));
+// });
+
+// client.flushdb( function (err, succeeded) {
+//     console.log(succeeded); // will be OK if successfull
+// });
