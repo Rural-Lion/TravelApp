@@ -1,6 +1,6 @@
-export const toggleInterest = interest => ({
+export const toggleInterest = interestId => ({
   type: 'TOGGLE_INTEREST',
-  interest,
+  interestId,
 });
 
 export const setLocation = location => ({

@@ -1,29 +1,30 @@
 // App - all state is held here for now
   // LandingPage
-    // Inputs
+    // InputsContainer
+      // Inputs
     // PlanVacationButton
-    // InterestButtons
-      // interestButton
+    // InterestButtonsContainer
+      // InterestButtons
+        // interestButton
   // ResultsPage
     // NavBar
     // EntityList
       // EntityListEntry
-    // Map
+    // MapContainer
+      // Map
 
 import React, { Component } from 'react';
 import { Router, Route, hashHistory } from 'react-router';
-import axios from 'axios';
-import { INTERESTS, generateData, getCoordinates, FancyBorder } from './helpers';
-import LandingPage from './LandingPage/LandingPage.jsx';
-import ResultsPage from './ResultsPage/ResultsPage.jsx';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { generateActivities, getCoordinates, FancyBorder } from './helpers';
+import LandingPage from './LandingPage/LandingPage.jsx';
+import ResultsPage from './ResultsPage/ResultsPage.jsx';
 import travelApp from './reducers';
 
 
 const store = createStore(travelApp);
 console.log(store.getState());
-console.log('reloading');
 
 class App extends Component {
   constructor() {
@@ -43,22 +44,11 @@ class App extends Component {
       entities: [],
     };
 
-    this.handleInterestButtonClick = this.handleInterestButtonClick.bind(this);
     this.handlePlanButtonClick = this.handlePlanButtonClick.bind(this);
 
     this.routes = (
       <div>
-        <Route
-          path="/"
-          component={() =>
-          (<LandingPage
-            interests={INTERESTS}
-            handleInterestButtonClick={this.handleInterestButtonClick}
-            handlePlanButtonClick={this.handlePlanButtonClick}
-            userQuery={this.state.userQuery}
-            userInterests={this.state.userInterests}
-          />)}
-        />
+        <Route path="/" component={LandingPage} />
         <Route
           path="/results"
           component={() =>
@@ -72,27 +62,14 @@ class App extends Component {
     );
   }
 
-  handleInterestButtonClick(e) {
-    const newArray = this.state.userInterests.slice();
-    const indexOf = newArray.indexOf(e.target.innerHTML);
-    if (indexOf === -1) {
-      newArray.push(e.target.innerHTML);
-    } else {
-      newArray.splice(indexOf, 1);
-    }
-    this.setState({
-      userInterests: newArray,
-    });
-  }
-
   handlePlanButtonClick() {
     console.log('called');
-    var that = this; 
+    let that = this;
     // TODO later - set the state somewhere to have the coordinates of staring location
-    var latLng = { lat: 37.775, lng: -122.419 };
-     const userQuery = Object.assign({}, this.state.userQuery);
-        userQuery.startingLocationCoordinates = latLng;
-        this.setState(
+    let latLng = { lat: 37.775, lng: -122.419 };
+    const userQuery = Object.assign({}, this.state.userQuery);
+    userQuery.startingLocationCoordinates = latLng;
+    this.setState(
           userQuery,
         );
 
@@ -100,22 +77,22 @@ class App extends Component {
     const state = this.state;
     const sendRequest = function (latLng) {
       if (latLng) {
-        console.log("before get call");
+        console.log('before get call');
         axios.get('/entitiesWithinRadius', {
           params: {
             latitude: latLng.lat,
             longitude: latLng.lng,
             distance: state.userQuery.distanceOfTrip,
-            activities: JSON.stringify(state.userInterests)
+            activities: JSON.stringify(state.userInterests),
           },
         })
-        .then(function(res) {
+        .then((res) => {
           console.log(that); // Need to deal with getting latitude and longitude and not using static data
           that.setState({
             entities: generateData(res.data),
           }, () => { console.log('entities in app', that.state.entities); });
         })
-        .catch((err) => console.log('error loading get request', err));
+        .catch(err => console.log('error loading get request', err));
       }
     };
     sendRequest(latLng);

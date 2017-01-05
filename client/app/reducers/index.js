@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import userQuery from './userQueryReducer.js';
-// import activities from './activities.js';
+import interests from './interestsReducer.js';
 
 const travelApp = combineReducers({
   userQuery,
-  //activities,
+  interests,
 });
 
 export default travelApp;
