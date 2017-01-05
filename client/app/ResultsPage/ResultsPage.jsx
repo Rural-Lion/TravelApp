@@ -41,6 +41,11 @@ class ResultsPage extends Component {
   handleEntityClick(e, entity) {
     var that = this; 
 
+    // this.setState({
+    //   selectedEntity: entity,
+    //   showModal: true,
+    // });
+
     axios.get('/facility', {
       params: {
         facility: entity.name
@@ -49,16 +54,12 @@ class ResultsPage extends Component {
     .then(function(facility) {
       console.log('facility', facility);
       that.setState({
-        selectedEntity: facility,
+        selectedEntity: facility.data,
         showModal: true
-      })
+      }, function(){console.log('getting in here')});
     })
     .catch((err) => console.log('error', err));
 
-    // this.setState({
-    //   selectedEntity: entity,
-    //   showModal: true,
-    // });
   }
 
   handleEntityModalCloseClick() {

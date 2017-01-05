@@ -5,12 +5,13 @@ const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const EntityListEntry = props => (
   <FancyBorder color="green">
-    <div className="row EntityListEntry" onClick={e => props.handleAddToItineraryClick(e, props.entity)}>
+    <div className="row EntityListEntry" >
       <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <FancyBorder color="blue"><div className="text-center">{labels[props.index]}</div></FancyBorder>
         <FancyBorder color="blue">
           <div>
             <button className="btn-primary" onClick={e => props.handleEntityClick(e, props.entity)}>Read more</button>
+            <button className="btn-primary" onClick={e => props.handleAddToItineraryClick(e, props.entity)}>Directions</button>
           </div>
         </FancyBorder>
       </div>

@@ -25,6 +25,7 @@ module.exports.getFacility = function(req, res) {
     where: {FacilityName: facility},
     include: [
       {model: schemas.permitEntrances},
+      {model: schemas.facilitiesAddress},
       {model: schemas.activities},
       {model: schemas.entityMedia},
       {model: schemas.campsites}

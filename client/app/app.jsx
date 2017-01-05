@@ -96,12 +96,12 @@ class App extends Component {
     console.log('called');
     var that = this; 
     // TODO later - set the state somewhere to have the coordinates of staring location
-    //  const userQuery = Object.assign({}, this.state.userQuery);
-    //     userQuery.startingLocationCoordinates = latLng;
-        var latLng = { lat: 37.775, lng: -122.419 };
-    //     this.setState(
-    //       userQuery,
-    //     );
+    var latLng = { lat: 37.775, lng: -122.419 };
+     const userQuery = Object.assign({}, this.state.userQuery);
+        userQuery.startingLocationCoordinates = latLng;
+        this.setState(
+          userQuery,
+        );
 
     // TO UNCOMMENT WHEN RESPONSE IS IN THE RIGHT FORMAT:
     const state = this.state;

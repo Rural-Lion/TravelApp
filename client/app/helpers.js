@@ -30,6 +30,28 @@ const generateActivities = res => res.map(({
   };
 });
 
+const generateActivities2 = res => res.map(({
+                  FacilityLatitude,
+                  FacilityLongitude,
+                  FacilityName,
+                  FacilityPhone,
+                  FacilityDescription, 
+                  FacilityEmail,
+                  URL
+               }) => {
+  // const activities = ACTIVITY.map(({ ActivityName }) => toTitleCase(ActivityName));
+
+  return {
+    name: FacilityName,
+    image: URL, 
+    email: FacilityEmail,
+    phoneNumber: FacilityPhone,
+    description: FacilityDescription,
+    coordinates: [FacilityLatitude, FacilityLongitude]
+  };
+});
+
+
 const getCoordinates = function (location, cb) {
   const geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: location }, (results, status) => {

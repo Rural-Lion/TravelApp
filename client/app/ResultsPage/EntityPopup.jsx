@@ -38,7 +38,7 @@ const EntityPopup = props => (
                 <span aria-hidden="true">&times;</span>
               </button>
               <FancyBorder color="blue">
-                <h4 className="modal-title">{props.entity.name}</h4>
+                <h4 className="modal-title">{props.entity.FacilityName}</h4>
               </FancyBorder>
             </div>
             <div className="modal-body">
@@ -47,7 +47,7 @@ const EntityPopup = props => (
                 Activities:
               </div>
                 <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <FancyBorder color="blue"><div>{props.entity.activities.join(', ')}</div></FancyBorder>
+                  <FancyBorder color="blue"><div>{props.entity.FacilityName}</div></FancyBorder> 
                 </div>
               </div>
               <div className="row entityDescriptionRow">
@@ -56,16 +56,16 @@ const EntityPopup = props => (
               </div>
                 <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                   <FancyBorder color="blue">
-                    <div dangerouslySetInnerHTML={{ __html: props.entity.description }} />
+                    <div dangerouslySetInnerHTML={{ __html: props.entity.FacilityDescription }} />
                   </FancyBorder>
                 </div>
               </div>
               <div className="row entityContactsRow">
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
-                  <FancyBorder color="blue"><div>{props.entity.phoneNumber}</div></FancyBorder>
+                  <FancyBorder color="blue"><div>{props.entity.FacilityPhone}</div></FancyBorder>
                 </div>
                 <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-center">
-                  <FancyBorder color="blue"><div>{props.entity.address}</div></FancyBorder>
+                  <FancyBorder color="blue"><div>{props.entity.FacilityAddress}</div></FancyBorder>
                 </div>
               </div>
               <div className="modal-footer">
