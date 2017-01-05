@@ -249,11 +249,29 @@ const trailsForFacilities = () => {
   let ids = [];
   let facilitiesShort = [];
   schemas.facilities.findAll()
-  .then(function(facilities) {
-    facilities.forEach(function(facility) {
-      db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${facility.FacilityLatitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${facility.FacilityLatitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${facility.FacilityLongitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
-      .then(function(trails) {
-        client.set(facility.FacilityID, JSON.stringify(trails));
+  .then((facilities) => {
+    facilitiesShort = facilities.slice(50, 51);
+    facilitiesShort.forEach((facility) => {
+      db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${facility.FacilityLatitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${facility.FacilityLatitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${facility.FacilityLongitude})))) * 6371 <= 50) LIMIT 1`, {type: db.QueryTypes.SELECT})
+      .then((trails) => {
+        console.log('facility.ID: ', facility.FacilityID);
+        console.log('Trails: ', trails);
+        schemas.facilities.findOne({
+          where: {FacilityID: facility.FacilityID},
+          include: [{model: schemas.activities}]
+        }).then(function(fac) {
+          const facActivities = fac.dataValues.activities;
+          let activityList = [];
+          facActivities.forEach((activity) => {
+            activityList.push(activity.dataValues.ActivityName);
+          });
+          let facilityInfo = {
+            trails: trails,
+            activities: activityList
+          };
+          client.set(facility.FacilityID, JSON.stringify(facilityInfo));
+        })
+        .catch((err) => console.log('error', err));
       })
       .catch((err) => console.log('error: ', err));
     });
@@ -262,7 +280,7 @@ const trailsForFacilities = () => {
 };
 
 
-// trailsForFacilities();
+trailsForFacilities();
 // client.get(202087, function(err, res) {
 //   console.log('response: ', JSON.parse(res));
 // });
