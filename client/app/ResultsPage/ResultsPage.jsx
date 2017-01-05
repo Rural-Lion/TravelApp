@@ -13,6 +13,7 @@ import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
+import ItineraryContainer from './Itinerary/ItineraryContainer.jsx';
 
 class ResultsPage extends Component {
   constructor(props) {
@@ -115,7 +116,7 @@ class ResultsPage extends Component {
     }
     this.setState({
       waypoints,
-    }, () => { console.log('WAYPOINTS', this.state.waypoints); });
+    });
   }
 
   render() {
@@ -126,7 +127,10 @@ class ResultsPage extends Component {
             <NavBar />
           </div>
           <div className="row mapAndList">
-            <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
+            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3" >
+              <ItineraryContainer />
+            </div>
+            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6" >
               <FancyBorder color="yellow">
                 <MapContainer
                   userQuery={this.props.userQuery}
@@ -135,7 +139,7 @@ class ResultsPage extends Component {
                 />
               </FancyBorder>
             </div>
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
               <FancyBorder color="yellow">
                 <EntityList
                   entities={this.state.entities}
