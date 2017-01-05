@@ -8,25 +8,33 @@ function toTitleCase(str) {
 const interests = ['biking', 'boating', 'historic & cultural site', 'camping', 'fishing', 'hiking', 'off highway vehicle', 'picnicking', 'recreational vehicles', 'visitor center', 'water sports', 'wildlife viewing', 'other recreation concession site'];
 
 const INTERESTS = interests.map(interest => toTitleCase(interest));
+
 // function for creating objects from the results of api request to the US website
 const generateActivities = res => res.map(({
-                  FacilityLatitude,
-                  FacilityLongitude,
-                  FacilityName,
-                  FacilityPhone,
-                  FacilityDescription, 
-                  FacilityEmail,
-                  URL
-               }) => {
-  // const activities = ACTIVITY.map(({ ActivityName }) => toTitleCase(ActivityName));
+  FacilityLatitude,
+  FacilityLongitude,
+  FacilityName,
+  FacilityPhone,
+  FacilityDescription, 
+  FacilityEmail,
+  URL,
+  RecAreaLatitude,
+  RecAreaLongitude,
+  RecAreaName,
+  RecAreaPhone,
+  RecAreaDescription,
+  RecAreaEmail
+}) => {
 
   return {
-    name: FacilityName,
+    name: FacilityName || RecAreaName, 
     image: URL, 
-    email: FacilityEmail,
-    phoneNumber: FacilityPhone,
-    description: FacilityDescription,
-    coordinates: [FacilityLatitude, FacilityLongitude]
+    email: FacilityEmail || RecAreaEmail,
+    phoneNumber: FacilityPhone || RecAreaPhone,
+    description: FacilityDescription || RecAreaDescription,
+    coordinates: !!FacilityLatitude ? [FacilityLatitude, FacilityLongitude] : [RecAreaLatitude, RecAreaLongitude],
+    facility: !!FacilityName,
+    recArea: !!RecAreaName
   };
 });
 
@@ -47,7 +55,8 @@ const generateActivities2 = res => res.map(({
     email: FacilityEmail,
     phoneNumber: FacilityPhone,
     description: FacilityDescription,
-    coordinates: [FacilityLatitude, FacilityLongitude]
+    coordinates: [FacilityLatitude, FacilityLongitude],
+    facility: true
   };
 });
 
@@ -83,3 +92,5 @@ FancyBorder.propTypes = {
 
 
 export { INTERESTS, generateActivities, getCoordinates, FancyBorder };
+
+
