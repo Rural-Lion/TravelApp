@@ -10,6 +10,8 @@ import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
+import axios from 'axios';
+
 
 
 class ResultsPage extends Component {
@@ -37,10 +39,26 @@ class ResultsPage extends Component {
   }
 
   handleEntityClick(e, entity) {
-    this.setState({
-      selectedEntity: entity,
-      showModal: true,
-    });
+    var that = this; 
+
+    axios.get('/facility', {
+      params: {
+        facility: entity.name
+      }
+    })
+    .then(function(facility) {
+      console.log('facility', facility);
+      that.setState({
+        selectedEntity: facility,
+        showModal: true
+      })
+    })
+    .catch((err) => console.log('error', err));
+
+    // this.setState({
+    //   selectedEntity: entity,
+    //   showModal: true,
+    // });
   }
 
   handleEntityModalCloseClick() {
