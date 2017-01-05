@@ -6,13 +6,12 @@
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
 import { FancyBorder } from '../helpers.js';
-import Inputs from './Inputs.jsx';
+import InputsContainer from './InputsContainer.jsx';
 import PlanVacationButton from './PlanVacationButton.jsx';
 import InterestButtons from './InterestButtons.jsx';
 
-const LandingPage = function (props) {
-  return (
-    <div className="landingPage container-fluid">
+const LandingPage = props => (
+  <div className="landingPage container-fluid">
       <FancyBorder className="landingPage container-fluid" color="orange">
         <div className="landingPageContainer">
           <div className="landingPageContent">
@@ -24,7 +23,7 @@ const LandingPage = function (props) {
             <div className="row">
               <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-centered">
                 <div className="row">
-                  <Inputs className="inputs" handleChange={props.handleChange} userQuery={props.userQuery} />
+                  <InputsContainer className="inputs" />
                 </div>
               </div>
             </div>
@@ -56,13 +55,11 @@ const LandingPage = function (props) {
       </FancyBorder>
     </div>
   );
-};
 
 LandingPage.propTypes = {
   userInterests: PropTypes.array,
   interests: PropTypes.arrayOf(PropTypes.string),
   handleInterestButtonClick: PropTypes.func,
-  handleChange: PropTypes.func,
   handlePlanButtonClick: PropTypes.func,
   userQuery: PropTypes.object,
 };

@@ -10,15 +10,20 @@
       // EntityListEntry
     // Map
 
-import React, { Component, PropTypes } from 'react';
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
+import React, { Component } from 'react';
+import { Router, Route, hashHistory } from 'react-router';
 import axios from 'axios';
 import { INTERESTS, generateActivities, getCoordinates, FancyBorder } from './helpers';
 import LandingPage from './LandingPage/LandingPage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import travelApp from './reducers';
 
-const NotFound = () => (
-  <h1>404.. This page is not found!</h1>);
+
+const store = createStore(travelApp);
+console.log(store.getState());
+console.log('reloading');
 
 class App extends Component {
   constructor() {
@@ -39,7 +44,6 @@ class App extends Component {
     };
 
     this.handleInterestButtonClick = this.handleInterestButtonClick.bind(this);
-    this.handleInputOnChange = this.handleInputOnChange.bind(this);
     this.handlePlanButtonClick = this.handlePlanButtonClick.bind(this);
 
     this.routes = (
@@ -51,7 +55,6 @@ class App extends Component {
             interests={INTERESTS}
             handleInterestButtonClick={this.handleInterestButtonClick}
             handlePlanButtonClick={this.handlePlanButtonClick}
-            handleChange={this.handleInputOnChange}
             userQuery={this.state.userQuery}
             userInterests={this.state.userInterests}
           />)}
@@ -65,7 +68,6 @@ class App extends Component {
             handlePlanButtonClick={this.handlePlanButtonClick}
           />)}
         />
-        <Route path="*" component={NotFound} />
       </div>
     );
   }
@@ -80,15 +82,6 @@ class App extends Component {
     }
     this.setState({
       userInterests: newArray,
-    });
-  }
-
-  handleInputOnChange(e) {
-    const userQuery = Object.assign({}, this.state.userQuery);
-    const key = e.target.dataset.tag;
-    userQuery[key] = e.target.value;
-    this.setState({
-      userQuery,
     });
   }
 
@@ -141,12 +134,13 @@ class App extends Component {
 
   render() {
     return (
-      <FancyBorder color="red">
-
-        <Router history={hashHistory}>
-          { this.routes }
-        </Router>
-      </FancyBorder>
+      <Provider store={store}>
+        <FancyBorder color="red">
+          <Router history={hashHistory}>
+            { this.routes }
+          </Router>
+        </FancyBorder>
+      </Provider>
     );
   }
 }

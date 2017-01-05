@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
+import { setLocation, setBudget, setDistance, setLength } from '../actions/inputActions.js';
 
 const Inputs = props => (
   <FancyBorder color="yellow" >
@@ -8,7 +9,7 @@ const Inputs = props => (
       How much do you want to spend?
         <input
           data-tag="budgetOfTrip"
-          onChange={e => props.handleChange(e)}
+          onChange={e => props.handleChange(setBudget, e.target.value)}
           className="lpInput"
           type="text"
           value={props.userQuery.budgetOfTrip}
@@ -20,7 +21,7 @@ const Inputs = props => (
       How long are you traveling?
         <input
           data-tag="lengthOfTrip"
-          onChange={e => props.handleChange(e)}
+          onChange={e => props.handleChange(setLength, e.target.value)}
           className="lpInput"
           type="text"
           value={props.userQuery.lengthOfTrip}
@@ -32,7 +33,7 @@ const Inputs = props => (
       Where are you starting from?
         <input
           data-tag="startingLocation"
-          onChange={e => props.handleChange(e)}
+          onChange={e => props.handleChange(setLocation, e.target.value)}
           className="lpInput"
           type="text"
           value={props.userQuery.startingLocation}
@@ -44,7 +45,7 @@ const Inputs = props => (
       How far away do you want to go?
         <input
           data-tag="distanceOfTrip"
-          onChange={e => props.handleChange(e)}
+          onChange={e => props.handleChange(setDistance, e.target.value)}
           className="lpInput"
           type="text"
           value={props.userQuery.distanceOfTrip}
