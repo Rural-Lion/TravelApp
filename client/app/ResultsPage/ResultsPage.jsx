@@ -39,7 +39,7 @@ class ResultsPage extends Component {
     const sendRequest = (location) => {
       if (location) {
         that.setState({
-          startingLocation: location,
+          startingLocation: { lat: location.lat(), lng: location.lng() },
         });
         axios.get('/entitiesWithinRadius', {
           params: {
