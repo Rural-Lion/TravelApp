@@ -2,23 +2,23 @@
     // NavBar
     // EntityList
       // EntityListEntry
-    // Map
+    // MapContainer
+      // Map
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { FancyBorder, generateActivities } from '../helpers';
+import axios from 'axios';
+import { generateActivities, generateData, getCoordinates, FancyBorder } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
-import axios from 'axios';
-
 
 class ResultsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entities: props.entities,
+      entities: [],
       waypoints: [],
       selectedEntity: {},
       showModal: false,
@@ -29,46 +29,70 @@ class ResultsPage extends Component {
     this.handleAddToItineraryClick = this.handleAddToItineraryClick.bind(this);
   }
   componentWillMount() {
-    this.props.handlePlanButtonClick();
+    this.getEntityList();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      entities: nextProps.entities,
-    });
+  getEntityList() {
+    const that = this;
+    // TODO later - set the state somewhere to have the coordinates of staring location
+    // Need to deal with getting latitude and longitude and not using static data
+    const latLng = { lat: 37.775, lng: -122.419 };
+    const userQuery = Object.assign({}, this.props.userQuery);
+    userQuery.startingLocationCoordinates = latLng;
+
+    const sendRequest = (location) => {
+      if (location) {
+        axios.get('/entitiesWithinRadius', {
+          params: {
+            latitude: location.lat,
+            longitude: location.lng,
+            distance: userQuery.distanceOfTrip,
+            activities: JSON.stringify(that.props.userInterests),
+          },
+        })
+        .then((res) => {
+          that.setState({
+            entities: generateData(res.data),
+          }, () => { console.log('entities in app', that.state.entities); });
+        })
+        .catch(err => console.log('error loading get request', err));
+      }
+    };
+    sendRequest(latLng);
+    // getCoordinates(this.state.userQuery.startingLocation, sendRequest);
   }
 
   handleEntityClick(e, entity) {
-    let that = this;
+    const that = this;
 
     if (entity.facility) {
       axios.get('/facility', {
         params: {
-        facility: entity.name,
-      },
+          facility: entity.name,
+        },
       })
     .then((facility) => {
       console.log('facility', facility.data);
       that.setState({
         selectedEntity: generateActivities(facility.data),
         showModal: true,
-      }, () =>  { console.log('getting in here'); });
+      });
     })
-    .catch(err => console.log('error', err));
-    }        else if (entity.recArea) {
+    .catch(err => console.error('error', err));
+    } else if (entity.recArea) {
       axios.get('/recArea', {
         params: {
-        facility: entity.name,
-      },
+          recArea: entity.name,
+        },
       })
     .then((recArea) => {
       console.log('recArea', recArea);
       that.setState({
         selectedEntity: generateActivities(recArea.data),
         showModal: true,
-      }, () =>  { console.log('getting in here'); });
+      });
     })
-    .catch(err => console.log('error', err));
+    .catch(err => console.error('error', err));
     }
   }
 
@@ -91,7 +115,7 @@ class ResultsPage extends Component {
     }
     this.setState({
       waypoints,
-    }, () => { console.log(this.state.waypoints); });
+    }, () => { console.log('WAYPOINTS', this.state.waypoints); });
   }
 
   render() {
@@ -114,7 +138,7 @@ class ResultsPage extends Component {
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
               <FancyBorder color="yellow">
                 <EntityList
-                  entities={this.props.entities}
+                  entities={this.state.entities}
                   handleEntityClick={this.handleEntityClick}
                   handleAddToItineraryClick={this.handleAddToItineraryClick}
                   waypoints={this.state.waypoints}
@@ -123,7 +147,12 @@ class ResultsPage extends Component {
             </div>
           </div>
           <div className="container">
-            {this.state.showModal ? <EntityPopup showModal={this.state.showModal} entity={this.state.selectedEntity} handleEntityModalCloseClick={this.handleEntityModalCloseClick} /> : null }
+            {this.state.showModal ?
+              <EntityPopup
+                showModal={this.state.showModal}
+                entity={this.state.selectedEntity}
+                handleEntityModalCloseClick={this.handleEntityModalCloseClick}
+              /> : null }
           </div>
         </FancyBorder>
       </div>
@@ -131,20 +160,19 @@ class ResultsPage extends Component {
   }
 }
 
-// ResultsPage.propTypes = {
-//   userQuery: PropTypes.object,
-//   entities: PropTypes.arrayOf(PropTypes.object),
-//   handlePlanButtonClick: PropTypes.func,
-// };
+ResultsPage.propTypes = {
+  userQuery: PropTypes.object,
+  userInterests: PropTypes.arrayOf(PropTypes.string),
+};
 
 const mapStateToProps = state => ({
   userQuery: state.userQuery,
-  entities: state.entities,
+  userInterests: state.interests.filter(interest => interest[1]).map(interest => interest[0].toUpperCase()),
 });
 
 // ACTION CREATOR TO BE INCLUDED FOR DISPATCH METHOD
-const mapDispatchToProps = dispatch => ({
+// const mapDispatchToProps = dispatch => ({
   // makeItinerary: (args) => dispatch(itenerary)
-});
+// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsPage);

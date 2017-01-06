@@ -19,7 +19,7 @@ const NavBar = props => (
       </div>
     </div>
   </FancyBorder>
-  );
+);
 
 NavBar.propTypes = {
 

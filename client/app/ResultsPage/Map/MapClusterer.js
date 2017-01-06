@@ -5,7 +5,7 @@ const MapMarkerClusterer = (entities, map) => {
   if (map) {
     const markers = entities.map(({ coordinates: [lat, lng] }, index) =>
       new google.maps.Marker({
-        position: { lat, lng },
+        position: { lat: +lat, lng: +lng },
         label: labels[index % labels.length],
         map,
       }),
