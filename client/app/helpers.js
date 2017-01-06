@@ -24,7 +24,7 @@ const generateData = res => res.map(({
   email: FacilityEmail || RecAreaEmail,
   phoneNumber: FacilityPhone || RecAreaPhone,
   description: FacilityDescription || RecAreaDescription,
-  coordinates: FacilityLatitude ? [FacilityLatitude, FacilityLongitude] : [RecAreaLatitude, RecAreaLongitude],
+  coordinates: FacilityLatitude ? [+FacilityLatitude, +FacilityLongitude] : [+RecAreaLatitude, +RecAreaLongitude],
   facility: !!FacilityName,
   recArea: !!RecAreaName,
 }));

@@ -94,10 +94,11 @@
   border: 2px solid black;
   margin: 5px;
   border-radius: 5px;
+  background: white;
 }
 
 .EntityList {
-  background-color: white;
+  background: rgba(118, 73, 51, 0.847);
   overflow-y: auto;
   height: 80vh;
   border: 2px solid black;
@@ -109,22 +110,30 @@
   
 }
 
-.EntityList {
-  background: rgba(118, 73, 51, 0.847)
+.itineraryContainer {
+  margin: 5px;
+}
+ 
+.itinerary {
+  background: rgba(118, 73, 51, 0.847);
+  overflow-y: auto;
+  height: 80vh;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
-.EntityListEntry {
+.itineraryEntry {
   background: white;
-
 }
+
 
 .resultsPage {
-  background: #8a715e;
+  background: rgba(118, 73, 51, 0.847);
   height: 100vh;
 }
 
 .landingPage {
-  background-image: url('http://eskipaper.com/images/forest-background-5.jpg');
+  background-image: url('http://www.rtjsjg.com/data/out/258/6019701-arches-wallpaper.jpg');
   height: 100vh;
 }
 
@@ -141,7 +150,7 @@
 }
 
 .mapAndList {
-  background-color: #c2e0a4;
+  background-color: #b18571;
   height: 95vh;
   border-radius: 5px;
 }
@@ -162,7 +171,7 @@
   margin: 5px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #c2e0a4;
+  background-color: #b18571;
   border-width: 0px;
   font-size: 15px;
   color: black;
@@ -185,4 +194,13 @@
   color:white;
   font-size: 20px;
   border-width: 0px
+}
+
+.legRow {
+  background: #e1e1e1;
+}
+
+.childLegRow {
+  background: #f5f5f5;
+  overflow-x: hidden;
 }

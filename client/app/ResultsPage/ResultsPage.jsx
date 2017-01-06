@@ -13,6 +13,7 @@ import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
+import ItineraryContainer from './Itinerary/ItineraryContainer.jsx';
 
 class ResultsPage extends Component {
   constructor(props) {
@@ -39,7 +40,9 @@ class ResultsPage extends Component {
     const latLng = { lat: 37.775, lng: -122.419 };
     const userQuery = Object.assign({}, this.props.userQuery);
     userQuery.startingLocationCoordinates = latLng;
-
+    this.setState({
+      startingLocation: latLng,
+    });
     const sendRequest = (location) => {
       if (location) {
         axios.get('/entitiesWithinRadius', {
@@ -103,19 +106,26 @@ class ResultsPage extends Component {
   }
 
   handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
+    console.log(lat, lng);
+    let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
-    const indexOf = waypoints.indexOf({ lat, lng });
-    if (indexOf === -1) {
+    waypoints.forEach(({ location: { lat: insideLat, lng: insideLng } }, index) => {
+      console.log('this is insidelat', insideLat);
+      console.log('this is lat', lat);
+      if (insideLat === lat && insideLng === lng) {
+        waypoints.splice(index, 1);
+        removeFlag = true;
+      }
+    });
+    if (!removeFlag) {
       waypoints.push({
         location: { lat, lng },
         stopover: true,
       });
-    } else {
-      waypoints.splice(indexOf, 1);
     }
     this.setState({
       waypoints,
-    }, () => { console.log('WAYPOINTS', this.state.waypoints); });
+    }, () => console.log('waypoints after click: ', this.state.waypoints));
   }
 
   render() {
@@ -126,16 +136,20 @@ class ResultsPage extends Component {
             <NavBar />
           </div>
           <div className="row mapAndList">
-            <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8" >
+            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3" >
+              <ItineraryContainer />
+            </div>
+            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6" >
               <FancyBorder color="yellow">
                 <MapContainer
                   userQuery={this.props.userQuery}
                   entities={this.state.entities}
                   waypoints={this.state.waypoints}
+                  startingLocation={this.state.startingLocation}
                 />
               </FancyBorder>
             </div>
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
               <FancyBorder color="yellow">
                 <EntityList
                   entities={this.state.entities}
@@ -152,6 +166,7 @@ class ResultsPage extends Component {
                 showModal={this.state.showModal}
                 entity={this.state.selectedEntity}
                 handleEntityModalCloseClick={this.handleEntityModalCloseClick}
+
               /> : null }
           </div>
         </FancyBorder>
@@ -171,8 +186,8 @@ const mapStateToProps = state => ({
 });
 
 // ACTION CREATOR TO BE INCLUDED FOR DISPATCH METHOD
-// const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   // makeItinerary: (args) => dispatch(itenerary)
-// });
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsPage);
