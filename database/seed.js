@@ -244,11 +244,12 @@ const client = require('../database/database-redis.js');
 ////////////         REDIS SEEDING         ////////////////
 ///////////////////////////////////////////////////////////////////////
 
-
-const trailsForFacilities = () => {
-  schemas.facilities.findAll()
-  .then((facilities) => {
-    facilities.forEach((facility) => {
+const trailsAndActivitiesForFacilities = (facilities, index1, index2) => {
+  if (index1 >= 19000) {
+    return;
+  } else {
+    facilities.slice(index1, index2).forEach((facility) => {
+      console.log('index: ', index++);
       if (facility.FacilityLongitude <= -100) {
         db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${facility.FacilityLatitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${facility.FacilityLatitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${facility.FacilityLongitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
         .then((trails) => {
@@ -293,6 +294,19 @@ const trailsForFacilities = () => {
         .catch((err) => console.log('error: ', err));
       }
     });
+  }
+  setTimeout(()=> {
+    trailsAndActivitiesForFacilities(facilities, index1+10, index2+10);
+  }, 10000);
+};
+
+
+
+let index = 0;
+const trailsForFacilities = () => {
+  schemas.facilities.findAll()
+  .then((facilities) => {
+    trailsAndActivitiesForFacilities(facilities, 0, 10);
   })
   .catch((err) => console.log('error: ', err));
 };
@@ -304,5 +318,5 @@ trailsForFacilities();
 // });
 
 // client.flushdb( function (err, succeeded) {
-//     console.log(succeeded); // will be OK if successfull
+//     console.log('Flushed: ', succeeded); // will be OK if successfull
 // });
