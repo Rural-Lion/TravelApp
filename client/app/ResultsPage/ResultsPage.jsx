@@ -5,11 +5,13 @@
     // Map
 
 import React, { Component, PropTypes } from 'react';
-import { FancyBorder } from '../helpers';
+import { FancyBorder, generateActivities } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
+import axios from 'axios';
+
 
 
 class ResultsPage extends Component {
@@ -37,10 +39,40 @@ class ResultsPage extends Component {
   }
 
   handleEntityClick(e, entity) {
-    this.setState({
-      selectedEntity: entity,
-      showModal: true,
-    });
+    var that = this; 
+
+    if(entity.facility){
+      axios.get('/facility', {
+      params: {
+        facility: entity.name
+      }
+    })
+    .then(function(facility) {
+      console.log('facility', facility.data);
+      that.setState({
+        selectedEntity: generateActivities(facility.data),
+        showModal: true
+      }, function(){console.log('getting in here')});
+    })
+    .catch((err) => console.log('error', err));
+    }
+    
+    else if(entity.recArea){
+      axios.get('/recArea', {
+      params: {
+        facility: entity.name
+      }
+    })
+    .then(function(recArea) {
+      console.log('recArea', recArea);
+      that.setState({
+        selectedEntity: generateActivities(recArea.data),
+        showModal: true
+      }, function(){console.log('getting in here')});
+    })
+    .catch((err) => console.log('error', err));
+    }
+
   }
 
   handleEntityModalCloseClick() {

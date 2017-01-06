@@ -47,7 +47,7 @@ const EntityPopup = props => (
                 Activities:
               </div>
                 <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <FancyBorder color="blue"><div>{props.entity.activities.join(', ')}</div></FancyBorder>
+                  <FancyBorder color="blue"><div>{props.entity.activities.join(", ")}</div></FancyBorder> 
                 </div>
               </div>
               <div className="row entityDescriptionRow">
@@ -62,10 +62,10 @@ const EntityPopup = props => (
               </div>
               <div className="row entityContactsRow">
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
-                  <FancyBorder color="blue"><div>{props.entity.phoneNumber}</div></FancyBorder>
+                  <FancyBorder color="blue"><div>{props.entity.phone}</div></FancyBorder>
                 </div>
                 <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-center">
-                  <FancyBorder color="blue"><div>{props.entity.address}</div></FancyBorder>
+                  <FancyBorder color="blue"><div>{props.entity.email}</div></FancyBorder>
                 </div>
               </div>
               <div className="modal-footer">
