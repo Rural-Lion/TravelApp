@@ -104,19 +104,23 @@ class ResultsPage extends Component {
   }
 
   handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
+    let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
-    const indexOf = waypoints.indexOf({ lat, lng });
-    if (indexOf === -1) {
+    waypoints.forEach(({ location: { lat: insideLat, lng: insideLng } }, index) => {
+      if (insideLat === lat && insideLng === lng) {
+        waypoints.splice(index, 1);
+        removeFlag = true;
+      }
+    });
+    if (!removeFlag) {
       waypoints.push({
         location: { lat, lng },
         stopover: true,
       });
-    } else {
-      waypoints.splice(indexOf, 1);
     }
     this.setState({
       waypoints,
-    });
+    }, () => console.log('waypoints after click: ', this.state.waypoints));
   }
 
   render() {

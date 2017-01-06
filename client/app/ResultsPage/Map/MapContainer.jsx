@@ -13,22 +13,22 @@ class MapContainer extends Component {
     };
 
     this.handleInitMapRender = this.handleInitMapRender.bind(this);
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log('thisis next props: ', nextProps);
-    MapClusterer(nextProps.entities, this.state.map);
-    if (nextProps.waypoints[0]) {
-      MapDirections(nextProps.waypoints, nextProps.userQuery.startingLocationCoordinates, this.state.map);
-    }
+    this.getMapRef = this.getMapRef.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.map === this.state.map || nextProps === this.props) {
-      console.log('FALSEEE');
-      return false;
+    if ((nextProps.waypoints.length !== this.props.waypoints.length || !this.state.mapRef)) {
+      return true;
     }
-    console.log('true');
-    return true;
+    return false;
+  }
+
+  getMapRef(node) {
+    this.setState({
+      mapRef: node,
+    }, () => {
+      this.handleInitMapRender(this.state.mapRef);
+    });
   }
 
   handleInitMapRender(node) {
@@ -37,9 +37,13 @@ class MapContainer extends Component {
         center: this.props.userQuery.startingLocationCoordinates || { lat: 37.775, lng: -122.419 },
         zoom: 7,
       }),
+    }, () => {
+      MapClusterer(this.props.entities, this.state.map);
+      if (this.props.waypoints[0]) {
+        MapDirections(this.props.waypoints, this.props.userQuery.startingLocationCoordinates, this.state.map);
+      }
     });
   }
-
 
   render() {
     return (
@@ -50,7 +54,7 @@ class MapContainer extends Component {
           </div>
         </FancyBorder>
         <FancyBorder color="purple">
-          <Map handleInitMapRender={this.handleInitMapRender} />
+          <Map handleInitMapRender={this.getMapRef} />
         </FancyBorder>
       </div>
 
