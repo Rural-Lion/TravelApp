@@ -34,13 +34,13 @@ class MapContainer extends Component {
   handleInitMapRender(node) {
     this.setState({
       map: new google.maps.Map(node, {
-        center: this.props.userQuery.startingLocationCoordinates || { lat: 37.775, lng: -122.419 },
+        center: this.props.startingLocation || { lat: 37.775, lng: -122.419 },
         zoom: 7,
       }),
     }, () => {
       MapClusterer(this.props.entities, this.state.map);
       if (this.props.waypoints[0]) {
-        MapDirections(this.props.waypoints, this.props.userQuery.startingLocationCoordinates, this.state.map);
+        MapDirections(this.props.waypoints, this.props.startingLocation, this.state.map);
       }
     });
   }
@@ -63,7 +63,7 @@ class MapContainer extends Component {
 }
 
 MapContainer.propTypes = {
-  userQuery: PropTypes.object,
+  startingLocation: PropTypes.objectOf(PropTypes.number),
   entities: PropTypes.arrayOf(PropTypes.object),
   waypoints: PropTypes.arrayOf(PropTypes.object),
 };

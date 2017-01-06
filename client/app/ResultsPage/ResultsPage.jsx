@@ -40,7 +40,9 @@ class ResultsPage extends Component {
     const latLng = { lat: 37.775, lng: -122.419 };
     const userQuery = Object.assign({}, this.props.userQuery);
     userQuery.startingLocationCoordinates = latLng;
-
+    this.setState({
+      startingLocation: latLng,
+    });
     const sendRequest = (location) => {
       if (location) {
         axios.get('/entitiesWithinRadius', {
@@ -104,9 +106,13 @@ class ResultsPage extends Component {
   }
 
   handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
+    lat = +lat;
+    lng = +lng;
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
     waypoints.forEach(({ location: { lat: insideLat, lng: insideLng } }, index) => {
+      console.log('this is insidelat', insideLat);
+      console.log('this is lat', lat);
       if (insideLat === lat && insideLng === lng) {
         waypoints.splice(index, 1);
         removeFlag = true;
@@ -114,7 +120,7 @@ class ResultsPage extends Component {
     });
     if (!removeFlag) {
       waypoints.push({
-        location: { lat, lng },
+        location: { lat: +lat, lng: +lng },
         stopover: true,
       });
     }
@@ -140,6 +146,7 @@ class ResultsPage extends Component {
                   userQuery={this.props.userQuery}
                   entities={this.state.entities}
                   waypoints={this.state.waypoints}
+                  startingLocation={this.state.startingLocation}
                 />
               </FancyBorder>
             </div>
@@ -160,6 +167,7 @@ class ResultsPage extends Component {
                 showModal={this.state.showModal}
                 entity={this.state.selectedEntity}
                 handleEntityModalCloseClick={this.handleEntityModalCloseClick}
+
               /> : null }
           </div>
         </FancyBorder>
@@ -179,8 +187,8 @@ const mapStateToProps = state => ({
 });
 
 // ACTION CREATOR TO BE INCLUDED FOR DISPATCH METHOD
-// const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   // makeItinerary: (args) => dispatch(itenerary)
-// });
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsPage);
