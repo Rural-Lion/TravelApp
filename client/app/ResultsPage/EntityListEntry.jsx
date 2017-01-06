@@ -22,6 +22,9 @@ const EntityListEntry = props => (
         <div className="row">
           <FancyBorder color="blue"><div>{props.entity.email}</div></FancyBorder>
         </div>
+        <div className="image">
+          <img src={props.entity.image}/>
+        </div>
       </div>
     </div>
   </FancyBorder>
