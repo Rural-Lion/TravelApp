@@ -12,13 +12,13 @@ const MapDirections = (waypoints, starting, map, that) => {
       travelMode: 'DRIVING',
     }, (results, status) => {
       if (status === 'OK') {
-        console.log(results);
         directionsDisplay.setDirections(results);
+        console.log(results);
         directionsDisplay.setMap(map);
       } else {
         directionsDisplay.setMap(null);
       }
-      console.log('this is status: ', status);
+      console.log('this is status of directions request: ', status);
     });
   } else {
     directionsDisplay.set('directions', null);
@@ -27,3 +27,4 @@ const MapDirections = (waypoints, starting, map, that) => {
 
 export default MapDirections
 ;
+
