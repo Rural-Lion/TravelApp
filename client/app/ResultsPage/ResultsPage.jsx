@@ -4,14 +4,14 @@
       // EntityListEntry
     // Map
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { FancyBorder, generateActivities } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
 import axios from 'axios';
-
 
 
 class ResultsPage extends Component {
@@ -39,40 +39,37 @@ class ResultsPage extends Component {
   }
 
   handleEntityClick(e, entity) {
-    var that = this; 
+    let that = this;
 
-    if(entity.facility){
+    if (entity.facility) {
       axios.get('/facility', {
-      params: {
-        facility: entity.name
-      }
-    })
-    .then(function(facility) {
+        params: {
+        facility: entity.name,
+      },
+      })
+    .then((facility) => {
       console.log('facility', facility.data);
       that.setState({
         selectedEntity: generateActivities(facility.data),
-        showModal: true
-      }, function(){console.log('getting in here')});
+        showModal: true,
+      }, () =>  { console.log('getting in here'); });
     })
-    .catch((err) => console.log('error', err));
-    }
-    
-    else if(entity.recArea){
+    .catch(err => console.log('error', err));
+    }        else if (entity.recArea) {
       axios.get('/recArea', {
-      params: {
-        facility: entity.name
-      }
-    })
-    .then(function(recArea) {
+        params: {
+        facility: entity.name,
+      },
+      })
+    .then((recArea) => {
       console.log('recArea', recArea);
       that.setState({
         selectedEntity: generateActivities(recArea.data),
-        showModal: true
-      }, function(){console.log('getting in here')});
+        showModal: true,
+      }, () =>  { console.log('getting in here'); });
     })
-    .catch((err) => console.log('error', err));
+    .catch(err => console.log('error', err));
     }
-
   }
 
   handleEntityModalCloseClick() {
@@ -134,10 +131,20 @@ class ResultsPage extends Component {
   }
 }
 
-ResultsPage.propTypes = {
-  userQuery: PropTypes.object,
-  entities: PropTypes.arrayOf(PropTypes.object),
-  handlePlanButtonClick: PropTypes.func,
-};
+// ResultsPage.propTypes = {
+//   userQuery: PropTypes.object,
+//   entities: PropTypes.arrayOf(PropTypes.object),
+//   handlePlanButtonClick: PropTypes.func,
+// };
 
-export default ResultsPage;
+const mapStateToProps = state => ({
+  userQuery: state.userQuery,
+  entities: state.entities,
+});
+
+// ACTION CREATOR TO BE INCLUDED FOR DISPATCH METHOD
+const mapDispatchToProps = dispatch => ({
+  // makeItinerary: (args) => dispatch(itenerary)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsPage);

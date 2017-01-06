@@ -8,7 +8,6 @@ const PlanVacationButton = () => (
       <button className="centered planVacationButton">Plan My Vacation</button>
     </Link>
   </FancyBorder>
-
 );
 
 export default PlanVacationButton;
