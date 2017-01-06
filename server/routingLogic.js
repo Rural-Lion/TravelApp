@@ -324,16 +324,8 @@ module.exports.getEntitiesWithinRadius = (req, res) => {
   .catch((err) => console.log('error: ', err));
 };
 
-module.exports.getTrailsWithinRadius = (req, res) => {
-  let {query: {latitude, longitude}} = req;
 
-  db.query(`SELECT * FROM trails WHERE TrailUSFSID = 538`, {type: db.QueryTypes.SELECT})
-  .then(function(entities) {
-          res.send(entities);
-  })
-  .catch((err) => console.log('error: ', err));
-
-module.exports.trailsAndActivitiesWithinRadius = (req, res) => {
+module.exports.trailsAndActivitiesWithinRadiusOfFacility = (req, res) => {
   let {query: {latitude, longitude, facilityID}} = req;
   if (longitude <= -100) {
         db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
@@ -373,6 +365,53 @@ module.exports.trailsAndActivitiesWithinRadius = (req, res) => {
               activities: activityList
             };
             res.send(facilityInfo);
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      }
+};
+
+module.exports.trailsAndActivitiesWithinRadiusOfRecAreas = (req, res) => {
+  let {query: {latitude, longitude, recAreaID}} = req;
+  if (longitude <= -100) {
+        db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.recAreas.findOne({
+            where: {RecAreaID: recAreaID},
+            include: [{model: schemas.activities}]
+          }).then(function(recA) {
+            const recAActivities = recA.dataValues.activities;
+            let activityList = [];
+            recAActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let recAreaInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            res.send(recAreaInfo);
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      } else {
+        db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 11) AS DECIMAL(12, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.recAreas.findOne({
+            where: {RecAreaID: recAreaID},
+            include: [{model: schemas.activities}]
+          }).then(function(recA) {
+            const recAActivities = recA.dataValues.activities;
+            let activityList = [];
+            recAActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let recAreaInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            res.send(recAreaInfo);
           })
           .catch((err) => console.log('error', err));
         })

@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('../database/database.js');
-const client = require('../database/database-redis.js');
+// const client = require('../database/database-redis.js');
 const schemas = require('../database/schemas.js');
 const routes = require('./routing');
 const bodyparser = require('body-parser');
