@@ -6,7 +6,7 @@ module.exports = function (app, express) {
   app.get('/entitiesWithinRadius', routeLogic.getEntitiesWithinRadius);
 
   // Get Trails with Radius
-  app.get('/trailsWithinRadius', routeLogic.getTrailsWithinRadius);
+  app.get('/trailsAndActivitiesWithinRadius', routeLogic.getTrailsWithinRadius);
 
   // Get RecAreas and Facilities Info
   app.get('/recArea', routeLogic.getRecArea);

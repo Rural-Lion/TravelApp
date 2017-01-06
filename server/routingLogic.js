@@ -314,6 +314,7 @@ module.exports.getEntrances = function(req, res) {
 //   .catch((err) => console.log('error: ', err));
 // };
 
+
 module.exports.getEntitiesWithinRadius = (req, res) => {
   let {query: {latitude, longitude, distance, activities}} = req;
   db.query(`SELECT * FROM (SELECT facilities.FacilityLatitude, facilities.FacilityLongitude, facilities.FacilityName, facilities.FacilityPhone, facilities.FacilityDescription, facilities.FacilityEmail, recAreas.RecAreaName, recAreas.RecAreaLatitude, recAreas.RecAreaLongitude, recAreas.RecAreaPhone, recAreas.RecAreaDescription, recAreas.RecAreaEmail, entityMedia.URL, entityactivities.EntityID, entityactivities.EntityType, entityactivities.ActivityDescription FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)})) AS matches GROUP BY matches.EntityID LIMIT 10`, {type: db.QueryTypes.SELECT})
@@ -331,6 +332,52 @@ module.exports.getTrailsWithinRadius = (req, res) => {
           res.send(entities);
   })
   .catch((err) => console.log('error: ', err));
+
+module.exports.trailsAndActivitiesWithinRadius = (req, res) => {
+  let {query: {latitude, longitude, facilityID}} = req;
+  if (longitude <= -100) {
+        db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.facilities.findOne({
+            where: {FacilityID: facilityID},
+            include: [{model: schemas.activities}]
+          }).then(function(fac) {
+            const facActivities = fac.dataValues.activities;
+            let activityList = [];
+            facActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let facilityInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            res.send(facilityInfo);
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      } else {
+        db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 11) AS DECIMAL(12, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.facilities.findOne({
+            where: {FacilityID: facilityID},
+            include: [{model: schemas.activities}]
+          }).then(function(fac) {
+            const facActivities = fac.dataValues.activities;
+            let activityList = [];
+            facActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let facilityInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            res.send(facilityInfo);
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      }
 };
 
 
