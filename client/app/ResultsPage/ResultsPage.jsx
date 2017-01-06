@@ -5,7 +5,7 @@
     // Map
 
 import React, { Component, PropTypes } from 'react';
-import { FancyBorder } from '../helpers';
+import { FancyBorder, generateActivities } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
@@ -41,24 +41,37 @@ class ResultsPage extends Component {
   handleEntityClick(e, entity) {
     var that = this; 
 
-    // this.setState({
-    //   selectedEntity: entity,
-    //   showModal: true,
-    // });
-
-    axios.get('/facility', {
+    if(entity.facility){
+      axios.get('/facility', {
       params: {
         facility: entity.name
       }
     })
     .then(function(facility) {
-      console.log('facility', facility);
+      console.log('facility', facility.data);
       that.setState({
-        selectedEntity: facility.data,
+        selectedEntity: generateActivities(facility.data),
         showModal: true
       }, function(){console.log('getting in here')});
     })
     .catch((err) => console.log('error', err));
+    }
+    
+    else if(entity.recArea){
+      axios.get('/recArea', {
+      params: {
+        facility: entity.name
+      }
+    })
+    .then(function(recArea) {
+      console.log('recArea', recArea);
+      that.setState({
+        selectedEntity: generateActivities(recArea.data),
+        showModal: true
+      }, function(){console.log('getting in here')});
+    })
+    .catch((err) => console.log('error', err));
+    }
 
   }
 

@@ -13,7 +13,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 import axios from 'axios';
-import { INTERESTS, generateActivities, getCoordinates, FancyBorder } from './helpers';
+import { INTERESTS, generateData, getCoordinates, FancyBorder } from './helpers';
 import LandingPage from './LandingPage/LandingPage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
 
@@ -117,10 +117,9 @@ class App extends Component {
           },
         })
         .then(function(res) {
-          console.log('RES', res);
           console.log(that); // Need to deal with getting latitude and longitude and not using static data
           that.setState({
-            entities: generateActivities(res.data),
+            entities: generateData(res.data),
           }, () => { console.log('entities in app', that.state.entities); });
         })
         .catch((err) => console.log('error loading get request', err));

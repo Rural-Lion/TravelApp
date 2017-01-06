@@ -10,7 +10,7 @@ const interests = ['biking', 'boating', 'historic & cultural site', 'camping', '
 const INTERESTS = interests.map(interest => toTitleCase(interest));
 
 // function for creating objects from the results of api request to the US website
-const generateActivities = res => res.map(({
+const generateData = res => res.map(({
   FacilityLatitude,
   FacilityLongitude,
   FacilityName,
@@ -26,39 +26,48 @@ const generateActivities = res => res.map(({
   RecAreaEmail
 }) => {
 
-  return {
-    name: FacilityName || RecAreaName, 
-    image: URL, 
-    email: FacilityEmail || RecAreaEmail,
-    phoneNumber: FacilityPhone || RecAreaPhone,
-    description: FacilityDescription || RecAreaDescription,
-    coordinates: !!FacilityLatitude ? [FacilityLatitude, FacilityLongitude] : [RecAreaLatitude, RecAreaLongitude],
-    facility: !!FacilityName,
-    recArea: !!RecAreaName
-  };
+return {
+  name: FacilityName || RecAreaName, 
+  image: URL, 
+  email: FacilityEmail || RecAreaEmail,
+  phoneNumber: FacilityPhone || RecAreaPhone,
+  description: FacilityDescription || RecAreaDescription,
+  coordinates: !!FacilityLatitude ? [FacilityLatitude, FacilityLongitude] : [RecAreaLatitude, RecAreaLongitude],
+  facility: !!FacilityName,
+  recArea: !!RecAreaName
+};
 });
 
-const generateActivities2 = res => res.map(({
-                  FacilityLatitude,
-                  FacilityLongitude,
-                  FacilityName,
-                  FacilityPhone,
-                  FacilityDescription, 
-                  FacilityEmail,
-                  URL
-               }) => {
-  // const activities = ACTIVITY.map(({ ActivityName }) => toTitleCase(ActivityName));
+const generateActivities = ({
+  FacilityLatitude,
+  FacilityLongitude,
+  FacilityName,
+  FacilityPhone,
+  FacilityDescription, 
+  FacilityEmail,
+  URL,
+  RecAreaLatitude,
+  RecAreaLongitude,
+  RecAreaName,
+  RecAreaPhone,
+  RecAreaDescription,
+  RecAreaEmail,
+  activities
+}) => {
+  const activitiesList = activities.map(({ ActivityName }) => toTitleCase(ActivityName));
 
-  return {
-    name: FacilityName,
-    image: URL, 
-    email: FacilityEmail,
-    phoneNumber: FacilityPhone,
-    description: FacilityDescription,
-    coordinates: [FacilityLatitude, FacilityLongitude],
-    facility: true
-  };
-});
+return {
+  name: FacilityName || RecAreaName, 
+  image: URL, 
+  email: FacilityEmail || RecAreaEmail,
+  phoneNumber: FacilityPhone || RecAreaPhone,
+  description: FacilityDescription || RecAreaDescription,
+  coordinates: !!FacilityLatitude ? [FacilityLatitude, FacilityLongitude] : [RecAreaLatitude, RecAreaLongitude],
+  activities: activitiesList, 
+  facility: !!FacilityName,
+  recArea: !!RecAreaName
+};
+};
 
 
 const getCoordinates = function (location, cb) {
@@ -91,6 +100,6 @@ FancyBorder.propTypes = {
 };
 
 
-export { INTERESTS, generateActivities, getCoordinates, FancyBorder };
+export { INTERESTS, generateActivities, generateData, getCoordinates, FancyBorder };
 
 
