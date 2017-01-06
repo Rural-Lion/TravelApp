@@ -16,8 +16,9 @@ class MapContainer extends Component {
     this.getMapRef = this.getMapRef.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if ((nextProps.waypoints.length !== this.props.waypoints.length || !this.state.mapRef)) {
+  shouldComponentUpdate(nextProps) {
+    if ((nextProps.waypoints.length !== this.props.waypoints.length
+        || !this.state.mapRef || nextProps.startingLocation !== this.props.startingLocation)) {
       return true;
     }
     return false;

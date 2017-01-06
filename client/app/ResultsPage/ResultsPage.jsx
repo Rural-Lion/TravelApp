@@ -35,20 +35,16 @@ class ResultsPage extends Component {
 
   getEntityList() {
     const that = this;
-    // TODO later - set the state somewhere to have the coordinates of staring location
-    // Need to deal with getting latitude and longitude and not using static data
-    const latLng = { lat: 37.775, lng: -122.419 };
     const userQuery = Object.assign({}, this.props.userQuery);
-    userQuery.startingLocationCoordinates = latLng;
-    this.setState({
-      startingLocation: latLng,
-    });
     const sendRequest = (location) => {
       if (location) {
+        that.setState({
+          startingLocation: { lat: location.lat(), lng: location.lng() },
+        });
         axios.get('/entitiesWithinRadius', {
           params: {
-            latitude: location.lat,
-            longitude: location.lng,
+            latitude: location.lat(),
+            longitude: location.lng(),
             distance: userQuery.distanceOfTrip,
             activities: JSON.stringify(that.props.userInterests),
           },
@@ -61,8 +57,7 @@ class ResultsPage extends Component {
         .catch(err => console.log('error loading get request', err));
       }
     };
-    sendRequest(latLng);
-    // getCoordinates(this.state.userQuery.startingLocation, sendRequest);
+    getCoordinates(this.props.userQuery.startingLocation, sendRequest);
   }
 
   handleEntityClick(e, entity) {
