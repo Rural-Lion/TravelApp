@@ -1,19 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
 
 
 const InterestButton = props => (
   <FancyBorder color="blue">
     <button
-      className={`centered ${(props.userInterests.indexOf(props.interest) !== -1) ? 'includedInterestButton' : 'interestButton'}`}
-      onClick={(e) => { props.handleInterestButtonClick(e); }}
-    >{props.interest}</button>
+      value={props.interest.index}
+      className={`centered ${(props.interest.interest[1]) ? 'includedInterestButton' : 'interestButton'}`}
+      onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
+    >{props.interest.interest}</button>
   </FancyBorder>
   );
 
 InterestButton.propTypes = {
-  userInterests: PropTypes.array,
-  interest: PropTypes.string,
+  interest: PropTypes.object,
   handleInterestButtonClick: PropTypes.func,
 };
 

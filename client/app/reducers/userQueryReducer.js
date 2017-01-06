@@ -1,12 +1,3 @@
-// inputs from landing page
-      // userQuery: {
-      //   budgetOfTrip: 0,
-      //   lengthOfTrip: 0,
-      //   startingLocation: '',
-      //   distanceOfTrip: 0,
-      //   startingLocationCoordinates: { lat: 37.775, lng: -122.419 },
-      // },
-
 const initialState = {
   startingLocation: '',
   budgetOfTrip: 0,

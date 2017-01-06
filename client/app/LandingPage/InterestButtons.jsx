@@ -1,20 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
 import InterestButton from './InterestButton.jsx';
 
 const InterestButtons = (props) => {
-  const interests = props.interests;
-  // generates buttons based off of INTERESTS array. currently hard coded
-  const buttons = interests.map((interest, index) =>
+  const buttons = props.interests.map((interest, index) =>
     (<div className="col-xs-4 col-sm-4 col-md-4 col-lg-4" key={index}>
       <InterestButton
-        interest={interest}
+        interest={{ interest, index }}
         handleInterestButtonClick={props.handleInterestButtonClick}
-        userInterests={props.userInterests}
       /></div>),
     );
   return (
-    // renders buttons
     <FancyBorder color="green">
       {buttons}
     </FancyBorder>
@@ -22,8 +18,7 @@ const InterestButtons = (props) => {
 };
 
 InterestButtons.propTypes = {
-  userInterests: PropTypes.array,
-  interests: PropTypes.arrayOf(PropTypes.string),
+  interests: PropTypes.arrayOf(PropTypes.array),
   handleInterestButtonClick: PropTypes.func,
 };
 

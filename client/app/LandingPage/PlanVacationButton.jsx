@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { FancyBorder } from '../helpers.js';
 import { Link } from 'react-router';
 
@@ -8,7 +8,6 @@ const PlanVacationButton = () => (
       <button className="centered planVacationButton">Plan My Vacation</button>
     </Link>
   </FancyBorder>
-
 );
 
 export default PlanVacationButton;
