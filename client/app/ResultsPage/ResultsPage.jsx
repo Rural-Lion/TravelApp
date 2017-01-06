@@ -106,8 +106,7 @@ class ResultsPage extends Component {
   }
 
   handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
-    lat = +lat;
-    lng = +lng;
+    console.log(lat, lng);
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
     waypoints.forEach(({ location: { lat: insideLat, lng: insideLng } }, index) => {
@@ -120,7 +119,7 @@ class ResultsPage extends Component {
     });
     if (!removeFlag) {
       waypoints.push({
-        location: { lat: +lat, lng: +lng },
+        location: { lat, lng },
         stopover: true,
       });
     }
