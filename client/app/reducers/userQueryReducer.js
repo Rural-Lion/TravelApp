@@ -1,8 +1,8 @@
 const initialState = {
-  startingLocation: '',
+  startingLocation: 'san diego',
   budgetOfTrip: 0,
   lengthOfTrip: 0,
-  distanceOfTrip: 0,
+  distanceOfTrip: 200,
 };
 
 const userQuery = (state = initialState, action) => {

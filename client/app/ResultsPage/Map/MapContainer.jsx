@@ -16,11 +16,12 @@ class MapContainer extends Component {
     this.getMapRef = this.getMapRef.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
-    if ((nextProps.waypoints.length !== this.props.waypoints.length
-        || !this.state.mapRef || nextProps.startingLocation !== this.props.startingLocation)) {
+  shouldComponentUpdate(nextProps, nextState) {
+    if ((nextProps.entities.length !== this.props.entities.length || nextProps.waypoints.length !== this.props.waypoints.length || !this.state.mapRef)) {
+      console.log('component should update');
       return true;
     }
+    console.log('component shouldnt update');
     return false;
   }
 
