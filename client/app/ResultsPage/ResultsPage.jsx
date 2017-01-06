@@ -26,7 +26,7 @@ class ResultsPage extends Component {
     };
 
     this.handleEntityClick = this.handleEntityClick.bind(this);
-    this.handleEntityModalCloseClick = this.handleEntityModalCloseClick.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.handleAddToItineraryClick = this.handleAddToItineraryClick.bind(this);
   }
   componentWillMount() {
@@ -94,7 +94,7 @@ class ResultsPage extends Component {
     }
   }
 
-  handleEntityModalCloseClick() {
+  closeModal() {
     this.setState({
       showModal: false,
     });
@@ -160,7 +160,7 @@ class ResultsPage extends Component {
               <EntityPopup
                 showModal={this.state.showModal}
                 entity={this.state.selectedEntity}
-                handleEntityModalCloseClick={this.handleEntityModalCloseClick}
+                closeModal={this.closeModal}
 
               /> : null }
           </div>
@@ -177,7 +177,9 @@ ResultsPage.propTypes = {
 
 const mapStateToProps = state => ({
   userQuery: state.userQuery,
-  userInterests: state.interests.filter(interest => interest[1]).map(interest => interest[0].toUpperCase()),
+  userInterests: state.interests
+    .filter(interest => interest[1])
+    .map(interest => interest[0].toUpperCase()),
 });
 
 // ACTION CREATOR TO BE INCLUDED FOR DISPATCH METHOD
