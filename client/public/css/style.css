@@ -1,4 +1,4 @@
-.FancyBorder {
+/*.FancyBorder {
   border: 3px solid black;
 }
 
@@ -33,7 +33,7 @@
 }
 .FancyBorder-turquoise {
   border-color: turquoise;
-}
+}*/
 
 .finalizeButton {
   width: 100%;
@@ -122,6 +122,10 @@
   border-radius: 5px;
 }
 
+.itineraryEntry {
+  background: white;
+}
+
 
 .resultsPage {
   background: rgba(118, 73, 51, 0.847);
@@ -190,4 +194,13 @@
   color:white;
   font-size: 20px;
   border-width: 0px
+}
+
+.legRow {
+  background: #e1e1e1;
+}
+
+.childLegRow {
+  background: #f5f5f5;
+  overflow-x: hidden;
 }
