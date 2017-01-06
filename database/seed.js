@@ -249,26 +249,49 @@ const trailsForFacilities = () => {
   schemas.facilities.findAll()
   .then((facilities) => {
     facilities.forEach((facility) => {
-      db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${facility.FacilityLatitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${facility.FacilityLatitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${facility.FacilityLongitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
-      .then((trails) => {
-        schemas.facilities.findOne({
-          where: {FacilityID: facility.FacilityID},
-          include: [{model: schemas.activities}]
-        }).then(function(fac) {
-          const facActivities = fac.dataValues.activities;
-          let activityList = [];
-          facActivities.forEach((activity) => {
-            activityList.push(activity.dataValues.ActivityName);
-          });
-          let facilityInfo = {
-            trails: trails,
-            activities: activityList
-          };
-          client.set(facility.FacilityID, JSON.stringify(facilityInfo));
+      if (facility.FacilityLongitude <= -100) {
+        db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${facility.FacilityLatitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${facility.FacilityLatitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${facility.FacilityLongitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.facilities.findOne({
+            where: {FacilityID: facility.FacilityID},
+            include: [{model: schemas.activities}]
+          }).then(function(fac) {
+            const facActivities = fac.dataValues.activities;
+            let activityList = [];
+            facActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let facilityInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            client.set(facility.FacilityID, JSON.stringify(facilityInfo));
+          })
+          .catch((err) => console.log('error', err));
         })
-        .catch((err) => console.log('error', err));
-      })
-      .catch((err) => console.log('error: ', err));
+        .catch((err) => console.log('error: ', err));
+      } else {
+        db.query(`SELECT * FROM trails WHERE (acos(sin(RADIANS(${facility.FacilityLatitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${facility.FacilityLatitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 11) AS DECIMAL(12, 8)) - (${facility.FacilityLongitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.facilities.findOne({
+            where: {FacilityID: facility.FacilityID},
+            include: [{model: schemas.activities}]
+          }).then(function(fac) {
+            const facActivities = fac.dataValues.activities;
+            let activityList = [];
+            facActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let facilityInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            client.set(facility.FacilityID, JSON.stringify(facilityInfo));
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      }
     });
   })
   .catch((err) => console.log('error: ', err));
