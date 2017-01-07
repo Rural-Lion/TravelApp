@@ -185,4 +185,4 @@ const mapDispatchToProps = dispatch => ({
   // makeItinerary: (args) => dispatch(itenerary)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultsPage);
+export default connect(mapStateToProps)(ResultsPage);
