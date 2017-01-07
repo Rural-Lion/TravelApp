@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Modal, Button, Label } from 'react-bootstrap';
 import { FancyBorder } from '../helpers.js';
+import TrailsContainer from './TrailsContainer.jsx';
 
 const EntityPopup = (props) => {
   const makeActivityLabels = (activities => (
@@ -12,7 +13,7 @@ const EntityPopup = (props) => {
     <FancyBorder color="green" >
       <Modal
         show={props.showModal} onHide={() => { props.closeModal(); }}
-        bsSize="large" dialogClassName="entityModal"
+        bsSize="lg" dialogClassName="entityModal"
       >
         <Modal.Header closeButton className="text-center">
           <Modal.Title><h3>{props.entity.name.toUpperCase()}</h3></Modal.Title>
@@ -21,10 +22,10 @@ const EntityPopup = (props) => {
           </FancyBorder>
         </Modal.Header>
         <Modal.Body className="container">
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-          THIS WILL BE THE MAP
+          <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+            <TrailsContainer />
           </div>
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">
             <div className="row">
               <FancyBorder color="blue">
                 <h4>Contact Information</h4>
