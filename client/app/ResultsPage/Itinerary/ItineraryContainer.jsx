@@ -13,7 +13,7 @@ class ItineraryContainer extends Component {
           <FancyBorder color="green">
             <h1 className="text-center">Itinerary</h1>
           </FancyBorder>
-          <DayLegs directions={this.props.directions} />
+          <DayLegs itinerary={this.props.itinerary} />
         </div>
       </FancyBorder>
     );
@@ -21,7 +21,7 @@ class ItineraryContainer extends Component {
 }
 
 ItineraryContainer.propTypes = {
-  directions: PropTypes.arrayOf(PropTypes.object),
+  itinerary: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default ItineraryContainer;

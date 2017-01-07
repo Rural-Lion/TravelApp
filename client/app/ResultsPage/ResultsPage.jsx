@@ -8,7 +8,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { generateActivities, generateData, getCoordinates, FancyBorder, generateDirections } from '../helpers';
+import { generateDetailedEntity, generateData, getCoordinates, FancyBorder, generateItinerary } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
@@ -23,13 +23,13 @@ class ResultsPage extends Component {
       waypoints: [],
       selectedEntity: {},
       showModal: false,
-      directions: [],
+      itinerary: [],
     };
 
     this.handleEntityClick = this.handleEntityClick.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleAddToItineraryClick = this.handleAddToItineraryClick.bind(this);
-    this.setDirections = this.setDirections.bind(this);
+    this.setItinerary = this.setItinerary.bind(this);
   }
   componentWillMount() {
     this.getEntityList();
@@ -62,10 +62,10 @@ class ResultsPage extends Component {
     getCoordinates(this.props.userQuery.startingLocation, sendRequest);
   }
 
-  setDirections(results) {
+  setItinerary(results) {
     this.setState({
-      directions: generateDirections(results),
-    }, () => console.log('this is new directions in state: ', this.state.directions));
+      itinerary: generateItinerary(results),
+    }, () => console.log('this is new directions in state: ', this.state.itinerary));
   }
 
   handleEntityClick(e, entity) {
@@ -158,7 +158,7 @@ class ResultsPage extends Component {
           <div className="row mapAndList">
             <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3" >
               <ItineraryContainer
-                directions={this.state.directions}
+                itinerary={this.state.itinerary}
               />
             </div>
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6" >
@@ -168,7 +168,7 @@ class ResultsPage extends Component {
                   entities={this.state.entities}
                   waypoints={this.state.waypoints}
                   startingLocation={this.state.startingLocation}
-                  setDirections={this.setDirections}
+                  setItinerary={this.setItinerary}
                 />
               </FancyBorder>
             </div>

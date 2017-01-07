@@ -2,31 +2,27 @@ import React, { PropTypes } from 'react';
 import { FancyBorder } from '../../helpers';
 import DayLeg from './DayLeg.jsx';
 
-const DayLegs = props =>
-  dayLegs = props.directions.map((leg, index) => {
-    <DayLeg leg={leg} key={index} />;
-  });
-(
-  <FancyBorder color="green">
-    <div className="itineraryContainer" >
-      <FancyBorder color="blue">
-        <div className="itinerary container-fluid" >
-          <FancyBorder color="purple">
-            <div className="container-fluid">
-              <div className="itineraryEntry container-fluid row" >
+const DayLegs = (props) => {
+  const dayLegs = props.itinerary.map((leg, index) => <DayLeg leg={leg} key={index} day={index + 1} />);
+  return (
+    <FancyBorder color="green">
+      <div className="itineraryContainer" >
+        <FancyBorder color="blue">
+          <div className="itinerary container-fluid" >
+            <FancyBorder color="purple">
+              <div className="container-fluid">
                 {dayLegs}
               </div>
-            </div>
-          </FancyBorder>
-
-        </div>
-      </FancyBorder>
-    </div>
-  </FancyBorder>
+            </FancyBorder>
+          </div>
+        </FancyBorder>
+      </div>
+    </FancyBorder>
   );
+};
 
 DayLegs.propTypes = {
-  directions: PropTypes.arrayOf(PropTypes.object),
+  itinerary: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default DayLegs;
