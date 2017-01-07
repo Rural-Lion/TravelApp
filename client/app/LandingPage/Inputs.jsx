@@ -34,6 +34,7 @@ const Inputs = props => (
       Where are you starting from?
         <Autocomplete
           data-tag="startingLocation"
+          onPlaceSelected={place => props.handleChange(setLocation, place.formatted_address)}
           onChange={e => props.handleChange(setLocation, e.target.value)}
           className="lpInput"
           type="text"
