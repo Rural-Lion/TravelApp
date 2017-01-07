@@ -49,7 +49,6 @@
   text-align: center;
   font-weight: bold;
 }
-
 .finalizeButton {
   width: 100%;
   margin-top: 10px;
@@ -133,12 +132,16 @@
 }
 
 .entityModalBody {
-  max-height: 500px;
+  max-height: 45vh;
   overflow-y: auto;
 }
 .modalActivityLabel {
   display: inline-block;
   padding-left: 5px;
+}
+.modalMap {
+  height: 50vh;
+  margin: 5px;
 }
 
 .itineraryContainer {
