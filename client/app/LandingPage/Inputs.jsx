@@ -2,71 +2,58 @@ import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
 import { setLocation, setBudget, setDistance, setLength } from '../actions/inputActions.js';
 
-class Inputs extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    let input = document.getElementsByClassName('lpInput');
-    let autocomplete = new google.maps.places.Autocomplete(input);
-  }
-    
-  render() {
-    return (
-      <FancyBorder color="yellow" >
-        <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <FancyBorder color="green">
-          How much do you want to spend?
-            <input
-              data-tag="budgetOfTrip"
-              onChange={e => props.handleChange(setBudget, e.target.value)}
-              className="lpInput"
-              type="text"
-              value={props.userQuery.budgetOfTrip}
-            />
-          </FancyBorder>
-        </div>
-        <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <FancyBorder color="green">
-          How long are you traveling?
-            <input
-              data-tag="lengthOfTrip"
-              onChange={e => props.handleChange(setLength, e.target.value)}
-              className="lpInput"
-              type="text"
-              value={props.userQuery.lengthOfTrip}
-            />
-          </FancyBorder>
-        </div>
-        <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <FancyBorder color="green">
-          Where are you starting from?
-            <input
-              data-tag="startingLocation"
-              onChange={e => props.handleChange(setLocation, e.target.value)}
-              className="lpInput"
-              type="text"
-              value={props.userQuery.startingLocation}
-            />
-          </FancyBorder>
-        </div>
-        <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <FancyBorder color="green">
-          How far away do you want to go?
-            <input
-              data-tag="distanceOfTrip"
-              onChange={e => props.handleChange(setDistance, e.target.value)}
-              className="lpInput"
-              type="text"
-              value={props.userQuery.distanceOfTrip}
-            />
-          </FancyBorder>
-        </div>
+const Inputs = props => (
+  <FancyBorder color="yellow" >
+    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <FancyBorder color="green">
+      How much do you want to spend?
+        <input
+          data-tag="budgetOfTrip"
+          onChange={e => props.handleChange(setBudget, e.target.value)}
+          className="lpInput"
+          type="text"
+          value={props.userQuery.budgetOfTrip}
+        />
       </FancyBorder>
-    );
-  }
-}
+    </div>
+    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <FancyBorder color="green">
+      How long are you traveling?
+        <input
+          data-tag="lengthOfTrip"
+          onChange={e => props.handleChange(setLength, e.target.value)}
+          className="lpInput"
+          type="text"
+          value={props.userQuery.lengthOfTrip}
+        />
+      </FancyBorder>
+    </div>
+    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <FancyBorder color="green">
+      Where are you starting from?
+        <input
+          data-tag="startingLocation"
+          onChange={e => props.handleChange(setLocation, e.target.value)}
+          className="lpInput"
+          type="text"
+          value={props.userQuery.startingLocation}
+        />
+      </FancyBorder>
+    </div>
+    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <FancyBorder color="green">
+      How far away do you want to go?
+        <input
+          data-tag="distanceOfTrip"
+          onChange={e => props.handleChange(setDistance, e.target.value)}
+          className="lpInput"
+          type="text"
+          value={props.userQuery.distanceOfTrip}
+        />
+      </FancyBorder>
+    </div>
+  </FancyBorder>
+  );
 
 Inputs.propTypes = {
   handleChange: PropTypes.func,
