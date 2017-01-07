@@ -12,6 +12,7 @@ const generateData = res => res.map(({
   FacilityDescription,
   FacilityEmail,
   URL,
+  EntityID,
   RecAreaLatitude,
   RecAreaLongitude,
   RecAreaName,
@@ -27,6 +28,7 @@ const generateData = res => res.map(({
   coordinates: FacilityLatitude ? [+FacilityLatitude, +FacilityLongitude] : [+RecAreaLatitude, +RecAreaLongitude],
   facility: !!FacilityName,
   recArea: !!RecAreaName,
+  entityID: EntityID
 }));
 
 const generateActivities = ({

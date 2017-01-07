@@ -91,24 +91,20 @@ module.exports.getFacilitiesActivities = function(req, res) {
 };
 
 module.exports.getRecAddress = function(req, res) {
-  let {query: {recArea}} = req;
-  schemas.recAreas.findOne({
-    where: {RecAreaName: recArea}
+  let {query: {recAreaID}} = req;
+  schemas.recAreaAddress.findOne({
+    where: {RecAreaID: recAreaID}
   })
-  .then(function(recreationArea) {
-    recreationArea.getRecAreaAddress()
-    .then(function(address) {
-      console.log(address);
-      res.send(address);
-    });
+  .then(function(recreationAreaAddress) {
+      res.send(recreationAreaAddress.dataValues);
   })
   .catch((err) => console.log('error', err));
 };
 
 module.exports.getFacilityAddress = function(req, res) {
-  let {query: {facility}} = req;
+  let {query: {facilityID}} = req;
   schemas.facilities.findOne({
-    where: {FacilityName: facility}
+    where: {FacilityID: facilityID}
   })
   .then(function(fac) {
     fac.getFacilitiesAddress()

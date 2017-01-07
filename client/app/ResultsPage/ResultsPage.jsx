@@ -62,11 +62,11 @@ class ResultsPage extends Component {
 
   handleEntityClick(e, entity) {
     const that = this;
-
+    console.log('entity.entityID: ', entity.entityID);
     if (entity.facility) {
-      axios.get('/facility', {
+      axios.get('/facilityAddress', {
         params: {
-          facility: entity.name,
+          facilityID: entity.entityID,
         },
       })
     .then((facility) => {
@@ -78,13 +78,13 @@ class ResultsPage extends Component {
     })
     .catch(err => console.error('error', err));
     } else if (entity.recArea) {
-      axios.get('/recArea', {
+      axios.get('/recAddress', {
         params: {
-          recArea: entity.name,
+          recAreaID: entity.entityID,
         },
       })
     .then((recArea) => {
-      console.log('recArea', recArea);
+      console.log('recArea', recArea.data);
       that.setState({
         selectedEntity: generateActivities(recArea.data),
         showModal: true,
