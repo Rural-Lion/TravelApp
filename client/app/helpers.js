@@ -31,7 +31,7 @@ const generateData = res => res.map(({
   entityID: EntityID
 }));
 
-const generateActivities = (entity, entityAddress, {activities, trails}) => {
+const generateDetailledEntity = (entity, entityAddress, {activities, trails}) => {
   const activitiesList = activities.map(Activity => toTitleCase(Activity));
   entity.trails = trails;
   entity.activities = activitiesList;
