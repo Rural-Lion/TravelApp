@@ -1,15 +1,29 @@
-const routeLogic = require('./routingLogic');
+const routeLogic = require('./routingHandlers');
 
 module.exports = function (app, express) {
 
-  // Get Entites with Radius
+//////////////////////////////////////////////////////////
+////// ROUTES USED IN THE APP //////
+//////////////////////////////////////////////////////////
+
+  // Get Entites within a given radius
   app.get('/entitiesWithinRadius', routeLogic.getEntitiesWithinRadius);
 
-  // Get Trails with Radius
+ // Get Address for a RecArea or a Facility
+  app.get('/recAddress', routeLogic.getRecAddress);
+  app.get('/facilityAddress', routeLogic.getFacilityAddress);
+
+  // Get Trails within a radius and the activity list of a specific Entity
   app.get('/trailsAndActivitiesWithinRadiusOfFacility', routeLogic.trailsAndActivitiesWithinRadiusOfFacility);
   app.get('/trailsAndActivitiesWithinRadiusOfRecAreas', routeLogic.trailsAndActivitiesWithinRadiusOfRecAreas);  
 
-  // Get RecAreas and Facilities Info
+/////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+////// ROUTES FOR TESTING PURPOSES //////
+//////////////////////////////////////////////////////////////
+
+ // Get RecAreas and Facilities Info
   app.get('/recArea', routeLogic.getRecArea);
   app.get('/facility', routeLogic.getFacility);
 
@@ -21,11 +35,7 @@ module.exports = function (app, express) {
   app.get('/recActivities', routeLogic.getRecActivities);
   app.get('/facilityActivities', routeLogic.getFacilitiesActivities);
 
-  // Get Addresses for RecAreas and Facilities
-  app.get('/recAddress', routeLogic.getRecAddress);
-  app.get('/facilityAddress', routeLogic.getFacilityAddress);
-
-  // Get EntityLinks for RecAreas and Facilities
+// Get EntityLinks for RecAreas and Facilities
   app.get('/recLinks', routeLogic.getRecLinks);
   app.get('/facilityLinks', routeLogic.getFacilityLinks);
 
@@ -45,7 +55,9 @@ module.exports = function (app, express) {
   // Get activities for RecArea and Facility
   app.get('/activities', routeLogic.getActivities);
 
+  // Get permitEntrances for RecArea and Facility
   app.get('/permitEntrances', routeLogic.getEntrances);
 
+/////////////////////////////////////////////////////////////
 };
 
