@@ -62,33 +62,52 @@ class ResultsPage extends Component {
 
   handleEntityClick(e, entity) {
     const that = this;
-
+    console.log('entity.entityID: ', entity.entityID);
     if (entity.facility) {
-      axios.get('/facility', {
+      axios.get('/facilityAddress', {
         params: {
-          facility: entity.name,
+          facilityID: entity.entityID,
         },
       })
-    .then((facility) => {
-      console.log('facility', facility.data);
-      that.setState({
-        selectedEntity: generateActivities(facility.data),
-        showModal: true,
-      });
+    .then((facilityAddress) => {
+      axios.get('/trailsAndActivitiesWithinRadiusOfFacility', {
+        params: {
+          facilityID: entity.entityID,
+          latitude: entity.coordinates[0],
+          longitude: entity.coordinates[1]
+        },
+      })
+      .then((facilityDetails) => {
+        
+        console.log('facility', facilityDetails.data);
+        that.setState({
+          selectedEntity: generateDetailledEntity(entity, facilityAddress.data, facilityDetails.data),
+          showModal: true,
+        });
+      })
     })
     .catch(err => console.error('error', err));
     } else if (entity.recArea) {
-      axios.get('/recArea', {
+      axios.get('/recAddress', {
         params: {
-          recArea: entity.name,
+          recAreaID: entity.entityID,
         },
       })
-    .then((recArea) => {
-      console.log('recArea', recArea);
-      that.setState({
-        selectedEntity: generateActivities(recArea.data),
-        showModal: true,
-      });
+    .then((recAreaAddress) => {
+      axios.get('/trailsAndActivitiesWithinRadiusOfRecAreas', {
+        params: {
+          recAreaID: entity.entityID,
+          latitude: entity.coordinates[0],
+          longitude: entity.coordinates[1]
+        },
+      })
+      .then((recAreaDetails) => {
+        console.log('recArea', recAreaDetails.data);
+        that.setState({
+          selectedEntity: generateDetailledEntity(entity, recAreaAddress.data, recAreaDetails.data),
+          showModal: true,
+        });
+      })
     })
     .catch(err => console.error('error', err));
     }

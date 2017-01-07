@@ -91,30 +91,46 @@ module.exports.getFacilitiesActivities = function(req, res) {
 };
 
 module.exports.getRecAddress = function(req, res) {
-  let {query: {recArea}} = req;
-  schemas.recAreas.findOne({
-    where: {RecAreaName: recArea}
+  let {query: {recAreaID}} = req;
+  schemas.recAreaAddress.findOne({
+    where: {RecAreaID: recAreaID}
   })
-  .then(function(recreationArea) {
-    recreationArea.getRecAreaAddress()
-    .then(function(address) {
-      console.log(address);
-      res.send(address);
+  .then(function({
+    AddressStateCode, 
+    City, 
+    PostalCode, 
+    RecAreaStreetAddress1, 
+    RecAreaStreetAddress2, 
+    RecAreaStreetAddress3
+  }) {
+    res.send({
+      State: AddressStateCode,
+      City: City,
+      PostalCode: PostalCode,
+      Address: RecAreaStreetAddress1 + ' ' + RecAreaStreetAddress2 + ' ' + RecAreaStreetAddress3
     });
   })
   .catch((err) => console.log('error', err));
 };
 
 module.exports.getFacilityAddress = function(req, res) {
-  let {query: {facility}} = req;
-  schemas.facilities.findOne({
-    where: {FacilityName: facility}
+  let {query: {facilityID}} = req;
+  schemas.facilitiesAddress.findOne({
+    where: {FacilityID: facilityID}
   })
-  .then(function(fac) {
-    fac.getFacilitiesAddress()
-    .then(function(address) {
-      console.log(address);
-      res.send(address);
+  .then(function({
+    AddressStateCode, 
+    City, 
+    PostalCode, 
+    FacilityStreetAddress1, 
+    FacilityStreetAddress2, 
+    FacilityStreetAddress3
+  }) {
+    res.send({
+      State: AddressStateCode,
+      City: City,
+      PostalCode: PostalCode,
+      Address: FacilityStreetAddress1 + ' ' + FacilityStreetAddress2 + ' ' + FacilityStreetAddress3
     });
   })
   .catch((err) => console.log('error', err));
@@ -314,23 +330,109 @@ module.exports.getEntrances = function(req, res) {
 //   .catch((err) => console.log('error: ', err));
 // };
 
+
 module.exports.getEntitiesWithinRadius = (req, res) => {
   let {query: {latitude, longitude, distance, activities}} = req;
-  db.query(`SELECT * FROM (SELECT facilities.FacilityLatitude, facilities.FacilityLongitude, facilities.FacilityName, facilities.FacilityPhone, facilities.FacilityDescription, facilities.FacilityEmail, recAreas.RecAreaName, recAreas.RecAreaLatitude, recAreas.RecAreaLongitude, recAreas.RecAreaPhone, recAreas.RecAreaDescription, recAreas.RecAreaEmail, entityMedia.URL, entityactivities.EntityID, entityactivities.EntityType, entityactivities.ActivityDescription FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)})) AS matches GROUP BY matches.EntityID LIMIT 10`, {type: db.QueryTypes.SELECT})
+  db.query(`SELECT * FROM (SELECT facilities.FacilityLatitude, facilities.FacilityLongitude, facilities.FacilityName, facilities.FacilityPhone, facilities.FacilityDescription, facilities.FacilityEmail, recAreas.RecAreaName, recAreas.RecAreaLatitude, recAreas.RecAreaLongitude, recAreas.RecAreaPhone, recAreas.RecAreaDescription, recAreas.RecAreaEmail, entityMedia.URL, entityactivities.EntityID, entityactivities.EntityType, entityactivities.ActivityDescription FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)})) AS matches GROUP BY matches.EntityID LIMIT 50`, {type: db.QueryTypes.SELECT})
   .then(function(entities) {
           res.send(entities);
   })
   .catch((err) => console.log('error: ', err));
 };
 
-module.exports.getTrailsWithinRadius = (req, res) => {
-  let {query: {latitude, longitude}} = req;
 
-  db.query(`SELECT * FROM trails WHERE TrailUSFSID = 538`, {type: db.QueryTypes.SELECT})
-  .then(function(entities) {
-          res.send(entities);
-  })
-  .catch((err) => console.log('error: ', err));
+module.exports.trailsAndActivitiesWithinRadiusOfFacility = (req, res) => {
+  let {query: {latitude, longitude, facilityID}} = req;
+  if (longitude <= -100) {
+        db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.facilities.findOne({
+            where: {FacilityID: facilityID},
+            include: [{model: schemas.activities}]
+          }).then(function(fac) {
+            const facActivities = fac.dataValues.activities;
+            let activityList = [];
+            facActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let facilityInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            res.send(facilityInfo);
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      } else {
+        db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 11) AS DECIMAL(12, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.facilities.findOne({
+            where: {FacilityID: facilityID},
+            include: [{model: schemas.activities}]
+          }).then(function(fac) {
+            const facActivities = fac.dataValues.activities;
+            let activityList = [];
+            facActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let facilityInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            res.send(facilityInfo);
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      }
+};
+
+module.exports.trailsAndActivitiesWithinRadiusOfRecAreas = (req, res) => {
+  let {query: {latitude, longitude, recAreaID}} = req;
+  if (longitude <= -100) {
+        db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.recAreas.findOne({
+            where: {RecAreaID: recAreaID},
+            include: [{model: schemas.activities}]
+          }).then(function(recA) {
+            const recAActivities = recA.dataValues.activities;
+            let activityList = [];
+            recAActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let recAreaInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            res.send(recAreaInfo);
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      } else {
+        db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 11) AS DECIMAL(12, 8)) - (${longitude})))) * 6371 <= 50)`, {type: db.QueryTypes.SELECT})
+        .then((trails) => {
+          schemas.recAreas.findOne({
+            where: {RecAreaID: recAreaID},
+            include: [{model: schemas.activities}]
+          }).then(function(recA) {
+            const recAActivities = recA.dataValues.activities;
+            let activityList = [];
+            recAActivities.forEach((activity) => {
+              activityList.push(activity.dataValues.ActivityName);
+            });
+            let recAreaInfo = {
+              trails: trails,
+              activities: activityList
+            };
+            res.send(recAreaInfo);
+          })
+          .catch((err) => console.log('error', err));
+        })
+        .catch((err) => console.log('error: ', err));
+      }
 };
 
 

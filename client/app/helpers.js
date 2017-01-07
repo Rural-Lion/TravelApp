@@ -12,6 +12,7 @@ const generateData = res => res.map(({
   FacilityDescription,
   FacilityEmail,
   URL,
+  EntityID,
   RecAreaLatitude,
   RecAreaLongitude,
   RecAreaName,
@@ -27,36 +28,16 @@ const generateData = res => res.map(({
   coordinates: FacilityLatitude ? [+FacilityLatitude, +FacilityLongitude] : [+RecAreaLatitude, +RecAreaLongitude],
   facility: !!FacilityName,
   recArea: !!RecAreaName,
+  entityID: EntityID
 }));
 
-const generateActivities = ({
-  FacilityLatitude,
-  FacilityLongitude,
-  FacilityName,
-  FacilityPhone,
-  FacilityDescription,
-  FacilityEmail,
-  URL,
-  RecAreaLatitude,
-  RecAreaLongitude,
-  RecAreaName,
-  RecAreaPhone,
-  RecAreaDescription,
-  RecAreaEmail,
-  activities,
-}) => {
-  const activitiesList = activities.map(({ ActivityName }) => toTitleCase(ActivityName));
-  return {
-    name: FacilityName || RecAreaName,
-    image: URL,
-    email: FacilityEmail || RecAreaEmail,
-    phoneNumber: FacilityPhone || RecAreaPhone,
-    description: FacilityDescription || RecAreaDescription,
-    coordinates: FacilityLatitude ? [FacilityLatitude, FacilityLongitude] : [RecAreaLatitude, RecAreaLongitude],
-    activities: activitiesList,
-    facility: !!FacilityName,
-    recArea: !!RecAreaName,
-  };
+const generateDetailledEntity = (entity, entityAddress, {activities, trails}) => {
+  const activitiesList = activities.map(Activity => toTitleCase(Activity));
+  entity.trails = trails;
+  entity.activities = activitiesList;
+  entity.address = entityAddress;
+  console.log('Entity: ', entity);
+  return entity;
 };
 
 const getCoordinates = (location, cb) => {
