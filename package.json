@@ -4,7 +4,7 @@
   "description": "Travel Planner for lazy travelers",
   "main": "client/app/index.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server/server.js",
     "poststart": "webpack -d --watch",
     "dev": "nodemon server/server.js",
@@ -54,6 +54,7 @@
     "babel-preset-react": "^6.16.0",
     "file-loader": "^0.9.0",
     "image-webpack-loader": "^3.1.0",
+    "jest": "^18.1.0",
     "redux-devtools": "^3.3.1",
     "sequelize": "^3.28.0",
     "webpack": "^1.14.0",

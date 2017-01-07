@@ -144,5 +144,5 @@ const generateItinerary = (obj, startingTime, endingTime, days, costPerDay) => {
   return itinerary;
 };
 
-export { generateData, getCoordinates, generateItinerary, FancyBorder, generateDetailedEntity };
 
+export { toTitleCase, generateDetailedEntity, generateData, getCoordinates, FancyBorder, generateItinerary };
