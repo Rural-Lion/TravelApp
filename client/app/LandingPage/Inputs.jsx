@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
 import { setLocation, setBudget, setDistance, setLength } from '../actions/inputActions.js';
+import Autocomplete from 'react-google-autocomplete';
 
 const Inputs = props => (
   <FancyBorder color="yellow" >
@@ -31,7 +32,7 @@ const Inputs = props => (
     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
       <FancyBorder color="green">
       Where are you starting from?
-        <input
+        <Autocomplete
           data-tag="startingLocation"
           onChange={e => props.handleChange(setLocation, e.target.value)}
           className="lpInput"
