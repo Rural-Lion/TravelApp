@@ -69,12 +69,21 @@ class ResultsPage extends Component {
           facilityID: entity.entityID,
         },
       })
-    .then((facility) => {
-      console.log('facility', facility.data);
-      that.setState({
-        selectedEntity: generateActivities(facility.data),
-        showModal: true,
-      });
+    .then((facilityAddress) => {
+      axios.get('/trailsAndActivitiesWithinRadiusOfFacility', {
+        params: {
+          facilityID: entity.entityID,
+          latitude: entity.coordinates[0],
+          longitude: entity.coordinates[1]
+        },
+      })
+      .then((facilityDetails) => {
+        console.log('facility', facilityDetails.data);
+        that.setState({
+          selectedEntity: generateActivities(facilityAddress.data),
+          showModal: true,
+        });
+      })
     })
     .catch(err => console.error('error', err));
     } else if (entity.recArea) {
@@ -83,12 +92,21 @@ class ResultsPage extends Component {
           recAreaID: entity.entityID,
         },
       })
-    .then((recArea) => {
-      console.log('recArea', recArea.data);
-      that.setState({
-        selectedEntity: generateActivities(recArea.data),
-        showModal: true,
-      });
+    .then((recAreaAddress) => {
+      axios.get('/trailsAndActivitiesWithinRadiusOfRecAreas', {
+        params: {
+          recAreaID: entity.entityID,
+          latitude: entity.coordinates[0],
+          longitude: entity.coordinates[1]
+        },
+      })
+      .then((recAreaDetails) => {
+        console.log('recArea', recAreaDetails.data);
+        that.setState({
+          selectedEntity: generateActivities(recAreaAddress.data),
+          showModal: true,
+        });
+      })
     })
     .catch(err => console.error('error', err));
     }
