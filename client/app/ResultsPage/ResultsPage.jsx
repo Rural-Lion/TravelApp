@@ -8,7 +8,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { generateActivities, generateData, getCoordinates, FancyBorder } from '../helpers';
+import { generateDetailedEntity, generateData, getCoordinates, FancyBorder } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
@@ -74,17 +74,16 @@ class ResultsPage extends Component {
         params: {
           facilityID: entity.entityID,
           latitude: entity.coordinates[0],
-          longitude: entity.coordinates[1]
+          longitude: entity.coordinates[1],
         },
       })
       .then((facilityDetails) => {
-        
         console.log('facility', facilityDetails.data);
         that.setState({
-          selectedEntity: generateDetailledEntity(entity, facilityAddress.data, facilityDetails.data),
+          selectedEntity: generateDetailedEntity(entity, facilityAddress.data, facilityDetails.data),
           showModal: true,
         });
-      })
+      });
     })
     .catch(err => console.error('error', err));
     } else if (entity.recArea) {
@@ -98,16 +97,16 @@ class ResultsPage extends Component {
         params: {
           recAreaID: entity.entityID,
           latitude: entity.coordinates[0],
-          longitude: entity.coordinates[1]
+          longitude: entity.coordinates[1],
         },
       })
       .then((recAreaDetails) => {
         console.log('recArea', recAreaDetails.data);
         that.setState({
-          selectedEntity: generateDetailledEntity(entity, recAreaAddress.data, recAreaDetails.data),
+          selectedEntity: generateDetailedEntity(entity, recAreaAddress.data, recAreaDetails.data),
           showModal: true,
         });
-      })
+      });
     })
     .catch(err => console.error('error', err));
     }
