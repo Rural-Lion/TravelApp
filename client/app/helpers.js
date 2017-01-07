@@ -66,5 +66,30 @@ FancyBorder.propTypes = {
   color: PropTypes.string,
 };
 
-export { generateDetailedEntity, generateData, getCoordinates, FancyBorder };
+const generateDirections = (arr) => {
+  const tripLegs = [];
+  arr.routes[0].legs.forEach(({ distance: { text: distanceText }, duration: { text: durationText }, steps, end_address, start_address }, index) => {
+    const childLegs = [];
+    steps.forEach(({ distance: { text: distanceText }, duration: { text: durationText }, instructions }, index) => {
+      childLegs.push({
+        distance: distanceText,
+        duration: durationText,
+        instructions,
+      });
+    });
+
+    tripLegs.push({
+      distance: distanceText,
+      duration: durationText,
+      childLegs,
+      start_address,
+      end_address,
+    });
+  });
+
+  return tripLegs;
+};
+
+
+export { generateData, getCoordinates, FancyBorder, generateDirections, generateDetailedEntity };
 

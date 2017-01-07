@@ -8,7 +8,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { generateDetailedEntity, generateData, getCoordinates, FancyBorder } from '../helpers';
+import { generateActivities, generateData, getCoordinates, FancyBorder, generateDirections } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
@@ -23,11 +23,13 @@ class ResultsPage extends Component {
       waypoints: [],
       selectedEntity: {},
       showModal: false,
+      directions: [],
     };
 
     this.handleEntityClick = this.handleEntityClick.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleAddToItineraryClick = this.handleAddToItineraryClick.bind(this);
+    this.setDirections = this.setDirections.bind(this);
   }
   componentWillMount() {
     this.getEntityList();
@@ -52,12 +54,18 @@ class ResultsPage extends Component {
         .then((res) => {
           that.setState({
             entities: generateData(res.data),
-          }, () => { console.log('entities in app', that.state.entities); });
+          });
         })
         .catch(err => console.log('error loading get request', err));
       }
     };
     getCoordinates(this.props.userQuery.startingLocation, sendRequest);
+  }
+
+  setDirections(results) {
+    this.setState({
+      directions: generateDirections(results),
+    }, () => console.log('this is new directions in state: ', this.state.directions));
   }
 
   handleEntityClick(e, entity) {
@@ -84,14 +92,14 @@ class ResultsPage extends Component {
           showModal: true,
         });
       });
-    })
-    .catch(err => console.error('error', err));
+    });
     } else if (entity.recArea) {
       axios.get('/recAddress', {
         params: {
           recAreaID: entity.entityID,
         },
       })
+
     .then((recAreaAddress) => {
       axios.get('/trailsAndActivitiesWithinRadiusOfRecAreas', {
         params: {
@@ -119,13 +127,10 @@ class ResultsPage extends Component {
   }
 
   handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
-    console.log(lat, lng);
     e.stopPropagation();
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
     waypoints.forEach(({ location: { lat: insideLat, lng: insideLng } }, index) => {
-      console.log('this is insidelat', insideLat);
-      console.log('this is lat', lat);
       if (insideLat === lat && insideLng === lng) {
         waypoints.splice(index, 1);
         removeFlag = true;
@@ -139,8 +144,9 @@ class ResultsPage extends Component {
     }
     this.setState({
       waypoints,
-    }, () => console.log('waypoints after click: ', this.state.waypoints));
+    });
   }
+
 
   render() {
     return (
@@ -151,7 +157,9 @@ class ResultsPage extends Component {
           </div>
           <div className="row mapAndList">
             <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3" >
-              <ItineraryContainer />
+              <ItineraryContainer
+                directions={this.props.directions}
+              />
             </div>
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6" >
               <FancyBorder color="yellow">
@@ -160,6 +168,7 @@ class ResultsPage extends Component {
                   entities={this.state.entities}
                   waypoints={this.state.waypoints}
                   startingLocation={this.state.startingLocation}
+                  setDirections={this.setDirections}
                 />
               </FancyBorder>
             </div>
@@ -192,6 +201,7 @@ class ResultsPage extends Component {
 ResultsPage.propTypes = {
   userQuery: PropTypes.object,
   userInterests: PropTypes.arrayOf(PropTypes.string),
+  directions: PropTypes.arrayOf(PropTypes.object),
 };
 
 const mapStateToProps = state => ({
