@@ -78,14 +78,10 @@ class ResultsPage extends Component {
         },
       })
       .then((facilityDetails) => {
-        const facility = {
-          trails: facilityDetails.data.trails,
-          activities: facilityDetails.data.activities,
-          address: facilityAddress.data
-        }
-        console.log('facility', facility);
+        
+        console.log('facility', facilityDetails.data);
         that.setState({
-          selectedEntity: generateActivities(facility),
+          selectedEntity: generateActivities(entity, facilityAddress.data, recAreaDetails.data),
           showModal: true,
         });
       })
@@ -106,14 +102,9 @@ class ResultsPage extends Component {
         },
       })
       .then((recAreaDetails) => {
-        const recArea = {
-          trails: recAreaDetails.data.trails,
-          activities: recAreaDetails.data.activities,
-          address: recAreaAddress.data
-        }
-        console.log('recArea', recArea);
+        console.log('recArea', recAreaDetails.data);
         that.setState({
-          selectedEntity: generateActivities(recArea),
+          selectedEntity: generateActivities(entity, recAreaAddress.data, recAreaDetails.data),
           showModal: true,
         });
       })
