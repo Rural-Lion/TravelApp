@@ -47,7 +47,7 @@ const generateActivities = ({
   RecAreaEmail,
   activities,
 }) => {
-  const activitiesList = activities.map(({ ActivityName }) => toTitleCase(ActivityName));
+  const activitiesList = activities.map(ActivityName => toTitleCase(ActivityName));
   return {
     name: FacilityName || RecAreaName,
     image: URL,

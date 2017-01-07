@@ -78,9 +78,14 @@ class ResultsPage extends Component {
         },
       })
       .then((facilityDetails) => {
-        console.log('facility', facilityDetails.data);
+        const facility = {
+          trails: facilityDetails.data.trails,
+          activities: facilityDetails.data.activities,
+          address: facilityAddress.data
+        }
+        console.log('facility', facility);
         that.setState({
-          selectedEntity: generateActivities(facilityAddress.data),
+          selectedEntity: generateActivities(facility),
           showModal: true,
         });
       })
@@ -101,9 +106,14 @@ class ResultsPage extends Component {
         },
       })
       .then((recAreaDetails) => {
-        console.log('recArea', recAreaDetails.data);
+        const recArea = {
+          trails: recAreaDetails.data.trails,
+          activities: recAreaDetails.data.activities,
+          address: recAreaAddress.data
+        }
+        console.log('recArea', recArea);
         that.setState({
-          selectedEntity: generateActivities(recAreaAddress.data),
+          selectedEntity: generateActivities(recArea),
           showModal: true,
         });
       })
