@@ -28,10 +28,10 @@ const generateData = res => res.map(({
   coordinates: FacilityLatitude ? [+FacilityLatitude, +FacilityLongitude] : [+RecAreaLatitude, +RecAreaLongitude],
   facility: !!FacilityName,
   recArea: !!RecAreaName,
-  entityID: EntityID
+  entityID: EntityID,
 }));
 
-const generateDetailledEntity = (entity, entityAddress, {activities, trails}) => {
+const generateDetailedEntity = (entity, entityAddress, { activities, trails }) => {
   const activitiesList = activities.map(Activity => toTitleCase(Activity));
   entity.trails = trails;
   entity.activities = activitiesList;
@@ -67,5 +67,5 @@ FancyBorder.propTypes = {
 };
 
 
-export { generateActivities, generateData, getCoordinates, FancyBorder };
+export { generateDetailedEntity, generateData, getCoordinates, FancyBorder };
 
