@@ -81,7 +81,7 @@ class ResultsPage extends Component {
         
         console.log('facility', facilityDetails.data);
         that.setState({
-          selectedEntity: generateActivities(entity, facilityAddress.data, recAreaDetails.data),
+          selectedEntity: generateActivities(entity, facilityAddress.data, facilityDetails.data),
           showModal: true,
         });
       })

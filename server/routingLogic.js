@@ -95,8 +95,20 @@ module.exports.getRecAddress = function(req, res) {
   schemas.recAreaAddress.findOne({
     where: {RecAreaID: recAreaID}
   })
-  .then(function(recreationAreaAddress) {
-      res.send(recreationAreaAddress.dataValues);
+  .then(function({
+    AddressStateCode, 
+    City, 
+    PostalCode, 
+    RecAreaStreetAddress1, 
+    RecAreaStreetAddress2, 
+    RecAreaStreetAddress3
+  }) {
+    res.send({
+      State: AddressStateCode,
+      City: City,
+      PostalCode: PostalCode,
+      Address: RecAreaStreetAddress1 + ' ' + RecAreaStreetAddress2 + ' ' + RecAreaStreetAddress3
+    });
   })
   .catch((err) => console.log('error', err));
 };
@@ -106,8 +118,20 @@ module.exports.getFacilityAddress = function(req, res) {
   schemas.facilitiesAddress.findOne({
     where: {FacilityID: facilityID}
   })
-  .then(function(facilityAddress) {
-    res.send(facilityAddress);
+  .then(function({
+    AddressStateCode, 
+    City, 
+    PostalCode, 
+    FacilityStreetAddress1, 
+    FacilityStreetAddress2, 
+    FacilityStreetAddress3
+  }) {
+    res.send({
+      State: AddressStateCode,
+      City: City,
+      PostalCode: PostalCode,
+      Address: FacilityStreetAddress1 + ' ' + FacilityStreetAddress2 + ' ' + FacilityStreetAddress3
+    });
   })
   .catch((err) => console.log('error', err));
 };
