@@ -81,7 +81,7 @@ class ResultsPage extends Component {
         
         console.log('facility', facilityDetails.data);
         that.setState({
-          selectedEntity: generateActivities(entity, facilityAddress.data, facilityDetails.data),
+          selectedEntity: generateDetailledEntity(entity, facilityAddress.data, facilityDetails.data),
           showModal: true,
         });
       })
@@ -104,7 +104,7 @@ class ResultsPage extends Component {
       .then((recAreaDetails) => {
         console.log('recArea', recAreaDetails.data);
         that.setState({
-          selectedEntity: generateActivities(entity, recAreaAddress.data, recAreaDetails.data),
+          selectedEntity: generateDetailledEntity(entity, recAreaAddress.data, recAreaDetails.data),
           showModal: true,
         });
       })
