@@ -1,4 +1,5 @@
 const MapDirections = (waypoints, starting, map, that) => {
+
   const directionsDisplay = new google.maps.DirectionsRenderer();
   const directions = new google.maps.DirectionsService();
 
