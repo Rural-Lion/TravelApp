@@ -110,6 +110,15 @@
   
 }
 
+.entityModal {
+  width: 80%;
+}
+
+.entityModalBody {
+  height: 600px;
+  overflow-y: auto;
+}
+
 .itineraryContainer {
   margin: 5px;
 }
