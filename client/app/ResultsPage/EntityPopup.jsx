@@ -29,8 +29,8 @@ const EntityPopup = (props) => {
             <div className="row">
               <FancyBorder color="blue">
                 <h4>Contact Information</h4>
-                <div>{props.entity.phone || 'no info'}</div>
-                <div>{props.entity.email || 'no info'}</div>
+                <div>Phone number: {props.entity.phoneNumber || 'no info'}</div>
+                <div>Email: {props.entity.email || 'no info'}</div>
               </FancyBorder>
             </div>
             <div className="row entityModalBody">
