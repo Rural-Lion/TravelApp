@@ -10,4 +10,4 @@ bundle.js
 bundle.js.map
 RIDBFullExport_v1/
 rurallion.sql
-
+.tmp/
