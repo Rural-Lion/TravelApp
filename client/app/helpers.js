@@ -38,7 +38,6 @@ const generateDetailedEntity = (entity, entityAddress, { activities, trails }) =
   entity.trails = trails;
   entity.activities = activitiesList;
   entity.address = entityAddress;
-  console.log('Entity: ', entity);
   return entity;
 };
 
