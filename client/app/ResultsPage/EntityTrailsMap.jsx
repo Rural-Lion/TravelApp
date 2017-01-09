@@ -12,53 +12,31 @@ class EntityTrailsMap extends Component {
     };
   }
 
-  // componentWillMount() {
-
-  // }
-
-  // componentDidMount() {
-
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-
-  // }
+  componentWillMount() {
+    this.setState({
+      trails: this.parseTrails(),
+    }, () => { console.log('set state to parsed trails', this.state.trails); });
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log('comparing state:', this.state, nextState);
+    if (!this.state.mapRef) {
+      return true;
+    }
     return false;
   }
 
-  // componentWillUpdate(nextProps, nextState) {
-  //
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-
-  // }
-
-  // componentWillUnmount() {
-
-  // }
-  parseTrails() {
-    return this.props.trails.map((trail) => {
-      trail.coordinates = trail.coordinates
-        .slice(12, trail.coordinates.length - 2)
-        .split(',')
-        .map((point) => {
-          point = point.split(' ');
-          return { lat: +point[0], lng: +point[1] };
-        });
-    });
-  }
   getMapRef(node) {
     this.setState({
       mapRef: node,
     }, () => {
-      this.initMap(this.state.mapRef);
+      this.setState({
+        map: this.initMap(this.state.mapRef),
+      }, () => { this.createTrailMarkers(this.state.map); });
     });
   }
   initMap(mapRef) {
-    console.log('init map called', mapRef);
+    console.log('here are the trails', this.state.trails);
     const map = new google.maps.Map(mapRef, {
       center: { lat: this.props.center[0], lng: this.props.center[1] },
       zoom: 9,
@@ -69,6 +47,27 @@ class EntityTrailsMap extends Component {
       animation: google.maps.Animation.DROP,
     });
     return map;
+  }
+  parseTrails() {
+    return this.props.trails.map((trail) => {
+      trail.coordinates = trail.coordinates
+        .slice(12, trail.coordinates.length - 2)
+        .split(',')
+        .map((point) => {
+          point = point.split(' ');
+          return { lat: +point[1], lng: +point[0] };
+        });
+      return trail;
+    });
+  }
+  createTrailMarkers(map) {
+    this.state.trails.map((trail) => {
+      console.log('making trail markers on', map);
+      const trailMarker = new google.maps.Marker({
+        position: trail.coordinates[0],
+        map,
+      });
+    });
   }
   render() {
     return (
