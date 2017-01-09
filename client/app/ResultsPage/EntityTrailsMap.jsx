@@ -5,16 +5,9 @@ class EntityTrailsMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      trails: [],
       map: null,
       mapRef: null,
     };
-  }
-
-  componentWillMount() {
-    this.setState({
-      trails: this.parseTrails(),
-    });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -60,23 +53,10 @@ class EntityTrailsMap extends Component {
     return map;
   }
 
-  parseTrails() {
-    // get the trail coordinates in the right format
-    return this.props.trails.map((trail) => {
-      trail.coordinates = trail.coordinates
-        .slice(12, trail.coordinates.length - 1)
-        .split(', ')
-        .map((point) => {
-          point = point.split(' ');
-          return { lat: +point[1], lng: +point[0] };
-        });
-      return trail;
-    });
-  }
 
   createTrailMarkers(map) {
     const infoWindow = new google.maps.InfoWindow();
-    const trailMarkers = this.state.trails.map((trail) => {
+    const trailMarkers = this.props.trails.map((trail) => {
       // create a marker for each trail:
       const marker = new google.maps.Marker({
         position: trail.coordinates[0],
