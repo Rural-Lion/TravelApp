@@ -120,6 +120,7 @@ class ResultsPage extends Component {
 
   handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
     console.log(lat, lng);
+    e.stopPropagation();
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
     waypoints.forEach(({ location: { lat: insideLat, lng: insideLng } }, index) => {
