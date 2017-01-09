@@ -10,6 +10,7 @@ class MapContainer extends Component {
     this.state = {
       mapRef: '',
       map: null,
+      directions: [],
     };
 
     this.handleInitMapRender = this.handleInitMapRender.bind(this);
@@ -24,7 +25,6 @@ class MapContainer extends Component {
       console.log('component should update');
       return true;
     }
-    console.log('component shouldnt update');
     return false;
   }
 
@@ -45,24 +45,14 @@ class MapContainer extends Component {
     }, () => {
       MapClusterer(this.props.entities, this.state.map);
       if (this.props.waypoints[0]) {
-        MapDirections(this.props.waypoints, this.props.startingLocation, this.state.map);
+        MapDirections(this.props.waypoints, this.props.startingLocation, this.state.map, this.props.setItinerary);
       }
     });
   }
 
   render() {
     return (
-      <div>
-        <FancyBorder color="purple">
-          <div>
-            <h1 className="text-center">Results Map</h1>
-          </div>
-        </FancyBorder>
-        <FancyBorder color="purple">
-          <Map handleInitMapRender={this.getMapRef} />
-        </FancyBorder>
-      </div>
-
+      <Map handleInitMapRender={this.getMapRef} />
     );
   }
 }
@@ -71,6 +61,7 @@ MapContainer.propTypes = {
   startingLocation: PropTypes.objectOf(PropTypes.number),
   entities: PropTypes.arrayOf(PropTypes.object),
   waypoints: PropTypes.arrayOf(PropTypes.object),
+  setItinerary: PropTypes.func,
 };
 
 export default MapContainer;

@@ -1,5 +1,6 @@
-const MapDirections = (waypoints, starting, map, that) => {
 
+
+const MapDirections = (waypoints, starting, map, cb) => {
   const directionsDisplay = new google.maps.DirectionsRenderer();
   const directions = new google.maps.DirectionsService();
 
@@ -14,12 +15,12 @@ const MapDirections = (waypoints, starting, map, that) => {
     }, (results, status) => {
       if (status === 'OK') {
         directionsDisplay.setDirections(results);
-        console.log(results);
         directionsDisplay.setMap(map);
       } else {
         directionsDisplay.setMap(null);
       }
       console.log('this is status of directions request: ', status);
+      cb(results);
     });
   } else {
     directionsDisplay.set('directions', null);

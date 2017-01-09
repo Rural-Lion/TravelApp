@@ -95,20 +95,16 @@
 }
 
 .mapContainer {
-  height: 80vh;
-  background: rgba(118, 73, 51, 0.847);
-  margin: 5px;
+  margin: 0px;
+  padding: 0px; 
+
 }
 
 .map {
-  position: absolute;
-}
-
-.EntityListEntry {
-  border: 2px solid black;
+  height: 95vh;
+  background: rgba(118, 73, 51, 0.847);
   margin: 5px;
-  border-radius: 5px;
-  background: white;
+
 }
 
 .EntityListEntry:hover {
@@ -116,16 +112,22 @@
   background-color: #a8a8a8;
 }
 
-.EntityList {
-  background: rgba(118, 73, 51, 0.847);
-  overflow-y: auto;
-  height: 80vh;
-  border: 2px solid black;
-  border-radius: 5px;
+.tabs {
+  margin: 0px;
+  padding: 0px;
+  height: 95vh;
+   
 }
 
-.EntityListContainer {
-  margin: 5px;
+.tabContent {
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.EntityListEntry {
+  margin: 0px;
+  padding: 0px;
+  background: white;
 }
 
 .entityModal {
@@ -145,23 +147,16 @@
   margin: 5px;
 }
 
-.itineraryContainer {
-  margin: 5px;
-}
- 
-.itinerary {
-  background: rgba(118, 73, 51, 0.847);
-  overflow-y: auto;
-  height: 80vh;
-  border: 2px solid black;
-  border-radius: 5px;
-}
-
 .itineraryEntry {
   background: white;
+  padding: 0px;
+  margin: 0px;
 }
 
-
+.itinerary {
+  padding: 0px;
+  margin: 0px;
+}
 .resultsPage {
   background: rgba(118, 73, 51, 0.847);
   height: 100vh;
