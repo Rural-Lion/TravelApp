@@ -40,6 +40,7 @@ class EntityTrailsMap extends Component {
     const map = new google.maps.Map(mapRef, {
       center: { lat: this.props.center[0], lng: this.props.center[1] },
       zoom: 9,
+      mapTypeId: 'terrain',
     });
     const entityMarker = new google.maps.Marker({
       position: { lat: this.props.center[0], lng: this.props.center[1] },
@@ -78,13 +79,26 @@ class EntityTrailsMap extends Component {
         map,
         title: trail.name,
       });
-      marker.addListener('click', () => {
+      marker.addListener('mouseover', () => {
         infoWindow.setContent(`${trail.name}: ${trail.length}m`);
         infoWindow.open(map, marker);
+      });
+      marker.addListener('click', () => {
+        this.createPolyline(trail, map);
       });
       return marker;
     });
     return new MarkerClusterer(map, trailMarkers, { imagePath: './maps/img/m' });
+  }
+  createPolyline(trail, map) {
+    const trailPath = new google.maps.Polyline({
+      path: trail.coordinates,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+    });
+    trailPath.setMap(map);
   }
   render() {
     return (
