@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import { FancyBorder } from '../helpers.js';
 import EntityTrailsMap from './EntityTrailsMap.jsx';
 
@@ -34,13 +35,26 @@ class TrailsContainer extends Component {
     return (
       <FancyBorder color="yellow" >
         <div style={{ height: '55vh' }}>
-        This is the trails container
-        <EntityTrailsMap
-          trails={this.state.trails}
-          center={this.props.entity.coordinates}
-          entityID={this.props.entity.entityID}
-          entityName={this.props.entity.name}
-        />
+          <div className="text-center">
+            <h4>Found {this.state.trails.length || 'no'} trails within 30mi</h4>
+            <ButtonGroup bsSize="xs" style={{ paddingRight: '20px' }}>
+              <Button>Easy</Button>
+              <Button>Medium</Button>
+              <Button>Hard</Button>
+            </ButtonGroup>
+            <ButtonGroup bsSize="xs" style={{ paddingRight: '20px' }}>
+              <Button>{'< 2 mi'}</Button>
+              <Button>2-5mi</Button>
+              <Button>5-10mi</Button>
+              <Button>{'> 10mi'}</Button>
+            </ButtonGroup>
+          </div>
+          <EntityTrailsMap
+            trails={this.state.trails}
+            center={this.props.entity.coordinates}
+            entityID={this.props.entity.entityID}
+            entityName={this.props.entity.name}
+          />
         </div>
       </FancyBorder>
     );
