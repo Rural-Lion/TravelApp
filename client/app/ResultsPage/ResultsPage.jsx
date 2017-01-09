@@ -25,6 +25,7 @@ class ResultsPage extends Component {
       selectedEntity: {},
       showModal: false,
       itinerary: [],
+      selectedTab: 'EntityList',
     };
 
     this.handleEntityClick = this.handleEntityClick.bind(this);
@@ -32,6 +33,7 @@ class ResultsPage extends Component {
     this.handleAddToItineraryClick = this.handleAddToItineraryClick.bind(this);
     this.setItinerary = this.setItinerary.bind(this);
     this.getEntityList = this.getEntityList.bind(this);
+    this.selectTab = this.selectTab.bind(this);
   }
   componentWillMount() {
     getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
@@ -123,6 +125,12 @@ class ResultsPage extends Component {
     });
   }
 
+  selectTab(tabName) {
+    this.setState({
+      selectedTab: tabName,
+    });
+  }
+
   handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
     e.stopPropagation();
     let removeFlag = false;
@@ -150,7 +158,9 @@ class ResultsPage extends Component {
       <div className="resultsPage">
         <FancyBorder color="orange">
           <div className="container">
-            <NavBar />
+            <NavBar
+              selectTab={this.selectTab}
+            />
           </div>
           <div className="row mapAndList">
             <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9 mapContainer" >
@@ -161,22 +171,29 @@ class ResultsPage extends Component {
                 startingLocation={this.state.startingLocation}
                 setItinerary={this.setItinerary}
               />
+
             </div>
             <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 tabs">
+
               <FancyBorder color="yellow">
-                <EntityList
-                  entities={this.state.entities}
-                  handleEntityClick={this.handleEntityClick}
-                  handleAddToItineraryClick={this.handleAddToItineraryClick}
-                  waypoints={this.state.waypoints}
-                />
-              </FancyBorder>
-              <ItineraryContainer
-                itinerary={this.state.itinerary}
-              />
-              <OptionsContainer />
-              <FancyBorder color="green">
-                <button type="button" className="finalizeButton btn btn-default">{'Finalize >'}</button>
+                <div className="tabContent">
+                  { this.state.selectedTab === 'EntityList' ?
+                    <EntityList
+                      entities={this.state.entities}
+                      handleEntityClick={this.handleEntityClick}
+                      handleAddToItineraryClick={this.handleAddToItineraryClick}
+                      waypoints={this.state.waypoints}
+                    /> : null}
+                  { this.state.selectedTab === 'ItineraryContainer' ?
+                    <ItineraryContainer
+                      itinerary={this.state.itinerary}
+                    /> : null}
+                  { this.state.selectedTab === 'OptionsContainer' ?
+                    <OptionsContainer /> : null}
+                </div>
+                <FancyBorder color="green">
+                  <button type="button" className="finalizeButton btn btn-default">{'Finalize >'}</button>
+                </FancyBorder>
               </FancyBorder>
             </div>
           </div>

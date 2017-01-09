@@ -116,6 +116,11 @@
   margin: 0px;
   padding: 0px;
   height: 95vh;
+   
+}
+
+.tabContent {
+  height: 90vh;
   overflow-y: auto;
 }
 
