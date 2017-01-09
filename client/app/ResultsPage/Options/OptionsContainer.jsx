@@ -9,7 +9,7 @@ class OptionsContainer extends Component {
         <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered text-center">
           <FancyBorder color="yellow"><h1>Activities</h1></FancyBorder>
         </div>
-        <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered text-center">
+        <div>
           <div className-="row">
             <InterestsContainer />
           </div>
