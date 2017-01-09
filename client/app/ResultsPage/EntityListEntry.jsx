@@ -15,7 +15,7 @@ const EntityListEntry = props => (
         </FancyBorder>
       </div>
         <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-          <div className='titleRow'>{props.entity.name}</div>
+          <div className='title'>{props.entity.name}</div>
         </div>
     </div>
   </FancyBorder>
