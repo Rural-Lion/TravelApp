@@ -66,6 +66,5 @@ FancyBorder.propTypes = {
   color: PropTypes.string,
 };
 
-
 export { generateDetailedEntity, generateData, getCoordinates, FancyBorder };
 
