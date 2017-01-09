@@ -10,7 +10,7 @@ const interest =  {
 }
 
 describe('< InterestButton />', () => {
-  it ('should contains a button', function () {
+  it ('should contain a button', function () {
     const wrapper = mount(<InterestButton interest = {interest}/>);
     expect(wrapper.find('button')).to.have.length(1);
   });
