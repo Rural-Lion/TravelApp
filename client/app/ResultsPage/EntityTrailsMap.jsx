@@ -61,13 +61,15 @@ class EntityTrailsMap extends Component {
     });
   }
   createTrailMarkers(map) {
-    this.state.trails.map((trail) => {
+    const trailMarkers = this.state.trails.map((trail) => {
       console.log('making trail markers on', map);
-      const trailMarker = new google.maps.Marker({
+      return new google.maps.Marker({
         position: trail.coordinates[0],
+        icon: './maps/icons/hiking2.png',
         map,
       });
     });
+    return new MarkerClusterer(map, trailMarkers, { imagePath: './maps/img/m' });
   }
   render() {
     return (
