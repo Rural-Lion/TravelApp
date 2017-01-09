@@ -12,9 +12,13 @@ const interests = [
 ];
 
 describe('< InterestButtons />', () => {
-  it ('should contain 13 buttons', function () {
+  it ('should contain 13 buttons', () => {
     const wrapper = mount(<InterestButtons interests = {interests}/>);
     expect(wrapper.find(InterestButton)).to.have.length(interests.length);
   });
-
+  // it ('should update the interest state on click', () => {
+  //   const wrapper = mount(<InterestButtons interests = {interests}/>);
+  //   wrapper.find('button').first().simulate('click');
+  //   expect(wrapper.props().interests[0][1]).to.equal(true);
+  // });
 })
