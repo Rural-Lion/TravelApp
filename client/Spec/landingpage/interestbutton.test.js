@@ -6,7 +6,7 @@ import InterestButton from '../../app/LandingPage/InterestButton.jsx'
 
 const interest =  {
   index: 0,
-  interest: ['hiking', 'boating']
+  interest: [['Biking', false], ['Boating', false]]
 }
 
 describe('< InterestButton />', () => {
