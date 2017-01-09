@@ -12,6 +12,7 @@ const TrailsContainer = (props) => {
           trails={props.entity.trails}
           center={props.entity.coordinates}
           entityID={props.entity.entityID}
+          entityName={props.entity.name}
         />
       </div>
     </FancyBorder>

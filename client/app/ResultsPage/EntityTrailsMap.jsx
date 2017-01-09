@@ -46,6 +46,14 @@ class EntityTrailsMap extends Component {
       map,
       animation: google.maps.Animation.DROP,
     });
+    const infoWindow = new google.maps.InfoWindow({
+      content: this.props.entityName,
+    });
+
+    entityMarker.addListener('click', () => {
+      infoWindow.open(map, entityMarker);
+    });
+    infoWindow.open(map, entityMarker);
     return map;
   }
   parseTrails() {
@@ -92,6 +100,7 @@ EntityTrailsMap.propTypes = {
   center: PropTypes.arrayOf(PropTypes.number),
   trails: PropTypes.arrayOf(PropTypes.object),
   entityID: PropTypes.number,
+  entityName: PropTypes.string,
 };
 
 export default EntityTrailsMap;

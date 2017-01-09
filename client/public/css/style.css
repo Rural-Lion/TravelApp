@@ -132,8 +132,8 @@
   width: 80%;
 }
 
-.entityModalBody {
-  max-height: 45vh;
+.entityModalDescription {
+  max-height: 40vh;
   overflow-y: auto;
 }
 .modalActivityLabel {

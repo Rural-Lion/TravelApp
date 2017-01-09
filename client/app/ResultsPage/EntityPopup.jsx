@@ -31,12 +31,14 @@ const EntityPopup = (props) => {
                 <h4>Contact Information</h4>
                 <div>Phone number: {props.entity.phoneNumber || 'no info'}</div>
                 <div>Email: {props.entity.email || 'no info'}</div>
+                <div>Address: {`${props.entity.address.Address}, ${props.entity.address.City}, 
+                  ${props.entity.address.PostalCode}, ${props.entity.address.State} ` || 'no info'}</div>
               </FancyBorder>
             </div>
-            <div className="row entityModalBody">
+            <div className="row">
               <FancyBorder color="blue">
                 <h4>Description</h4>
-                <div dangerouslySetInnerHTML={{ __html: props.entity.description }} />
+                <div dangerouslySetInnerHTML={{ __html: props.entity.description }} className="entityModalDescription" />
               </FancyBorder>
             </div>
           </div>
