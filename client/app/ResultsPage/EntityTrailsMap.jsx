@@ -69,6 +69,7 @@ class EntityTrailsMap extends Component {
     });
   }
   createTrailMarkers(map) {
+    const infoWindow = new google.maps.InfoWindow();
     const trailMarkers = this.state.trails.map((trail) => {
       console.log('making trail markers on', map);
       const marker = new google.maps.Marker({
@@ -77,10 +78,8 @@ class EntityTrailsMap extends Component {
         map,
         title: trail.name,
       });
-      const infoWindow = new google.maps.InfoWindow({
-        content: `${trail.name}: ${trail.length}m`,
-      });
       marker.addListener('click', () => {
+        infoWindow.setContent(`${trail.name}: ${trail.length}m`);
         infoWindow.open(map, marker);
       });
       return marker;
