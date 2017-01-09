@@ -52,17 +52,7 @@ class MapContainer extends Component {
 
   render() {
     return (
-      <div>
-        <FancyBorder color="purple">
-          <div>
-            <h1 className="text-center">Results Map</h1>
-          </div>
-        </FancyBorder>
-        <FancyBorder color="purple">
-          <Map handleInitMapRender={this.getMapRef} />
-        </FancyBorder>
-      </div>
-
+      <Map handleInitMapRender={this.getMapRef} />
     );
   }
 }

@@ -123,5 +123,5 @@ const generateItinerary = (obj) => {
 };
 
 
-export { generateData, getCoordinates, FancyBorder, generateDirections, generateDetailedEntity };
+export { generateData, getCoordinates, generateItinerary, FancyBorder, generateDetailedEntity };
 

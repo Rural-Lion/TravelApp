@@ -16,23 +16,15 @@ const EntityList = (props) => {
     />);
 
   return (
-    <div>
-      <FancyBorder color="green">
-        <div>
-          <h1 className="text-center">Results List</h1>
+    <FancyBorder color="green">
+      <div className="row EntityListContainer">
+        <div className="EntityList">
+          <FancyBorder color="blue">
+            {entityList}
+          </FancyBorder>
         </div>
-      </FancyBorder>
-      <FancyBorder color="green">
-        <div className="row EntityListContainer">
-          <div className="EntityList">
-            <FancyBorder color="blue">
-              {entityList}
-            </FancyBorder>
-          </div>
-        </div>
-      </FancyBorder>
-    </div>
-
+      </div>
+    </FancyBorder>
   );
 };
 

@@ -14,6 +14,7 @@ import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
 import ItineraryContainer from './Itinerary/ItineraryContainer.jsx';
+import OptionsContainer from './Options/OptionsContainer.jsx';
 
 class ResultsPage extends Component {
   constructor(props) {
@@ -152,23 +153,16 @@ class ResultsPage extends Component {
             <NavBar />
           </div>
           <div className="row mapAndList">
-            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3" >
-              <ItineraryContainer
-                itinerary={this.state.itinerary}
+            <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9 mapContainer" >
+              <MapContainer
+                userQuery={this.props.userQuery}
+                entities={this.state.entities}
+                waypoints={this.state.waypoints}
+                startingLocation={this.state.startingLocation}
+                setItinerary={this.setItinerary}
               />
             </div>
-            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6" >
-              <FancyBorder color="yellow">
-                <MapContainer
-                  userQuery={this.props.userQuery}
-                  entities={this.state.entities}
-                  waypoints={this.state.waypoints}
-                  startingLocation={this.state.startingLocation}
-                  setItinerary={this.setItinerary}
-                />
-              </FancyBorder>
-            </div>
-            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 tabs">
               <FancyBorder color="yellow">
                 <EntityList
                   entities={this.state.entities}
@@ -176,6 +170,13 @@ class ResultsPage extends Component {
                   handleAddToItineraryClick={this.handleAddToItineraryClick}
                   waypoints={this.state.waypoints}
                 />
+              </FancyBorder>
+              <ItineraryContainer
+                itinerary={this.state.itinerary}
+              />
+              <OptionsContainer />
+              <FancyBorder color="green">
+                <button type="button" className="finalizeButton btn btn-default">{'Finalize >'}</button>
               </FancyBorder>
             </div>
           </div>
