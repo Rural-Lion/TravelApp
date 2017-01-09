@@ -30,36 +30,32 @@ class ResultsPage extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleAddToItineraryClick = this.handleAddToItineraryClick.bind(this);
     this.setItinerary = this.setItinerary.bind(this);
+    this.getEntityList = this.getEntityList.bind(this);
   }
   componentWillMount() {
-    this.getEntityList();
+    getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
+      this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
+        this.getEntityList(this.props.userQuery, this.state.startingLocation, this.props.userInterests);
+      });
+    });
   }
 
-  getEntityList() {
-    const that = this;
-    const userQuery = Object.assign({}, this.props.userQuery);
-    const sendRequest = (location) => {
-      if (location) {
-        that.setState({
-          startingLocation: { lat: location.lat(), lng: location.lng() },
-        });
-        axios.get('/entitiesWithinRadius', {
-          params: {
-            latitude: location.lat(),
-            longitude: location.lng(),
-            distance: userQuery.distanceOfTrip,
-            activities: JSON.stringify(that.props.userInterests),
-          },
-        })
-        .then((res) => {
-          that.setState({
-            entities: generateData(res.data),
-          });
-        })
-        .catch(err => console.log('error loading get request', err));
-      }
-    };
-    getCoordinates(this.props.userQuery.startingLocation, sendRequest);
+  getEntityList(query, location, interests) {
+    console.log(location);
+    axios.get('/entitiesWithinRadius', {
+      params: {
+        latitude: location.lat,
+        longitude: location.lng,
+        distance: query.distanceOfTrip,
+        activities: JSON.stringify(interests),
+      },
+    })
+      .then((res) => {
+        this.setState({
+          entities: generateData(res.data),
+        }, () => { console.log(this.state.entities); });
+      })
+      .catch(err => console.log('error loading get request', err));
   }
 
   setItinerary(results) {
@@ -217,3 +213,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps)(ResultsPage);
+
