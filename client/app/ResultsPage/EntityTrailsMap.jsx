@@ -11,7 +11,7 @@ class EntityTrailsMap extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (!this.state.mapRef) {
+    if (!this.state.mapRef || this.props.trails !== nextProps.trails) {
       return true;
     }
     return false;
