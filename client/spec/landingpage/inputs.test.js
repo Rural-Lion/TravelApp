@@ -4,6 +4,7 @@ import { mount, shallow } from 'enzyme';
 import { FancyBorder } from '../../app/helpers.js';
 import Inputs from '../../app/LandingPage/Inputs.jsx'
 
+
 const userQuery =  {
   startingLocation: "san diego",
   budgetOfTrip: 0,
@@ -24,6 +25,4 @@ describe('< Inputs />', () => {
     const wrapper = mount(<Inputs userQuery = {userQuery}/>);
     expect(wrapper.find('input')).to.have.length(4);
   });
-
- 
 })
