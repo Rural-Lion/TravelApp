@@ -17,7 +17,10 @@ class MapContainer extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if ((nextProps.startingLocation !== this.props.startingLocation || nextProps.entities.length !== this.props.entities.length || nextProps.waypoints.length !== this.props.waypoints.length || !this.state.mapRef)) {
+    if ((nextProps.startingLocation !== this.props.startingLocation
+      || nextProps.entities.length !== this.props.entities.length
+      || nextProps.waypoints.length !== this.props.waypoints.length
+      || !this.state.mapRef)) {
       console.log('component should update');
       return true;
     }

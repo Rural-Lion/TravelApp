@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Modal, Button, Label } from 'react-bootstrap';
 import { FancyBorder } from '../helpers.js';
+import TrailsContainer from './TrailsContainer.jsx';
 
 const EntityPopup = (props) => {
   const makeActivityLabels = (activities => (
@@ -12,7 +13,7 @@ const EntityPopup = (props) => {
     <FancyBorder color="green" >
       <Modal
         show={props.showModal} onHide={() => { props.closeModal(); }}
-        bsSize="large" dialogClassName="entityModal"
+        bsSize="lg" dialogClassName="entityModal"
       >
         <Modal.Header closeButton className="text-center">
           <Modal.Title><h3>{props.entity.name.toUpperCase()}</h3></Modal.Title>
@@ -20,22 +21,24 @@ const EntityPopup = (props) => {
             <div>{makeActivityLabels(props.entity.activities)}</div>
           </FancyBorder>
         </Modal.Header>
-        <Modal.Body className="container">
+        <Modal.Body className="container-fluid">
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-          THIS WILL BE THE MAP
+            <TrailsContainer entity={props.entity} />
           </div>
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div className="row">
               <FancyBorder color="blue">
                 <h4>Contact Information</h4>
-                <div>{props.entity.phone || 'no info'}</div>
-                <div>{props.entity.email || 'no info'}</div>
+                <div>Phone number: {props.entity.phoneNumber || 'no info'}</div>
+                <div>Email: {props.entity.email || 'no info'}</div>
+                <div>Address: {`${props.entity.address.Address}, ${props.entity.address.City}, 
+                  ${props.entity.address.PostalCode}, ${props.entity.address.State} ` || 'no info'}</div>
               </FancyBorder>
             </div>
-            <div className="row entityModalBody">
+            <div className="row">
               <FancyBorder color="blue">
                 <h4>Description</h4>
-                <div dangerouslySetInnerHTML={{ __html: props.entity.description }} />
+                <div dangerouslySetInnerHTML={{ __html: props.entity.description }} className="entityModalDescription" />
               </FancyBorder>
             </div>
           </div>
