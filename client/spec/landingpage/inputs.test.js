@@ -2,8 +2,8 @@ import React from 'react';
 import {expect} from 'chai';
 import { mount, shallow } from 'enzyme';
 import { FancyBorder } from '../../app/helpers.js';
-require('dotenv-safe').load();
-const google = require( 'google-maps-api' )( process.env.GOOGLE_API_KEY );
+// require('dotenv-safe').load();
+// const google = require( 'google-maps-api' )( process.env.GOOGLE_API_KEY );
 import Inputs from '../../app/LandingPage/Inputs.jsx'
 
 

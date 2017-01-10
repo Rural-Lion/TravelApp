@@ -1,26 +1,18 @@
-let Sequelize = require('sequelize');
-require('dotenv-safe').load();
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var should = chai.should();
 
-//TO BE UNCOMMENTED WHEN USING AMAZON RDS
-var testDb = new Sequelize(process.env.DB_TEST_NAME, process.env.DB_TEST_USERNAME, process.env.DB_TEST_PASSWORD, {
-  host: process.env.DB_TEST_HOST,
-  port: process.env.DB_TEST_PORT,
-  dialectOptions: {
-    ssl: 'Amazon RDS'
-  },
-  pool: {
-    maxIdleTime: 30000
-  }
-});
+chai.use(chaiHttp);
 
-
-//Verifying DB Connection~
-testDb.authenticate().then(function(err) {
-  console.log('Connection has been established successfully'); 
+describe('getRecAreas', () => {
+  it('Should return a full RecArea', () => {
+    chai.request('localhost:8000')
+    .get('/recArea')
+    .query({recAreaID: 1})
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+      done();
+    });
+  })
 })
-.catch(function(err) {
-  console.log('Unable to connect to DB: ', err);
-});
-
-
-module.exports = testDb;
