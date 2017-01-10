@@ -4,7 +4,7 @@ import InterestFavicon from './InterestFavicon.jsx';
 
 const InterestFavicons = (props) => {
   const buttons = props.interests.map((interest, index) =>
-    (<div className="col-xs-4 col-sm-4 col-md-4 col-lg-4" key={index}>
+    (<div className="col-xs-2 col-sm-2 col-md-2 col-lg-2" key={index}>
       <InterestFavicon
         interest={{ interest, index }}
         handleInterestButtonClick={props.handleInterestButtonClick}

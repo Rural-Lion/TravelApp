@@ -19,9 +19,9 @@ const favicons = {
 
 const InterestFavicon = props => (
   <FancyBorder color="blue">
-    <img src={favicons[props.interest.interest[0]]} height='60px' width='60px'
+    <img src={favicons[props.interest.interest[0]]} height='75px' width='75px'
       value={props.interest.index}
-      className={`centered ${(props.interest.interest[1]) ? 'includedInterestButton' : 'interestButton'}`}
+      className={`${(props.interest.interest[1]) ? 'includedInterestButton' : 'interestButton'}`}
       onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
     />
   </FancyBorder>

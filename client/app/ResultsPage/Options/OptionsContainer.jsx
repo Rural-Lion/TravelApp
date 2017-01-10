@@ -10,7 +10,7 @@ class OptionsContainer extends Component {
           <FancyBorder color="yellow"><h1>Activities</h1></FancyBorder>
         </div>
         <div>
-          <div className-="row">
+          <div className="row">
             <InterestsContainer />
           </div>
         </div>
