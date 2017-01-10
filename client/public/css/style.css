@@ -45,6 +45,15 @@
   opacity: .5;
 }
 
+img[src] {
+  height: 70px;
+  width: 70px;
+}
+
+img[src]:hover {
+  opacity: .5;
+}
+
 .title {
   text-align: center;
   font-weight: bold;
