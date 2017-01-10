@@ -144,6 +144,21 @@ const generateItinerary = (obj, startingTime, endingTime, days, costPerDay) => {
   return itinerary;
 };
 
+const favicons = {
+  Hiking: '../../../public/images/hiking.jpg',
+  Biking: '../public/images/biking.png',
+  Camping: '../../../public/images/camping.png',
+  Fishing: '../../../public/images/fishing.jpg', 
+  'Historic & Cultural Site': '../../../public/images/sites.jpg', 
+  Boating: '../../../public/images/boating.png',
+  // Picnicking:
+  // Recreational Vehicles:
+  // Water Sports:
+  // Wildlife Viewing:
+  // Other Recreation Concession Site:
+  // Visitor Center:
+}
 
-export { generateData, getCoordinates, generateItinerary, FancyBorder, generateDetailedEntity };
+
+export { generateData, getCoordinates, generateItinerary, FancyBorder, generateDetailedEntity, favicons };
 
