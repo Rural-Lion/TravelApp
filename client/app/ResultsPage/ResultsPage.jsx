@@ -26,6 +26,8 @@ class ResultsPage extends Component {
       showModal: false,
       itinerary: [],
       selectedTab: 'EntityList',
+      startingTime: 9,
+      endingTime: 21,
     };
 
     this.handleEntityClick = this.handleEntityClick.bind(this);
@@ -63,7 +65,7 @@ class ResultsPage extends Component {
 
   setItinerary(results) {
     this.setState({
-      itinerary: generateItinerary(results),
+      itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip),
     }, () => console.log('this is new directions in state: ', this.state.itinerary));
   }
 

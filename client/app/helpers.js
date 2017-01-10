@@ -69,9 +69,9 @@ FancyBorder.propTypes = {
 };
 
 const generateChildLegs = (arr) => {
-  const newArray = arr.reduce((acc, { distance: { text: distanceText }, duration: { text: durationText }, instructions }) => {
+  const newArray = arr.reduce((acc, { distance: { value: meters }, duration: { text: durationText }, instructions }) => {
     acc.push({
-      distance: distanceText,
+      distance: `${meters / 1000} Km`,
       duration: durationText,
       instructions,
     });
@@ -80,34 +80,50 @@ const generateChildLegs = (arr) => {
   return newArray;
 };
 
-const generateTimeArray = function (str) {
-  const timeArray = str.match(/(\d{1,2}(?= hours)|(\d{1,2})(?= min))/gi);
-  return [+timeArray[timeArray.length - 2] || 0, +timeArray[timeArray.length - 1]];
-};
-
-const generateItinerary = (obj) => {
+const generateItinerary = (obj, startingTime, endingTime, days) => {
   const legs = obj.routes[0].legs;
 
-  const entityLegs = legs.reduce((acc, { distance: { text: distanceText }, duration: { text: durationText }, steps, end_address, start_address }, index) => {
-    let [hrs, mins] = generateTimeArray(durationText);
+  startingTime *= 3600;
+  endingTime *= 3600;
 
-    if (acc[index - 1]) {
-      hrs = acc[index - 1].totalTime.hrs + hrs + Math.floor((acc[index - 1].totalTime.mins + mins) / 60);
-      mins = ((acc[index - 1].totalTime.mins + mins) % 60);
-    }
+  const itinerary = {
+    totalTime: 0,
+    remainingTime: days * (endingTime - startingTime),
+    totalDistance: 0,
+    Days: [],
+  };
 
-    const childLegs = generateChildLegs(steps);
+  const entityLegs = legs.reduce((
+                                acc,
+                                {
+                                  distance: { value: meters },
+                                  duration: { value: seconds },
+                                  steps,
+                                  end_address,
+                                  start_address,
+                                }) => {
+    seconds += seconds * 1.2;
+    itinerary.totalTime += seconds;
+    itinerary.totalDistance += (meters / 1000);
+    itinerary.remainingTime -= seconds;
+
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const day = Math.ceil(itinerary.totalTime / (endingTime - startingTime));
+    const currentTime = new Date(0);
+    currentTime.setSeconds(28800);
+    currentTime.setSeconds(((day * startingTime) + ((day - 1) * (86400 - endingTime)) + itinerary.totalTime));
+
     acc.push({
-      day: Math.ceil(hrs / 12),
-      totalTime: { hrs, mins },
-      timeDone: { hrs: (hrs % 12) + 9, mins },
-
-      distance: distanceText,
-      duration: generateTimeArray(durationText),
-      legs: childLegs,
+      currentTime,
+      remainingTime: itinerary.remainingTime,
+      currentDistance: itinerary.totalDistance,
+      day,
+      distance: `${meters / 1000} Km`,
+      duration: [hrs, mins],
+      legs: generateChildLegs(steps),
       start_address,
       end_address,
-
     });
     return acc;
   }, []);
