@@ -231,6 +231,26 @@ img[src]:hover {
     color: white;
 }
 
+.interestFavicon { 
+  margin: 5px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #b18571;
+  border-width: 0px;
+  font-size: 15px;
+  color: black;
+}
+
+.includedInterestFavicon { 
+  margin: 5px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #667c50;
+  border-width: 0px;
+  font-size: 15px;
+  color: white;
+}
+
 .planVacationButton {
   border-radius: 10px;
   margin-top: 25px;
