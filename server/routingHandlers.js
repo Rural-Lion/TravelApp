@@ -212,10 +212,10 @@ module.exports.getRecActivities = function(req, res) {
   schemas.recAreas.findOne({
     where: { RecAreaName: recArea },
   }).then((recreationArea) => {
-    recreationArea.getActivities()
-    .then((activities) => {
+    return recreationArea.getActivities()
+  })
+  .then((activities) => {
       res.send(activities);
-    });
   })
   .catch(err => console.log('error', err));
 };
@@ -239,12 +239,10 @@ module.exports.getRecMedia = function(req, res) {
     where: { RecAreaName: recArea },
   })
   .then((recreationArea) => {
-    console.log(recreationArea);
-    recreationArea.getEntityMedia()
-    .then((media) => {
-      console.log(media);
-      res.send(media);
-    });
+    return recreationArea.getEntityMedia();
+  })
+  .then((media) => {
+    res.send(media);
   })
   .catch(err => console.log('error', err));
 };
@@ -256,12 +254,10 @@ module.exports.getFacilityMedia = function(req, res) {
     where: { FacilityName: facility },
   })
   .then((fac) => {
-    console.log(fac);
-    fac.getEntityMedia()
-    .then((media) => {
-      console.log(media);
-      res.send(media);
-    });
+    return fac.getEntityMedia()
+  })
+  .then((media) => {
+    res.send(media);
   })
   .catch(err => console.log('error', err));
 };
