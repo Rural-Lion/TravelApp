@@ -4,47 +4,53 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('getRecAreas', () => {
+describe('getRecAreas', function() {
   
-  it ('Should return a RecArea on GET', () => {
+  it ('Should return a RecArea on GET', function(done) {
     chai.request('localhost:8000')
     .get('/recArea')
     .query({recAreaID: 6})
     .end(function(err, res){
-      err.should.be.null;
       res.should.have.status(200);
       res.should.be.json;
-      res.body[0].should.be.a('object');
+      res.body.should.be.a('object');
       done();
     });
   });
 
-  it ('Should return the adequate RecArea properties', () => {
+  it ('Should return the adequate RecArea properties', function(done) {
     chai.request('localhost:8000')
     .get('/recArea')
     .query({recAreaID: 6})
     .end(function(err, res){
-      res.body[0].should.have.property('PostalCode');
-      res.body[0].should.have.property('RecAreaAddressID');
-      res.body[0].should.have.property('City');
-      res.body[0].should.have.property('RecAreaID');
-      res.body[0].should.have.property('RecAreaAddressType');
-      res.body[0].should.have.property('AddressCountryCode');
-      res.body[0].should.have.property('RecAreaStreetAddress1');
-      res.body[0].should.have.property('RecAreaStreetAddress2');
-      res.body[0].should.have.property('RecAreaStreetAddress3');
-      res.body[0].should.have.property('LastUpdatedDate');
-      res.body[0].should.have.property('AddressStateCode');
+      res.body.should.have.property('OrgRecAreaID');
+      res.body.should.have.property('LastUpdatedDate');
+      res.body.should.have.property('RecAreaEmail');
+      res.body.should.have.property('RecAreaReservationURL');
+      res.body.should.have.property('RecAreaLongitude');
+      res.body.should.have.property('RecAreaID');
+      res.body.should.have.property('RecAreaPhone');
+      res.body.should.have.property('RecAreaDescription');
+      res.body.should.have.property('RecAreaMapURL');
+      res.body.should.have.property('RecAreaLatitude');
+      res.body.should.have.property('StayLimit');
+      res.body.should.have.property('RecAreaFeeDescription');
+      res.body.should.have.property('RecAreaDirections');
+      res.body.should.have.property('Keywords');
+      res.body.should.have.property('RecAreaName');
+      res.body.should.have.property('recAreaAddress');
+      res.body.should.have.property('activities');
+      res.body.should.have.property('entityMedia');
       done();
     });
   });
 
-  it ('Should return the correct RecArea', () => {
+  it ('Should return the correct RecArea', function(done) {
     chai.request('localhost:8000')
     .get('/recArea')
     .query({recAreaID: 6})
     .end(function(err, res){
-      res.body[0].RecAreaID.should.equal(6); 
+      res.body.RecAreaID.should.equal(6); 
       done();
     });
   });
