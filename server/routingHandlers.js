@@ -208,7 +208,6 @@ module.exports.getRecOrganization = function(req, res) {
   }).then(function(recreationArea) {
     recreationArea.getOrganizations()
     .then((organization) => {
-      console.log('organization for recArea', organization);
       res.send(organization[0].OrgName);
     });
   })
@@ -236,10 +235,8 @@ module.exports.getRecActivities = function(req, res) {
   schemas.recAreas.findOne({
     where: { RecAreaName: recArea },
   }).then((recreationArea) => {
-    console.log(recreationArea);
     recreationArea.getActivities()
     .then((activities) => {
-      console.log(activities);
       res.send(activities);
     });
   })
