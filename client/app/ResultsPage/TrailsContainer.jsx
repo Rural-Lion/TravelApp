@@ -31,6 +31,7 @@ class TrailsContainer extends Component {
           // point = point.split(' ');
           // return { lat: +point[1], lng: +point[0] };
         // });
+      trail.elevation = {};
       this.getElevationData(trail);
       return trail;
     });
@@ -56,10 +57,23 @@ class TrailsContainer extends Component {
       params: {
         key: 'kPexnF9xAy5evZFa5r5y86phhxvw8pdH',
         latLngCollection: collection.join(','),
+        unit: 'f',
       },
     })
     .then((res) => {
       console.log('ELEVATION RESPONSE', res.data, 'Points in trail', trail.coordinates.length);
+      let up = 0;
+      let down = 0;
+      const profile = res.data.elevationProfile.map(item => item.height);
+      for (let i = 0; i < profile.length - 1; i++) {
+        if (profile[i + 1]) {
+          const change = profile[i + 1] - profile[i];
+          change > 0 ? up += change : down += change;
+        }
+      }
+      up = Math.round(up);
+      down = Math.round(down);
+      trail.elevation = { up, down };
     })
     .catch(err => console.log('ERROR FROM ELEVATION API', err, 'Points in trail', trail.coordinates.length));
 

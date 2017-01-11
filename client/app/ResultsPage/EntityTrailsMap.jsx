@@ -66,7 +66,7 @@ class EntityTrailsMap extends Component {
       });
       // add an event listener for each marker to open an infowindow:
       marker.addListener('mouseover', () => {
-        infoWindow.setContent(`${trail.name}: ${trail.length}m`);
+        infoWindow.setContent(`${trail.name}: ${trail.length}mi, up ${trail.elevation.up}ft, down ${trail.elevation.down}ft`);
         infoWindow.open(map, marker);
       });
       // create a polyline for each trail to draw it on the map:
