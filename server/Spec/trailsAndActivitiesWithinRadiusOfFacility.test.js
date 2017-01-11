@@ -18,7 +18,7 @@ describe('trailsAndActivitiesWithinRadiusOfFacility', function() {
     });
   });
 
-  it ('Should return the adequate entity\'s properties  for longitude < -100', function(done) {
+  it ('Should return the adequate entity\'s properties for longitude < -100', function(done) {
     chai.request('localhost:8000')
     .get('/trailsAndActivitiesWithinRadiusOfFacility')
     .query({latitude: 47.2487, longitude: -120.6776, facilityID: 201792})
@@ -35,7 +35,7 @@ describe('trailsAndActivitiesWithinRadiusOfFacility', function() {
     });
   });
 
-  it ('Should return the correct trails and activities  for longitude < -100', function(done) {
+  it ('Should return the correct trails and activities for longitude < -100', function(done) {
     chai.request('localhost:8000')
     .get('/trailsAndActivitiesWithinRadiusOfFacility')
     .query({latitude: 47.2487, longitude: -120.6776, facilityID: 201792})
