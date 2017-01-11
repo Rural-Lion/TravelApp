@@ -48,7 +48,18 @@ class ResultsPage extends Component {
     this.addTimeToWaypoint = this.addTimeToWaypoint.bind(this);
     this.debouncedAddTimeToWaypoint = _.debounce(this.addTimeToWaypoint, 1000);
   }
+
   componentWillMount() {
+    getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
+      this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
+        this.getEntityList(this.props.userQuery, this.state.startingLocation, this.props.userInterests);
+      });
+    });
+    this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
+    this.setTotalBudget(this.props.userQuery.budgetOfTrip);
+  }
+
+  componentWillReceiveProps(nextProps) {
     getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
       this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
         this.getEntityList(this.props.userQuery, this.state.startingLocation, this.props.userInterests);
@@ -215,6 +226,7 @@ class ResultsPage extends Component {
 
 
   render() {
+    console.log("NEW USER QUERY", this.props.userQuery)
     return (
       <div className="resultsPage">
         <FancyBorder color="orange">
