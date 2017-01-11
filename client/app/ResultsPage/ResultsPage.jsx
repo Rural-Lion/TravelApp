@@ -28,6 +28,11 @@ class ResultsPage extends Component {
       selectedTab: 'EntityList',
       startingTime: 9,
       endingTime: 21,
+      usedTime: 0,
+      remainingTime: 1,
+      foodCostPerDay: 20,
+      nightlyCost: 20,
+      usedBudget: 0,
     };
 
     this.handleEntityClick = this.handleEntityClick.bind(this);
@@ -36,6 +41,9 @@ class ResultsPage extends Component {
     this.setItinerary = this.setItinerary.bind(this);
     this.getEntityList = this.getEntityList.bind(this);
     this.selectTab = this.selectTab.bind(this);
+    this.setTotalTime = this.setTotalTime.bind(this);
+    this.setItinerary = this.setItinerary.bind(this);
+    this.setUsedBudget = this.setUsedBudget.bind(this);
   }
   componentWillMount() {
     getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
@@ -43,6 +51,8 @@ class ResultsPage extends Component {
         this.getEntityList(this.props.userQuery, this.state.startingLocation, this.props.userInterests);
       });
     });
+    this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
+    this.setTotalBudget(this.props.userQuery.budgetOfTrip);
   }
 
   getEntityList(query, location, interests) {
@@ -63,10 +73,38 @@ class ResultsPage extends Component {
       .catch(err => console.log('error loading get request', err));
   }
 
+  setTotalTime(startingTime, endingTime, days) {
+    days = JSON.parse(days);
+    this.setState({
+      totalTime: (((endingTime - startingTime) * 3600) * days),
+    }, () => this.setRemainingTime(this.state.totalTime, 0));
+  }
+
+  setRemainingTime(remainingTime, usedTime) {
+    this.setState({
+      remainingTime,
+      usedTime,
+    });
+  }
+
+  setUsedBudget(budget) {
+    this.setState({
+      usedBudget: budget,
+    });
+  }
+
+  setTotalBudget(budget) {
+    this.setState({
+      budgetOfTrip: budget,
+    });
+  }
   setItinerary(results) {
     this.setState({
-      itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip),
-    }, () => console.log('this is new directions in state: ', this.state.itinerary));
+      itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost)),
+    }, () => {
+      this.setUsedBudget(this.state.itinerary.totalCost);
+      this.setRemainingTime(this.state.itinerary.remainingTime, this.state.itinerary.totalTime);
+    });
   }
 
   handleEntityClick(e, entity) {
@@ -159,11 +197,16 @@ class ResultsPage extends Component {
     return (
       <div className="resultsPage">
         <FancyBorder color="orange">
-          <div className="container">
-            <NavBar
-              selectTab={this.selectTab}
-            />
-          </div>
+
+          <NavBar
+            selectTab={this.selectTab}
+            totalTime={this.state.totalTime}
+            usedTime={this.state.usedTime}
+            remainingTime={this.state.remainingTime}
+            totalBudget={this.state.budgetOfTrip}
+            usedBudget={this.state.usedBudget}
+          />
+
           <div className="row mapAndList">
             <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9 mapContainer" >
               <MapContainer
@@ -193,9 +236,11 @@ class ResultsPage extends Component {
                   { this.state.selectedTab === 'OptionsContainer' ?
                     <OptionsContainer /> : null}
                 </div>
-                <FancyBorder color="green">
-                  <button type="button" className="finalizeButton btn btn-default">{'Finalize >'}</button>
-                </FancyBorder>
+                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <FancyBorder color="green">
+                    <button type="button" className="finalizeButton btn btn-default">{'Finalize >'}</button>
+                  </FancyBorder>
+                </div>
               </FancyBorder>
             </div>
           </div>

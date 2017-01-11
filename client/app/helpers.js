@@ -80,7 +80,7 @@ const generateChildLegs = (arr) => {
   return newArray;
 };
 
-const generateItinerary = (obj, startingTime, endingTime, days) => {
+const generateItinerary = (obj, startingTime, endingTime, days, costPerDay) => {
   const legs = obj.routes[0].legs;
 
   startingTime *= 3600;
@@ -90,6 +90,7 @@ const generateItinerary = (obj, startingTime, endingTime, days) => {
     totalTime: 0,
     remainingTime: days * (endingTime - startingTime),
     totalDistance: 0,
+    totalCost: 0,
     Days: [],
   };
 
@@ -107,6 +108,7 @@ const generateItinerary = (obj, startingTime, endingTime, days) => {
     itinerary.totalDistance += (meters / 1000);
     itinerary.remainingTime -= seconds;
 
+
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const day = Math.ceil(itinerary.totalTime / (endingTime - startingTime));
@@ -118,6 +120,7 @@ const generateItinerary = (obj, startingTime, endingTime, days) => {
       currentTime,
       remainingTime: itinerary.remainingTime,
       currentDistance: itinerary.totalDistance,
+      cost: (meters / 1000) * 0.09,
       day,
       distance: `${meters / 1000} Km`,
       duration: [hrs, mins],
@@ -130,12 +133,15 @@ const generateItinerary = (obj, startingTime, endingTime, days) => {
 
   const dayLegs = entityLegs.reduce((acc, entity) => {
     if (acc[entity.day - 1] !== undefined) {
+      itinerary.totalCost += costPerDay;
       acc[entity.day - 1].push(entity);
     } else { acc[entity.day - 1] = [entity]; }
     return acc;
   }, []);
 
-  return dayLegs;
+  itinerary.totalCost += itinerary.totalDistance * 0.09;
+  itinerary.days = dayLegs;
+  return itinerary;
 };
 
 

@@ -1,7 +1,7 @@
 const initialState = {
   startingLocation: 'san diego',
-  budgetOfTrip: 0,
-  lengthOfTrip: 0,
+  budgetOfTrip: 300,
+  lengthOfTrip: 3,
   distanceOfTrip: 200,
 };
 
