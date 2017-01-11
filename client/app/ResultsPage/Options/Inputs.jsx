@@ -10,7 +10,6 @@ const Inputs = props => (
       $$$
         <input id='budget' style={{width: '350px'}}
           data-tag="budgetOfTrip"
-          // onChange={e => props.handleChange(setBudget, e.target.value)}
           className="lpInput"
           type="text"
         />
@@ -21,7 +20,6 @@ const Inputs = props => (
       Time
         <input id='time' style={{width: '350px'}}
           data-tag="lengthOfTrip"
-          // onChange={e => props.handleChange(setLength, e.target.value)}
           className="lpInput"
           type="text"
         />
@@ -32,8 +30,6 @@ const Inputs = props => (
       Location
         <Autocomplete id='location' style={{width: '350px'}}
           data-tag="startingLocation"
-          // onPlaceSelected={place => props.handleChange(setLocation, place.formatted_address)}
-          // onChange={e => props.handleChange(setLocation, e.target.value)}
           className="lpInput"
           type="text"
         />
@@ -44,7 +40,6 @@ const Inputs = props => (
       Distance
         <input id='distance' style={{width: '350px'}}
           data-tag="distanceOfTrip"
-          // onChange={e => props.handleChange(setDistance, e.target.value)}
           className="lpInput"
           type="text"
         />
@@ -100,12 +95,12 @@ const Inputs = props => (
         onClick= { (e) => {
           console.log("I'm getting clicked");
           props.handleChange(setBudget, document.getElementById('budget').value);
-          props.handleChange(SetLength, document.getElementById('time').value);
-          props.handleChange(SetLocation, document.getElementById('location').value);
-          props.handleChange(SetDistance, document.getElementById('distance').value);
+          props.handleChange(setLength, document.getElementById('time').value);
+          props.handleChange(setLocation, document.getElementById('location').value);
+          props.handleChange(setDistance, document.getElementById('distance').value);
           }
         }
-      > Button 
+      > Plan My Vacation 
       </button>
     </div>
   </FancyBorder>
