@@ -4,7 +4,7 @@ import { setLocation, setBudget, setDistance, setLength } from '../../actions/in
 import Autocomplete from 'react-google-autocomplete';
 import PlanVacationButton from './PlanVacationButton.jsx';
 
-const Inputs = props => (
+const Inputs = props =>  (
   <FancyBorder color="yellow" >
     <div className='optionsInput'>
       <FancyBorder color="green">

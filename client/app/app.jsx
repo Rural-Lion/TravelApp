@@ -15,14 +15,16 @@
 
 import React from 'react';
 import { Router, Route, hashHistory } from 'react-router';
+import createLogger from 'redux-logger'
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { FancyBorder } from './helpers';
 import LandingPage from './LandingPage/LandingPage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
 import travelApp from './reducers';
 
-const store = createStore(travelApp);
+const logger = createLogger();
+const store = createStore(travelApp, applyMiddleware(logger));
 console.log(store.getState());
 
 const App = () => (
