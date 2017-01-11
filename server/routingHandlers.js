@@ -1,6 +1,8 @@
 let Sequelize = require('sequelize');
 let schemas = require('../database/schemas.js');
 let db = require('../database/database.js');
+let getRecAddressModel = require('./models.js').getRecAddressModel;
+let getFacilityAddressModel = require('./models.js').getFacilityAddressModel;
 
 ///////////////////////////////////////////////////////////////
 ////// HANDLERS USED IN THE APP //////
@@ -19,23 +21,9 @@ module.exports.getEntitiesWithinRadius = (req, res) => {
 // Get Address for a RecArea
 module.exports.getRecAddress = function(req, res) {
   let {query: {recAreaID}} = req;
-  schemas.recAreaAddress.findOne({
-    where: {RecAreaID: recAreaID}
-  })
-  .then(function({
-    AddressStateCode, 
-    City, 
-    PostalCode, 
-    RecAreaStreetAddress1, 
-    RecAreaStreetAddress2, 
-    RecAreaStreetAddress3
-  }) {
-    res.send({
-      State: AddressStateCode,
-      City: City,
-      PostalCode: PostalCode,
-      Address: RecAreaStreetAddress1 + ' ' + RecAreaStreetAddress2 + ' ' + RecAreaStreetAddress3
-    });
+  getRecAddressModel(recAreaID)
+  .then((recAddress) => {
+    res.send(recAddress);
   })
   .catch((err) => console.log('error', err));
 };
@@ -43,23 +31,9 @@ module.exports.getRecAddress = function(req, res) {
 // Get Address for a Facility
 module.exports.getFacilityAddress = function(req, res) {
   let {query: {facilityID}} = req;
-  schemas.facilitiesAddress.findOne({
-    where: {FacilityID: facilityID}
-  })
-  .then(function({
-    AddressStateCode, 
-    City, 
-    PostalCode, 
-    FacilityStreetAddress1, 
-    FacilityStreetAddress2, 
-    FacilityStreetAddress3
-  }) {
-    res.send({
-      State: AddressStateCode,
-      City: City,
-      PostalCode: PostalCode,
-      Address: FacilityStreetAddress1 + ' ' + FacilityStreetAddress2 + ' ' + FacilityStreetAddress3
-    });
+  getFacilityAddressModel(facilityID)
+  .then((facilityAddress) => {
+    res.send(facilityAddress);
   })
   .catch((err) => console.log('error', err));
 };
