@@ -101,9 +101,11 @@
 }
 
 .map {
-  height: 95vh;
-  background: rgba(118, 73, 51, 0.847);
-  margin: 5px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 95vh;
+    margin: 0;
 
 }
 
@@ -122,6 +124,7 @@
 .tabContent {
   height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .EntityListEntry {
@@ -158,8 +161,9 @@
   margin: 0px;
 }
 .resultsPage {
-  background: rgba(118, 73, 51, 0.847);
+  background: white;
   height: 100vh;
+  overflow: hidden;
 }
 
 .landingPage {
@@ -179,13 +183,15 @@
 }
 
 .mapAndList {
-  background-color: #b18571;
+  background-color: white;
   height: 95vh;
   border-radius: 5px;
 }
 
 .navBar {
-  height:5vh
+  height:5vh;
+  width:100%;
+  background: #4e3c2e;
 }
 
 .entityContactsRow {
@@ -232,5 +238,24 @@
 .childLegRow {
   background: #f5f5f5;
   overflow-x: hidden;
+}
+
+.tabButtons button {
+  margin-top: 2vh;
+  height: 3vh;
+  width:100%;
+  background:white;
+  color: black;
+  border-width: 0;
+  border-radius: 0;
+}
+
+.progressBars {
+  padding-top: 2vh;
+  height: 3vh;
+}
+
+.progressBarGlyphicon {
+  color:white;
 }
 
