@@ -45,6 +45,15 @@
   opacity: .5;
 }
 
+img[src] {
+  height: 70px;
+  width: 70px;
+}
+
+img[src]:hover {
+  opacity: .5;
+}
+
 .title {
   text-align: center;
   font-weight: bold;
@@ -220,6 +229,31 @@
   border-width: 0px;
   font-size: 15px;
     color: white;
+}
+
+.interestFavicon { 
+  margin: 5px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #b18571;
+  border-width: 0px;
+  font-size: 15px;
+  color: black;
+}
+
+.includedInterestFavicon { 
+  margin: 5px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #667c50;
+  border-width: 0px;
+  font-size: 15px;
+  color: white;
+}
+
+.optionsInput {
+  margin-left: 20px;
+  float: left;
 }
 
 .planVacationButton {
