@@ -381,7 +381,6 @@ module.exports.getActivities = function(req, res) {
       { model: schemas.facilities },
     ],
   }).then((activity) => {
-    console.log(activity);
     res.send(activity);
   })
   .catch(err => console.log('error', err));
