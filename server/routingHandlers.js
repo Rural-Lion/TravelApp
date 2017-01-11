@@ -7,6 +7,7 @@ let getRecAreaModel = require('./models.js').getRecAreaModel;
 let getFacilityModel = require('./models.js').getFacilityModel;
 let getRecActivitiesModel = require('./models.js').getRecActivitiesModel;
 let getFacilitiesActivitiesModel = require('./models.js').getFacilitiesActivitiesModel;
+let getActivitiesModel = require('./models.js').getActivitiesModel;
 
 ///////////////////////////////////////////////////////////////
 ////// HANDLERS USED IN THE APP //////
@@ -190,46 +191,11 @@ module.exports.getFacilitiesActivities = function(req, res) {
   .catch(err => console.log('error', err));
 };
 
-// Get EntityMedia for a RecArea
-module.exports.getRecMedia = function(req, res) {
-  let {query: {recArea}} = req;
-  schemas.recAreas.findOne({
-    where: { RecAreaName: recArea },
-  })
-  .then((recreationArea) => {
-    return recreationArea.getEntityMedia();
-  })
-  .then((media) => {
-    res.send(media);
-  })
-  .catch(err => console.log('error', err));
-};
-
- // Get EntityMedia for a Facility
-module.exports.getFacilityMedia = function(req, res) {
-  let {query: {facility}} = req;
-  schemas.facilities.findOne({
-    where: { FacilityName: facility },
-  })
-  .then((fac) => {
-    return fac.getEntityMedia()
-  })
-  .then((media) => {
-    res.send(media);
-  })
-  .catch(err => console.log('error', err));
-};
-
 // Get list of all activities
 module.exports.getActivities = function(req, res) {
   let {query: {activity}} = req;
-  schemas.activities.findOne({
-    where: { ActivityName: activity },
-    include: [
-      { model: schemas.recAreas },
-      { model: schemas.facilities },
-    ],
-  }).then((activity) => {
+  getActivitiesModel(activity)
+  .then((activity) => {
     res.send(activity);
   })
   .catch(err => console.log('error', err));

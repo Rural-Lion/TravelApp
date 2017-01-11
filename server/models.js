@@ -80,3 +80,13 @@ module.exports.getFacilitiesActivitiesModel = (facilityID) => {
     include: [{ model: schemas.activities }],
   });
 }
+
+module.exports.getActivitiesModel = (activity) => {
+  return schemas.activities.findOne({
+    where: { ActivityName: activity },
+    include: [
+      { model: schemas.recAreas },
+      { model: schemas.facilities },
+    ],
+  });
+}
