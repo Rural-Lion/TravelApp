@@ -9,7 +9,7 @@ const ItineraryContainer = props => (
   );
 
 ItineraryContainer.propTypes = {
-  itinerary: PropTypes.arrayOf(PropTypes.object),
+  itinerary: PropTypes.object,
 };
 
 export default ItineraryContainer;

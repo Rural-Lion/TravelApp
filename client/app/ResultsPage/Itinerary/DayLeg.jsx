@@ -18,7 +18,7 @@ const DayLeg = props => (
   );
 
 DayLeg.propTypes = {
-  leg: PropTypes.object,
+  leg: PropTypes.array,
   day: PropTypes.number,
 };
 
