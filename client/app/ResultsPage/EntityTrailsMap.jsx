@@ -59,7 +59,7 @@ class EntityTrailsMap extends Component {
     const trailMarkers = this.props.trails.map((trail) => {
       // create a marker for each trail:
       const marker = new google.maps.Marker({
-        position: trail.coordinates[0],
+        position: { lat: trail.coordinates[0][0], lng: trail.coordinates[0][1] },
         icon: './maps/icons/hiking2.png',
         map,
         title: trail.name,
@@ -87,7 +87,7 @@ class EntityTrailsMap extends Component {
   createPolyline(trail) {
     // create a polyline object
     const trailPath = new google.maps.Polyline({
-      path: trail.coordinates,
+      path: trail.coordinates.map(point => ({ lat: point[0], lng: point[1] })),
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,

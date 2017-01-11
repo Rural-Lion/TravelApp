@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
+import axios from 'axios';
 import { FancyBorder } from '../helpers.js';
 import EntityTrailsMap from './EntityTrailsMap.jsx';
 
@@ -20,17 +21,62 @@ class TrailsContainer extends Component {
 
   parseTrails(trails) {
     // get the trail coordinates in the right format
-    return trails.map((trail) => {
+    return trails.map((trail, index) => {
       trail.coordinates = trail.coordinates
         .slice(12, trail.coordinates.length - 1)
         .split(', ')
-        .map((point) => {
-          point = point.split(' ');
-          return { lat: +point[1], lng: +point[0] };
-        });
+        .map(point => point.split(' '))
+        .map(item => [+item[1], +item[0]]);
+          // THIS WAS THE FORMAT FOR GOOGLE ELEVATION API
+          // point = point.split(' ');
+          // return { lat: +point[1], lng: +point[0] };
+        // });
+      this.getElevationData(trail);
       return trail;
     });
   }
+
+  getElevationData(trail) {
+    // // MICROSOFT ELEVATION API
+    // axios.post('http://dev.virtualearth.net/REST/v1/Elevation/Polyline', {
+    //   params: {
+    //     key: 'ApSftJUAJ1X_acPMnLpnmitPUgPzY_IFeLqTnUjXEHKn - vMMXXLORvLYuq6NwQxQ',
+    //     points: trail.coordinates.join(','),
+    //     sample: 256,
+    //   },
+    // })
+    // MAPQUEST API:
+    let collection = trail.coordinates;
+    // handle the long trails
+    if (trail.coordinates.length > 250) {
+      const divider = Math.ceil(trail.coordinates.length / 250);
+      collection = trail.coordinates.filter((value, index) => !(index % divider));
+    }
+    axios.get('http://open.mapquestapi.com/elevation/v1/profile', {
+      params: {
+        key: 'kPexnF9xAy5evZFa5r5y86phhxvw8pdH',
+        latLngCollection: collection.join(','),
+      },
+    })
+    .then((res) => {
+      console.log('ELEVATION RESPONSE', res.data, 'Points in trail', trail.coordinates.length);
+    })
+    .catch(err => console.log('ERROR FROM ELEVATION API', err, 'Points in trail', trail.coordinates.length));
+
+
+    // GOOGLE ELEVATION API:
+    // const elevator = new google.maps.ElevationService();
+    // elevator.getElevationAlongPath({
+    //   path: trail.coordinates,
+    //   samples: 256,
+    // }, (results, status) => {
+    //   if (status == 'OVER_QUERY_LIMIT') {
+    //   } else {
+    //     console.log('STATUS', status, trail.coordinates.length);
+    //   }
+    // });
+  }
+
   filterTrailsByLength(length) {
     const mapLength = {
       0: [null, 2],
