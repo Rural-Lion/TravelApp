@@ -3,6 +3,10 @@ let schemas = require('../database/schemas.js');
 let db = require('../database/database.js');
 let getRecAddressModel = require('./models.js').getRecAddressModel;
 let getFacilityAddressModel = require('./models.js').getFacilityAddressModel;
+let getRecAreaModel = require('./models.js').getRecAreaModel;
+let getFacilityModel = require('./models.js').getFacilityModel;
+let getRecActivitiesModel = require('./models.js').getRecActivitiesModel;
+let getFacilitiesActivitiesModel = require('./models.js').getFacilitiesActivitiesModel;
 
 ///////////////////////////////////////////////////////////////
 ////// HANDLERS USED IN THE APP //////
@@ -149,15 +153,9 @@ module.exports.trailsAndActivitiesWithinRadiusOfRecAreas = (req, res) => {
  // Get RecAreas Info
 module.exports.getRecArea = function(req, res) {
   let {query: {recAreaID}} = req;
-  schemas.recAreas.findOne({
-    where: {RecAreaID: recAreaID},
-    include: [
-      { model: schemas.recAreaAddress },
-      { model: schemas.activities },
-      { model: schemas.entityMedia },
-    ],
-  }).then((recreationArea) => {
-    res.send(recreationArea);
+  getRecAreaModel(recAreaID)
+  .then((recArea) => {
+    res.send(recArea);
   })
   .catch(err => console.log('error', err));
 };
@@ -165,42 +163,28 @@ module.exports.getRecArea = function(req, res) {
  // Get Facilities Info
 module.exports.getFacility = function(req, res) {
   let {query: {facilityID}} = req;
-  schemas.facilities.findOne({
-    where: {FacilityID: facilityID},
-    include: [
-      { model: schemas.permitEntrances },
-      { model: schemas.facilitiesAddress },
-      { model: schemas.activities },
-      { model: schemas.entityMedia },
-      { model: schemas.campsites },
-    ],
-  }).then((fac) => {
-    res.send(fac);
+  getFacilityModel(facilityID)
+  .then((facility) => {
+    res.send(facility);
   })
   .catch(err => console.log('error', err));
 };
 
  // Get Activities for a RecArea
 module.exports.getRecActivities = function(req, res) {
-  let {query: { recArea }} = req;
-  schemas.recAreas.findOne({
-    where: { RecAreaName: recArea },
-  }).then((recreationArea) => {
-    return recreationArea.getActivities()
-  })
-  .then((activities) => {
-      res.send(activities);
+  let {query: { recAreaID }} = req;
+  getRecActivitiesModel(recAreaID)
+  .then((recArea) => {
+      res.send(recArea);
   })
   .catch(err => console.log('error', err));
 };
 
  // Get Activities for a Facility
 module.exports.getFacilitiesActivities = function(req, res) {
-  let {query: { facility }} = req;
-  schemas.facilities.findOne({
-    where: { FacilityName: facility },
-    include: [{ model: schemas.activities }],
-  }).then((fac) => {
+  let {query: { facilityID }} = req;
+  getFacilitiesActivitiesModel(facilityID)
+  .then((fac) => {
     res.send(fac);
   })
   .catch(err => console.log('error', err));

@@ -19,9 +19,8 @@ module.exports.getRecAddressModel = (recAreaID) => {
       PostalCode: PostalCode,
       Address: RecAreaStreetAddress1 + ' ' + RecAreaStreetAddress2 + ' ' + RecAreaStreetAddress3
     };
-  })
-}
-
+  });
+};
 
 module.exports.getFacilityAddressModel = (facilityID) => {
   return schemas.facilitiesAddress.findOne({
@@ -41,6 +40,43 @@ module.exports.getFacilityAddressModel = (facilityID) => {
       PostalCode: PostalCode,
       Address: FacilityStreetAddress1 + ' ' + FacilityStreetAddress2 + ' ' + FacilityStreetAddress3
     };
-  })
+  });
+};
 
+module.exports.getRecAreaModel = (recAreaID) => {
+  return schemas.recAreas.findOne({
+    where: {RecAreaID: recAreaID},
+    include: [
+      { model: schemas.recAreaAddress },
+      { model: schemas.activities },
+      { model: schemas.entityMedia },
+    ],
+  });
+};
+
+module.exports.getFacilityModel = (facilityID) => {
+  return schemas.facilities.findOne({
+    where: {FacilityID: facilityID},
+    include: [
+      { model: schemas.permitEntrances },
+      { model: schemas.facilitiesAddress },
+      { model: schemas.activities },
+      { model: schemas.entityMedia },
+      { model: schemas.campsites },
+    ],
+  });
+};
+
+module.exports.getRecActivitiesModel = (recAreaID) => {
+  return schemas.recAreas.findOne({
+    where: { RecAreaID: recAreaID },
+    include: [{ model: schemas.activities }],
+  });
+}
+
+module.exports.getFacilitiesActivitiesModel = (facilityID) => {
+  return schemas.facilities.findOne({
+    where: { FacilityID: facilityID },
+    include: [{ model: schemas.activities }],
+  });
 }

@@ -10,7 +10,7 @@ describe('getFacilityActivities', function() {
   it ('Should return activities on GET', function(done) {
     chai.request('localhost:8000')
     .get('/facilityActivities')
-    .query({facility: "Liberty Campground"})
+    .query({facilityID: 201792})
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;
@@ -22,7 +22,7 @@ describe('getFacilityActivities', function() {
   it ('Should return the adequate Activities properties', function(done) {
     chai.request('localhost:8000')
     .get('/facilityActivities')
-    .query({facility: "Liberty Campground"})
+    .query({facilityID: 201792})
     .end(function(err, res){
       res.body.activities[0].should.have.property('ActivityParentID');
       res.body.activities[0].should.have.property('ActivityLevel');
@@ -42,7 +42,7 @@ describe('getFacilityActivities', function() {
   it ('Should return the correct RecArea\'s activities' , function(done) {
     chai.request('localhost:8000')
     .get('/facilityActivities')
-    .query({facility: "Liberty Campground"})
+    .query({facilityID: 201792})
     .end(function(err, res){
       res.body.activities.length.should.equal(2);
       res.body.activities[0].entityactivities.EntityID.should.equal(201792);
