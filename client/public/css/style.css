@@ -251,6 +251,11 @@ img[src]:hover {
   color: white;
 }
 
+.optionsInput {
+  margin-left: 20px;
+  float: left;
+}
+
 .planVacationButton {
   border-radius: 10px;
   margin-top: 25px;
