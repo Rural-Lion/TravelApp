@@ -47,6 +47,7 @@ class ResultsPage extends Component {
     this.setUsedBudget = this.setUsedBudget.bind(this);
     this.addTimeToWaypoint = this.addTimeToWaypoint.bind(this);
     this.debouncedAddTimeToWaypoint = _.debounce(this.addTimeToWaypoint, 1000);
+    this.setPreferences = this.setPreferences.bind(this);
   }
 
   componentWillMount() {
@@ -67,7 +68,7 @@ class ResultsPage extends Component {
       });
     });
     this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
-    this.setTotalBudget(this.props.userQuery.budgetOfTrip);
+    this.setTotalBudget(nextProps.userQuery.budgetOfTrip);
   }
 
   getEntityList(query, location, interests) {
@@ -113,12 +114,22 @@ class ResultsPage extends Component {
       budgetOfTrip: budget,
     });
   }
+
   setItinerary(results) {
     this.setState({
       itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost), this.state.waypoints),
     }, () => {
       this.setUsedBudget(this.state.itinerary.totalCost);
       this.setRemainingTime(this.state.itinerary.remainingTime, this.state.itinerary.totalTime);
+    });
+  }
+
+  setPreferences(foodCost, startTime, endTime, nightlyCost) {
+    this.setState({
+      foodCostPerDay: foodCost,
+      startingTime: startTime,
+      endingTime: endTime,
+      nightlyCost: nightlyCost
     });
   }
 
@@ -227,7 +238,7 @@ class ResultsPage extends Component {
 
 
   render() {
-    console.log("NEW USER QUERY", this.props.userQuery)
+    console.log("NEW STATE", this.state)
     return (
       <div className="resultsPage">
         <FancyBorder color="orange">
@@ -269,7 +280,9 @@ class ResultsPage extends Component {
                       addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
                     /> : null}
                   { this.state.selectedTab === 'OptionsContainer' ?
-                    <OptionsContainer /> : null}
+                    <OptionsContainer 
+                      setPreferences={this.setPreferences}
+                    /> : null}
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <FancyBorder color="green">
