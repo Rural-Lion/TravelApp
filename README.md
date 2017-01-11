@@ -26,7 +26,7 @@ TO START APP:
 
 
 TO TEST THE APP:
-- Create a .env.test environment connecting to the Amazon RDS testing DB
+- Create a .env.test file connecting to the Amazon RDS testing DB
 - run the test server: 'npm run testserver'
 
   1- TEST FRONT END HELPER FUNCTIONS:
