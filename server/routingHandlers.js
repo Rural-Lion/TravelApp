@@ -206,35 +206,6 @@ module.exports.getFacility = function(req, res) {
   .catch(err => console.log('error', err));
 };
 
-  // Get Organization for a RecArea
-module.exports.getRecOrganization = function(req, res) {
-  let {query: { recArea }} = req;
-  schemas.recAreas.findOne({ 
-    where: {RecAreaName: recArea}
-  }).then(function(recreationArea) {
-    recreationArea.getOrganizations()
-    .then((organization) => {
-      res.send(organization[0].OrgName);
-    });
-  })
-  .catch(err => console.log('error', err));
-};
-
-  // Get Organization for a Facility
-module.exports.getFacilityOrganization = function(req, res) {
-  let {query: { facility }} = req;
-  schemas.facilities.findOne({
-    where: { FacilityName: facility },
-  }).then((fac) => {
-    fac.getOrganizations()
-    .then((organization) => {
-      console.log(organization);
-      res.send(organization[0].OrgName);
-    });
-  })
-  .catch(err => console.log('error', err));
-};
-
  // Get Activities for a RecArea
 module.exports.getRecActivities = function(req, res) {
   let {query: { recArea }} = req;
@@ -257,41 +228,6 @@ module.exports.getFacilitiesActivities = function(req, res) {
     include: [{ model: schemas.activities }],
   }).then((fac) => {
     res.send(fac);
-  })
-  .catch(err => console.log('error', err));
-};
-
-// Get EntityLinks for a RecArea
-module.exports.getRecLinks = function(req, res) {
-  let {query: {recArea}} = req;
-  console.log("getting in here");
-  schemas.recAreas.findOne({
-    where: { RecAreaName: recArea },
-  })
-  .then((recreationArea) => {
-    console.log(recreationArea);
-    recreationArea.getEntityLinks()
-    .then((links) => {
-      console.log(links);
-      res.send(links);
-    });
-  })
-  .catch(err => console.log('error', err));
-};
-
-// Get EntityLinks for a Facility
-module.exports.getFacilityLinks = function(req, res) {
-  let {query: {facility}} = req;
-  schemas.facilities.findOne({
-    where: { FacilityName: facility },
-  })
-  .then((fac) => {
-    console.log(fac);
-    fac.getEntityLinks()
-    .then((links) => {
-      console.log(links);
-      res.send(links);
-    });
   })
   .catch(err => console.log('error', err));
 };
@@ -330,53 +266,6 @@ module.exports.getFacilityMedia = function(req, res) {
   .catch(err => console.log('error', err));
 };
 
-// Get Tours for a Facility
-module.exports.getFacilityTours = function(req, res) {
-  let {query: {facility}} = req;
-  schemas.facilities.findOne({
-    where: { FacilityName: facility },
-  })
-  .then((fac) => {
-    console.log(fac);
-    fac.getTours()
-    .then((tours) => {
-      console.log(tours);
-      res.send(tours);
-    });
-  })
-  .catch(err => console.log('error', err));
-};
-
-// Get campsites for a Facility
-module.exports.getFacilityCampsites = function(req, res) {
-  let {query: {facility}} = req;
-  schemas.facilities.findOne({
-    where: { FacilityName: facility },
-  })
-  .then((fac) => {
-    console.log(fac);
-    fac.getCampsites()
-    .then((campsites) => {
-      console.log(campsites);
-      res.send(campsites);
-    });
-  })
-  .catch(err => console.log('error', err));
-};
-
-// Get Facility Permit Entrances
-module.exports.getFacilityPermitEntrances = function(req, res) {
-  let {query: {facility}} = req;
-  schemas.facilities.findOne({
-    where: { FacilityName: facility },
-    include: [{ model: schemas.permitEntrances }],
-  })
-  .then((fac) => {
-    res.send(fac);
-  })
-  .catch(err => console.log('error', err));
-};
-
 // Get list of all activities
 module.exports.getActivities = function(req, res) {
   let {query: {activity}} = req;
@@ -390,10 +279,6 @@ module.exports.getActivities = function(req, res) {
     res.send(activity);
   })
   .catch(err => console.log('error', err));
-};
-
-module.exports.getEntrances = function (req, res) {
-  schemas.permitEntrances.findAll().then((entrance) => { res.send(entrance); });
 };
 
 ///////////////////////////////////////////////////////////////////////////
