@@ -1,6 +1,7 @@
 let Sequelize = require('sequelize');
 let schemas = require('../database/schemas.js');
 let db = require('../database/database.js');
+let getEntitiesWithinRadiusModel = require('./models.js').getEntitiesWithinRadiusModel;
 let getRecAddressModel = require('./models.js').getRecAddressModel;
 let getFacilityAddressModel = require('./models.js').getFacilityAddressModel;
 let getRecAreaModel = require('./models.js').getRecAreaModel;
@@ -16,9 +17,9 @@ let getActivitiesModel = require('./models.js').getActivitiesModel;
 // Get Entites within a given radius
 module.exports.getEntitiesWithinRadius = (req, res) => {
   let {query: {latitude, longitude, distance, activities}} = req;
-  db.query(`SELECT * FROM (SELECT facilities.FacilityLatitude, facilities.FacilityLongitude, facilities.FacilityName, facilities.FacilityPhone, facilities.FacilityDescription, facilities.FacilityEmail, recAreas.RecAreaName, recAreas.RecAreaLatitude, recAreas.RecAreaLongitude, recAreas.RecAreaPhone, recAreas.RecAreaDescription, recAreas.RecAreaEmail, entityMedia.URL, entityactivities.EntityID, entityactivities.EntityType, entityactivities.ActivityDescription FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)})) AS matches GROUP BY matches.EntityID LIMIT 50`, {type: db.QueryTypes.SELECT})
+  getEntitiesWithinRadiusModel(latitude, longitude, distance, activities)
   .then(function(entities) {
-          res.send(entities);
+    res.send(entities);
   })
   .catch((err) => console.log('error: ', err));
 };
