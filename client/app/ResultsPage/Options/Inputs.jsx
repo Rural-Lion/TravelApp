@@ -2,56 +2,51 @@ import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../../helpers.js';
 import { setLocation, setBudget, setDistance, setLength } from '../../actions/inputActions.js';
 import Autocomplete from 'react-google-autocomplete';
-import PlanVacationButton from './PlanVacationButton.jsx';
 
-const Inputs = props =>  (
+const Inputs = props => (
   <FancyBorder color="yellow" >
     <div className='optionsInput'>
       <FancyBorder color="green">
       $$$
-        <input style={{width: '350px'}}
+        <input id='budget' style={{width: '350px'}}
           data-tag="budgetOfTrip"
-          onChange={e => props.handleChange(setBudget, e.target.value)}
+          // onChange={e => props.handleChange(setBudget, e.target.value)}
           className="lpInput"
           type="text"
-          value={props.userQuery.budgetOfTrip}
         />
       </FancyBorder>
     </div>
     <div className='optionsInput'>
       <FancyBorder color="green">
       Time
-        <input style={{width: '350px'}}
+        <input id='time' style={{width: '350px'}}
           data-tag="lengthOfTrip"
-          onChange={e => props.handleChange(setLength, e.target.value)}
+          // onChange={e => props.handleChange(setLength, e.target.value)}
           className="lpInput"
           type="text"
-          value={props.userQuery.lengthOfTrip}
         />
       </FancyBorder>
     </div>
     <div className='optionsInput'>
       <FancyBorder color="green">
       Location
-        <Autocomplete style={{width: '350px'}}
+        <Autocomplete id='location' style={{width: '350px'}}
           data-tag="startingLocation"
-          onPlaceSelected={place => props.handleChange(setLocation, place.formatted_address)}
-          onChange={e => props.handleChange(setLocation, e.target.value)}
+          // onPlaceSelected={place => props.handleChange(setLocation, place.formatted_address)}
+          // onChange={e => props.handleChange(setLocation, e.target.value)}
           className="lpInput"
           type="text"
-          value={props.userQuery.startingLocation}
         />
       </FancyBorder>
     </div>
     <div className='optionsInput'>
       <FancyBorder color="green">
       Distance
-        <input style={{width: '350px'}}
+        <input id='distance' style={{width: '350px'}}
           data-tag="distanceOfTrip"
-          onChange={e => props.handleChange(setDistance, e.target.value)}
+          // onChange={e => props.handleChange(setDistance, e.target.value)}
           className="lpInput"
           type="text"
-          value={props.userQuery.distanceOfTrip}
         />
       </FancyBorder>
     </div>
@@ -100,10 +95,18 @@ const Inputs = props =>  (
         />
       </FancyBorder>
     </div>
-    <div className="row">
-      <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered">
-        <PlanVacationButton />
-      </div>
+    <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
+      <button
+        onClick= { (e) => {
+          console.log("I'm getting clicked");
+          props.handleChange(setBudget, document.getElementById('budget').value);
+          props.handleChange(SetLength, document.getElementById('time').value);
+          props.handleChange(SetLocation, document.getElementById('location').value);
+          props.handleChange(SetDistance, document.getElementById('distance').value);
+          }
+        }
+      > Button 
+      </button>
     </div>
   </FancyBorder>
   );
