@@ -66,7 +66,11 @@ class EntityTrailsMap extends Component {
       });
       // add an event listener for each marker to open an infowindow:
       marker.addListener('mouseover', () => {
-        infoWindow.setContent(`${trail.name}: ${trail.length}mi, up ${trail.elevation.up}ft, down ${trail.elevation.down}ft`);
+        infoWindow.setContent(this.makeInfoWindowHtml(trail));
+        // draw an elevation chart, if got data:
+        // if (trail.profile) {
+        //   this.drawElevationChart(trail.profile.elevationProfile);
+        // }
         infoWindow.open(map, marker);
       });
       // create a polyline for each trail to draw it on the map:
@@ -94,6 +98,37 @@ class EntityTrailsMap extends Component {
       strokeWeight: 2,
     });
     return trailPath;
+  }
+  makeInfoWindowHtml(trail) {
+    return (
+        `<h5><Glyphicon glyph="arrow-up" />${trail.name}</h5>
+        <p>${trail.length} miles</p>
+        <div>
+          <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+          <span>${trail.up ? `${trail.up}ft` : '<img src="./maps/icons/loading.gif"'}</span>
+          <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+          <span>${trail.down ? `${trail.down}ft` : '<img src="./maps/icons/loading.gif"'}</span>
+        </div>
+        <div id="chart" />`
+    );
+  }
+
+  drawElevationChart() {
+    chartDiv = document.getElementById('chart');
+    const chart = new google.visualization.ColumnChart(chartDiv);
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Sample');
+    data.addColumn('number', 'Elevation');
+    for (let i = 0; i < elevations.length; i++) {
+      data.addRow(['', elevations[i].elevation]);
+    }
+
+    // Draw the chart using the data within its DIV.
+    chart.draw(data, {
+      height: 150,
+      legend: 'none',
+      titleY: 'Elevation (m)',
+    });
   }
 
   render() {
