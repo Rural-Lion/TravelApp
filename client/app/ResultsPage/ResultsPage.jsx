@@ -171,11 +171,11 @@ class ResultsPage extends Component {
     });
   }
 
-  handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
+  handleAddToItineraryClick(e, { coordinates: [lat, lng], name }) {
     e.stopPropagation();
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
-    waypoints.forEach(({ location: { lat: insideLat, lng: insideLng } }, index) => {
+    waypoints.forEach(({ waypoint: { location: { lat: insideLat, lng: insideLng } } }, index) => {
       if (insideLat === lat && insideLng === lng) {
         waypoints.splice(index, 1);
         removeFlag = true;
@@ -183,9 +183,14 @@ class ResultsPage extends Component {
     });
     if (!removeFlag) {
       waypoints.push({
-        location: { lat, lng },
-        stopover: true,
-      });
+        name,
+        waypoint: {
+          location: { lat, lng },
+          stopover: true,
+        },
+        time: 0,
+      },
+      );
     }
     this.setState({
       waypoints,

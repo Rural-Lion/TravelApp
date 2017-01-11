@@ -45,10 +45,10 @@
   opacity: .5;
 }
 
-/*img[src] {
+.optionsFavicon {
   height: 70px;
   width: 70px;
-}*/
+}
 
 img[src]:hover {
   opacity: .5;

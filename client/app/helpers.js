@@ -79,7 +79,7 @@ const generateChildLegs = (arr) => {
   return newArray;
 };
 
-const generateItinerary = (obj, startingTime, endingTime, days, costPerDay) => {
+const generateItinerary = (obj, startingTime, endingTime, days, costPerDay, waypoints) => {
   const legs = obj.routes[0].legs;
 
   startingTime *= 3600;
