@@ -31,13 +31,12 @@ class TrailsContainer extends Component {
           // point = point.split(' ');
           // return { lat: +point[1], lng: +point[0] };
         // });
-      trail.elevation = {};
-      this.getElevationData(trail);
+      this.getElevationData(trail, index);
       return trail;
     });
   }
 
-  getElevationData(trail) {
+  getElevationData(trail, index) {
     // // MICROSOFT ELEVATION API
     // axios.post('http://dev.virtualearth.net/REST/v1/Elevation/Polyline', {
     //   params: {
@@ -61,7 +60,7 @@ class TrailsContainer extends Component {
       },
     })
     .then((res) => {
-      console.log('ELEVATION RESPONSE', res.data, 'Points in trail', trail.coordinates.length);
+      console.log('ELEVATION RESPONSE', res.data);
       let up = 0;
       let down = 0;
       const profile = res.data.elevationProfile.map(item => item.height);
@@ -71,9 +70,13 @@ class TrailsContainer extends Component {
           change > 0 ? up += change : down += change;
         }
       }
-      up = Math.round(up);
-      down = Math.round(down);
-      trail.elevation = { up, down };
+      trail.up = Math.round(up);
+      trail.down = Math.round(down);
+      trail.profile = res.data;
+      // const newTrail = Object.assign({}, trail, { up, down, profile: res.data });
+      // this.setState({
+      //   trails: this.state.trails.slice(0, index).concat(newTrail).concat(this.state.trails.slice(index + 1)),
+      // }, () => { console.log('NEW TRAILS', this.state.trails); });
     })
     .catch(err => console.log('ERROR FROM ELEVATION API', err, 'Points in trail', trail.coordinates.length));
 
