@@ -60,9 +60,10 @@ class ResultsPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
+    console.log('nextprops', nextProps);
+    getCoordinates(nextProps.userQuery.startingLocation, ({ lat, lng }) => {
       this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
-        this.getEntityList(this.props.userQuery, this.state.startingLocation, this.props.userInterests);
+        this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
       });
     });
     this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
