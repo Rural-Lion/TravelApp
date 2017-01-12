@@ -15,7 +15,7 @@
 
 import React from 'react';
 import { Router, Route, hashHistory } from 'react-router';
-import createLogger from 'redux-logger'
+import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import { FancyBorder } from './helpers';
@@ -26,6 +26,8 @@ import travelApp from './reducers';
 const logger = createLogger();
 const store = createStore(travelApp, applyMiddleware(logger));
 console.log(store.getState());
+
+google.load('visualization', '1', { packages: ['columnchart', 'corechart'] });
 
 const App = () => (
   <Provider store={store}>
