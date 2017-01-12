@@ -1,11 +1,41 @@
 let schemas = require('../database/schemas.js');
 let db = require('../database/database.js');
 
+/////////////////////////////////////////////////
+////// HELPER FUNCTIONS //////
+////////////////////////////////////////////////
 
+// Helper function for trailsAndActivitiesWithinRadiusOfFacilityModel
+const findTrails = (latitude, longitude, geom2, decimal1) => {
+  return db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, ${geom2}) AS DECIMAL(${decimal1}, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT});
+}
+
+// Helper function for trailsAndActivitiesWithinRadiusOfFacilityModel
+const entityInfo = (entity, trails) => {
+  const entityActivities = entity.dataValues.activities;
+      let activityList = [];
+      entityActivities.forEach((activity) => {
+        activityList.push(activity.dataValues.ActivityName);
+      });
+      const entityInfo = {
+        trails: trails,
+        activities: activityList
+      };
+      return entityInfo;
+}
+
+////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+////// MODELS USED IN THE APP //////
+//////////////////////////////////////////////////////////
+
+// Get Entites within a given radius - Model
 module.exports.getEntitiesWithinRadiusModel = (latitude, longitude, distance, activities) => {
   return  db.query(`SELECT * FROM (SELECT facilities.FacilityLatitude, facilities.FacilityLongitude, facilities.FacilityName, facilities.FacilityPhone, facilities.FacilityDescription, facilities.FacilityEmail, recAreas.RecAreaName, recAreas.RecAreaLatitude, recAreas.RecAreaLongitude, recAreas.RecAreaPhone, recAreas.RecAreaDescription, recAreas.RecAreaEmail, entityMedia.URL, entityactivities.EntityID, entityactivities.EntityType, entityactivities.ActivityDescription FROM entityactivities LEFT JOIN recAreas ON recAreas.RecAreaID = entityactivities.EntityID LEFT JOIN facilities ON facilities.FacilityID = entityactivities.EntityID LEFT JOIN entityMedia ON entityactivities.EntityID = entityMedia.EntityID LEFT JOIN activities ON entityactivities.ActivityID = activities.ActivityID WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(recAreaLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(recAreaLatitude)) * cos(RADIANS(recAreaLongitude - (${longitude})))) * 6371 <= ${distance} OR acos(sin(RADIANS(${latitude})) * sin(RADIANS(facilityLatitude)) + cos(RADIANS(${latitude})) * cos(RADIANS(facilityLatitude)) * cos(RADIANS(facilityLongitude - (${longitude})))) * 6371 <= ${distance}) AND ActivityName IN (${activities.slice(1, activities.length-1)})) AS matches GROUP BY matches.EntityID LIMIT 50`, {type: db.QueryTypes.SELECT});
 };
 
+// Get Address for a RecArea - Model
 module.exports.getRecAddressModel = (recAreaID) => {
   return schemas.recAreaAddress.findOne({
     where: {RecAreaID: recAreaID}
@@ -27,6 +57,7 @@ module.exports.getRecAddressModel = (recAreaID) => {
   });
 };
 
+// Get Address for a Facility - Model
 module.exports.getFacilityAddressModel = (facilityID) => {
   return schemas.facilitiesAddress.findOne({
     where: {FacilityID: facilityID}
@@ -48,6 +79,7 @@ module.exports.getFacilityAddressModel = (facilityID) => {
   });
 };
 
+// Get Activities for a RecArea - Model
 module.exports.getRecActivitiesModel = (recAreaID) => {
   return schemas.recAreas.findOne({
     where: { RecAreaID: recAreaID },
@@ -55,6 +87,7 @@ module.exports.getRecActivitiesModel = (recAreaID) => {
   });
 }
 
+ // Get Activities for a Facility - Model
 module.exports.getFacilitiesActivitiesModel = (facilityID) => {
   return schemas.facilities.findOne({
     where: { FacilityID: facilityID },
@@ -62,23 +95,7 @@ module.exports.getFacilitiesActivitiesModel = (facilityID) => {
   });
 }
 
-const findTrails = (latitude, longitude, geom2, decimal1) => {
-  return db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, ${geom2}) AS DECIMAL(${decimal1}, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT});
-}
-
-const entityInfo = (entity, trails) => {
-  const entityActivities = entity.dataValues.activities;
-      let activityList = [];
-      entityActivities.forEach((activity) => {
-        activityList.push(activity.dataValues.ActivityName);
-      });
-      const entityInfo = {
-        trails: trails,
-        activities: activityList
-      };
-      return entityInfo;
-}
-
+// Get Trails within a radius and the activity list of a specific Facility - Model
 module.exports.trailsAndActivitiesWithinRadiusOfFacilityModel = (latitude, longitude, facilityID) => {
   let listOfTrails;
   if (longitude <= -100) {
@@ -102,6 +119,7 @@ module.exports.trailsAndActivitiesWithinRadiusOfFacilityModel = (latitude, longi
   }
 }
 
+// Get Trails within a radius and the activity list of a specific RecArea - Model
 module.exports.trailsAndActivitiesWithinRadiusOfRecAreasModel = (latitude, longitude, recAreaID) => {
   let listOfTrails;
   if (longitude <= -100) {
@@ -126,7 +144,13 @@ module.exports.trailsAndActivitiesWithinRadiusOfRecAreasModel = (latitude, longi
   }
 }
 
+//////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////
+////// MODELS FOR TESTING PURPOSES //////
+///////////////////////////////////////////////////////////////////////
+
+ // Get RecAreas Info - Model
 module.exports.getRecAreaModel = (recAreaID) => {
   return schemas.recAreas.findOne({
     where: {RecAreaID: recAreaID},
@@ -138,6 +162,7 @@ module.exports.getRecAreaModel = (recAreaID) => {
   });
 };
 
+ // Get Facilities Info - Model
 module.exports.getFacilityModel = (facilityID) => {
   return schemas.facilities.findOne({
     where: {FacilityID: facilityID},
@@ -151,6 +176,7 @@ module.exports.getFacilityModel = (facilityID) => {
   });
 };
 
+// Get list of all activities - Model
 module.exports.getActivitiesModel = (activity) => {
   return schemas.activities.findOne({
     where: { ActivityName: activity },
@@ -160,3 +186,5 @@ module.exports.getActivitiesModel = (activity) => {
     ],
   });
 }
+
+///////////////////////////////////////////////////////////////////////

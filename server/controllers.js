@@ -16,7 +16,7 @@ let getActivitiesModel = require('./models.js').getActivitiesModel;
 ////// HANDLERS USED IN THE APP //////
 ///////////////////////////////////////////////////////////////
 
-// Get Entites within a given radius
+// Get Entites within a given radius - Controller
 module.exports.getEntitiesWithinRadius = (req, res) => {
   let {query: {latitude, longitude, distance, activities}} = req;
   getEntitiesWithinRadiusModel(latitude, longitude, distance, activities)
@@ -26,7 +26,7 @@ module.exports.getEntitiesWithinRadius = (req, res) => {
   .catch((err) => console.log('error: ', err));
 };
 
-// Get Address for a RecArea
+// Get Address for a RecArea - Controller
 module.exports.getRecAddress = (req, res) => {
   let {query: {recAreaID}} = req;
   getRecAddressModel(recAreaID)
@@ -36,7 +36,7 @@ module.exports.getRecAddress = (req, res) => {
   .catch((err) => console.log('error', err));
 };
 
-// Get Address for a Facility
+// Get Address for a Facility - Controller
 module.exports.getFacilityAddress = (req, res) => {
   let {query: {facilityID}} = req;
   getFacilityAddressModel(facilityID)
@@ -46,7 +46,7 @@ module.exports.getFacilityAddress = (req, res) => {
   .catch((err) => console.log('error', err));
 };
 
-// Get Activities for a RecArea
+// Get Activities for a RecArea - Controller
 module.exports.getRecActivities = (req, res) => {
   let {query: { recAreaID }} = req;
   getRecActivitiesModel(recAreaID)
@@ -56,7 +56,7 @@ module.exports.getRecActivities = (req, res) => {
   .catch(err => console.log('error', err));
 };
 
- // Get Activities for a Facility
+ // Get Activities for a Facility - Controller
 module.exports.getFacilitiesActivities = (req, res) => {
   let {query: { facilityID }} = req;
   getFacilitiesActivitiesModel(facilityID)
@@ -66,7 +66,7 @@ module.exports.getFacilitiesActivities = (req, res) => {
   .catch(err => console.log('error', err));
 };
 
-// Get Trails within a radius and the activity list of a specific Facility
+// Get Trails within a radius and the activity list of a specific Facility - Controller
 module.exports.trailsAndActivitiesWithinRadiusOfFacility = (req, res) => {
   let {query: {latitude, longitude, facilityID}} = req;
   trailsAndActivitiesWithinRadiusOfFacilityModel(latitude, longitude, facilityID)
@@ -76,7 +76,7 @@ module.exports.trailsAndActivitiesWithinRadiusOfFacility = (req, res) => {
   .catch((err) => console.log('error: ', err));
 };
 
-// Get Trails within a radius and the activity list of a specific RecArea
+// Get Trails within a radius and the activity list of a specific RecArea - Controller
 module.exports.trailsAndActivitiesWithinRadiusOfRecAreas = (req, res) => {
   let {query: {latitude, longitude, recAreaID}} = req;
   trailsAndActivitiesWithinRadiusOfRecAreasModel(latitude, longitude, recAreaID)
@@ -92,7 +92,7 @@ module.exports.trailsAndActivitiesWithinRadiusOfRecAreas = (req, res) => {
 ////// HANDLERS FOR TESTING PURPOSES //////
 ///////////////////////////////////////////////////////////////////////////
 
- // Get RecAreas Info
+ // Get RecAreas Info - Controller
 module.exports.getRecArea = (req, res) => {
   let {query: {recAreaID}} = req;
   getRecAreaModel(recAreaID)
@@ -102,7 +102,7 @@ module.exports.getRecArea = (req, res) => {
   .catch(err => console.log('error', err));
 };
 
- // Get Facilities Info
+ // Get Facilities Info - Controller
 module.exports.getFacility = (req, res) => {
   let {query: {facilityID}} = req;
   getFacilityModel(facilityID)
@@ -112,7 +112,7 @@ module.exports.getFacility = (req, res) => {
   .catch(err => console.log('error', err));
 };
 
-// Get list of all activities
+// Get list of all activities - Controller
 module.exports.getActivities = (req, res) => {
   let {query: {activity}} = req;
   getActivitiesModel(activity)
