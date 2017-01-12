@@ -62,43 +62,66 @@ module.exports.getFacilitiesActivitiesModel = (facilityID) => {
   });
 }
 
+const findTrails = (latitude, longitude, geom2, decimal1) => {
+  return db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, ${geom2}) AS DECIMAL(${decimal1}, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT});
+}
+
+const entityInfo = (entity, trails) => {
+  const entityActivities = entity.dataValues.activities;
+      let activityList = [];
+      entityActivities.forEach((activity) => {
+        activityList.push(activity.dataValues.ActivityName);
+      });
+      const entityInfo = {
+        trails: trails,
+        activities: activityList
+      };
+      return entityInfo;
+}
+
 module.exports.trailsAndActivitiesWithinRadiusOfFacilityModel = (latitude, longitude, facilityID) => {
   let listOfTrails;
   if (longitude <= -100) {
-    return db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT})
+    return findTrails(latitude, longitude, 12, 13)
     .then((trails) => {
       listOfTrails = trails;
       return module.exports.getFacilitiesActivitiesModel(facilityID);
     })
-    .then(function(fac) {
-      const facActivities = fac.dataValues.activities;
-      let activityList = [];
-      facActivities.forEach((activity) => {
-        activityList.push(activity.dataValues.ActivityName);
-      });
-      let facilityInfo = {
-        trails: listOfTrails,
-        activities: activityList
-      };
-      return facilityInfo;
+    .then((facilityActivities) => {
+      return entityInfo(facilityActivities, listOfTrails);
     })
   } else {
-    return db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 11) AS DECIMAL(12, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT})
+    return findTrails(latitude, longitude, 11, 12)
     .then((trails) => {
       listOfTrails = trails;
       return module.exports.getFacilitiesActivitiesModel(facilityID);
     })
-    .then(function(fac) {
-      const facActivities = fac.dataValues.activities;
-      let activityList = [];
-      facActivities.forEach((activity) => {
-        activityList.push(activity.dataValues.ActivityName);
-      });
-      let facilityInfo = {
-        trails: listOfTrails,
-        activities: activityList
-      };
-      return facilityInfo;
+    .then((facilityActivities) => {
+      return entityInfo(facilityActivities, listOfTrails);
+    })
+  }
+}
+
+module.exports.trailsAndActivitiesWithinRadiusOfRecAreasModel = (latitude, longitude, recAreaID) => {
+  let listOfTrails;
+  if (longitude <= -100) {
+    return findTrails(latitude, longitude, 12, 13)
+    .then((trails) => {
+      listOfTrails = trails;
+      return module.exports.getRecActivitiesModel(recAreaID);
+    })
+    .then((recAreaActivities) => {
+      return entityInfo(recAreaActivities, listOfTrails);
+    })
+    .catch((err) => console.log('error: ', err));
+  } else {
+    return findTrails(latitude, longitude, 11, 12)
+    .then((trails) => {
+      listOfTrails = trails;
+      return module.exports.getRecActivitiesModel(recAreaID);
+    })
+    .then((recAreaActivities) => {
+      return entityInfo(recAreaActivities, listOfTrails);
     })
   }
 }

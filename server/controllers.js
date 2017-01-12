@@ -7,6 +7,7 @@ let getFacilityAddressModel = require('./models.js').getFacilityAddressModel;
 let getRecActivitiesModel = require('./models.js').getRecActivitiesModel;
 let getFacilitiesActivitiesModel = require('./models.js').getFacilitiesActivitiesModel;
 let trailsAndActivitiesWithinRadiusOfFacilityModel = require('./models.js').trailsAndActivitiesWithinRadiusOfFacilityModel;
+let trailsAndActivitiesWithinRadiusOfRecAreasModel = require('./models.js').trailsAndActivitiesWithinRadiusOfRecAreasModel;
 let getRecAreaModel = require('./models.js').getRecAreaModel;
 let getFacilityModel = require('./models.js').getFacilityModel;
 let getActivitiesModel = require('./models.js').getActivitiesModel;
@@ -68,9 +69,9 @@ module.exports.getFacilitiesActivities = (req, res) => {
 // Get Trails within a radius and the activity list of a specific Facility
 module.exports.trailsAndActivitiesWithinRadiusOfFacility = (req, res) => {
   let {query: {latitude, longitude, facilityID}} = req;
-  trailsAndActivitiesWithinRadiusOfFacilityModel(latitude, longitude, facilityID).
-  then((facilityIndo) => {
-    res.send(facilityIndo)
+  trailsAndActivitiesWithinRadiusOfFacilityModel(latitude, longitude, facilityID)
+  .then((facilityInfo) => {
+    res.send(facilityInfo);
   })
   .catch((err) => console.log('error: ', err));
 };
@@ -78,46 +79,11 @@ module.exports.trailsAndActivitiesWithinRadiusOfFacility = (req, res) => {
 // Get Trails within a radius and the activity list of a specific RecArea
 module.exports.trailsAndActivitiesWithinRadiusOfRecAreas = (req, res) => {
   let {query: {latitude, longitude, recAreaID}} = req;
-  let listOfTrails;
-  if (longitude <= -100) {
-        db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT})
-        .then((trails) => {
-          listOfTrails = trails;
-          return getRecActivitiesModel(recAreaID);
-        })
-        .then(function(recA) {
-          const recAActivities = recA.dataValues.activities;
-          let activityList = [];
-          recAActivities.forEach((activity) => {
-            activityList.push(activity.dataValues.ActivityName);
-          });
-          let recAreaInfo = {
-            trails: listOfTrails,
-            activities: activityList
-          };
-          res.send(recAreaInfo);
-        })
-        .catch((err) => console.log('error: ', err));
-      } else {
-        db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 11) AS DECIMAL(12, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT})
-        .then((trails) => {
-          listOfTrails = trails;
-          return getRecActivitiesModel(recAreaID);
-        })
-        .then(function(recA) {
-          const recAActivities = recA.dataValues.activities;
-          let activityList = [];
-          recAActivities.forEach((activity) => {
-            activityList.push(activity.dataValues.ActivityName);
-          });
-          let recAreaInfo = {
-            trails: listOfTrails,
-            activities: activityList
-          };
-          res.send(recAreaInfo);
-        })
-        .catch((err) => console.log('error: ', err));
-      }
+  trailsAndActivitiesWithinRadiusOfRecAreasModel(latitude, longitude, recAreaID)
+  .then((recAreaInfo) => {
+    res.send(recAreaInfo);
+  })
+  .catch((err) => console.log('error: ', err));
 };
 
 ///////////////////////////////////////////////////////////////

@@ -1,3 +1,5 @@
+//This File configures jsdom to test dom Elements
+
 const jsdom = require('jsdom');
 
 export default (documentLoaded) => {
