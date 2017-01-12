@@ -81,7 +81,7 @@ const Inputs = props => (
           data-tag="allowanceForFood"
           className="lpInput"
           type="text"
-          onChange={(e) => value=e.target.value}
+          onChange={(e) => props.setFoodCost(e.target.value)}
           value={props.foodCostPerDay}
         />
       </FancyBorder>
@@ -93,7 +93,7 @@ const Inputs = props => (
           data-tag="sleep preference"
           className="lpInput"
           type="text"
-          onChange={(e) => value=e.target.value}
+          onChange={(e) => props.setNightlyCost(e.target.value)}
           value={props.nightlyCost} 
         />
       </FancyBorder>
