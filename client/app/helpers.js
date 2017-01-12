@@ -38,7 +38,6 @@ const generateDetailedEntity = (entity, entityAddress, { activities, trails }) =
   entity.trails = trails;
   entity.activities = activitiesList;
   entity.address = entityAddress;
-  console.log('Entity: ', entity);
   return entity;
 };
 
@@ -144,5 +143,5 @@ const generateItinerary = (obj, startingTime, endingTime, days, costPerDay) => {
   return itinerary;
 };
 
-export { generateData, getCoordinates, generateItinerary, FancyBorder, generateDetailedEntity };
 
+export { toTitleCase, generateDetailedEntity, generateData, getCoordinates, FancyBorder, generateItinerary };

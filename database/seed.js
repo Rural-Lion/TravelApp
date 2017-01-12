@@ -4,11 +4,12 @@
 // 2- Create an account: https://ridb.recreation.gov/index.cfm?action=login
 // 3- Download the 'JSON Format' from the 'RIDB Recreation Data' section
 // 4- Copy/Paste the downloaded 'RIDBFullExport_v1' folder in the App Root folder
-// 5- Uncomment the first function invocation in the 'Section 7 - Calls of  functions to cache in DB'  at the bottom of this file -  caching(organizationsData, schemas.organizations) -
-// 6- From the root folder, run 'node database/seed.js'
-// 7- Comment out the same first function - caching(organizationsData, schemas.organizations) -
-// 8- Confirm that caching was successful with MySql WorkBench
-// 9- Repeat steps 5 to 8 for every function invocation in the parts 1 & 2 of the  'Section 7 - Calls of  functions to cache in DB' at the bottom of this file
+// 5- Uncomment sections 2 to 6
+// 6- Uncomment the first function invocation in the 'Section 7 - Calls of  functions to cache in DB'  at the bottom of this file -  caching(organizationsData, schemas.organizations) -
+// 7- From the root folder, run 'node database/seed.js'
+// 8- Comment out the same first function - caching(organizationsData, schemas.organizations) -
+// 9- Confirm that caching was successful with MySql WorkBench
+// 10- Repeat steps 5 to 8 for every function invocation in the parts 1 & 2 of the  'Section 7 - Calls of  functions to cache in DB' at the bottom of this file
 
 ///////////////////////////////////////////////////////////////
 
@@ -244,6 +245,10 @@ const client = require('../database/database-redis.js');
 ////////////         REDIS SEEDING         ////////////////
 ///////////////////////////////////////////////////////////////////////
 
+//This section is intended to be used with a Redis db -Already Setup with Amazon AWS- to speed up the query for a specific entity trails and activities.
+//Due to storage size issue on Amazon AWS Free Tier, this seeding has not been implemented. Instead, the mysql DB is queried directly for this information.
+
+
 const trailsAndActivitiesForFacilities = (facilities, index1, index2) => {
   if (index1 >= 19000) {
     return;
@@ -295,12 +300,11 @@ const trailsAndActivitiesForFacilities = (facilities, index1, index2) => {
       }
     });
   }
+  //SetTimeout is use to create a buffer and allow the MySQL CPU capacity not to me exceeded.
   setTimeout(()=> {
     trailsAndActivitiesForFacilities(facilities, index1+10, index2+10);
   }, 10000);
 };
-
-
 
 let index = 0;
 const trailsForFacilities = () => {
@@ -311,11 +315,10 @@ const trailsForFacilities = () => {
   .catch((err) => console.log('error: ', err));
 };
 
-
+//Invocation of Redis seeding function:
 trailsForFacilities();
-// client.get(202098, function(err, res) {
-//   console.log('response: ', JSON.parse(res));
-// });
+
+// Uncomment the following 3 lines to flush the Redis DB:
 
 // client.flushdb( function (err, succeeded) {
 //     console.log('Flushed: ', succeeded); // will be OK if successfull

@@ -25,15 +25,18 @@ TO START APP:
   - run 'npm run dev' to start nodemon
 
 
+TO TEST THE APP:
+- Create a .env.test file connecting to the Amazon RDS testing DB
+- run the test server: 'npm run testserver'
 
-REQUESTS:
-'/api/relatedRecAreas' = [obj{
-    img:String, 
-    description:string, 
-    address: string, 
-    phoneNumber: string, 
-    activities: [string,string],
-    website: String,
-    name: string
-    coordinates: [num, num]
-}]
+  1- TEST FRONT END HELPER FUNCTIONS:
+  - run 'npm run test'
+
+  2- TEST FRONT END DOM ELEMENTS:
+  - run 'npm run testdom'
+
+  3- TEST BACKEND ROUTING:
+  - run 'npm run testbackend'
+
+
+
