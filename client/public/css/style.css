@@ -45,6 +45,10 @@
 .secondary-text-color  { color: #757575 ; }
 .divider-color         { border-color: #BDBDBD ; }
 
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .btn-primary {
   background-color: #00BCD4;
   border-color: #00BCD4;
@@ -88,6 +92,12 @@
 .label-primary {
   background-color:  #00BCD4;
 }
+
+h1 {
+  font-size: 60px;
+  font-family: 'Rancho', cursive;
+}
+
 .mapImage {
   height: 35px;
   width: 35px; 
@@ -138,7 +148,10 @@ img[src]:hover {
 
 .centered {
   display: block;
-  margin: auto;
+  margin-top: 5px;
+  margin-right: auto;
+  margin-bottom: 5px;
+  margin-left: auto;
   width: 80%;
 }
 
@@ -153,6 +166,25 @@ img[src]:hover {
 
 .inputs {
   margin-top: 15px; 
+}
+.landing-page-title {
+  margin-bottom: 35px;
+}
+
+.langind-page-inputs {
+  display: block;
+  margin-top: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  color: #545454;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #000000;
+}
+
+.landing-page-interest-title {
+  margin-top: 35px;
 }
 
 .mapContainer {
@@ -229,18 +261,21 @@ img[src]:hover {
 }
 
 .landingPage {
-  background-image: url('http://www.rtjsjg.com/data/out/258/6019701-arches-wallpaper.jpg');
-  height: 100vh;
+  background-image: url('https://static.pexels.com/photos/67517/pexels-photo-67517.jpeg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /*height: 100vh;*/
 }
 
 .landingPageContainer {
-  margin-top:10%;
+  margin-top:5%;
+  margin-bottom:5%;
 }
 
 .landingPageContent {
   padding: 20px;
-  background-color: rgba(138, 113, 94, .8);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.8);
+  color:  #444D52;
   border-radius: 10px;
 }
 
@@ -272,20 +307,18 @@ img[src]:hover {
 }
 
 .interestButton { 
-  margin: 5px;
   padding: 20px;
-  border-radius: 10px;
-  background-color: #b18571;
+  border-radius: 5px;
+  background-color: #00BCD4;
   border-width: 0px;
   font-size: 15px;
-  color: black;
+  color: #212121;
 }
 
 .includedInterestButton { 
-  margin: 5px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #667c50;
+  background-color: #0097A7;
   border-width: 0px;
   font-size: 15px;
     color: white;
@@ -316,11 +349,12 @@ img[src]:hover {
   float: left;
 }
 
-.planVacationButton {
-  border-radius: 10px;
+.plan-vacation-button {
+  border-radius: 5px;
   margin-top: 25px;
-  background: #4e3c2e;
-  color:white;
+  line-height: 2;
+  background: #FF9800;
+  color:black;
   font-size: 20px;
   border-width: 0px
 }

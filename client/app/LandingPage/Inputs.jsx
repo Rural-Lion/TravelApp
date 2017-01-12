@@ -11,7 +11,7 @@ const Inputs = props => (
         <input
           data-tag="budgetOfTrip"
           onChange={e => props.handleChange(setBudget, e.target.value)}
-          className="lpInput"
+          className="langind-page-inputs"
           type="text"
           value={props.userQuery.budgetOfTrip}
         />
@@ -23,7 +23,7 @@ const Inputs = props => (
         <input
           data-tag="lengthOfTrip"
           onChange={e => props.handleChange(setLength, e.target.value)}
-          className="lpInput"
+          className="langind-page-inputs"
           type="text"
           value={props.userQuery.lengthOfTrip}
         />
@@ -36,7 +36,7 @@ const Inputs = props => (
           data-tag="startingLocation"
           onPlaceSelected={place => props.handleChange(setLocation, place.formatted_address)}
           onChange={e => props.handleChange(setLocation, e.target.value)}
-          className="lpInput"
+          className="langind-page-inputs"
           type="text"
           value={props.userQuery.startingLocation}
         />
@@ -48,7 +48,7 @@ const Inputs = props => (
         <input
           data-tag="distanceOfTrip"
           onChange={e => props.handleChange(setDistance, e.target.value)}
-          className="lpInput"
+          className="langind-page-inputs"
           type="text"
           value={props.userQuery.distanceOfTrip}
         />
