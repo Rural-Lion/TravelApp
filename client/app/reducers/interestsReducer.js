@@ -4,12 +4,13 @@ const initialState = [
   ['Visitor Center', false], ['Water Sports', false], ['Wildlife Viewing', false], ['Other Recreation Concession Site', false],
 ];
 
-// const initialState = [
-//   ['Biking', false, ['Biking']], ['Boating', false, ['Boating']], ['Cultural', false, ['HISTORIC & CULTURAL SITE', 'ENVIRONMENTAL EDUCATION']], 
-//   ['Camping', false, ['PICNICKING', 'CAMPING', 'FIRE LOOKOUTS/CABINS OVERNIGHT', 'HORSE CAMPING']], ['Fishing', false],
-//   ['Hiking', true], ['Off Highway Vehicle', false], ['Picnicking', false], ['Recreational Vehicles', false],
-//   ['Visitor Center', false], ['Water Sports', false], ['Wildlife Viewing', false], ['Other Recreation Concession Site', false],
-// ];
+const initialState = [
+  ['Biking', false, ['BIKING']], ['Boating', false, ['BOATING']], ['Cultural', false, ['HISTORIC & CULTURAL SITE', 'ENVIRONMENTAL EDUCATION']], 
+  ['Camping', false, ['PICNICKING', 'CAMPING', 'FIRE LOOKOUTS/CABINS OVERNIGHT', 'HORSE CAMPING']], ['Fishing', false, ['FISHING', 'BOATING']],
+  ['Hiking', true, ['HIKING']], ['Winter Sports', false, ['SNOWPARK', 'WINTER SPORTS']], ['Equestrian', false, ['HORSEBACK RIDING', 'HORSE CAMPING']],
+  ['Photography', false, ['PHOTOGRAPHY', 'OBSERVATION SITE']], ['Water Activities', false, ['BOATING', 'WATER SPORTS','SWIMMING SITE', 'PADDLING', 'SWIMMING', 'DIVING', 'SNORKELING']], 
+  ['Wildlife Viewing', false, ['FISH VIEWING SITE', 'WILDERNESS', 'WILDLIFE VIEWING', 'HUNTING']], ['Motor Sports', false, ['AUTO TOURING', 'OFF HIGHWAY VEHICLE', 'RECREATIONAL VEHICLES']],
+];
 
 const interests = (state = initialState, action) => {
   switch (action.type) {
