@@ -153,7 +153,7 @@ class ResultsPage extends Component {
 
   setNightlyCost(nightlyCost) {
     this.setState({
-      nightlyCost: nighttlyCost
+      nightlyCost: nightlyCost
     })
   }
 
