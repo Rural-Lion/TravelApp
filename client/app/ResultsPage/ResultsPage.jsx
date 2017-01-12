@@ -124,15 +124,12 @@ class ResultsPage extends Component {
   }
 
   setPreferences(foodCost, startTime, endTime, nightlyCost) {
-    console.log("new time", endTime)
     this.setState({
       foodCostPerDay: foodCost,
       startingTime: startTime,
       endingTime: endTime,
       nightlyCost: nightlyCost
-    }, () => {
-      this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip)});
-  }
+    }, () => {this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip)})}
 
   handleEntityClick(e, entity) {
     const that = this;
