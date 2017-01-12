@@ -12,7 +12,8 @@ const Inputs = props => (
           data-tag="budgetOfTrip"
           className="lpInput"
           type="text"
-          // value={props.userQuery.budgetOfTrip}
+          onChange={(e) => value=e.target.value}
+          value={props.userQuery.budgetOfTrip}
         />
       </FancyBorder>
     </div>
@@ -23,7 +24,8 @@ const Inputs = props => (
           data-tag="lengthOfTrip"
           className="lpInput"
           type="text"
-          // value={props.userQuery.lengthOfTrip}
+          onChange={(e) => value=e.target.value}
+          value={props.userQuery.lengthOfTrip}
         />
       </FancyBorder>
     </div>
@@ -34,7 +36,8 @@ const Inputs = props => (
           data-tag="startingLocation"
           className="lpInput"
           type="text"
-          // value={props.userQuery.startingLocation}
+          onChange={(e) => value=e.target.value}
+          value={props.userQuery.startingLocation}
         />
       </FancyBorder>
     </div>
@@ -45,7 +48,8 @@ const Inputs = props => (
           data-tag="distanceOfTrip"
           className="lpInput"
           type="text"
-          // value={props.userQuery.distanceOfTrip}
+          onChange={(e) => value=e.target.value}
+          value={props.userQuery.distanceOfTrip}
         />
       </FancyBorder>
     </div>
@@ -55,18 +59,18 @@ const Inputs = props => (
         Wake Up
         <input id='startingTime' style={{width: '150px'}}
           data-tag="dayLength1"
-         /*onChange={e => props.handleChange(setDistance, e.target.value)}*/
           className="lpInput"
           type="text"
-          value={props.userQuery.dayLength}
+          onChange={(e) => value=e.target.value}
+          value={props.startingTime}
         />
         Come Back to Camp
         <input id='endingTime' style={{width: '150px'}}
           data-tag="dayLength2"
-         /*onChange={e => props.handleChange(setDistance, e.target.value)}*/
           className="lpInput"
           type="text"
-          // value={props.userQuery.dayLength}
+          onChange={(e) => value=e.target.value}
+          value={props.endingTime}
         />
       </FancyBorder>
     </div>
@@ -77,7 +81,8 @@ const Inputs = props => (
           data-tag="allowanceForFood"
           className="lpInput"
           type="text"
-          // value={props.userQuery.foodCostPerDay}
+          onChange={(e) => value=e.target.value}
+          value={props.foodCostPerDay}
         />
       </FancyBorder>
     </div>
@@ -86,10 +91,10 @@ const Inputs = props => (
       Sleeping Preferences
         <input id='nightlyCost' style={{width: '350px'}}
           data-tag="sleep preference"
-          /* onChange={e => props.handleChange(setDistance, e.target.value)} */
           className="lpInput"
           type="text"
-          /* value={props.userQuery.distanceOfTrip} */
+          onChange={(e) => value=e.target.value}
+          value={props.nightlyCost} 
         />
       </FancyBorder>
     </div>

@@ -67,7 +67,7 @@ class ResultsPage extends Component {
         this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
       });
     });
-    this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
+    this.setTotalTime(this.state.startingTime, this.state.endingTime, nextProps.userQuery.lengthOfTrip);
     this.setTotalBudget(nextProps.userQuery.budgetOfTrip);
   }
 
@@ -282,6 +282,10 @@ class ResultsPage extends Component {
                   { this.state.selectedTab === 'OptionsContainer' ?
                     <OptionsContainer 
                       setPreferences={this.setPreferences}
+                      startingTime={this.state.startingTime}
+                      endingTime={this.state.endingTime}
+                      foodCostPerDay={this.state.foodCostPerDay}
+                      nightlyCost={this.state.nightlyCost}
                     /> : null}
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
