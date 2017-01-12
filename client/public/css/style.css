@@ -294,3 +294,6 @@ img[src]:hover {
   color:white;
 }
 
+.legHourInput {
+  width:50px;
+}

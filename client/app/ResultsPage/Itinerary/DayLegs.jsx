@@ -3,7 +3,7 @@ import { FancyBorder } from '../../helpers';
 import DayLeg from './DayLeg.jsx';
 
 const DayLegs = (props) => {
-  const dayLegs = props.itinerary.days.map((leg, index) => <DayLeg leg={leg} key={index} day={index + 1} />);
+  const dayLegs = props.itinerary.days.map((leg, index) => <DayLeg leg={leg} key={index} day={index + 1} addTimeToWaypoint={props.addTimeToWaypoint} />);
   return (
     <FancyBorder color="green">
       <div className="itineraryContainer" >

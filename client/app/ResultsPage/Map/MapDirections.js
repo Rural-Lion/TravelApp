@@ -1,8 +1,11 @@
 
 
-const MapDirections = (waypoints, starting, map, cb) => {
+const MapDirections = (activities, starting, map, cb) => {
   const directionsDisplay = new google.maps.DirectionsRenderer();
   const directions = new google.maps.DirectionsService();
+
+  const waypoints = activities.map(({ waypoint }) => waypoint);
+
 
   if (waypoints[0]) {
     directions.route({

@@ -3,7 +3,7 @@ import { FancyBorder } from '../../helpers';
 import ActivityLeg from './ActivityLeg.jsx';
 
 const ActivityLegs = (props) => {
-  const activities = props.activities.map((activity, index) => <ActivityLeg activity={activity} key={index} order={index} />);
+  const activities = props.activities.legs.map((activity, index) => <ActivityLeg addTimeToWaypoint={props.addTimeToWaypoint} activity={activity} key={index} order={index} />);
 
   return (
     <FancyBorder color="orange">
@@ -16,7 +16,7 @@ const ActivityLegs = (props) => {
 
 
 ActivityLegs.propTypes = {
-  activities: PropTypes.array,
+  activities: PropTypes.object,
 };
 
 export default ActivityLegs;
