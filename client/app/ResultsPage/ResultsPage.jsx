@@ -124,37 +124,15 @@ class ResultsPage extends Component {
     });
   }
 
-  // setPreferences(foodCost, startTime, endTime, nightlyCost) {
-  //   this.setState({
-  //     foodCostPerDay: foodCost,
-  //     startingTime: startTime,
-  //     endingTime: endTime,
-  //     nightlyCost: nightlyCost
-  //   }, () => {console.log("STATE CHANGE", this.state)});
-  // }
-
-  setFoodCost(foodCost) {
+  setPreferences(foodCost, startTime, endTime, nightlyCost) {
     this.setState({
-      foodCostPerDay: foodCost
-    }) 
-  }
-
-  setStartTime(startTime) {
-    this.setState({
-      startingTime: startTime
-    })
-  }
-
-  setEndingTime(endTime) {
-    this.setState({
-      endingTime: endTime
-    })
-  }
-
-  setNightlyCost(nightlyCost) {
-    this.setState({
+      foodCostPerDay: foodCost,
+      startingTime: startTime,
+      endingTime: endTime,
       nightlyCost: nightlyCost
-    })
+    }, () => {
+      this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
+    });
   }
 
   handleEntityClick(e, entity) {
@@ -306,10 +284,6 @@ class ResultsPage extends Component {
                   { this.state.selectedTab === 'OptionsContainer' ?
                     <OptionsContainer 
                       setPreferences={this.setPreferences}
-                      setStartTime={this.setStartTime}
-                      setEndingTime={this.setEndingTime}
-                      setFoodCost={this.setFoodCost}
-                      setNightlyCost={this.setNightlyCost}
                       startingTime={this.state.startingTime}
                       endingTime={this.state.endingTime}
                       foodCostPerDay={this.state.foodCostPerDay}

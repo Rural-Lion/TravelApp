@@ -13,10 +13,7 @@ const OptionsContainer = (props) => (
     </div>
     <div className="row">
       <InputsContainer className="inputs" 
-        setStartTime={props.setStartTime}
-        setEndingTime={props.setEndingTime}
-        setFoodCost={props.setFoodCost}
-        setNightlyCost={props.setNightlyCost}
+        setPreferences={props.setPreferences}
         startingTime={props.startingTime}
         endingTime={props.endingTime}
         foodCostPerDay={props.foodCostPerDay}

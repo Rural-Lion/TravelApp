@@ -61,7 +61,7 @@ const Inputs = props => (
           data-tag="dayLength1"
           className="lpInput"
           type="text"
-          onChange={(e) => props.setStartTime(e.target.value)}
+          onChange={(e) => value=e.target.value}
           value={props.startingTime}
         />
         Come Back to Camp
@@ -69,7 +69,7 @@ const Inputs = props => (
           data-tag="dayLength2"
           className="lpInput"
           type="text"
-          onChange={(e) => props.setEndingTime(e.target.value)}
+          onChange={(e) => value=e.target.value}
           value={props.endingTime}
         />
       </FancyBorder>
@@ -81,7 +81,7 @@ const Inputs = props => (
           data-tag="allowanceForFood"
           className="lpInput"
           type="text"
-          onChange={(e) => props.setFoodCost(+e.target.value)}
+          onChange={(e) => value=e.target.value}
           value={props.foodCostPerDay}
         />
       </FancyBorder>
@@ -93,7 +93,7 @@ const Inputs = props => (
           data-tag="sleep preference"
           className="lpInput"
           type="text"
-          onChange={(e) => props.setNightlyCost(+e.target.value)}
+          onChange={(e) => value=e.target.value}
           value={props.nightlyCost} 
         />
       </FancyBorder>
@@ -102,7 +102,7 @@ const Inputs = props => (
       <button
         onClick= { (e) => {
           console.log("I'm getting clicked");
-          // props.setPreferences(document.getElementById('foodCost').value, document.getElementById('startingTime').value, document.getElementById('endingTime').value, document.getElementById('nightlyCost').value);
+          props.setPreferences(+document.getElementById('foodCost').value, +document.getElementById('startingTime').value, +document.getElementById('endingTime').value, +document.getElementById('nightlyCost').value);
           props.handleChange(setBudget, document.getElementById('budget').value);
           props.handleChange(setLength, document.getElementById('time').value);
           props.handleChange(setLocation, document.getElementById('location').value);
