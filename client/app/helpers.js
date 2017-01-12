@@ -64,7 +64,7 @@ const FancyBorder = props => (
 );
 
 FancyBorder.propTypes = {
-  color: PropTypes.string,
+  color: PropTypes.string || PropTypes.array,
 };
 
 const generateChildLegs = (arr) => {
@@ -79,67 +79,153 @@ const generateChildLegs = (arr) => {
   return newArray;
 };
 
-const generateItinerary = (obj, startingTime, endingTime, days, costPerDay) => {
-  const legs = obj.routes[0].legs;
+const deconstructDirections = ({ distance: { value: meters }, duration: { value: seconds }, steps, end_address, start_address }, cb) => {
+  const direction = {
+    distance: meters,
+    duration: seconds,
+    legs: cb(steps),
+    start_address,
+    end_address,
+    cost: {},
+  };
+  return direction;
+};
 
-  startingTime *= 3600;
-  endingTime *= 3600;
+const generateBaseIten = (dirArray, actArray, order, cb) => {
+  const itenArray = dirArray.reduce((acc, obj, index) => {
+    acc.push(deconstructDirections(obj, cb));
+    if (actArray[order[index]]) {
+      acc[acc.length - 1].name = actArray[order[index]].name;
+      acc.push(actArray[order[index]]);
+    }
+    return acc;
+  }, []);
+  return itenArray;
+};
 
-  const itinerary = {
-    totalTime: 0,
-    remainingTime: days * (endingTime - startingTime),
-    totalDistance: 0,
-    totalCost: 0,
-    Days: [],
+const appendTime = (arr, startingTimeInSeconds, endingTimeInSeconds, days) => {
+  const dayTime = (endingTimeInSeconds - startingTimeInSeconds);
+  const totalTime = days * dayTime;
+
+  let usedTime = 0;
+  let remainingTime = totalTime;
+  let currentTime = startingTimeInSeconds;
+  let currentDay = 1;
+
+  const convertCurrentTime = (time) => {
+    var time = [Math.floor(time / 3600), Math.floor((time % 3600) / 60)];
+    return time;
   };
 
-  const entityLegs = legs.reduce((
-                                acc,
-                                {
-                                  distance: { value: meters },
-                                  duration: { value: seconds },
-                                  steps,
-                                  end_address,
-                                  start_address,
-                                }) => {
-    seconds += seconds * 1.2;
-    itinerary.totalTime += seconds;
-    itinerary.totalDistance += (meters / 1000);
-    itinerary.remainingTime -= seconds;
+  arr.forEach((obj) => {
+    const time = {
+      startTime: 0,
+      endTime: 0,
+      day: 0,
+      remainingTime: 0,
+      usedTime: 0,
+    };
 
+    const { duration } = obj;
+    usedTime += duration;
+    remainingTime -= duration;
 
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const day = Math.ceil(itinerary.totalTime / (endingTime - startingTime));
-    const currentTime = new Date(0);
-    currentTime.setSeconds(28800);
-    currentTime.setSeconds(((day * startingTime) + ((day - 1) * (86400 - endingTime)) + itinerary.totalTime));
+    if ((currentTime + duration) > endingTimeInSeconds) {
+      const unusedTime = endingTimeInSeconds - currentTime;
+      currentDay++;
+      usedTime += unusedTime;
+      remainingTime -= unusedTime;
+      currentTime = startingTimeInSeconds;
+    }
+    time.startTime = convertCurrentTime(currentTime);
+    currentTime += duration;
+    time.endTime = convertCurrentTime(currentTime);
+    time.day = currentDay;
+    time.remainingTime = remainingTime;
+    time.usedTime = usedTime;
 
-    acc.push({
-      currentTime,
-      remainingTime: itinerary.remainingTime,
-      currentDistance: itinerary.totalDistance,
-      cost: (meters / 1000) * 0.09,
-      day,
-      distance: `${meters / 1000} Km`,
-      duration: [hrs, mins],
-      legs: generateChildLegs(steps),
-      start_address,
-      end_address,
+    // if ((currentTime + duration) > endingTimeInSeconds) {
+    //   const unusedTime = endingTimeInSeconds - currentTime;
+    //   obj.duration += unusedTime;
+    // }
+    obj.time = time;
+  });
+};
+
+const appendCost = (arr) => {
+  arr.forEach((obj) => {
+    const { cost, distance } = obj;
+
+    if (distance) {
+      cost.drivingCost = (distance / 1000) * 0.09;
+    }
+  });
+};
+
+const generateDayLegs = (arr) => {
+  const legs = arr.reduce((acc, entity) => {
+    if (acc[entity.time.day - 1] !== undefined) {
+      acc[entity.time.day - 1].legs.push(entity);
+    } else { acc[entity.time.day - 1] = { day: entity.time.day, legs: [entity] }; }
+    return acc;
+  }, []);
+
+  return legs;
+};
+
+const generateItinerary = (obj, startingTime, endingTime, days, costPerDay, waypoints) => {
+  const legs = obj.routes[0].legs;
+  const order = obj.routes[0].waypoint_order;
+
+  const startingTimeInSeconds = startingTime * 3600;
+  const endingTimeInSeconds = endingTime * 3600;
+  const dayTime = (endingTimeInSeconds - startingTimeInSeconds);
+  const totalTime = days * dayTime;
+
+  const baseIten = generateBaseIten(legs, waypoints, order, generateChildLegs);
+
+  appendTime(baseIten, startingTimeInSeconds, endingTimeInSeconds, days);
+  appendCost(baseIten, costPerDay);
+
+  const calcTotalCost = (baseIten) => {
+    let totalCost = 0;
+    baseIten.forEach((obj) => {
+      const { cost } = obj;
+      for (const key in cost) {
+        totalCost += cost[key];
+      }
     });
-    return acc;
-  }, []);
+    return totalCost;
+  };
 
-  const dayLegs = entityLegs.reduce((acc, entity) => {
-    if (acc[entity.day - 1] !== undefined) {
-      itinerary.totalCost += costPerDay;
-      acc[entity.day - 1].push(entity);
-    } else { acc[entity.day - 1] = [entity]; }
-    return acc;
-  }, []);
+  const calcTotalDistance = (baseIten) => {
+    let totalDistance = 0;
+    baseIten.forEach(({ distance }) => {
+      if (distance) {
+        totalDistance += distance;
+      }
+    });
+    return totalDistance;
+  };
 
-  itinerary.totalCost += itinerary.totalDistance * 0.09;
-  itinerary.days = dayLegs;
+  const calcTotalTime = (baseIten) => {
+    let totalTime = 0;
+    baseIten.forEach(({ duration }) => {
+      totalTime += duration;
+    });
+    return totalTime;
+  };
+
+  const dayLegs = generateDayLegs(baseIten);
+
+  const itinerary = {
+    totalTime: calcTotalTime(baseIten),
+    remainingTime: totalTime - calcTotalTime(baseIten),
+    totalDistance: calcTotalDistance(baseIten),
+    totalCost: calcTotalCost(baseIten) + (dayLegs.length * costPerDay),
+    days: dayLegs,
+  };
+
   return itinerary;
 };
 

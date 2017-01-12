@@ -15,6 +15,7 @@ import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
 import ItineraryContainer from './Itinerary/ItineraryContainer.jsx';
 import OptionsContainer from './Options/OptionsContainer.jsx';
+import _ from 'lodash';
 
 class ResultsPage extends Component {
   constructor(props) {
@@ -44,6 +45,8 @@ class ResultsPage extends Component {
     this.setTotalTime = this.setTotalTime.bind(this);
     this.setItinerary = this.setItinerary.bind(this);
     this.setUsedBudget = this.setUsedBudget.bind(this);
+    this.addTimeToWaypoint = this.addTimeToWaypoint.bind(this);
+    this.debouncedAddTimeToWaypoint = _.debounce(this.addTimeToWaypoint, 1000);
   }
   componentWillMount() {
     getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
@@ -100,7 +103,7 @@ class ResultsPage extends Component {
   }
   setItinerary(results) {
     this.setState({
-      itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost)),
+      itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost), this.state.waypoints),
     }, () => {
       this.setUsedBudget(this.state.itinerary.totalCost);
       this.setRemainingTime(this.state.itinerary.remainingTime, this.state.itinerary.totalTime);
@@ -171,11 +174,11 @@ class ResultsPage extends Component {
     });
   }
 
-  handleAddToItineraryClick(e, { coordinates: [lat, lng] }) {
+  handleAddToItineraryClick(e, { coordinates: [lat, lng], name }) {
     e.stopPropagation();
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
-    waypoints.forEach(({ location: { lat: insideLat, lng: insideLng } }, index) => {
+    waypoints.forEach(({ waypoint: { location: { lat: insideLat, lng: insideLng } } }, index) => {
       if (insideLat === lat && insideLng === lng) {
         waypoints.splice(index, 1);
         removeFlag = true;
@@ -183,13 +186,31 @@ class ResultsPage extends Component {
     });
     if (!removeFlag) {
       waypoints.push({
-        location: { lat, lng },
-        stopover: true,
-      });
+        name,
+        waypoint: {
+          location: { lat, lng },
+          stopover: true,
+        },
+        duration: 0,
+        cost: {},
+      },
+      );
     }
     this.setState({
       waypoints,
     });
+  }
+
+  addTimeToWaypoint(name, duration) {
+    const waypoints = this.state.waypoints.slice();
+    waypoints.forEach((val, index) => {
+      if (val.name === name) {
+        val.duration = duration;
+      }
+    });
+    this.setState({
+      waypoints,
+    }, () => { console.log(this.state.waypoints); });
   }
 
 
@@ -232,6 +253,7 @@ class ResultsPage extends Component {
                   { this.state.selectedTab === 'ItineraryContainer' ?
                     <ItineraryContainer
                       itinerary={this.state.itinerary}
+                      addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
                     /> : null}
                   { this.state.selectedTab === 'OptionsContainer' ?
                     <OptionsContainer /> : null}

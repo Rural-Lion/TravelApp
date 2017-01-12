@@ -4,7 +4,7 @@ import DayLegs from './DayLegs.jsx';
 
 const ItineraryContainer = props => (
   <FancyBorder color="yellow">
-    <DayLegs itinerary={props.itinerary} />
+    <DayLegs itinerary={props.itinerary} addTimeToWaypoint={props.addTimeToWaypoint} />
   </FancyBorder>
   );
 

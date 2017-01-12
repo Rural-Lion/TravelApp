@@ -11,14 +11,14 @@ const DayLeg = props => (
       </FancyBorder>
     </div>
     <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10" >
-      <ActivityLegs activities={props.leg} />
+      <ActivityLegs activities={props.leg} addTimeToWaypoint={props.addTimeToWaypoint} />
     </div>
   </div>
 
   );
 
 DayLeg.propTypes = {
-  leg: PropTypes.array,
+  leg: PropTypes.object,
   day: PropTypes.number,
 };
 
