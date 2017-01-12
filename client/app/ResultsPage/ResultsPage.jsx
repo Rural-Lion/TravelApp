@@ -67,6 +67,7 @@ class ResultsPage extends Component {
         this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
       });
     });
+    this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
     this.setTotalBudget(nextProps.userQuery.budgetOfTrip);
   }
 
@@ -123,13 +124,38 @@ class ResultsPage extends Component {
     });
   }
 
-  setPreferences(foodCost, startTime, endTime, nightlyCost) {
+  // setPreferences(foodCost, startTime, endTime, nightlyCost) {
+  //   this.setState({
+  //     foodCostPerDay: foodCost,
+  //     startingTime: startTime,
+  //     endingTime: endTime,
+  //     nightlyCost: nightlyCost
+  //   }, () => {console.log("STATE CHANGE", this.state)});
+  // }
+
+  setFoodCost(foodCost) {
     this.setState({
-      foodCostPerDay: foodCost,
-      startingTime: startTime,
-      endingTime: endTime,
-      nightlyCost: nightlyCost
-    }, () => {this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip)})}
+      foodCostPerDay: foodCost
+    }) 
+  }
+
+  setStartTime(startTime) {
+    this.setState({
+      startingTime: startTime
+    })
+  }
+
+  setEndingTime(endTime) {
+    this.setState({
+      endingTime: endTime
+    })
+  }
+
+  setNightlyCost(nightlyCost) {
+    this.setState({
+      nightlyCost: nighttlyCost
+    })
+  }
 
   handleEntityClick(e, entity) {
     const that = this;
@@ -236,7 +262,7 @@ class ResultsPage extends Component {
 
 
   render() {
-    console.log("NEW STATE", this.state)
+    console.log("RENDERED STATE", this.state)
     return (
       <div className="resultsPage">
         <FancyBorder color="orange">
@@ -280,6 +306,10 @@ class ResultsPage extends Component {
                   { this.state.selectedTab === 'OptionsContainer' ?
                     <OptionsContainer 
                       setPreferences={this.setPreferences}
+                      setStartTime={this.setStartTime}
+                      setEndingTime={this.setEndingTime}
+                      setFoodCost={this.setFoodCost}
+                      setNightlyCost={this.setNightlyCost}
                       startingTime={this.state.startingTime}
                       endingTime={this.state.endingTime}
                       foodCostPerDay={this.state.foodCostPerDay}
