@@ -52,7 +52,7 @@ class TrailsContainer extends Component {
     // // MICROSOFT ELEVATION API
     // axios.post('http://dev.virtualearth.net/REST/v1/Elevation/Polyline', {
     //   params: {
-    //     key: 'ApSftJUAJ1X_acPMnLpnmitPUgPzY_IFeLqTnUjXEHKn - vMMXXLORvLYuq6NwQxQ',
+    //     key: '',
     //     points: trail.coordinates.join(','),
     //     sample: 256,
     //   },
@@ -66,7 +66,7 @@ class TrailsContainer extends Component {
     }
     axios.get('http://open.mapquestapi.com/elevation/v1/profile', {
       params: {
-        key: 'kPexnF9xAy5evZFa5r5y86phhxvw8pdH',
+        key: process.env.ELEVATION_KEY,
         latLngCollection: collection.join(','),
         unit: 'f',
       },
