@@ -10,8 +10,11 @@ class TrailsContainer extends Component {
     this.state = {
       trails: [],
       trailsToDisplay: null,
+      showChart: false,
     };
     this.lengthGroups = ['< 2', '2-5', '5-10', '> 10'];
+    this.showChart = this.showChart.bind(this);
+    this.hideChart = this.hideChart.bind(this);
   }
   componentWillMount() {
     this.setState({
@@ -35,7 +38,16 @@ class TrailsContainer extends Component {
       return trail;
     });
   }
-
+  showChart() {
+    this.setState({
+      showChart: true,
+    });
+  }
+  hideChart() {
+    this.setState({
+      showChart: false,
+    });
+  }
   getElevationData(trail, index) {
     // // MICROSOFT ELEVATION API
     // axios.post('http://dev.virtualearth.net/REST/v1/Elevation/Polyline', {
@@ -115,7 +127,7 @@ class TrailsContainer extends Component {
   }
 
   render() {
-    console.log('SELECTED ENTITY', this.props.entity);
+    console.log('SHOW CHART', this.state.showChart);
     return (
       <FancyBorder color="yellow" >
         <div className="container-fluid">
@@ -134,9 +146,12 @@ class TrailsContainer extends Component {
               center={this.props.entity.coordinates}
               entityID={this.props.entity.entityID}
               entityName={this.props.entity.name}
+              showChart={this.showChart}
+              hideChart={this.hideChart}
+              show={this.state.showChart}
             />
-            <div id="chartContainer" />
           </div>
+          {this.state.showChart ? <div id="chartContainer" /> : null}
         </div>
       </FancyBorder>
     );
