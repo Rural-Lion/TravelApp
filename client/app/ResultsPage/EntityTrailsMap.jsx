@@ -64,21 +64,19 @@ class EntityTrailsMap extends Component {
         map,
         title: trail.name,
       });
-      // add an event listener for each marker to open an infowindow:
-      marker.addListener('mouseover', () => {
-        infoWindow.setContent(this.makeInfoWindowHtml(trail));
-        // draw an elevation chart, if got data:
-        // if (trail.profile) {
-        //   this.drawElevationChart(trail.profile.elevationProfile);
-        // }
-        infoWindow.open(map, marker);
-      });
-      // create a polyline for each trail to draw it on the map:
+      // create a polyline for each trail to draw it on the map/to open an infowindow:
       const path = this.createPolyline(trail);
       let showPath = true;
       // add an event listener that shows/hides the trail when clicked:
       marker.addListener('click', () => {
+        infoWindow.setContent(this.makeInfoWindowHtml(trail));
+        // draw an elevation chart, if got data:
         showPath ? path.setMap(map) : path.setMap(null);
+        showPath ? infoWindow.open(map, marker) : infoWindow.close();
+        if (trail.profile) {
+          infoWindow.setContent(this.makeInfoWindowHtml(trail));
+          this.drawElevationChart(trail.profile.elevationProfile);
+        }
         showPath = !showPath;
       });
 
@@ -108,26 +106,22 @@ class EntityTrailsMap extends Component {
           <span>${trail.up ? `${trail.up}ft` : '<img src="./maps/icons/loading.gif"'}</span>
           <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
           <span>${trail.down ? `${trail.down}ft` : '<img src="./maps/icons/loading.gif"'}</span>
-        </div>
-        <div id="chart" />`
+        </div>`
     );
   }
 
-  drawElevationChart() {
-    chartDiv = document.getElementById('chart');
-    const chart = new google.visualization.ColumnChart(chartDiv);
-    const data = new google.visualization.DataTable();
-    data.addColumn('string', 'Sample');
-    data.addColumn('number', 'Elevation');
-    for (let i = 0; i < elevations.length; i++) {
-      data.addRow(['', elevations[i].elevation]);
-    }
-
+  drawElevationChart(elevations) {
+    const chart = new google.visualization.AreaChart(document.getElementById('chartContainer'));
+    const data = google.visualization.arrayToDataTable(
+      [['Distance', 'Height']].concat(
+      elevations.map(({ distance, height }) => ([distance, height]))),
+    );
     // Draw the chart using the data within its DIV.
     chart.draw(data, {
-      height: 150,
+      height: 175,
       legend: 'none',
-      titleY: 'Elevation (m)',
+      titleY: 'Elevation (ft)',
+      titleX: 'Distance (mi)',
     });
   }
 

@@ -118,25 +118,25 @@ class TrailsContainer extends Component {
     console.log('SELECTED ENTITY', this.props.entity);
     return (
       <FancyBorder color="yellow" >
-        <div style={{ height: '55vh' }}>
-          <div className="text-center">
+        <div className="container-fluid">
+          <br />
+          <div className="row text-center" >
             <h4>Found {this.state.trails.length || 'no'} trails within 30mi</h4>
-            <ButtonGroup bsSize="xs" style={{ paddingRight: '20px' }}>
-              <Button>Easy</Button>
-              <Button>Medium</Button>
-              <Button>Hard</Button>
-            </ButtonGroup>
             <ButtonGroup bsSize="xs" style={{ paddingRight: '20px' }}>
               {this.lengthGroups.map((item, index) =>
                 <Button key={index} onClick={() => (this.filterTrailsByLength(index))}>{item} miles</Button>)}
             </ButtonGroup>
           </div>
-          <EntityTrailsMap
-            trails={this.state.trailsToDisplay ? this.state.trailsToDisplay : this.state.trails}
-            center={this.props.entity.coordinates}
-            entityID={this.props.entity.entityID}
-            entityName={this.props.entity.name}
-          />
+          <br />
+          <div className="row trailMap">
+            <EntityTrailsMap
+              trails={this.state.trailsToDisplay ? this.state.trailsToDisplay : this.state.trails}
+              center={this.props.entity.coordinates}
+              entityID={this.props.entity.entityID}
+              entityName={this.props.entity.name}
+            />
+            <div id="chartContainer" />
+          </div>
         </div>
       </FancyBorder>
     );
