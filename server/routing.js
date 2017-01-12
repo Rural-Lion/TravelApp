@@ -1,4 +1,4 @@
-const routeLogic = require('./routingHandlers');
+const controllers = require('./controllers');
 
 module.exports = function (app, express) {
 
@@ -7,15 +7,15 @@ module.exports = function (app, express) {
 //////////////////////////////////////////////////////////
 
   // Get Entites within a given radius
-  app.get('/entitiesWithinRadius', routeLogic.getEntitiesWithinRadius);
+  app.get('/entitiesWithinRadius', controllers.getEntitiesWithinRadius);
 
  // Get Address for a RecArea or a Facility
-  app.get('/recAddress', routeLogic.getRecAddress);
-  app.get('/facilityAddress', routeLogic.getFacilityAddress);
+  app.get('/recAddress', controllers.getRecAddress);
+  app.get('/facilityAddress', controllers.getFacilityAddress);
 
   // Get Trails within a radius and the activity list of a specific Entity
-  app.get('/trailsAndActivitiesWithinRadiusOfFacility', routeLogic.trailsAndActivitiesWithinRadiusOfFacility);
-  app.get('/trailsAndActivitiesWithinRadiusOfRecAreas', routeLogic.trailsAndActivitiesWithinRadiusOfRecAreas);  
+  app.get('/trailsAndActivitiesWithinRadiusOfFacility', controllers.trailsAndActivitiesWithinRadiusOfFacility);
+  app.get('/trailsAndActivitiesWithinRadiusOfRecAreas', controllers.trailsAndActivitiesWithinRadiusOfRecAreas);  
 
 /////////////////////////////////////////////////////////
 
@@ -24,15 +24,15 @@ module.exports = function (app, express) {
 //////////////////////////////////////////////////////////////////////
 
  // Get RecAreas and Facilities Info
-  app.get('/recArea', routeLogic.getRecArea);
-  app.get('/facility', routeLogic.getFacility);
+  app.get('/recArea', controllers.getRecArea);
+  app.get('/facility', controllers.getFacility);
 
   // Get Activities for RecAreas and Facilities
-  app.get('/recActivities', routeLogic.getRecActivities);
-  app.get('/facilityActivities', routeLogic.getFacilitiesActivities);
+  app.get('/recActivities', controllers.getRecActivities);
+  app.get('/facilityActivities', controllers.getFacilitiesActivities);
 
   // Get activities for RecArea and Facility
-  app.get('/activities', routeLogic.getActivities);
+  app.get('/activities', controllers.getActivities);
 
 //////////////////////////////////////////////////////////////////////
 };

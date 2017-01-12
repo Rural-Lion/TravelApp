@@ -5,7 +5,7 @@
   "main": "client/app/index.jsx",
   "scripts": {
     "test": "mocha-webpack --webpack-config webpack.config-test.js \"client/spec/helpers/*.test.js\"",
-    "testdom": "mocha ./browser.js client/spec/landingpage/*.test.js",
+    "testdom": "mocha client/spec/preTest.js client/spec/landingpage/*.test.js",
     "testserver": "NODE_ENV=test nodemon server/server.js",
     "testbackend": "mocha \"./server/Spec/*.test.js\"",
     "start": "NODE_ENV=production node server/server.js",

@@ -48,6 +48,62 @@ module.exports.getFacilityAddressModel = (facilityID) => {
   });
 };
 
+module.exports.getRecActivitiesModel = (recAreaID) => {
+  return schemas.recAreas.findOne({
+    where: { RecAreaID: recAreaID },
+    include: [{ model: schemas.activities }],
+  });
+}
+
+module.exports.getFacilitiesActivitiesModel = (facilityID) => {
+  return schemas.facilities.findOne({
+    where: { FacilityID: facilityID },
+    include: [{ model: schemas.activities }],
+  });
+}
+
+module.exports.trailsAndActivitiesWithinRadiusOfFacilityModel = (latitude, longitude, facilityID) => {
+  let listOfTrails;
+  if (longitude <= -100) {
+    return db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 12) AS DECIMAL(13, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT})
+    .then((trails) => {
+      listOfTrails = trails;
+      return module.exports.getFacilitiesActivitiesModel(facilityID);
+    })
+    .then(function(fac) {
+      const facActivities = fac.dataValues.activities;
+      let activityList = [];
+      facActivities.forEach((activity) => {
+        activityList.push(activity.dataValues.ActivityName);
+      });
+      let facilityInfo = {
+        trails: listOfTrails,
+        activities: activityList
+      };
+      return facilityInfo;
+    })
+  } else {
+    return db.query(`SELECT trails.TrailCn AS id, trails.TrailName AS name, trails.GISMiles AS length, trails.GEOM AS coordinates FROM trails WHERE (acos(sin(RADIANS(${latitude})) * sin(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) + cos(RADIANS(${latitude})) * cos(RADIANS(CAST(SUBSTRING(GEOM, 33, 10) AS DECIMAL(11, 8)))) * cos(RADIANS(CAST(SUBSTRING(GEOM, 13, 11) AS DECIMAL(12, 8)) - (${longitude})))) * 6371 <= 70)`, {type: db.QueryTypes.SELECT})
+    .then((trails) => {
+      listOfTrails = trails;
+      return module.exports.getFacilitiesActivitiesModel(facilityID);
+    })
+    .then(function(fac) {
+      const facActivities = fac.dataValues.activities;
+      let activityList = [];
+      facActivities.forEach((activity) => {
+        activityList.push(activity.dataValues.ActivityName);
+      });
+      let facilityInfo = {
+        trails: listOfTrails,
+        activities: activityList
+      };
+      return facilityInfo;
+    })
+  }
+}
+
+
 module.exports.getRecAreaModel = (recAreaID) => {
   return schemas.recAreas.findOne({
     where: {RecAreaID: recAreaID},
@@ -71,20 +127,6 @@ module.exports.getFacilityModel = (facilityID) => {
     ],
   });
 };
-
-module.exports.getRecActivitiesModel = (recAreaID) => {
-  return schemas.recAreas.findOne({
-    where: { RecAreaID: recAreaID },
-    include: [{ model: schemas.activities }],
-  });
-}
-
-module.exports.getFacilitiesActivitiesModel = (facilityID) => {
-  return schemas.facilities.findOne({
-    where: { FacilityID: facilityID },
-    include: [{ model: schemas.activities }],
-  });
-}
 
 module.exports.getActivitiesModel = (activity) => {
   return schemas.activities.findOne({
