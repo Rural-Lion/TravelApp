@@ -102,11 +102,11 @@ const Inputs = props => (
       <button
         onClick= { (e) => {
           console.log("I'm getting clicked");
+          props.setPreferences(document.getElementById('foodCost').value, document.getElementById('startingTime').value, document.getElementById('endingTime').value, document.getElementById('nightlyCost').value);
           props.handleChange(setBudget, document.getElementById('budget').value);
           props.handleChange(setLength, document.getElementById('time').value);
           props.handleChange(setLocation, document.getElementById('location').value);
           props.handleChange(setDistance, document.getElementById('distance').value);
-          props.setPreferences(document.getElementById('foodCost').value, document.getElementById('startingTime').value, document.getElementById('endingTime').value, document.getElementById('nightlyCost').value);
           }
         }
       > Plan My Vacation 

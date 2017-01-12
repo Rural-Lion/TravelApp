@@ -67,7 +67,6 @@ class ResultsPage extends Component {
         this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
       });
     });
-    this.setTotalTime(this.state.startingTime, this.state.endingTime, nextProps.userQuery.lengthOfTrip);
     this.setTotalBudget(nextProps.userQuery.budgetOfTrip);
   }
 
@@ -125,12 +124,14 @@ class ResultsPage extends Component {
   }
 
   setPreferences(foodCost, startTime, endTime, nightlyCost) {
+    console.log("new time", endTime)
     this.setState({
       foodCostPerDay: foodCost,
       startingTime: startTime,
       endingTime: endTime,
       nightlyCost: nightlyCost
-    });
+    }, () => {
+      this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip)});
   }
 
   handleEntityClick(e, entity) {
