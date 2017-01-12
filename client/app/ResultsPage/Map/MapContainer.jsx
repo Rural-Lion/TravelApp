@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../../helpers';
 import Map from './Map.jsx';
-import MapClusterer from './MapClusterer';
 import MapDirections from './MapDirections';
 
 class MapContainer extends Component {
@@ -43,11 +42,48 @@ class MapContainer extends Component {
         zoom: 7,
       }),
     }, () => {
-      MapClusterer(this.props.entities, this.state.map);
-      if (this.props.waypoints[0]) {
-        MapDirections(this.props.waypoints, this.props.startingLocation, this.state.map, this.props.setItinerary);
-      }
+      this.renderEntities(this.state.map, this.props.entities);
     });
+  }
+  renderEntities(map, entities) {
+    const markers = this.makeEntityMarkers(entities, map, this.makeEntityInfoWindows.bind(this));
+    new MarkerClusterer(map, markers, { imagePath: './maps/img/m' });
+
+    if (this.props.waypoints[0]) {
+      MapDirections(this.props.waypoints, this.props.startingLocation, this.state.map, this.props.setItinerary);
+    }
+  }
+
+  makeEntityMarkers(entities, map, infoWindowCb) {
+    if (map) {
+      const markers = entities.map(({ name, coordinates: [lat, lng] }, index) =>
+        new google.maps.Marker({
+          position: { lat, lng },
+          label: `${index + 1}`,
+          map,
+          title: name,
+        }));
+      infoWindowCb(markers, map);
+      return markers;
+    }
+  }
+
+  makeEntityInfoWindows(markers, map) {
+    console.log('makeInfo windows called');
+    const infoWindow = new google.maps.InfoWindow({
+      content: 'Entity marker',
+    });
+      // add an event listener to open the infowindow on click
+    markers.forEach((marker) => {
+      marker.addListener('click', () => {
+        infoWindow.setContent(marker.getTitle());
+        infoWindow.open(map, marker);
+      });
+    });
+  }
+
+  makeInfoWindowHtml() {
+
   }
 
   render() {
