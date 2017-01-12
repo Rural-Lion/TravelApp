@@ -133,7 +133,7 @@ class TrailsContainer extends Component {
         <div className="container-fluid">
           <br />
           <div className="row text-center" >
-            <h4>Found {this.state.trails.length || 'no'} trails within 30mi</h4>
+            <h4>Found {this.state.trails.length || 'no'} trails within 50 miles</h4>
             <ButtonGroup bsSize="xs" style={{ paddingRight: '20px' }}>
               {this.lengthGroups.map((item, index) =>
                 <Button key={index} onClick={() => (this.filterTrailsByLength(index))}>{item} miles</Button>)}

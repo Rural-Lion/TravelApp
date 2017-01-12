@@ -250,7 +250,7 @@ class ResultsPage extends Component {
                 showModal={this.state.showModal}
                 entity={this.state.selectedEntity}
                 closeModal={this.closeModal}
-
+                addToItinerary={this.handleAddToItineraryClick}
               /> : null }
           </div>
         </FancyBorder>

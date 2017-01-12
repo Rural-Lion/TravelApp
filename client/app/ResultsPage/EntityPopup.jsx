@@ -48,6 +48,7 @@ const EntityPopup = (props) => {
           </div>
         </div>
         <Modal.Footer>
+          <Button bsStyle="success" onClick={(e) => { props.addToItinerary(e, props.entity); }}>Add to Itinerary</Button>
           <Button onClick={props.closeModal}>Close</Button>
         </Modal.Footer>
       </Modal>
@@ -58,6 +59,7 @@ EntityPopup.propTypes = {
   entity: PropTypes.object,
   closeModal: PropTypes.func,
   showModal: PropTypes.bool,
+  addToItinerary: PropTypes.func,
 };
 
 export default EntityPopup;
