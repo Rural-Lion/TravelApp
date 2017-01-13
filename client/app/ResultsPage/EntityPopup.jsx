@@ -49,7 +49,7 @@ const EntityPopup = (props) => {
           </div>
         </div>
         <Modal.Footer>
-          <Button bsStyle="primary" onClick={(e) => { props.addToItinerary(e, props.entity); }}>Add to Itinerary</Button>
+          <Button bsStyle="success" onClick={(e) => { props.addToItinerary(e, props.entity); }}>Add to Itinerary</Button>
           <Button onClick={props.closeModal}>Close</Button>
         </Modal.Footer>
       </Modal>
