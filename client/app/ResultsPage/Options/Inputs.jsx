@@ -8,7 +8,7 @@ const Inputs = props => (
     <div className='optionsInput'>
       <FancyBorder color="green">
       $$$
-        <input id='budget' style={{width: '350px'}}
+        <input id='budget' 
           data-tag="budgetOfTrip"
           className="lpInput"
           type="text"
@@ -20,7 +20,7 @@ const Inputs = props => (
     <div className='optionsInput'>
       <FancyBorder color="green">
       Time
-        <input id='time' style={{width: '350px'}}
+        <input id='time'
           data-tag="lengthOfTrip"
           className="lpInput"
           type="text"
@@ -32,7 +32,7 @@ const Inputs = props => (
     <div className='optionsInput'>
       <FancyBorder color="green">
       Location
-        <Autocomplete id='location' style={{width: '350px'}}
+        <Autocomplete id='location' 
           data-tag="startingLocation"
           className="lpInput"
           type="text"
@@ -44,7 +44,7 @@ const Inputs = props => (
     <div className='optionsInput'>
       <FancyBorder color="green">
       Distance
-        <input id='distance' style={{width: '350px'}}
+        <input id='distance' 
           data-tag="distanceOfTrip"
           className="lpInput"
           type="text"
@@ -57,7 +57,7 @@ const Inputs = props => (
     Day Length
       <FancyBorder  color="green" >
         Wake Up
-        <input id='startingTime' style={{width: '150px'}}
+        <input id='startingTime' 
           data-tag="dayLength1"
           className="lpInput"
           type="text"
@@ -65,7 +65,7 @@ const Inputs = props => (
           value={props.startingTime}
         />
         Come Back to Camp
-        <input id='endingTime' style={{width: '150px'}}
+        <input id='endingTime' 
           data-tag="dayLength2"
           className="lpInput"
           type="text"
@@ -77,7 +77,7 @@ const Inputs = props => (
     <div className='optionsInput'>
       <FancyBorder color="green">
       Daily Allowance for Food
-        <input id='foodCost' style={{width: '350px'}}
+        <input id='foodCost' 
           data-tag="allowanceForFood"
           className="lpInput"
           type="text"
@@ -89,7 +89,7 @@ const Inputs = props => (
     <div className='optionsInput'>
       <FancyBorder color="green">
       Sleeping Preferences
-        <input id='nightlyCost' style={{width: '350px'}}
+        <input id='nightlyCost' 
           data-tag="sleep preference"
           className="lpInput"
           type="text"

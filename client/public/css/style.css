@@ -113,15 +113,6 @@ a:focus, a:hover {
   opacity: .5;
 }
 
-.optionsFavicon {
-  height: 70px;
-  width: 70px;
-}
-
-.optionsFavicon:hover {
-  opacity: .5;
-}
-
 .title {
   text-align: center;
   font-weight: bold;
@@ -227,6 +218,7 @@ a:focus, a:hover {
   cursor: pointer;
   background-color: #B2EBF2;
 }
+
 
 .tabs {
   margin: 0px;
@@ -334,12 +326,12 @@ a:focus, a:hover {
   background-color: #0097A7;
   border-width: 0px;
   font-size: 15px;
-    color: white;
+  color: white;
 }
 
 .interestFavicon { 
   margin: 5px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   background-color: transparent;
   border-width: 0px;
@@ -349,16 +341,33 @@ a:focus, a:hover {
 
 .includedInterestFavicon { 
   margin: 5px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
-  background-color: #667c50;
+  background-color:  #0097A7;
   border-width: 0px;
   font-size: 15px;
   color: white;
 }
 
+.optionsFavicon {
+  height: 45px;
+  width: 45px;
+}
+
+.optionsFavicon:hover {
+  opacity: .5;
+}
+
+.icons, .optionsTitle {
+  padding-left: 0px;
+}
+
+.activitiesTitle {
+  margin-left: -20px;
+}
+
 .optionsInput {
-  margin-left: 20px;
+  margin-left: 10px;
   float: left;
 }
 
