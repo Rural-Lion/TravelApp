@@ -72,7 +72,7 @@ class ResultsPage extends Component {
   }
 
   getEntityList(query, location, interests) {
-    console.log(location);
+    console.log('INTERESTS', interests);
     axios.get('/entitiesWithinRadius', {
       params: {
         latitude: location.lat,
@@ -323,7 +323,7 @@ const mapStateToProps = state => ({
   userQuery: state.userQuery,
   userInterests: state.interests
     .filter(interest => interest[1])
-    .map(interest => interest[0].toUpperCase()),
+    .map(interest => interest[2].join(',')),
 });
 
 // ACTION CREATOR TO BE INCLUDED FOR DISPATCH METHOD

@@ -5,7 +5,7 @@
 // ];
 
 const initialState = [
-  ['Biking', false, ['BIKING']], ['Fishing', false, ['FISHING', 'BOATING']], ['Cultural Activities', false, ['HISTORIC & CULTURAL SITE', 'ENVIRONMENTAL EDUCATION']], 
+  ['Biking', false, ['BIKING']], ['Fishing', false, ['FISHING', 'BOATING']], ['Cultural Sites', false, ['HISTORIC & CULTURAL SITE', 'ENVIRONMENTAL EDUCATION']], 
   ['Camping', false, ['PICNICKING', 'CAMPING', 'FIRE LOOKOUTS/CABINS OVERNIGHT', 'HORSE CAMPING']], ['Climbing', false, ['CLIMBING']],
   ['Hiking', true, ['HIKING']], ['Winter Sports', false, ['SNOWPARK', 'WINTER SPORTS']], ['Equestrian', false, ['HORSEBACK RIDING', 'HORSE CAMPING']],
   ['Photography', false, ['PHOTOGRAPHY', 'OBSERVATION SITE']], ['Water Sports', false, ['BOATING', 'WATER SPORTS','SWIMMING SITE', 'PADDLING', 'SWIMMING', 'DIVING', 'SNORKELING']], 
