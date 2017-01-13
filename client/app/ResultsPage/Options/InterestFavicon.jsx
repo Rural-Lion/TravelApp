@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { FancyBorder } from '../../helpers.js';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const favicons = {
   Hiking: require('../../../public/images/hiking.png'),
@@ -18,12 +19,14 @@ const favicons = {
 
 const InterestFavicon = props => (
   <FancyBorder color="blue">
-    <img
-      src={favicons[props.interest.interest[0]]}
-      value={props.interest.index}
-      className={`${(props.interest.interest[1]) ? 'includedInterestFavicon' : 'interestFavicon'} optionsFavicon`}
-      onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
-    />
+    <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"><strong>{props.interest.interest[0]}</strong> Check this info.</Tooltip>}>
+      <img
+        src={favicons[props.interest.interest[0]]}
+        value={props.interest.index}
+        className={`${(props.interest.interest[1]) ? 'includedInterestFavicon' : 'interestFavicon'} optionsFavicon`}
+        onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
+      />
+    </OverlayTrigger>
   </FancyBorder>
   );
 
