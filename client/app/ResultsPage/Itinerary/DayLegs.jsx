@@ -8,7 +8,9 @@ const DayLegs = (props) => {
     <FancyBorder color="green">
       <div className="itineraryContainer" >
         <FancyBorder color="purple">
+          <div className="container-fluid" >
           {dayLegs}
+        </div>
         </FancyBorder>
       </div>
     </FancyBorder>

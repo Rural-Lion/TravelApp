@@ -275,7 +275,7 @@ class ResultsPage extends Component {
             usedBudget={this.state.usedBudget}
           />
 
-          <div className="row mapAndList">
+          <div className="mapAndList">
             <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9 mapContainer" >
               <MapContainer
                 userQuery={this.props.userQuery}
@@ -290,8 +290,7 @@ class ResultsPage extends Component {
             </div>
             <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 tabs">
 
-              <FancyBorder color="yellow">
-                <div className="tabContent">
+              <div className="tabContent">
                   { this.state.selectedTab === 'EntityList' ?
                     <EntityList
                       entities={this.state.entities}
@@ -314,12 +313,11 @@ class ResultsPage extends Component {
                       nightlyCost={this.state.nightlyCost}
                     /> : null}
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <FancyBorder color="green">
                     <Button bsStyle="success" className="finalizeButton" onClick={() => {this.downloadInnerHtml('myItinerary.html')}}>{'Finalize >'}</Button>
                   </FancyBorder>
                 </div>
-              </FancyBorder>
             </div>
           </div>
           <div className="container">
