@@ -61,13 +61,15 @@ class ResultsPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    getCoordinates(nextProps.userQuery.startingLocation, ({ lat, lng }) => {
+    if(this.props.userQuery !== nextProps.userQuery) {
+      getCoordinates(nextProps.userQuery.startingLocation, ({ lat, lng }) => {
       this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
         this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
       });
     });
     this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
     this.setTotalBudget(nextProps.userQuery.budgetOfTrip);
+    }
   }
 
   getEntityList(query, location, interests) {
