@@ -66,26 +66,26 @@ class EntityTrailsMap extends Component {
       });
       // create a polyline for each trail to draw it on the map/to open an infowindow:
       const path = this.createPolyline(trail);
-      const showInfo = true;
+      let show = false;
       // add an event listener that shows/hides the trail when clicked:
       marker.addListener('click', () => {
-        infoWindow.setContent(this.makeInfoWindowHtml(trail));
-        let show = this.props.show;
         if (!show) {
+          infoWindow.setContent(this.makeInfoWindowHtml(trail));
           path.setMap(map);
           infoWindow.open(map, marker);
           this.props.showChart();
-          // draw an elevation chart, if got data:
+            // draw an elevation chart, if got data:
           if (trail.profile) {
             const chartDiv = document.getElementById('chartContainer');
             this.drawElevationChart(trail.profile.elevationProfile, chartDiv);
           }
         } else {
           path.setMap(null);
-          infoWindow.close();
-          this.props.hideChart();
         }
         show = !show;
+      });
+      infoWindow.addListener('closeclick', () => {
+        this.props.hideChart();
       });
       return marker;
     });
