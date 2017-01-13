@@ -233,6 +233,7 @@ img[src]:hover {
 .tabs {
   margin: 0px;
   padding: 0px;
+  height: 95vh;
 }
 
 .tabContent {
@@ -377,7 +378,7 @@ img[src]:hover {
 
 .legRow {
   background: white;
-  margin: 8px 0;
+  margin: 4px 0;
 }
 
 .childLegRow {
@@ -524,3 +525,8 @@ ul.nav.nav-tabs.nav-justified.navbar-nav {
 }
 .nav-justified:before { display: none; }
 .nav-justified:after { display: none; }
+
+.toggleStepButton {
+  float:left;
+
+}

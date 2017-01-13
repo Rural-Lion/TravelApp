@@ -291,6 +291,7 @@ class ResultsPage extends Component {
               />
 
             </div>
+<<<<<<< HEAD
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 tabs">
 
               <div className="tabContent">
@@ -300,6 +301,7 @@ class ResultsPage extends Component {
                     handleEntityClick={this.handleEntityClick}
                     handleAddToItineraryClick={this.handleAddToItineraryClick}
                     waypoints={this.state.waypoints}
+                    
                   /> : null}
                 { this.state.selectedTab === 'ItineraryContainer' ?
                   <ItineraryContainer

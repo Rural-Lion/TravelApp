@@ -14,15 +14,23 @@ const NavBar = (props) => {
           <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9 progressBars">
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
               <span className="glyphicons glyphicons-money progressBarGlyphicon" />
+<<<<<<< HEAD
               <ProgressBar active bsStyle={(timePercent() < 0) ? 'danger' : 'success'} now={timePercent()} label={`${Math.ceil(props.remainingTime / 3600)} hrs left`} />
             </div>
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
               <ProgressBar active bsStyle={(budgetPercent() < 0) ? 'danger' : 'warning'} now={budgetPercent()} label={`$${Math.floor(props.totalBudget - props.usedBudget)} left`} />
+=======
+              <ProgressBar active bsStyle={(timePercent() < 0) ? 'danger' : 'warning'} now={timePercent()} label={`${Math.ceil(props.remainingTime / 3600)} hrs left`} />
+            </div>
+            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <ProgressBar active bsStyle={(budgetPercent() < 0) ? 'danger' : 'success'} now={budgetPercent()} label={`$${Math.floor(props.totalBudget - props.usedBudget)} left`} />
+>>>>>>> one sec
             </div>
           </div>
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 tabButtons">
             <div className="row">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
+<<<<<<< HEAD
                 <Button onClick={() => props.selectTab('EntityList')} bsStyle="primary">PLAN</Button>
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
@@ -30,6 +38,15 @@ const NavBar = (props) => {
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
                 <Button onClick={() => props.selectTab('OptionsContainer')} bsStyle="primary">OPTIONS</Button>
+=======
+                <button type="button" onClick={() => props.selectTab('EntityList')} className="btn btn-primary">PLAN</button>
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
+                <button type="button" onClick={() => props.selectTab('ItineraryContainer')} className="btn btn-primary">ITINERARY</button>
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
+                <button type="button" onClick={() => props.selectTab('OptionsContainer')} className="btn btn-primary">OPTIONS</button>
+>>>>>>> one sec
               </div>
             </div>
           </div>

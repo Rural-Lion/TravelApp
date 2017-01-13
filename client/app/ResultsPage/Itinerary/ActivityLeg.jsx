@@ -16,8 +16,12 @@ class ActivityLeg extends Component {
   componentWillMount() {
     this.setState({
       activity: this.props.activity,
+<<<<<<< HEAD
       type: this.props.activity.type,
       name: this.props.activity.name || 'Home',
+=======
+      type: this.props.activity.cost.drivingCost,
+>>>>>>> one sec
     });
   }
 
@@ -48,6 +52,7 @@ class ActivityLeg extends Component {
     const convertCurrentTime = time => `${Math.floor(time / 3600)}:${Math.floor((time % 3600) / 60)}`;
 
     const durationText = convertCurrentTime(this.state.activity.duration);
+<<<<<<< HEAD
 
     const createCostText = () => (`-$${Math.floor(this.state.activity.cost.drivingCost)}`);
     const costText = createCostText();
@@ -60,6 +65,33 @@ class ActivityLeg extends Component {
             {(this.state.type === 'drive') ? costText : null}
           </div>
           <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+=======
+    const costText = () => (`-${this.state.activity.cost.drivingCost}`);
+
+    const drivingLeg = () => (<div className='stepMarker' /> <span></span>)
+
+    return (
+      <div className="legRow" >
+        <div className="row">
+          <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 cost">
+            {this.state.type === 'drive' ? costText : null}
+          </div>
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+            <FancyBorder color="yellow">
+              {`${(this.props.activity.name) ? this.props.activity.name : 'Home'}`}
+            </FancyBorder>
+            <FancyBorder color="yellow">
+              <span>
+                {`Start Time: ${this.props.activity.time.startTime[0]}:${this.props.activity.time.startTime[1]} - `}
+              </span>
+              {this.state.activity.start_address ? durationText : <input className="legHourInput" onChange={(e) => { this.setTimeInput(this.props.activity.name, (+e.target.value * 3600)); }} value={Math.floor(this.state.activity.duration / 3600)} /> }
+              <span>
+                {` - Ending Time: ${this.props.activity.time.endTime[0]}:${this.props.activity.time.endTime[1]}`}
+              </span>
+            </FancyBorder>
+          </div>
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
+>>>>>>> one sec
             <FancyBorder color="yellow">
               {(this.state.type === 'drive') ?
                 <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-12 legRow">
@@ -109,7 +141,12 @@ class ActivityLeg extends Component {
                   </div>
                 </div> }
             </FancyBorder>
+<<<<<<< HEAD
+=======
+            {this.state.activity.start_address ? <a className="toggleStepButton" onClick={() => this.toggleSteps()}>Show Steps</a> : null}
+>>>>>>> one sec
           </div>
+          {this.state.showSteps ? <Steps steps={this.state.activity.legs} /> : null}
         </div>
       </div>
     );
