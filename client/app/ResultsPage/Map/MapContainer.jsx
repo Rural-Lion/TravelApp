@@ -52,7 +52,6 @@ class MapContainer extends Component {
   }
 
   render() {
-    // console.log("MAP RENDER");
     return (
       <Map handleInitMapRender={this.getMapRef} />
     );
