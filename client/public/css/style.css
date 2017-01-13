@@ -362,11 +362,10 @@ img[src]:hover {
 
 .legRow {
   background: white;
-  margin: 4px 0;
+  margin: 8px 0;
 }
 
 .childLegRow {
-  background: #f5f5f5;
   overflow-x: hidden;
 }
 
@@ -388,24 +387,24 @@ img[src]:hover {
 }
 
 .legHourInput {
-  width:50px;
+  width:30px;
   height: 15px;
   font-size: 12px;
 }
 
 .toggleStepButton {
-  float:right;
-  height: 15px;
-  position: absolute;
+  float:left;
+  height: 10px;
   top: 50%;
-  transform: translateY(-50%);
   font-size: 12px;
+  background: white;
+  border: 0px;
 }
 
 .stepMarker {
-  height: 10px;
-  width: 10px;
-
+  height: 11px;
+  width: 11px;
+  border-radius: 5px;
   margin:0;
   padding: 0;
   position: absolute;
@@ -425,13 +424,12 @@ img[src]:hover {
     background: purple;
 }
 
-.hoursLeftContainer {
-    height:100%;
+.legText { 
+  font-size: 13px;
+  color: #4b4848
 }
 
-.hoursLeftText {
-
-    position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+.directions { 
+  font-size: 10px;
 }
+

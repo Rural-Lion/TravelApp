@@ -70,8 +70,8 @@ FancyBorder.propTypes = {
 const generateChildLegs = (arr) => {
   const newArray = arr.reduce((acc, { distance: { value: meters }, duration: { text: durationText }, instructions }) => {
     acc.push({
-      distance: `${meters / 1000} Km`,
-      duration: durationText,
+      distance: Math.floor(meters / 1000),
+      duration: durationText.slice(0, 2),
       instructions,
     });
     return acc;
