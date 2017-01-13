@@ -106,7 +106,7 @@ class EntityTrailsMap extends Component {
   }
   makeInfoWindowHtml(trail) {
     return (
-        `<h5><Glyphicon glyph="arrow-up" />${trail.name}</h5>
+        `<h5>${trail.name}</h5>
         <p>${trail.length} miles</p>
         <div>
           <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>

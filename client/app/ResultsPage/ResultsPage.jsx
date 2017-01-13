@@ -135,7 +135,6 @@ class ResultsPage extends Component {
 
   handleEntityClick(e, entity) {
     const that = this;
-    console.log('entity.entityID: ', entity.entityID);
     if (entity.facility) {
       axios.get('/facilityAddress', {
         params: {
@@ -151,7 +150,6 @@ class ResultsPage extends Component {
         },
       })
       .then((facilityDetails) => {
-        console.log('facility', facilityDetails.data);
         that.setState({
           selectedEntity: generateDetailedEntity(entity, facilityAddress.data, facilityDetails.data),
           showModal: true,
@@ -174,7 +172,6 @@ class ResultsPage extends Component {
         },
       })
       .then((recAreaDetails) => {
-        console.log('recArea', recAreaDetails.data);
         that.setState({
           selectedEntity: generateDetailedEntity(entity, recAreaAddress.data, recAreaDetails.data),
           showModal: true,
@@ -259,6 +256,8 @@ class ResultsPage extends Component {
                 waypoints={this.state.waypoints}
                 startingLocation={this.state.startingLocation}
                 setItinerary={this.setItinerary}
+                showDetails={this.handleEntityClick}
+                addToItinerary={this.handleAddToItineraryClick}
               />
 
             </div>

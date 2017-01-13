@@ -63,27 +63,40 @@ class MapContainer extends Component {
           map,
           title: name,
         }));
-      infoWindowCb(markers, map);
+      infoWindowCb(markers, map, entities);
       return markers;
     }
   }
 
-  makeEntityInfoWindows(markers, map) {
-    console.log('makeInfo windows called');
-    const infoWindow = new google.maps.InfoWindow({
-      content: 'Entity marker',
-    });
+  makeEntityInfoWindows(markers, map, entities) {
+    const infoWindow = new google.maps.InfoWindow();
       // add an event listener to open the infowindow on click
-    markers.forEach((marker) => {
+    markers.forEach((marker, index) => {
       marker.addListener('click', () => {
-        infoWindow.setContent(marker.getTitle());
+        infoWindow.setContent(this.makeInfoWindowHtml(entities, index));
         infoWindow.open(map, marker);
+        google.maps.event.addListener(infoWindow, 'domready', () => {
+          document.getElementById('theButton').addEventListener('click', (e) => {
+            this.props.showDetails(e, entities[index]);
+          });
+        });
+        google.maps.event.addListener(infoWindow, 'domready', () => {
+          document.getElementById('theOtherButton').addEventListener('click', (e) => {
+            this.props.addToItinerary(e, entities[index]);
+          });
+        });
       });
     });
   }
 
-  makeInfoWindowHtml() {
-
+  makeInfoWindowHtml(entities, index) {
+    return (
+        `<h5>${entities[index].name}</h5>
+        <div class="text-center">
+          <a id="theButton"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;Details</a>&nbsp;&nbsp;
+          <a id="theOtherButton"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;Add to itinerary</a>
+        </div>`
+    );
   }
 
   render() {
@@ -98,6 +111,8 @@ MapContainer.propTypes = {
   entities: PropTypes.arrayOf(PropTypes.object),
   waypoints: PropTypes.arrayOf(PropTypes.object),
   setItinerary: PropTypes.func,
+  showDetails: PropTypes.func,
+  addToItinerary: PropTypes.func,
 };
 
 export default MapContainer;
