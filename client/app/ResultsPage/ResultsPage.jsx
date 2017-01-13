@@ -49,6 +49,8 @@ class ResultsPage extends Component {
     this.addTimeToWaypoint = this.addTimeToWaypoint.bind(this);
     this.debouncedAddTimeToWaypoint = _.debounce(this.addTimeToWaypoint, 1000);
     this.setPreferences = this.setPreferences.bind(this);
+    this.setItineraryDom = this.setItineraryDom.bind(this);
+    this.downloadInnerHtml = this.downloadInnerHtml.bind(this);
   }
 
   componentWillMount() {
@@ -240,6 +242,24 @@ class ResultsPage extends Component {
     }, () => { console.log(this.state.waypoints); });
   }
 
+  setItineraryDom(node) {
+    if (node !== this.state.itineraryDom) {
+      this.setState({
+        itineraryDom: node
+      });
+    }
+  }
+
+  downloadInnerHtml(filename, mimeType) {
+    const elHtml = this.state.itineraryDom.innerHTML;
+    const link = document.createElement('a');
+    mimeType = mimeType || 'text/plain';
+
+    link.setAttribute('download', filename);
+    link.setAttribute('href', 'data: ' + mimeType + ';charset=utf-8, ' + encodeURIComponent(elHtml));
+    link.click();
+  }
+
 
   render() {
     return (
@@ -283,6 +303,7 @@ class ResultsPage extends Component {
                     <ItineraryContainer
                       itinerary={this.state.itinerary}
                       addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
+                      setItineraryDom={this.setItineraryDom}
                     /> : null}
                   { this.state.selectedTab === 'OptionsContainer' ?
                     <OptionsContainer
@@ -295,7 +316,7 @@ class ResultsPage extends Component {
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <FancyBorder color="green">
-                    <Button bsStyle="success" className="finalizeButton" >{'Finalize >'}</Button>
+                    <Button bsStyle="success" className="finalizeButton" onClick={() => {this.downloadInnerHtml('myItinerary.html')}}>{'Finalize >'}</Button>
                   </FancyBorder>
                 </div>
               </FancyBorder>

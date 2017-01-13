@@ -18,7 +18,7 @@ const LandingPage = () => (
       <div className="landingPageContainer">
         <div className="landingPageContent">
           <div className="row">
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered text-center">
+            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered text-center landing-page-title">
               <FancyBorder color="yellow"><h1>TravelApp</h1></FancyBorder>
             </div>
           </div>
@@ -31,20 +31,20 @@ const LandingPage = () => (
           </div>
           <div className="row">
             <FancyBorder color="yellow">
-              <div className="text-center">
-                <h5>Choose at least 2 interests</h5>
+              <div className="text-center landing-page-interest-title">
+                <h4>Choose at least 2 interests</h4>
               </div>
             </FancyBorder>
           </div>
           <div className="row">
-            <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-centered">
+            <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-centered">
               <div className="row">
                 <InterestsContainer />
               </div>
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered">
+            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-centered">
               <PlanVacationButton />
             </div>
           </div>
