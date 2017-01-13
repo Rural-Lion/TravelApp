@@ -61,7 +61,6 @@ class ResultsPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextprops', nextProps);
     getCoordinates(nextProps.userQuery.startingLocation, ({ lat, lng }) => {
       this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
         this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
@@ -72,7 +71,6 @@ class ResultsPage extends Component {
   }
 
   getEntityList(query, location, interests) {
-    console.log('INTERESTS', interests);
     axios.get('/entitiesWithinRadius', {
       params: {
         latitude: location.lat,
@@ -240,7 +238,6 @@ class ResultsPage extends Component {
 
 
   render() {
-    console.log("RENDERED STATE", this.state)
     return (
       <div className="resultsPage">
         <FancyBorder color="orange">

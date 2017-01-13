@@ -45,7 +45,6 @@ class MapContainer extends Component {
     }, () => {
       MapClusterer(this.props.entities, this.state.map);
       if (this.props.waypoints[0]) {
-        console.log("MAP RENDER");
         MapDirections(this.props.waypoints, this.props.startingLocation, this.state.map, this.props.setItinerary);
       }
     });

@@ -1,9 +1,3 @@
-// const initialState = [
-//   ['Biking', false], ['Boating', false], ['Historic & Cultural Site', false], ['Camping', false], ['Fishing', false],
-//   ['Hiking', true], ['Off Highway Vehicle', false], ['Picnicking', false], ['Recreational Vehicles', false],
-//   ['Visitor Center', false], ['Water Sports', false], ['Wildlife Viewing', false], ['Other Recreation Concession Site', false],
-// ];
-
 const initialState = [
   ['Biking', false, ['BIKING']], ['Fishing', false, ['FISHING', 'BOATING']], ['Cultural Sites', false, ['HISTORIC & CULTURAL SITE', 'ENVIRONMENTAL EDUCATION']], 
   ['Camping', false, ['PICNICKING', 'CAMPING', 'FIRE LOOKOUTS/CABINS OVERNIGHT', 'HORSE CAMPING']], ['Climbing', false, ['CLIMBING']],
