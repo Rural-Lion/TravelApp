@@ -118,7 +118,7 @@ a:focus, a:hover {
   width: 70px;
 }
 
-img[src]:hover {
+.optionsFavicon:hover {
   opacity: .5;
 }
 
@@ -342,7 +342,7 @@ img[src]:hover {
   margin: 5px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #b18571;
+  background-color: transparent;
   border-width: 0px;
   font-size: 15px;
   color: black;

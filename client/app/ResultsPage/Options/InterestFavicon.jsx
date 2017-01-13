@@ -18,16 +18,14 @@ const favicons = {
 };
 
 const InterestFavicon = props => (
-  <FancyBorder color="blue">
-    <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"><strong>{props.interest.interest[0]}</strong></Tooltip>}>
-      <img
-        src={favicons[props.interest.interest[0]]}
-        value={props.interest.index}
-        className={`${(props.interest.interest[1]) ? 'includedInterestFavicon' : 'interestFavicon'} optionsFavicon`}
-        onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
-      />
-    </OverlayTrigger>
-  </FancyBorder>
+  <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"><strong>{props.interest.interest[0]}</strong></Tooltip>}>
+    <img
+      src={favicons[props.interest.interest[0]]}
+      value={props.interest.index}
+      className={`${(props.interest.interest[1]) ? 'includedInterestFavicon' : 'interestFavicon'} optionsFavicon`}
+      onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
+    />
+  </OverlayTrigger>
   );
 
 InterestFavicon.propTypes = {
