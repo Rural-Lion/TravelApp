@@ -260,7 +260,7 @@ class ResultsPage extends Component {
     }
   }
 
-  downloadInnerHtml(filename, elId, mimeType) {
+  downloadInnerHtml(filename, mimeType) {
     const elHtml = this.state.itineraryDom.innerHTML;
     const link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
@@ -326,7 +326,7 @@ class ResultsPage extends Component {
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <FancyBorder color="green">
-                    <Button bsStyle="success" className="finalizeButton" onClick={() => {this.downloadInnerHtml('myItinerary.html', this.state.itineraryDom)}}>{'Finalize >'}</Button>
+                    <Button bsStyle="success" className="finalizeButton" onClick={() => {this.downloadInnerHtml('myItinerary.html')}}>{'Finalize >'}</Button>
                   </FancyBorder>
                 </div>
               </FancyBorder>
