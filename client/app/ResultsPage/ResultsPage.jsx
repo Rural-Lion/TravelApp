@@ -82,6 +82,9 @@ class ResultsPage extends Component {
       },
     })
       .then((res) => {
+        if(res.data.length === 0) {
+          alert("There are no results for this search - try searching with different inputs")
+        }
         this.setState({
           entities: generateData(res.data),
         }, () => { console.log(this.state.entities); });
