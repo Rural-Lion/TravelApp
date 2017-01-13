@@ -240,6 +240,16 @@ class ResultsPage extends Component {
     }, () => { console.log(this.state.waypoints); });
   }
 
+  downloadInnerHtml(filename, elId, mimeType) {
+    const elHtml = document.getElementById(elId).innerHTML;
+    const link = document.createElement('a');
+    mimeType = mimeType || 'text/plain';
+
+    link.setAttribute('download', filename);
+    link.setAttribute('href', 'data: ' + mimeType + ';charset=utf-8, ' + encodeURIComponent(elHtml));
+    link.click();
+  }
+
 
   render() {
     return (
