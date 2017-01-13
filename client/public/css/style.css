@@ -366,8 +366,12 @@ a:focus, a:hover {
   margin-left: -20px;
 }
 
+/*.planButton {
+
+}*/
+
 .optionsInput {
-  margin-left: 10px;
+  margin: 10px;
   float: left;
 }
 

@@ -4,10 +4,9 @@ import { setLocation, setBudget, setDistance, setLength } from '../../actions/in
 import Autocomplete from 'react-google-autocomplete';
 
 const Inputs = props => (
-  <FancyBorder color="yellow" >
+  <div >
     <div className='optionsInput'>
-      <FancyBorder color="green">
-      $$$
+      Budget $$$
         <input id='budget' 
           data-tag="budgetOfTrip"
           className="lpInput"
@@ -15,11 +14,9 @@ const Inputs = props => (
           onChange={(e) => value=e.target.value}
           value={props.userQuery.budgetOfTrip}
         />
-      </FancyBorder>
     </div>
     <div className='optionsInput'>
-      <FancyBorder color="green">
-      Time
+      Time Length (Days)
         <input id='time'
           data-tag="lengthOfTrip"
           className="lpInput"
@@ -27,10 +24,8 @@ const Inputs = props => (
           onChange={(e) => value=e.target.value}
           value={props.userQuery.lengthOfTrip}
         />
-      </FancyBorder>
     </div>
     <div className='optionsInput'>
-      <FancyBorder color="green">
       Location
         <Autocomplete id='location' 
           data-tag="startingLocation"
@@ -39,10 +34,8 @@ const Inputs = props => (
           onChange={(e) => value=e.target.value}
           value={props.userQuery.startingLocation}
         />
-      </FancyBorder>
     </div>
     <div className='optionsInput'>
-      <FancyBorder color="green">
       Distance
         <input id='distance' 
           data-tag="distanceOfTrip"
@@ -51,11 +44,8 @@ const Inputs = props => (
           onChange={(e) => value=e.target.value}
           value={props.userQuery.distanceOfTrip}
         />
-      </FancyBorder>
     </div>
     <div className='optionsInput'>
-    Day Length
-      <FancyBorder  color="green" >
         Wake Up
         <input id='startingTime' 
           data-tag="dayLength1"
@@ -64,6 +54,8 @@ const Inputs = props => (
           onChange={(e) => value=e.target.value}
           value={props.startingTime}
         />
+    </div>
+    <div className='optionsInput'>
         Come Back to Camp
         <input id='endingTime' 
           data-tag="dayLength2"
@@ -72,11 +64,9 @@ const Inputs = props => (
           onChange={(e) => value=e.target.value}
           value={props.endingTime}
         />
-      </FancyBorder>
     </div>
     <div className='optionsInput'>
-      <FancyBorder color="green">
-      Daily Allowance for Food
+      Daily Food Budget
         <input id='foodCost' 
           data-tag="allowanceForFood"
           className="lpInput"
@@ -84,10 +74,8 @@ const Inputs = props => (
           onChange={(e) => value=e.target.value}
           value={props.foodCostPerDay}
         />
-      </FancyBorder>
     </div>
     <div className='optionsInput'>
-      <FancyBorder color="green">
       Sleeping Preferences
         <input id='nightlyCost' 
           data-tag="sleep preference"
@@ -96,9 +84,8 @@ const Inputs = props => (
           onChange={(e) => value=e.target.value}
           value={props.nightlyCost} 
         />
-      </FancyBorder>
     </div>
-    <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
+    <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered'>
       <button
         onClick= { (e) => {
           props.setPreferences(+document.getElementById('foodCost').value, +document.getElementById('startingTime').value, +document.getElementById('endingTime').value, +document.getElementById('nightlyCost').value);
@@ -111,7 +98,7 @@ const Inputs = props => (
       > Plan My Vacation 
       </button>
     </div>
-  </FancyBorder>
+  </div>
   );
 
 Inputs.propTypes = {
