@@ -19,7 +19,7 @@ const favicons = {
 
 const InterestFavicon = props => (
   <FancyBorder color="blue">
-    <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"><strong>{props.interest.interest[0]}</strong> Check this info.</Tooltip>}>
+    <OverlayTrigger placement='top' overlay={<Tooltip id="tooltip"><strong>{props.interest.interest[0]}</strong></Tooltip>}>
       <img
         src={favicons[props.interest.interest[0]]}
         value={props.interest.index}
