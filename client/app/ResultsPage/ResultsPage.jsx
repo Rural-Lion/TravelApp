@@ -290,7 +290,7 @@ class ResultsPage extends Component {
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <FancyBorder color="green">
-                    <Button bsStyle="primary" className="finalizeButton" >{'Finalize >'}</Button>
+                    <Button bsStyle="success" className="finalizeButton" >{'Finalize >'}</Button>
                   </FancyBorder>
                 </div>
               </FancyBorder>
