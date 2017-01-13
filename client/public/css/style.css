@@ -35,6 +35,59 @@
   border-color: turquoise;
 }*/
 
+/*COLOR PALETTE*/
+.dark-primary-color    { background: #0097A7 ; }
+.default-primary-color { background: #00BCD4 ; }
+.light-primary-color   { background: #B2EBF2 ; }
+.text-primary-color    { color: #FFFFFF ; }
+.accent-color          { background: #FF9800 ; }
+.primary-text-color    { color: #212121 ; }
+.secondary-text-color  { color: #757575 ; }
+.divider-color         { border-color: #BDBDBD ; }
+
+.btn-primary {
+  background-color: #00BCD4;
+  border-color: #00BCD4;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.btn-primary:focus {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.btn-primary:active:focus {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.btn-success {
+  background-color: #FF9800;
+  border-color: #FF9800;
+  color: white;
+}
+.btn-success:hover {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.btn-success:focus {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.btn-success:active:focus {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.label-primary {
+  background-color:  #00BCD4;
+}
 .mapImage {
   height: 35px;
   width: 35px; 
@@ -63,7 +116,6 @@ img[src]:hover {
   width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
-  background: #4e3c2e;
   color:white;
   border-radius: 5px;
   border-width: 0px;
@@ -120,7 +172,7 @@ img[src]:hover {
 
 .EntityListEntry:hover {
   cursor: pointer;
-  background-color: #a8a8a8;
+  background-color: #B2EBF2;
 }
 
 .tabs {
@@ -201,7 +253,14 @@ img[src]:hover {
 .navBar {
   height:5vh;
   width:100%;
-  background: #4e3c2e;
+  background:  #B2EBF2;
+}
+.progress-bar-warning {
+  background-color: #FF9800;
+}
+
+.progress-bar-success {
+  background-color: #0097A7;
 }
 
 .entityContactsRow {
@@ -279,15 +338,13 @@ img[src]:hover {
   margin-top: 2vh;
   height: 3vh;
   width:100%;
-  background:white;
-  color: black;
   border-width: 0;
   border-radius: 0;
 }
 
 .progressBars {
-  padding-top: 2vh;
-  height: 3vh;
+  padding-top: 1vh;
+  height: 5vh;
 }
 
 .progressBarGlyphicon {

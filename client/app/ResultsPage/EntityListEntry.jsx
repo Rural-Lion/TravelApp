@@ -10,7 +10,10 @@ const EntityListEntry = props => (
         <FancyBorder color="blue"><div className="text-center"><strong>{props.index + 1}</strong></div></FancyBorder>
         <FancyBorder color="blue">
           <div>
-            <img className="mapImage center-block" src={require('../../public/images/Map.png')} onClick={e => props.handleAddToItineraryClick(e, props.entity)} />
+            <img
+              className="mapImage center-block" src={require('../../public/images/Map.png')}
+              onClick={e => props.handleAddToItineraryClick(e, props.entity)}
+            />
           </div>
         </FancyBorder>
       </div>
