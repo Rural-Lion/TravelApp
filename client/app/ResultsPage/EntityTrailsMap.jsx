@@ -70,7 +70,7 @@ class EntityTrailsMap extends Component {
       // add an event listener that shows/hides the trail when clicked:
       marker.addListener('click', () => {
         infoWindow.setContent(this.makeInfoWindowHtml(trail));
-        let show = false;
+        let show = this.props.show;
         if (!show) {
           path.setMap(map);
           infoWindow.open(map, marker);

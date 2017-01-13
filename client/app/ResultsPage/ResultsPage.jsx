@@ -82,9 +82,9 @@ class ResultsPage extends Component {
       .then((res) => {
         this.setState({
           entities: generateData(res.data),
-        }, () => { console.log(this.state.entities); });
+        });
       })
-      .catch(err => console.log('error loading get request', err));
+      .catch(err => console.error('error loading getEntityList request', err));
   }
 
   setTotalTime(startingTime, endingTime, days) {
@@ -115,7 +115,8 @@ class ResultsPage extends Component {
 
   setItinerary(results) {
     this.setState({
-      itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost), this.state.waypoints),
+      itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime,
+      this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost), this.state.waypoints),
     }, () => {
       this.setUsedBudget(this.state.itinerary.totalCost);
       this.setRemainingTime(this.state.itinerary.remainingTime, this.state.itinerary.totalTime);
@@ -127,7 +128,7 @@ class ResultsPage extends Component {
       foodCostPerDay: foodCost,
       startingTime: startTime,
       endingTime: endTime,
-      nightlyCost: nightlyCost
+      nightlyCost,
     }, () => {
       this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
     });
@@ -178,7 +179,7 @@ class ResultsPage extends Component {
         });
       });
     })
-    .catch(err => console.error('error', err));
+    .catch(err => console.error('error getting more details on entity', err));
     }
   }
 
@@ -278,7 +279,7 @@ class ResultsPage extends Component {
                       addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
                     /> : null}
                   { this.state.selectedTab === 'OptionsContainer' ?
-                    <OptionsContainer 
+                    <OptionsContainer
                       setPreferences={this.setPreferences}
                       startingTime={this.state.startingTime}
                       endingTime={this.state.endingTime}

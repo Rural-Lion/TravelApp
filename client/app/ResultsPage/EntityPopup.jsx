@@ -5,8 +5,8 @@ import TrailsContainer from './TrailsContainer.jsx';
 
 const EntityPopup = (props) => {
   const makeActivityLabels = (activities => (
-    activities.map(activity =>
-      <h4 className="modalActivityLabel"><Label bsStyle="primary">{activity}</Label></h4>)
+    activities.map((activity, index) =>
+      <h4 className="modalActivityLabel" key={index}><Label bsStyle="primary">{activity}</Label></h4>)
   ));
 
   return (
@@ -23,7 +23,8 @@ const EntityPopup = (props) => {
           </div>
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <Modal.Header closeButton className="text-center">
-              <Modal.Title><h3>{props.entity.name.toUpperCase()}</h3></Modal.Title>
+              <br />
+              <Modal.Title>{props.entity.name.toUpperCase()}</Modal.Title>
               <FancyBorder color="blue">
                 <div>{makeActivityLabels(props.entity.activities)}</div>
               </FancyBorder>

@@ -72,7 +72,6 @@ class TrailsContainer extends Component {
       },
     })
     .then((res) => {
-      console.log('ELEVATION RESPONSE', res.data);
       let up = 0;
       let down = 0;
       const profile = res.data.elevationProfile.map(item => item.height);
@@ -90,7 +89,7 @@ class TrailsContainer extends Component {
       //   trails: this.state.trails.slice(0, index).concat(newTrail).concat(this.state.trails.slice(index + 1)),
       // }, () => { console.log('NEW TRAILS', this.state.trails); });
     })
-    .catch(err => console.log('ERROR FROM ELEVATION API', err, 'Points in trail', trail.coordinates.length));
+    .catch(err => console.log('ERROR FROM ELEVATION API', err));
 
 
     // GOOGLE ELEVATION API:
@@ -127,7 +126,6 @@ class TrailsContainer extends Component {
   }
 
   render() {
-    console.log('SHOW CHART', this.state.showChart);
     return (
       <FancyBorder color="yellow" >
         <div className="container-fluid">

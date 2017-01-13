@@ -21,7 +21,6 @@ class MapContainer extends Component {
       || nextProps.entities.length !== this.props.entities.length
       || nextProps.waypoints !== this.props.waypoints
       || !this.state.mapRef)) {
-      console.log('component should update');
       return true;
     }
     return false;
@@ -75,12 +74,12 @@ class MapContainer extends Component {
       marker.addListener('click', () => {
         infoWindow.setContent(this.makeInfoWindowHtml(entities, index));
         infoWindow.open(map, marker);
+        const onClick = (e) => {
+          this.props.showDetails(e, entities[index]);
+        };
         google.maps.event.addListener(infoWindow, 'domready', () => {
-          document.getElementById('theButton').addEventListener('click', (e) => {
-            this.props.showDetails(e, entities[index]);
-          });
-        });
-        google.maps.event.addListener(infoWindow, 'domready', () => {
+          google.maps.event.clearInstanceListeners(infoWindow);
+          document.getElementById('theButton').addEventListener('click', onClick);
           document.getElementById('theOtherButton').addEventListener('click', (e) => {
             this.props.addToItinerary(e, entities[index]);
           });
