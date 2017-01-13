@@ -8,6 +8,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 import { generateDetailedEntity, generateData, getCoordinates, FancyBorder, generateItinerary } from '../helpers';
 import NavBar from './NavBar.jsx';
 import EntityList from './EntityList.jsx';
@@ -294,7 +295,7 @@ class ResultsPage extends Component {
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <FancyBorder color="green">
-                    <button type="button" className="finalizeButton btn btn-default">{'Finalize >'}</button>
+                    <Button bsStyle="primary" className="finalizeButton" >{'Finalize >'}</Button>
                   </FancyBorder>
                 </div>
               </FancyBorder>

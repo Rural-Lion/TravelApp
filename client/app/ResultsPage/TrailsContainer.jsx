@@ -134,7 +134,7 @@ class TrailsContainer extends Component {
             <h4>Found {this.state.trails.length || 'no'} trails within 50 miles</h4>
             <ButtonGroup bsSize="xs" style={{ paddingRight: '20px' }}>
               {this.lengthGroups.map((item, index) =>
-                <Button key={index} onClick={() => (this.filterTrailsByLength(index))}>{item} miles</Button>)}
+                <Button bsStyle="info" key={index} onClick={() => (this.filterTrailsByLength(index))}>{item} miles</Button>)}
             </ButtonGroup>
           </div>
           <br />
