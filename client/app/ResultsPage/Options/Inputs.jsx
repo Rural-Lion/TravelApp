@@ -101,7 +101,6 @@ const Inputs = props => (
     <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
       <button
         onClick= { (e) => {
-          console.log("I'm getting clicked");
           props.setPreferences(+document.getElementById('foodCost').value, +document.getElementById('startingTime').value, +document.getElementById('endingTime').value, +document.getElementById('nightlyCost').value);
           props.handleChange(setBudget, document.getElementById('budget').value);
           props.handleChange(setLength, document.getElementById('time').value);
