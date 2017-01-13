@@ -53,14 +53,6 @@ class ResultsPage extends Component {
     this.downloadInnerHtml = this.downloadInnerHtml.bind(this);
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.state.itineraryDom && this.state.itineraryDom === nextState.itineraryDom) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
   componentWillMount() {
     getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
       this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
@@ -251,12 +243,10 @@ class ResultsPage extends Component {
   }
 
   setItineraryDom(node) {
-    console.log(node !== this.state.itineraryDom)
     if (node !== this.state.itineraryDom) {
       this.setState({
         itineraryDom: node
       });
-      console.log('itineraryDom: ', this.state.itineraryDom)
     }
   }
 

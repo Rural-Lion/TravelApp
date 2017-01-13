@@ -39,23 +39,6 @@ class ItineraryContainer extends Component {
   }
 }
 
-  
-
-ItineraryContainer.propTypes = {
-
-};
-
-// export default ItineraryContainer;
-
-
-// const ItineraryContainer = props => (
-//   <div ref={(node) => {props.setItineraryDom(node)}}>
-//     <FancyBorder color="yellow">
-//       <DayLegs itinerary={props.itinerary} addTimeToWaypoint={props.addTimeToWaypoint} />
-//     </FancyBorder>
-//   </div>
-//   );
-
 ItineraryContainer.propTypes = {
   itinerary: PropTypes.object,
 };
