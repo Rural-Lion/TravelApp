@@ -19,12 +19,10 @@ class ItineraryContainer extends Component {
   }
 
    setItineraryDom(node) {
-    console.log(node !== this.state.itineraryDom)
     if (node !== this.state.itineraryDom) {
       this.setState({
         itineraryDom: node
       });
-      console.log('itineraryDom: ', this.state.itineraryDom)
     }
   }
   
