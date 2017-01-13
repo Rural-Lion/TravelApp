@@ -47,7 +47,9 @@ class ResultsPage extends Component {
     this.setUsedBudget = this.setUsedBudget.bind(this);
     this.addTimeToWaypoint = this.addTimeToWaypoint.bind(this);
     this.debouncedAddTimeToWaypoint = _.debounce(this.addTimeToWaypoint, 1000);
+    this.setPreferences = this.setPreferences.bind(this);
   }
+
   componentWillMount() {
     getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
       this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
@@ -58,8 +60,17 @@ class ResultsPage extends Component {
     this.setTotalBudget(this.props.userQuery.budgetOfTrip);
   }
 
+  componentWillReceiveProps(nextProps) {
+    getCoordinates(nextProps.userQuery.startingLocation, ({ lat, lng }) => {
+      this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
+        this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
+      });
+    });
+    this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
+    this.setTotalBudget(nextProps.userQuery.budgetOfTrip);
+  }
+
   getEntityList(query, location, interests) {
-    console.log(location);
     axios.get('/entitiesWithinRadius', {
       params: {
         latitude: location.lat,
@@ -101,12 +112,24 @@ class ResultsPage extends Component {
       budgetOfTrip: budget,
     });
   }
+
   setItinerary(results) {
     this.setState({
       itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost), this.state.waypoints),
     }, () => {
       this.setUsedBudget(this.state.itinerary.totalCost);
       this.setRemainingTime(this.state.itinerary.remainingTime, this.state.itinerary.totalTime);
+    });
+  }
+
+  setPreferences(foodCost, startTime, endTime, nightlyCost) {
+    this.setState({
+      foodCostPerDay: foodCost,
+      startingTime: startTime,
+      endingTime: endTime,
+      nightlyCost: nightlyCost
+    }, () => {
+      this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
     });
   }
 
@@ -256,7 +279,13 @@ class ResultsPage extends Component {
                       addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
                     /> : null}
                   { this.state.selectedTab === 'OptionsContainer' ?
-                    <OptionsContainer /> : null}
+                    <OptionsContainer 
+                      setPreferences={this.setPreferences}
+                      startingTime={this.state.startingTime}
+                      endingTime={this.state.endingTime}
+                      foodCostPerDay={this.state.foodCostPerDay}
+                      nightlyCost={this.state.nightlyCost}
+                    /> : null}
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <FancyBorder color="green">
@@ -291,7 +320,7 @@ const mapStateToProps = state => ({
   userQuery: state.userQuery,
   userInterests: state.interests
     .filter(interest => interest[1])
-    .map(interest => interest[0].toUpperCase()),
+    .map(interest => interest[2].join(',')),
 });
 
 // ACTION CREATOR TO BE INCLUDED FOR DISPATCH METHOD

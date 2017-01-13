@@ -8,7 +8,7 @@ const InterestButton = props => (
       value={props.interest.index}
       className={`centered ${(props.interest.interest[1]) ? 'includedInterestButton' : 'interestButton'}`}
       onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
-    >{props.interest.interest}</button>
+    >{props.interest.interest[0]}</button>
   </FancyBorder>
   );
 
