@@ -53,13 +53,13 @@ class ResultsPage extends Component {
     this.downloadInnerHtml = this.downloadInnerHtml.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.itineraryDom && this.state.itineraryDom === nextState.itineraryDom) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.state.itineraryDom && this.state.itineraryDom === nextState.itineraryDom) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
   componentWillMount() {
     getCoordinates(this.props.userQuery.startingLocation, ({ lat, lng }) => {
@@ -251,10 +251,13 @@ class ResultsPage extends Component {
   }
 
   setItineraryDom(node) {
-    this.setState({
-      itineraryDom: node
-    });
-    console.log('itineraryDom: ', this.state.itineraryDom)
+    console.log(node !== this.state.itineraryDom)
+    if (node !== this.state.itineraryDom) {
+      this.setState({
+        itineraryDom: node
+      });
+      console.log('itineraryDom: ', this.state.itineraryDom)
+    }
   }
 
   downloadInnerHtml(filename, elId, mimeType) {
