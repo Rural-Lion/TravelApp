@@ -360,6 +360,10 @@ img[src]:hover {
   border-width: 0px
 }
 
+.day-text {
+  font-style: bold;
+}
+
 .legRow {
   background: white;
   margin: 8px 0;
@@ -401,10 +405,14 @@ img[src]:hover {
   border: 0px;
 }
 
+.cost {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
 .stepMarker {
-  height: 11px;
-  width: 11px;
-  border-radius: 5px;
+  height: 20px;
+  width: 20px;
   margin:0;
   padding: 0;
   position: absolute;
@@ -412,24 +420,24 @@ img[src]:hover {
   transform: translateY(-50%);
 }
 
-.start {
-    background: green;
-}
-
-.end {
-    background: red;
-}
-
-.adventure {
-    background: purple;
-}
-
 .legText { 
+  margin-left: 10px;
   font-size: 13px;
   color: #4b4848
 }
 
 .directions { 
   font-size: 10px;
+}
+
+.duration-text {
+  font-style: italic;
+  font-size: 12px;
+  color: #757575;
+}
+
+.stay-row {
+  margin-top:20px;
+  margin-bottom:20px;
 }
 

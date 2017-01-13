@@ -5,9 +5,9 @@ import ActivityLegs from './ActivityLegs.jsx';
 const DayLeg = props => (
   <div className="itineraryEntry" >
     <div className="row">
-      <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <FancyBorder color="orange">
-          <div className="text-center">{`Day ${props.day}`}</div>
+          <div className="text-center day-text"><h4>{`Day ${props.day}`}</h4></div>
         </FancyBorder>
       </div>
     </div>
