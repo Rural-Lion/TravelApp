@@ -16,7 +16,7 @@ class ActivityLeg extends Component {
   componentWillMount() {
     this.setState({
       activity: this.props.activity,
-      type: this.props.activity.cost.drivingCost,
+      type: this.props.activity.type,
     });
   }
 
@@ -47,35 +47,63 @@ class ActivityLeg extends Component {
     const convertCurrentTime = time => `${Math.floor(time / 3600)}:${Math.floor((time % 3600) / 60)}`;
 
     const durationText = convertCurrentTime(this.state.activity.duration);
-    const costText = () => (`-${this.state.activity.cost.drivingCost}`);
+    const createCostText = () => (`-$${Math.floor(this.state.activity.cost.drivingCost)}`);
+    const costText = createCostText();
 
-    const drivingLeg = () => (<div className='stepMarker' /> <span></span>)
 
     return (
       <div className="legRow" >
         <div className="row">
           <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 cost">
-            {this.state.type === 'drive' ? costText : null}
+            {(this.state.type === 'drive') ? costText : null}
           </div>
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
             <FancyBorder color="yellow">
-              {`${(this.props.activity.name) ? this.props.activity.name : 'Home'}`}
-            </FancyBorder>
-            <FancyBorder color="yellow">
-              <span>
-                {`Start Time: ${this.props.activity.time.startTime[0]}:${this.props.activity.time.startTime[1]} - `}
-              </span>
-              {this.state.activity.start_address ? durationText : <input className="legHourInput" onChange={(e) => { this.setTimeInput(this.props.activity.name, (+e.target.value * 3600)); }} value={Math.floor(this.state.activity.duration / 3600)} /> }
-              <span>
-                {` - Ending Time: ${this.props.activity.time.endTime[0]}:${this.props.activity.time.endTime[1]}`}
-              </span>
+              {(this.state.type === 'drive') ?
+                <div>
+                  <div className="row">
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <div className="row">
+                        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker start" />
+                        <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">{`start ${this.props.activity.time.startTime[0]}:${this.props.activity.time.startTime[1]}`}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <div className="row">
+                        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker duration" />
+                        <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">{`duration ${durationText}`}{this.state.activity.start_address ? <button className="toggleStepButton" onClick={() => this.toggleSteps()}>Show Steps</button> : null}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <div className="row">
+                        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker end" />
+                        <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">{`end ${this.props.activity.time.endTime[0]}:${this.props.activity.time.endTime[1]}`}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div> :
+                <div className="row">
+                  <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div className="row">
+                      <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker adventure" />
+                      <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">adventure <input className="legHourInput" onChange={(e) => { this.setTimeInput(this.props.activity.name, (+e.target.value * 3600)); }} value={Math.floor(this.state.activity.duration / 3600)} /></div>
+                    </div>
+                  </div>
+                </div> }
             </FancyBorder>
           </div>
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4  hoursLeftContainer text-center">
             <FancyBorder color="yellow">
-              {(Math.floor(this.props.activity.time.remainingTime / 3600) < 0) ? "you're out of time" : `${Math.floor(this.props.activity.time.remainingTime / 3600)} hours left`}
+              <div className="hoursLeftText">
+                {(Math.floor(this.props.activity.time.remainingTime / 3600) < 0) ? "you're out of time" : `${Math.floor(this.props.activity.time.remainingTime / 3600)} hours left`}
+              </div>
             </FancyBorder>
-            {this.state.activity.start_address ? <a className="toggleStepButton" onClick={() => this.toggleSteps()}>Show Steps</a> : null}
+
           </div>
           {this.state.showSteps ? <Steps steps={this.state.activity.legs} /> : null}
         </div>
