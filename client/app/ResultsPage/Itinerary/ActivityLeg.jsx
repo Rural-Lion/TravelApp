@@ -76,12 +76,12 @@ class ActivityLeg extends Component {
                   <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       <div className="row">
-                        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker" />
-                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 legText">
+                        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker duration" />
+                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 legText endText">
                           <div className="row">
-                            <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 duration-text">{`Duration ${durationText}`}</div>
-                            <div>{this.state.activity.start_address ? <button className=" glyphicon glyphicon-triangle-bottom toggleStepButton" onClick={() => this.toggleSteps()} /> : null}</div>
-                          </div>
+                              <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 durationText">{`Duration ${durationText}`}</div>
+                              <div>{this.state.activity.start_address ? <button className=" glyphicon glyphicon-triangle-bottom toggleStepButton" onClick={() => this.toggleSteps()} /> : null}</div>
+                            </div>
                           {this.state.showSteps ? <Steps steps={this.state.activity.legs} /> : null}
                         </div>
                       </div>
@@ -110,7 +110,6 @@ class ActivityLeg extends Component {
                 </div> }
             </FancyBorder>
           </div>
-          {this.state.showSteps ? <Steps steps={this.state.activity.legs} /> : null}
         </div>
       </div>
     );
