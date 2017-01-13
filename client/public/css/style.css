@@ -523,10 +523,54 @@ ul.nav.nav-tabs.nav-justified.navbar-nav {
 .nav-justified {
   table-layout: fixed;
 }
+
+.legHourInput {
+  width:50px;
+  height: 15px;
+  font-size: 12px;
+}
 .nav-justified:before { display: none; }
 .nav-justified:after { display: none; }
 
 .toggleStepButton {
-  float:left;
+  float:right;
+  height: 15px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+}
 
+.stepMarker {
+  height: 10px;
+  width: 10px;
+
+  margin:0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.start {
+    background: green;
+}
+
+.end {
+    background: red;
+}
+
+.adventure {
+    background: purple;
+}
+
+.hoursLeftContainer {
+    height:100%;
+}
+
+.hoursLeftText {
+
+    position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
