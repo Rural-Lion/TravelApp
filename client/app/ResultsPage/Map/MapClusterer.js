@@ -1,6 +1,3 @@
-
-const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
 const MapMarkerClusterer = (entities, map) => {
   if (map) {
     const markers = entities.map(({ coordinates: [lat, lng] }, index) =>
