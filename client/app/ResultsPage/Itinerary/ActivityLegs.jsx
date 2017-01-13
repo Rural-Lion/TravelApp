@@ -7,9 +7,7 @@ const ActivityLegs = (props) => {
 
   return (
     <FancyBorder color="orange">
-      <div className="row">
-        {activities}
-      </div>
+      {activities}
     </FancyBorder>
   );
 };

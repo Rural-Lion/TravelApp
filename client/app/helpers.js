@@ -87,6 +87,7 @@ const deconstructDirections = ({ distance: { value: meters }, duration: { value:
     start_address,
     end_address,
     cost: {},
+    type: 'drive',
   };
   return direction;
 };
@@ -96,6 +97,7 @@ const generateBaseIten = (dirArray, actArray, order, cb) => {
     acc.push(deconstructDirections(obj, cb));
     if (actArray[order[index]]) {
       acc[acc.length - 1].name = actArray[order[index]].name;
+      actArray[order[index]].type = 'activity';
       acc.push(actArray[order[index]]);
     }
     return acc;

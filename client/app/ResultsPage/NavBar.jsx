@@ -10,41 +10,30 @@ const NavBar = (props) => {
   return (
     <FancyBorder color="yellow">
       <div className="container-fluid navBar" >
-
-        <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9 progressBars">
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <span className="glyphicons glyphicons-money progressBarGlyphicon" />
-            <ProgressBar
-              active bsStyle={(timePercent() < 0) ? 'danger' : 'success'}
-              now={timePercent()} label={`${Math.ceil(props.remainingTime / 3600)} hrs left`}
-            />
+        <div className="row">
+          <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9 progressBars">
+            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <span className="glyphicons glyphicons-money progressBarGlyphicon" />
+              <ProgressBar active bsStyle={(timePercent() < 0) ? 'danger' : 'success'} now={timePercent()} label={`${Math.ceil(props.remainingTime / 3600)} hrs left`} />
+            </div>
+            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <ProgressBar active bsStyle={(budgetPercent() < 0) ? 'danger' : 'warning'} now={budgetPercent()} label={`$${Math.floor(props.totalBudget - props.usedBudget)} left`} />
+            </div>
           </div>
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <ProgressBar
-              active bsStyle={(budgetPercent() < 0) ? 'danger' : 'warning'}
-              now={budgetPercent()} label={`$${Math.floor(props.totalBudget - props.usedBudget)} left`}
-            />
+          <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 tabButtons">
+            <div className="row">
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
+                <Button onClick={() => props.selectTab('EntityList')} bsStyle="primary">PLAN</Button>
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
+                <Button onClick={() => props.selectTab('ItineraryContainer')} bsStyle="primary">ITINERARY</Button>
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
+                <Button onClick={() => props.selectTab('OptionsContainer')} bsStyle="primary">OPTIONS</Button>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 tabButtons">
-
-          <div className="row">
-
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
-              <Button onClick={() => props.selectTab('EntityList')} bsStyle="primary">PLAN</Button>
-            </div>
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
-              <Button onClick={() => props.selectTab('ItineraryContainer')} bsStyle="primary">ITINERARY</Button>
-            </div>
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 container-fluid">
-              <Button onClick={() => props.selectTab('OptionsContainer')} bsStyle="primary">OPTIONS</Button>
-            </div>
-
-          </div>
-
-
-        </div>
-
       </div>
     </FancyBorder>
   );

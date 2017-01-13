@@ -211,7 +211,8 @@ img[src]:hover {
   margin: 0px;
   padding: 0px;
   height: 95vh;
-   
+
+
 }
 
 .tabContent {
@@ -360,7 +361,8 @@ img[src]:hover {
 }
 
 .legRow {
-  background: #e1e1e1;
+  background: white;
+  margin: 4px 0;
 }
 
 .childLegRow {
@@ -387,4 +389,9 @@ img[src]:hover {
 
 .legHourInput {
   width:50px;
+}
+
+.toggleStepButton {
+  float:left;
+
 }
