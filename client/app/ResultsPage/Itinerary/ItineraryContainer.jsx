@@ -3,9 +3,11 @@ import { FancyBorder } from '../../helpers';
 import DayLegs from './DayLegs.jsx';
 
 const ItineraryContainer = props => (
-  <FancyBorder color="yellow">
-    <DayLegs itinerary={props.itinerary} addTimeToWaypoint={props.addTimeToWaypoint} />
-  </FancyBorder>
+  <div ref={(node) => {props.setItineraryDom(node)}}>
+    <FancyBorder color="yellow">
+      <DayLegs itinerary={props.itinerary} addTimeToWaypoint={props.addTimeToWaypoint} />
+    </FancyBorder>
+  </div>
   );
 
 ItineraryContainer.propTypes = {
