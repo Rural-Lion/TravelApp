@@ -4,7 +4,7 @@ import InterestsContainer from './InterestsContainer.jsx';
 import InputsContainer from './InputsContainer.jsx';
 
 const OptionsContainer = (props) => (
-  <div>
+  <div >
     <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-centered optionsTitle">
       <h1 className="activitiesTitle">Activities</h1>
     </div>
