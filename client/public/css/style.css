@@ -253,6 +253,15 @@ a:focus, a:hover {
   padding: 0px;
   margin: 0px;
 }
+
+.itinerary-message {
+  margin-top: 60px;
+}
+
+.itinerary-button {
+  padding: 0px;
+}
+
 .resultsPage {
   background: white;
   height: 100vh;

@@ -53,6 +53,7 @@ class ResultsPage extends Component {
     this.setItineraryDom = this.setItineraryDom.bind(this);
     this.downloadInnerHtml = this.downloadInnerHtml.bind(this);
     this.clearItinerary = this.clearItinerary.bind(this);
+    this.clearWaypoints = this.clearWaypoints.bind(this);
   }
 
   componentWillMount() {
@@ -210,7 +211,6 @@ class ResultsPage extends Component {
   }
 
   handleAddToItineraryClick(e, entity) {
-    e.stopPropagation();
     const { coordinates: [lat, lng], name } = entity;
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
@@ -259,14 +259,24 @@ class ResultsPage extends Component {
     }
   }
 
+  clearWaypoints() {
+    this.setState({
+      waypoints: [],
+    })
+  }
+
   clearItinerary() {
-    console.log('clear itinerary called');
+    let entities = this.state.entities.slice();
+    entities.forEach((entity) => {entity.isAdded = false});
+
     this.setState({
       itinerary: false,
       usedBudget: 0,
       usedTime: 0,
+      entities,
     }, () => { console.log(this.state.itinerary); });
   }
+
   downloadInnerHtml(filename, mimeType) {
     const elHtml = this.state.itineraryDom.innerHTML;
     const link = document.createElement('a');
@@ -321,6 +331,10 @@ class ResultsPage extends Component {
                   /> : null}
                 { this.state.selectedTab === 'ItineraryContainer' ?
                   <ItineraryContainer
+                    clearItinerary={this.clearItinerary}
+                    clearWaypoints={this.clearWaypoints}
+                    
+                    downloadInnerHtml={this.downloadInnerHtml}
                     itinerary={this.state.itinerary}
                     addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
                     setItineraryDom={this.setItineraryDom}

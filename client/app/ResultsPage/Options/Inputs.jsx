@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap'
 const Inputs = props => (
   <div className='options-container'>
     <div className='row'>
-      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
+      <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
         <strong>Location</strong>
           <Autocomplete id='location' 
             data-tag="startingLocation"
@@ -17,8 +17,8 @@ const Inputs = props => (
             value={props.userQuery.startingLocation}
           />
       </div>
-      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
-        <strong>Distance (KM)</strong>
+      <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
+        <strong>Distance (km)</strong>
           <input id='distance' 
             data-tag="distanceOfTrip"
             className="options-inputs"
@@ -29,7 +29,7 @@ const Inputs = props => (
       </div>
     </div>
     <div className='row'>
-      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
+      <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
       <strong>Total Budget</strong>
         <input id='budget' 
           data-tag="budgetOfTrip"
@@ -39,8 +39,8 @@ const Inputs = props => (
           value={props.userQuery.budgetOfTrip}
         />
       </div>
-      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
-      <strong>Time Length (Days)</strong>
+      <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
+      <strong>Time Length (days)</strong>
         <input id='time'
           data-tag="lengthOfTrip"
           className="options-inputs"
@@ -51,7 +51,7 @@ const Inputs = props => (
       </div>
     </div>
     <div className='row'>
-      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
+      <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
           <strong>Start Time</strong>
           <input id='startingTime' 
             data-tag="dayLength1"
@@ -61,7 +61,7 @@ const Inputs = props => (
             value={props.startingTime}
           />
       </div>
-      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
+      <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
           <strong>End Time</strong>
           <input id='endingTime' 
             data-tag="dayLength2"
@@ -73,7 +73,7 @@ const Inputs = props => (
       </div>
     </div>
     <div className='row'>
-      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
+      <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
         <strong>Daily Food Budget</strong>
           <input id='foodCost' 
             data-tag="allowanceForFood"
@@ -83,7 +83,7 @@ const Inputs = props => (
             value={props.foodCostPerDay}
           />
       </div>
-      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
+      <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
         <strong>Daily Sleep Budget</strong>
           <input id='nightlyCost' 
             data-tag="sleep preference"
@@ -97,7 +97,7 @@ const Inputs = props => (
     <div className='row options-planbutton-container'>
       <div className='col'>
         <Button bsStyle='primary' className='options-planbutton'
-          onClick= { (e) => {
+          onClick= { () => {
             props.setPreferences(+document.getElementById('foodCost').value, +document.getElementById('startingTime').value, +document.getElementById('endingTime').value, +document.getElementById('nightlyCost').value);
             props.handleChange(setBudget, document.getElementById('budget').value);
             props.handleChange(setLength, document.getElementById('time').value);
