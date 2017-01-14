@@ -548,6 +548,7 @@ ul.nav.nav-tabs.nav-justified.navbar-nav {
   width: 34%;
   font-size: 20px;
   background-color: white;
+  float:right;
   width: 35%;
   border-bottom: 0;
   display: table;
@@ -557,6 +558,16 @@ ul.nav.nav-tabs.nav-justified.navbar-nav {
 }
 .nav-justified:before { display: none; }
 .nav-justified:after { display: none; }
+
+@media screen and (max-width: 765px) {
+  ul.nav.nav-tabs.nav-justified.navbar-nav {
+    width:100%;
+    float: left;
+  }
+  .nav-tabs.nav-justified>li>a {
+    margin-bottom: 0;
+  }
+}
 /*END OF NAV STYLES*/
 
 
