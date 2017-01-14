@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
 import { ProgressBar, Button } from 'react-bootstrap';
-import InfoMarker from '../../public/images/infomarker.png';
-import GreenCheck from '../../public/images/green-check.png';
-import PlusSign from '../../public/images/plus-sign.png';
 
 const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
