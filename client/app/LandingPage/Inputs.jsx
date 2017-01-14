@@ -7,7 +7,7 @@ const Inputs = props => (
   <FancyBorder color="yellow" >
     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
       <FancyBorder color="green">
-      What's your budget?
+      What is your budget?
         <input
           data-tag="budgetOfTrip"
           onChange={e => props.handleChange(setBudget, e.target.value)}
