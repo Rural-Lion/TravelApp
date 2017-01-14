@@ -27,6 +27,7 @@ class ItineraryContainer extends Component {
   }
   
   render() {
+    console.log('itinerary in itinerarycontainer: ', this.props.itinerary);
     return (
       <div ref={(node) => {this.props.setItineraryDom(node); this.setItineraryDom(node)}}>
         <FancyBorder color="yellow">

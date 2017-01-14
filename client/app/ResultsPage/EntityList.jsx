@@ -17,7 +17,7 @@ const EntityList = (props) => {
 
   return (
     <FancyBorder color="green">
-      <div className="row EntityListContainer">
+      <div className="EntityListContainer">
         <div className="EntityList">
           <FancyBorder color="blue">
             {entityList}

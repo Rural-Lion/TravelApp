@@ -52,6 +52,7 @@ class ResultsPage extends Component {
     this.setPreferences = this.setPreferences.bind(this);
     this.setItineraryDom = this.setItineraryDom.bind(this);
     this.downloadInnerHtml = this.downloadInnerHtml.bind(this);
+    this.clearItinerary = this.clearItinerary.bind(this);
   }
 
   componentWillMount() {
@@ -132,6 +133,7 @@ class ResultsPage extends Component {
     });
   }
 
+
   setPreferences(foodCost, startTime, endTime, nightlyCost) {
     this.setState({
       foodCostPerDay: foodCost,
@@ -204,17 +206,20 @@ class ResultsPage extends Component {
     });
   }
 
-  handleAddToItineraryClick(e, { coordinates: [lat, lng], name }) {
+  handleAddToItineraryClick(e, entity) {
     e.stopPropagation();
+    const { coordinates: [lat, lng], name } = entity;
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
     waypoints.forEach(({ waypoint: { location: { lat: insideLat, lng: insideLng } } }, index) => {
       if (insideLat === lat && insideLng === lng) {
         waypoints.splice(index, 1);
         removeFlag = true;
+        entity.isAdded = false;
       }
     });
     if (!removeFlag) {
+      entity.isAdded = true;
       waypoints.push({
         name,
         waypoint: {
@@ -240,7 +245,7 @@ class ResultsPage extends Component {
     });
     this.setState({
       waypoints,
-    }, () => { console.log(this.state.waypoints); });
+    });
   }
 
   setItineraryDom(node) {
@@ -251,6 +256,10 @@ class ResultsPage extends Component {
     }
   }
 
+  clearItinerary() {
+    console.log('clear itinerary called');
+    this.setState({ itinerary: false }, () => { console.log(this.state.itinerary); });
+  }
   downloadInnerHtml(filename, mimeType) {
     const elHtml = this.state.itineraryDom.innerHTML;
     const link = document.createElement('a');
@@ -288,10 +297,10 @@ class ResultsPage extends Component {
                 setItinerary={this.setItinerary}
                 showDetails={this.handleEntityClick}
                 addToItinerary={this.handleAddToItineraryClick}
+                clearItinerary={this.clearItinerary}
               />
 
             </div>
-<<<<<<< HEAD
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 tabs">
 
               <div className="tabContent">
@@ -301,7 +310,6 @@ class ResultsPage extends Component {
                     handleEntityClick={this.handleEntityClick}
                     handleAddToItineraryClick={this.handleAddToItineraryClick}
                     waypoints={this.state.waypoints}
-                    
                   /> : null}
                 { this.state.selectedTab === 'ItineraryContainer' ?
                   <ItineraryContainer
