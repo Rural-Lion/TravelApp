@@ -176,7 +176,7 @@ img[src]:hover {
   margin-bottom: 35px;
 }
 
-.langind-page-inputs {
+.landing-page-inputs {
   display: block;
   margin-top: 15px;
   margin-right: auto;
@@ -186,6 +186,12 @@ img[src]:hover {
   background: transparent;
   border: none;
   border-bottom: 2px solid #000000;
+}
+
+.landing-page-input-examples {
+  font-style: italic;
+  font-size: 12px;
+  color: #757575;
 }
 
 .landing-page-interest-title {
@@ -285,9 +291,9 @@ img[src]:hover {
 
 .landingPage {
   background-image: url('https://static.pexels.com/photos/67517/pexels-photo-67517.jpeg');
-  background-size: 100%;
+  background-position: center center;
+  background-size: cover;
   background-repeat: no-repeat;
-  /*height: 100vh;*/
 }
 
 .landingPageContainer {
@@ -410,11 +416,21 @@ img[src]:hover {
 }
 
 .cost {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 10px;
+  margin-right: 0;
 }
 
 .stepMarker {
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.itinerary-icon {
   height: 20px;
   width: 20px;
   padding: 0;
