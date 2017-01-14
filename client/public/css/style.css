@@ -418,9 +418,19 @@ img[src]:hover {
 .cost {
   font-size: 14px;
   margin-top: 10px;
+  margin-right: 0;
 }
 
 .stepMarker {
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.itinerary-icon {
   height: 20px;
   width: 20px;
   padding: 0;

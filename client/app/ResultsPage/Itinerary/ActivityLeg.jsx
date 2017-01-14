@@ -1,6 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { FancyBorder } from '../../helpers';
 import Steps from './Steps.jsx';
+import GreenCar from '../../../public/images/greencar.png';
+import RedCar from '../../../public/images/redcar.png';
+import BlueMarker from '../../../public/images/bluemarker.png';
+
 
 class ActivityLeg extends Component {
   constructor(props) {
@@ -67,7 +71,7 @@ class ActivityLeg extends Component {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       <div className="row">
                         <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker">
-                          <img className="stepMarker" src="https://www.iconsdb.com/icons/preview/guacamole-green/car-xl.png" />
+                          <img className="itinerary-icon" src={GreenCar} />
                         </div>
                         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 legText startText">{`Start Drive to ${this.state.name} ${this.props.activity.time.startTime[0]}:${this.props.activity.time.startTime[1]}`}</div>
                       </div>
@@ -91,7 +95,7 @@ class ActivityLeg extends Component {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       <div className="row">
                         <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 stepMarker">
-                          <img className="stepMarker" src="https://www.iconsdb.com/icons/preview/soylent-red/car-xl.png" />
+                          <img className="itinerary-icon" src={RedCar} />
                         </div>
                         <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 legText durationText">{`End Drive to ${this.state.name} ${this.props.activity.time.endTime[0]}:${this.props.activity.time.endTime[1]}`}</div>
                       </div>
@@ -102,7 +106,7 @@ class ActivityLeg extends Component {
                   <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div className="row">
                       <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker">
-                        <img className="stepMarker" src="https://www.iconsdb.com/icons/preview/caribbean-blue/map-marker-2-xl.png" />
+                        <img className="itinerary-icon" src={BlueMarker} />
                       </div>
                       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 legText">{`Stay at ${this.state.name}`} <input className="legHourInput" onChange={(e) => { this.setTimeInput(this.props.activity.name, (+e.target.value * 3600)); }} value={Math.floor(this.state.activity.duration / 3600)} /> hours </div>
                     </div>
