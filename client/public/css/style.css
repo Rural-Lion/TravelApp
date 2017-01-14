@@ -259,6 +259,10 @@ a:focus, a:hover {
   background-repeat: no-repeat;
 }
 
+.landing-page-input-title {
+  font-weight: bold;
+}
+
 .landingPageContainer {
   margin-top:5%;
   margin-bottom:10%;
