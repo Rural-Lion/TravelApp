@@ -10,12 +10,13 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { generateDetailedEntity, generateData, getCoordinates, FancyBorder, generateItinerary } from '../helpers';
-import NavBar from './NavBar.jsx';
+import NavBar from './NavBar-new.jsx';
 import EntityList from './EntityList.jsx';
 import EntityPopup from './EntityPopup.jsx';
 import MapContainer from './Map/MapContainer.jsx';
 import ItineraryContainer from './Itinerary/ItineraryContainer.jsx';
 import OptionsContainer from './Options/OptionsContainer.jsx';
+import ProgressBars from './ProgressBars.jsx';
 import _ from 'lodash';
 
 class ResultsPage extends Component {
@@ -64,14 +65,14 @@ class ResultsPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.userQuery !== nextProps.userQuery) {
+    if (this.props.userQuery !== nextProps.userQuery) {
       getCoordinates(nextProps.userQuery.startingLocation, ({ lat, lng }) => {
-      this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
-        this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
+        this.setState({ startingLocation: { lat: lat(), lng: lng() } }, () => {
+          this.getEntityList(nextProps.userQuery, this.state.startingLocation, nextProps.userInterests);
+        });
       });
-    });
-    this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
-    this.setTotalBudget(nextProps.userQuery.budgetOfTrip);
+      this.setTotalTime(this.state.startingTime, this.state.endingTime, this.props.userQuery.lengthOfTrip);
+      this.setTotalBudget(nextProps.userQuery.budgetOfTrip);
     }
   }
 
@@ -85,8 +86,8 @@ class ResultsPage extends Component {
       },
     })
       .then((res) => {
-        if(res.data.length === 0) {
-          alert("There are no results for this search - try searching with different inputs")
+        if (res.data.length === 0) {
+          alert('There are no results for this search - try searching with different inputs');
         }
         this.setState({
           entities: generateData(res.data),
@@ -245,7 +246,7 @@ class ResultsPage extends Component {
   setItineraryDom(node) {
     if (node !== this.state.itineraryDom) {
       this.setState({
-        itineraryDom: node
+        itineraryDom: node,
       });
     }
   }
@@ -256,7 +257,7 @@ class ResultsPage extends Component {
     mimeType = mimeType || 'text/plain';
 
     link.setAttribute('download', filename);
-    link.setAttribute('href', 'data: ' + mimeType + ';charset=utf-8, ' + encodeURIComponent(elHtml));
+    link.setAttribute('href', `data: ${mimeType};charset=utf-8, ${encodeURIComponent(elHtml)}`);
     link.click();
   }
 
@@ -268,15 +269,17 @@ class ResultsPage extends Component {
 
           <NavBar
             selectTab={this.selectTab}
-            totalTime={this.state.totalTime}
-            usedTime={this.state.usedTime}
-            remainingTime={this.state.remainingTime}
-            totalBudget={this.state.budgetOfTrip}
-            usedBudget={this.state.usedBudget}
           />
 
           <div className="mapAndList">
-            <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9 mapContainer" >
+            <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 mapContainer" >
+              <ProgressBars
+                totalTime={this.state.totalTime}
+                usedTime={this.state.usedTime}
+                remainingTime={this.state.remainingTime}
+                totalBudget={this.state.budgetOfTrip}
+                usedBudget={this.state.usedBudget}
+              />
               <MapContainer
                 userQuery={this.props.userQuery}
                 entities={this.state.entities}
@@ -288,36 +291,36 @@ class ResultsPage extends Component {
               />
 
             </div>
-            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 tabs">
+            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 tabs">
 
               <div className="tabContent">
-                  { this.state.selectedTab === 'EntityList' ?
-                    <EntityList
-                      entities={this.state.entities}
-                      handleEntityClick={this.handleEntityClick}
-                      handleAddToItineraryClick={this.handleAddToItineraryClick}
-                      waypoints={this.state.waypoints}
-                    /> : null}
-                  { this.state.selectedTab === 'ItineraryContainer' ?
-                    <ItineraryContainer
-                      itinerary={this.state.itinerary}
-                      addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
-                      setItineraryDom={this.setItineraryDom}
-                    /> : null}
-                  { this.state.selectedTab === 'OptionsContainer' ?
-                    <OptionsContainer
-                      setPreferences={this.setPreferences}
-                      startingTime={this.state.startingTime}
-                      endingTime={this.state.endingTime}
-                      foodCostPerDay={this.state.foodCostPerDay}
-                      nightlyCost={this.state.nightlyCost}
-                    /> : null}
-                </div>
+                { this.state.selectedTab === 'EntityList' ?
+                  <EntityList
+                    entities={this.state.entities}
+                    handleEntityClick={this.handleEntityClick}
+                    handleAddToItineraryClick={this.handleAddToItineraryClick}
+                    waypoints={this.state.waypoints}
+                  /> : null}
+                { this.state.selectedTab === 'ItineraryContainer' ?
+                  <ItineraryContainer
+                    itinerary={this.state.itinerary}
+                    addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
+                    setItineraryDom={this.setItineraryDom}
+                  /> : null}
+                { this.state.selectedTab === 'OptionsContainer' ?
+                  <OptionsContainer
+                    setPreferences={this.setPreferences}
+                    startingTime={this.state.startingTime}
+                    endingTime={this.state.endingTime}
+                    foodCostPerDay={this.state.foodCostPerDay}
+                    nightlyCost={this.state.nightlyCost}
+                  /> : null}
+              </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <FancyBorder color="green">
-                    <Button bsStyle="success" className="finalizeButton" onClick={() => {this.downloadInnerHtml('myItinerary.html')}}>{'Finalize >'}</Button>
-                  </FancyBorder>
-                </div>
+                <FancyBorder color="green">
+                  <Button bsStyle="success" className="finalizeButton" onClick={() => { this.downloadInnerHtml('myItinerary.html'); }}>{'Finalize >'}</Button>
+                </FancyBorder>
+              </div>
             </div>
           </div>
           <div className="container">
