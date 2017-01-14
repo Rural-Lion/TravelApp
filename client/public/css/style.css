@@ -35,7 +35,10 @@
   border-color: turquoise;
 }*/
 
-/*COLOR PALETTE*/
+/*******************************/
+/************ COLORS ************/
+/*******************************/
+
 .dark-primary-color    { background: #0097A7 ; }
 .default-primary-color { background: #00BCD4 ; }
 .light-primary-color   { background: #B2EBF2 ; }
@@ -46,57 +49,27 @@
 .secondary-text-color  { color: #757575 ; }
 .divider-color         { border-color: #BDBDBD ; }
 
-body {
-  font-family: 'Open Sans', sans-serif;
+/*******************************/
+/************ FONTS ************/
+/*******************************/
+@font-face {
+  font-family: 'La Cithare';
+  src:  url('/fonts/La Cithare.ttf') format('ttf'),
+}
+@font-face {
+  font-family: 'Futura Lt Book';
+  src:  url('/fonts/futura_lt_book.ttf') format('ttf'),
+        url('/fonts/futura_lt_book.woff') format('woff'),
+        url('/fonts/futura_lt_book.eot') format('eot'),
 }
 
-.btn-primary {
-  background-color: #00BCD4;
-  border-color: #00BCD4;
-  color: white;
-}
-.btn-primary:hover {
-  background-color: #0097A7;
-  border-color: #0097A7;
-  color: white;
-}
-.btn-primary:focus {
-  background-color: #0097A7;
-  border-color: #0097A7;
-  color: white;
-}
-.btn-primary:active:focus {
-  background-color: #0097A7;
-  border-color: #0097A7;
-  color: white;
-}
-.btn-success {
-  background-color: #FF9800;
-  border-color: #FF9800;
-  color: white;
-}
-.btn-success:hover {
-  background-color: #ed8d00;
-  border-color: #ed8d00;
-  color: white;
-}
-.btn-success:focus {
-  background-color: #ed8d00;
-  border-color: #ed8d00;
-  color: white;
-}
-.btn-success:active:focus {
-  background-color: #ed8d00;
-  border-color: #ed8d00;
-  color: white;
-}
-.label-primary {
-  background-color:  #00BCD4;
+body {
+  font-family: 'Futura Lt Book', sans-serif;
 }
 
 h1 {
-  font-size: 60px;
-  font-family: 'Rancho', cursive;
+  font-size: 65px;
+  font-family: 'La Cithare', cursive;
 }
 
 a:focus, a:hover {
@@ -311,12 +284,6 @@ a:focus, a:hover {
   border-radius: 5px;
 }
 
-.navBar {
-  height:5vh;
-  width:100%;
-  background:  #B2EBF2;
-}
-
 .entityContactsRow {
   padding-top: 20px
 }
@@ -496,7 +463,7 @@ a:focus, a:hover {
   height: 2em;
 }
 .progress-bar {
-  font-size: 20px;
+  font-size: 16px;
   font-style: italic;
   padding-top: 0.5%;
 }
@@ -526,14 +493,15 @@ a:focus, a:hover {
   padding-right:0;
 }
 .navbar-default .navbar-brand {
-  font-family: 'Rancho', cursive;
+  font-family: 'La Cithare', cursive;
   color:  #FF9800;
-  font-size: 40px;
-  padding-left: 1em;
+  font-size: 38px;
+  padding-left: 30px;
+  padding-top: 20px;
 }
 .navbar-default .navbar-brand:hover {
   color:  #ed8d00;
-  font-size: 42px;
+  font-size: 40px;
 }
 .navbar-default .navbar-nav>li>a {
   color: white;
@@ -549,7 +517,7 @@ a:focus, a:hover {
 }
 ul.nav.nav-tabs.nav-justified.navbar-nav {
   width: 34%;
-  font-size: 16px;
+  font-size: 20px;
   background-color: white;
   width: 35%;
   border-bottom: 0;
@@ -558,14 +526,16 @@ ul.nav.nav-tabs.nav-justified.navbar-nav {
 .nav-justified {
   table-layout: fixed;
 }
+.nav-justified:before { display: none; }
+.nav-justified:after { display: none; }
+/*END OF NAV STYLES*/
+
 
 .legHourInput {
   width:30px;
   height: 15px;
   font-size: 12px;
 }
-.nav-justified:before { display: none; }
-.nav-justified:after { display: none; }
 
 .toggleStepButton {
   float:left;
@@ -628,3 +598,49 @@ a .infoButton:hover {
   overflow-y: scroll;
 }
 
+/*******************************/
+/**BOOTSTRAP BUTTONS AND LABELS**/
+/*******************************/
+.btn-primary {
+  background-color: #00BCD4;
+  border-color: #00BCD4;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.btn-primary:focus {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.btn-primary:active:focus {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: white;
+}
+.btn-success {
+  background-color: #FF9800;
+  border-color: #FF9800;
+  color: white;
+}
+.btn-success:hover {
+  background-color: #ed8d00;
+  border-color: #ed8d00;
+  color: white;
+}
+.btn-success:focus {
+  background-color: #ed8d00;
+  border-color: #ed8d00;
+  color: white;
+}
+.btn-success:active:focus {
+  background-color: #ed8d00;
+  border-color: #ed8d00;
+  color: white;
+}
+.label-primary {
+  background-color:  #00BCD4;
+}
