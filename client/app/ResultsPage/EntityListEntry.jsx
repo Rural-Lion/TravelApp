@@ -2,22 +2,25 @@ import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
 import { ProgressBar, Button } from 'react-bootstrap';
 import InfoMarker from '../../public/images/infomarker.png';
+import GreenCheck from '../../public/images/green-check.png';
+import PlusSign from '../../public/images/plus-sign.png';
 
 const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const EntityListEntry = props => (
   <div className="row EntityListEntry" >
-    <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-      <div className="row">
-        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1"><a onClick={e => props.handleAddToItineraryClick(e, props.entity)} >{props.entity.isAdded ? <img className="infoButton"src="http://www.clipartbest.com/cliparts/Kin/jry/Kinjrykiq.png" alt="" /> : <img className="infoButton"src="http://iconshow.me/media/images/ui/slim-square-icons/png/256/add.png" alt="" />}</a></div>
-        <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-          <span className="text-center index number" />
-          <span className="title">{`${props.index + 1}.   ${props.entity.name}`}</span>
-        </div>
+    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      
+      <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <a className="results-page-icon" onClick={e => props.handleAddToItineraryClick(e, props.entity)} >{props.entity.isAdded ? <span className="glyphicon glyphicon-ok-sign result-page-check-sign"/> : <span className="glyphicon glyphicon-plus-sign result-page-plus-sign"/>}</a>
       </div>
-    </div>
-    <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-      <a onClick={e => props.handleEntityClick(e, props.entity)} ><img className="infoButton"src={InfoMarker} alt="" /></a>
+      <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <span className="text-center index number" />
+        <span className="title">{`${props.index + 1}.   ${props.entity.name}`}</span>
+      </div>
+      <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <a className="results-page-icon" onClick={e => props.handleEntityClick(e, props.entity)} ><span className="glyphicon glyphicon-info-sign result-page-info-sign"></span></a>
+      </div>
     </div>
   </div>
   );
@@ -29,3 +32,6 @@ EntityListEntry.propTypes = {
 };
 
 export default EntityListEntry;
+
+
+// <img className="result-page-icon result-page-info-icon"src={InfoMarker} alt="" />
