@@ -98,6 +98,10 @@ h1 {
   font-family: 'Rancho', cursive;
 }
 
+a:focus, a:hover {
+  text-decoration: none;
+}
+
 .mapImage {
   height: 35px;
   width: 35px; 
@@ -185,7 +189,25 @@ img[src]:hover {
 
 .landing-page-interest-title {
   margin-top: 35px;
+  margin-bottom: 30px;
 }
+
+.landing-page-interest-glyphicon {
+  height: 50px;
+  width: 50px;
+}
+
+.landing-page-interest-glyphicon-active {
+  height: 50px;
+  width: 50px;
+}
+
+@media screen and (max-width: 1350px) {
+  .landing-page-interest-name {
+    display: none;
+  }
+}
+
 
 .mapContainer {
   margin: 0px;
@@ -354,10 +376,12 @@ img[src]:hover {
   border-radius: 5px;
   margin-top: 25px;
   line-height: 2;
-  background: #FF9800;
-  color:black;
   font-size: 20px;
   border-width: 0px
+}
+
+.day-text {
+  font-style: bold;
 }
 
 .legRow {
@@ -401,35 +425,38 @@ img[src]:hover {
   border: 0px;
 }
 
+.cost {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
 .stepMarker {
-  height: 11px;
-  width: 11px;
-  border-radius: 5px;
-  margin:0;
+  height: 20px;
+  width: 20px;
   padding: 0;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.start {
-    background: green;
-}
-
-.end {
-    background: red;
-}
-
-.adventure {
-    background: purple;
-}
-
 .legText { 
+  margin-left: 10px;
   font-size: 13px;
   color: #4b4848
 }
 
 .directions { 
   font-size: 10px;
+}
+
+.duration-text {
+  font-style: italic;
+  font-size: 12px;
+  color: #757575;
+}
+
+.stay-row {
+  margin-top:20px;
+  margin-bottom:20px;
 }
 
