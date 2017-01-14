@@ -42,7 +42,7 @@ const InterestButton = props => (
       // onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
     />
     <br/>
-    {props.interest.interest[0]}</button>
+    <span className="landing-page-interest-name">{props.interest.interest[0]}</span></button>
   </div>
   );
 

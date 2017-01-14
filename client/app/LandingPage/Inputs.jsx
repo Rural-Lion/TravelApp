@@ -7,7 +7,7 @@ const Inputs = props => (
   <FancyBorder color="yellow" >
     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
       <FancyBorder color="green">
-      How much do you want to spend?
+      What's your budget?
         <input
           data-tag="budgetOfTrip"
           onChange={e => props.handleChange(setBudget, e.target.value)}
@@ -44,7 +44,7 @@ const Inputs = props => (
     </div>
     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
       <FancyBorder color="green">
-      How far away do you want to go?
+      How far do you want to go?
         <input
           data-tag="distanceOfTrip"
           onChange={e => props.handleChange(setDistance, e.target.value)}

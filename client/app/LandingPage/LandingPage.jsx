@@ -32,7 +32,7 @@ const LandingPage = () => (
           <div className="row">
             <FancyBorder color="yellow">
               <div className="text-center landing-page-interest-title">
-                <h4>Choose at least 2 interests</h4>
+                <h3>What's your plan?</h3>
               </div>
             </FancyBorder>
           </div>
