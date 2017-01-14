@@ -132,15 +132,6 @@ a:focus, a:hover {
   width: 80%;
 }
 
-.lpInput {
-  display: block;
-  margin: auto;
-  width: 100%;
-  border-radius: 5px;
-  margin-top: 5px;
-  color: #545454
-}
-
 .inputs {
   margin-top: 15px; 
 }
@@ -312,51 +303,6 @@ a:focus, a:hover {
   color: white;
 }
 
-.interestFavicon { 
-  margin: 5px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: transparent;
-  border-width: 0px;
-  font-size: 15px;
-  color: black;
-}
-
-.includedInterestFavicon { 
-  margin: 5px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color:  #0097A7;
-  border-width: 0px;
-  font-size: 15px;
-  color: white;
-}
-
-.optionsFavicon {
-  height: 45px;
-  width: 45px;
-}
-
-.optionsFavicon:hover {
-  opacity: .5;
-}
-
-.planButton {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.Optionscontainer {
-  float: left;
-  margin-left: 65px;
-}
-
-.optionsInput {
-  text-align: center;
-  margin: 20px;
-  float: left;
-}
-
 .plan-vacation-button {
   border-radius: 5px;
   margin-top: 25px;
@@ -447,8 +393,76 @@ a:focus, a:hover {
 }
 
 /*******************************/
+/*******OPTIONS PAGE***********/
+/*******************************/
+
+.options-interestfavicon { 
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: transparent;
+  border-width: 0px;
+  font-size: 15px;
+  color: black;
+}
+
+.options-includedinterestfavicon { 
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color:  #0097A7;
+  border-width: 0px;
+  font-size: 15px;
+  color: white;
+}
+
+.options-favicon {
+  height: 45px;
+  width: 45px;
+}
+
+.options-favicon:hover {
+  cursor: pointer;
+  opacity: .5;
+}
+
+.options-container {
+  margin-left: 25px;
+}
+
+.options-input-container {
+  background: transparent;
+  border: none;
+  text-align: center;
+  margin: 15px;
+  float: left;
+}
+
+.options-inputs {
+  display: block;
+  margin: auto;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #000000;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.options-planbutton-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.options-planbutton {
+  margin-left: -20px;
+  height: 40px;
+  width: 100px;
+}
+
+/*******************************/
 /*******PROGRESS BARS***********/
 /*******************************/
+
 .col-progress-glyph {
   padding-right: 5px;
 }
@@ -482,6 +496,7 @@ a:focus, a:hover {
 /*******************************/
 /******* NAVIGATION ***********/
 /*******************************/
+
 .navbar-collapse {
   padding-right: 0;
 }

@@ -5,23 +5,23 @@ import Autocomplete from 'react-google-autocomplete';
 import { Button } from 'react-bootstrap'
 
 const Inputs = props => (
-  <div className='Optionscontainer'>
+  <div className='options-container'>
     <div className='row'>
-      <div className='col optionsInput'>
+      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
         <strong>Location</strong>
           <Autocomplete id='location' 
             data-tag="startingLocation"
-            className="lpInput"
+            className="options-inputs"
             type="text"
             onChange={(e) => value=e.target.value}
             value={props.userQuery.startingLocation}
           />
       </div>
-      <div className='col optionsInput'>
-        <strong>Distance</strong>
+      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
+        <strong>Distance (KM)</strong>
           <input id='distance' 
             data-tag="distanceOfTrip"
-            className="lpInput"
+            className="options-inputs"
             type="text"
             onChange={(e) => value=e.target.value}
             value={props.userQuery.distanceOfTrip}
@@ -29,21 +29,21 @@ const Inputs = props => (
       </div>
     </div>
     <div className='row'>
-      <div className='col optionsInput'>
+      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
       <strong>Total Budget</strong>
         <input id='budget' 
           data-tag="budgetOfTrip"
-          className="lpInput"
+          className="options-inputs"
           type="text"
           onChange={(e) => value=e.target.value}
           value={props.userQuery.budgetOfTrip}
         />
       </div>
-      <div className='col optionsInput'>
+      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
       <strong>Time Length (Days)</strong>
         <input id='time'
           data-tag="lengthOfTrip"
-          className="lpInput"
+          className="options-inputs"
           type="text"
           onChange={(e) => value=e.target.value}
           value={props.userQuery.lengthOfTrip}
@@ -51,21 +51,21 @@ const Inputs = props => (
       </div>
     </div>
     <div className='row'>
-      <div className='col optionsInput'>
+      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
           <strong>Start Time</strong>
           <input id='startingTime' 
             data-tag="dayLength1"
-            className="lpInput"
+            className="options-inputs"
             type="text"
             onChange={(e) => value=e.target.value}
             value={props.startingTime}
           />
       </div>
-      <div className='col optionsInput'>
+      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
           <strong>End Time</strong>
           <input id='endingTime' 
             data-tag="dayLength2"
-            className="lpInput"
+            className="options-inputs"
             type="text"
             onChange={(e) => value=e.target.value}
             value={props.endingTime}
@@ -73,30 +73,30 @@ const Inputs = props => (
       </div>
     </div>
     <div className='row'>
-      <div className='col optionsInput'>
+      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
         <strong>Daily Food Budget</strong>
           <input id='foodCost' 
             data-tag="allowanceForFood"
-            className="lpInput"
+            className="options-inputs"
             type="text"
             onChange={(e) => value=e.target.value}
             value={props.foodCostPerDay}
           />
       </div>
-      <div className='col optionsInput'>
-        <strong>Daily Sleeping Budget</strong>
+      <div className='col-xs-2 col-sm-2 col-md-5 col-lg-5 options-input-container'>
+        <strong>Daily Sleep Budget</strong>
           <input id='nightlyCost' 
             data-tag="sleep preference"
-            className="lpInput"
+            className="options-inputs"
             type="text"
             onChange={(e) => value=e.target.value}
             value={props.nightlyCost} 
           />
       </div>
     </div>
-    <div className='row planButton'>
+    <div className='row options-planbutton-container'>
       <div className='col'>
-        <Button bsStyle='primary' className='planButton2'
+        <Button bsStyle='primary' className='options-planbutton'
           onClick= { (e) => {
             props.setPreferences(+document.getElementById('foodCost').value, +document.getElementById('startingTime').value, +document.getElementById('endingTime').value, +document.getElementById('nightlyCost').value);
             props.handleChange(setBudget, document.getElementById('budget').value);
@@ -105,7 +105,7 @@ const Inputs = props => (
             props.handleChange(setDistance, document.getElementById('distance').value);
             }
           }
-        > Plan My Vacation 
+        > Search
         </Button>
       </div>
     </div>
