@@ -458,7 +458,7 @@ a:focus, a:hover {
 }
 
 .options-container {
-  margin-left: 25px
+  margin-left: 25px;
 }
 
 .options-input-container {
@@ -485,7 +485,7 @@ a:focus, a:hover {
 }
 
 .options-planbutton {
-  margin-left: -10px;
+  margin-left: -20px;
   height: 40px;
   width: 100px;
 }
