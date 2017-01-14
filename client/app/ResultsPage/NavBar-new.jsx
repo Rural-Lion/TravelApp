@@ -30,13 +30,11 @@ class NavBar extends Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <div className="nav-tabs-div">
-            <Nav bsStyle="tabs"justified activeKey={this.state.active} onSelect={this.handleSelect} pullRight>
-              <NavItem eventKey={'EntityList'} title="Plan">Plan</NavItem>
-              <NavItem eventKey={'ItineraryContainer'} title="Itinerary">Itinerary</NavItem>
-              <NavItem eventKey={'OptionsContainer'} title="Options">Options</NavItem>
-            </Nav>
-          </div>
+          <Nav bsStyle="tabs"justified activeKey={this.state.active} onSelect={this.handleSelect} pullRight>
+            <NavItem eventKey={'EntityList'} title="Plan">Plan</NavItem>
+            <NavItem eventKey={'ItineraryContainer'} title="Itinerary">Itinerary</NavItem>
+            <NavItem eventKey={'OptionsContainer'} title="Options">Options</NavItem>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     );

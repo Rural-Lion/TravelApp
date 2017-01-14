@@ -532,19 +532,20 @@ a:focus, a:hover {
 .navbar-default .navbar-nav>li>a {
   color: white;
   border-color: #BDBDBD;
+  background-color: #757575;
 }
-.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
   color: white;
   background-color:  #00BCD4;
   border-color: transparent;
 }
-.nav-tabs-div {
-  float: right;
+ul.nav.nav-tabs.nav-justified.navbar-nav {
   width: 34%;
   font-size: 16px;
-}
-ul.nav.nav-tabs.nav-justified.navbar-nav {
-  width: 100%;
+  background-color: white;
+  width: 35%;
   border-bottom: 0;
   display: table;
 }
