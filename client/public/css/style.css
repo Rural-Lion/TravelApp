@@ -233,13 +233,10 @@ img[src]:hover {
 .tabs {
   margin: 0px;
   padding: 0px;
-  height: 95vh;
-
-
 }
 
 .tabContent {
-  height: 90vh;
+  height: 85vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -515,5 +512,15 @@ img[src]:hover {
 .nav-tabs-div {
   float: right;
   width: 34%;
-  font-size: 26px;
+  font-size: 16px;
 }
+ul.nav.nav-tabs.nav-justified.navbar-nav {
+  width: 100%;
+  border-bottom: 0;
+  display: table;
+}
+.nav-justified {
+  table-layout: fixed;
+}
+.nav-justified:before { display: none; }
+.nav-justified:after { display: none; }
