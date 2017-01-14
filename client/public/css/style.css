@@ -41,6 +41,7 @@
 .light-primary-color   { background: #B2EBF2 ; }
 .text-primary-color    { color: #FFFFFF ; }
 .accent-color          { background: #FF9800 ; }
+.accent-color-hover    { background: #ed8d00; }
 .primary-text-color    { color: #212121 ; }
 .secondary-text-color  { color: #757575 ; }
 .divider-color         { border-color: #BDBDBD ; }
@@ -75,18 +76,18 @@ body {
   color: white;
 }
 .btn-success:hover {
-  background-color: #0097A7;
-  border-color: #0097A7;
+  background-color: #ed8d00;
+  border-color: #ed8d00;
   color: white;
 }
 .btn-success:focus {
-  background-color: #0097A7;
-  border-color: #0097A7;
+  background-color: #ed8d00;
+  border-color: #ed8d00;
   color: white;
 }
 .btn-success:active:focus {
-  background-color: #0097A7;
-  border-color: #0097A7;
+  background-color: #ed8d00;
+  border-color: #ed8d00;
   color: white;
 }
 .label-primary {
@@ -313,13 +314,6 @@ img[src]:hover {
   width:100%;
   background:  #B2EBF2;
 }
-.progress-bar-warning {
-  background-color: #FF9800;
-}
-
-.progress-bar-success {
-  background-color: #0097A7;
-}
 
 .entityContactsRow {
   padding-top: 20px
@@ -401,15 +395,6 @@ img[src]:hover {
   border-radius: 0;
 }
 
-.progressBars {
-  padding-top: 1vh;
-  height: 5vh;
-}
-
-.progressBarGlyphicon {
-  color:white;
-}
-
 .legHourInput {
   width:30px;
   height: 15px;
@@ -460,3 +445,75 @@ img[src]:hover {
   margin-bottom:20px;
 }
 
+/*******************************/
+/*******PROGRESS BARS***********/
+/*******************************/
+.col-progress-glyph {
+  padding-right: 5px;
+}
+.col-progress-glyph .glyphicon {
+  float: right;
+  font-size: 2em;
+  font-weight: 500;
+}
+.col-progress-bar {
+  padding-left: 0;
+}
+.progress {
+  margin-bottom: 2%;
+  height: 2em;
+}
+.progress-bar {
+  font-size: 20px;
+  font-style: italic;
+  padding-top: 0.5%;
+}
+.progress-bars {
+  padding-top: 1%;
+}
+.progress-bar-success {
+  background-color: #0097A7;
+}
+.progress-bar-warning {
+  background-color: #FF9800;
+}
+
+/*******************************/
+/******* NAVIGATION ***********/
+/*******************************/
+.navbar-collapse {
+  padding-right: 0;
+}
+.navbar-default {
+  background-color:  #757575;
+  margin-bottom: 0;
+}
+.navbar-default .container {
+  margin: 0;
+  width:100%;
+  padding-right:0;
+}
+.navbar-default .navbar-brand {
+  font-family: 'Rancho', cursive;
+  color:  #FF9800;
+  font-size: 40px;
+  padding-left: 1em;
+}
+.navbar-default .navbar-brand:hover {
+  color:  #ed8d00;
+  font-size: 42px;
+}
+.navbar-default .navbar-nav>li>a {
+  color: white;
+  border-color: #BDBDBD;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  color: white;
+  background-color:  #00BCD4;
+  border-color: transparent;
+}
+.nav-tabs-div {
+  float: right;
+  width: 34%;
+  font-size: 26px;
+}
