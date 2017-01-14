@@ -363,26 +363,14 @@ a:focus, a:hover {
   text-align: center;
 }
 
-.icons, .optionsTitle {
-  padding-left: 0px;
-}
-
-.activitiesTitle {
-  margin-left: -20px;
-}
-
-.preferencesTitle {
-  margin-left: -35px;
-}
-
 .Optionscontainer {
   float: left;
-  margin-left: 10px;
+  margin-left: 65px;
 }
 
 .optionsInput {
   text-align: center;
-  margin: 13px;
+  margin: 20px;
   float: left;
 }
 
