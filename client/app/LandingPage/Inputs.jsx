@@ -15,6 +15,7 @@ const Inputs = props => (
           type="text"
           value={props.userQuery.budgetOfTrip}
         />
+        <span className="landing-page-input-examples">(e.g. $"300")</span>
       </FancyBorder>
     </div>
     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -27,6 +28,7 @@ const Inputs = props => (
           type="text"
           value={props.userQuery.lengthOfTrip}
         />
+        <span className="landing-page-input-examples">(e.g. "3" days)</span>
       </FancyBorder>
     </div>
     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -40,6 +42,7 @@ const Inputs = props => (
           type="text"
           value={props.userQuery.startingLocation}
         />
+        <span className="landing-page-input-examples">(e.g. "San Francisco")</span>
       </FancyBorder>
     </div>
     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -52,6 +55,7 @@ const Inputs = props => (
           type="text"
           value={props.userQuery.distanceOfTrip}
         />
+        <span className="landing-page-input-examples">(e.g. "300" miles)</span>
       </FancyBorder>
     </div>
   </FancyBorder>

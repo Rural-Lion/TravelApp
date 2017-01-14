@@ -188,6 +188,12 @@ img[src]:hover {
   border-bottom: 2px solid #000000;
 }
 
+.landing-page-input-examples {
+  font-style: italic;
+  font-size: 12px;
+  color: #757575;
+}
+
 .landing-page-interest-title {
   margin-top: 35px;
   margin-bottom: 30px;
@@ -410,7 +416,7 @@ img[src]:hover {
 }
 
 .cost {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 10px;
 }
 
