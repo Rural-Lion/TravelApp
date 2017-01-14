@@ -55,6 +55,8 @@
 @font-face {
   font-family: 'La Cithare';
   src:  url('/fonts/La Cithare.ttf') format('ttf'),
+        url('/fonts/La Cithare.woff') format('woff'),
+        url('/fonts/La Cithare.eot') format('eot'),
 }
 @font-face {
   font-family: 'Futura Lt Book';
@@ -502,6 +504,7 @@ a:focus, a:hover {
 .navbar-default .navbar-brand:hover {
   color:  #ed8d00;
   font-size: 40px;
+  max-height: 5vh;
 }
 .navbar-default .navbar-nav>li>a {
   color: white;
