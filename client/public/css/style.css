@@ -176,7 +176,7 @@ img[src]:hover {
   margin-bottom: 35px;
 }
 
-.langind-page-inputs {
+.landing-page-inputs {
   display: block;
   margin-top: 15px;
   margin-right: auto;
@@ -291,9 +291,9 @@ img[src]:hover {
 
 .landingPage {
   background-image: url('https://static.pexels.com/photos/67517/pexels-photo-67517.jpeg');
-  background-size: 100%;
+  background-position: center center;
+  background-size: cover;
   background-repeat: no-repeat;
-  /*height: 100vh;*/
 }
 
 .landingPageContainer {
