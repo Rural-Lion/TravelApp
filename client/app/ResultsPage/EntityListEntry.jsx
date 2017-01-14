@@ -1,29 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
+import { ProgressBar, Button } from 'react-bootstrap';
 
 const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const EntityListEntry = props => (
-  <FancyBorder color="green">
-    <div className="row EntityListEntry" onClick={e => props.handleEntityClick(e, props.entity)}>
-      <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <FancyBorder color="blue"><div className="text-center"><strong>{props.index + 1}</strong></div></FancyBorder>
-        <FancyBorder color="blue">
-          <div>
-            <img
-              className="mapImage center-block" src={require('../../public/images/Map.png')}
-              onClick={e => props.handleAddToItineraryClick(e, props.entity)}
-            />
-          </div>
-        </FancyBorder>
-      </div>
-      <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-        <div className="title">{props.entity.name}</div>
+  <div className="row EntityListEntry" >
+    <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+      <div className="row">
+        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1"><a onClick={e => props.handleAddToItineraryClick(e, props.entity)} >{props.entity.isAdded ? <img className="infoButton"src="http://www.clipartbest.com/cliparts/Kin/jry/Kinjrykiq.png" alt="" /> : <img className="infoButton"src="http://iconshow.me/media/images/ui/slim-square-icons/png/256/add.png" alt="" />}</a></div>
+        <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+          <span className="text-center index number" />
+          <span className="title">{`${props.index + 1}.   ${props.entity.name}`}</span>
+        </div>
       </div>
     </div>
-  </FancyBorder>
+    <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+      <a onClick={e => props.handleEntityClick(e, props.entity)} ><img className="infoButton"src="http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png" alt="" /></a>
+    </div>
+  </div>
   );
-
 EntityListEntry.propTypes = {
   entity: PropTypes.object,
   index: PropTypes.number,

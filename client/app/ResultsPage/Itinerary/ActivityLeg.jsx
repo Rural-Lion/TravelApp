@@ -67,7 +67,7 @@ class ActivityLeg extends Component {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       <div className="row">
                         <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker">
-                        <img className="stepMarker" src="http://www.iconsdb.com/icons/preview/guacamole-green/car-xl.png"/>
+                          <img className="stepMarker" src="https://www.iconsdb.com/icons/preview/guacamole-green/car-xl.png" />
                         </div>
                         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 legText startText">{`Start Drive to ${this.state.name} ${this.props.activity.time.startTime[0]}:${this.props.activity.time.startTime[1]}`}</div>
                       </div>
@@ -76,14 +76,14 @@ class ActivityLeg extends Component {
                   <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       <div className="row">
-                        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker"/>
-                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 legText">
-                            <div className="row">
-                              <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 duration-text">{`Duration ${durationText}`}</div>
-                              <div>{this.state.activity.start_address ? <button className=" glyphicon glyphicon-triangle-bottom toggleStepButton" onClick={() => this.toggleSteps()} /> : null}</div>
-                            </div>
-                            {this.state.showSteps ? <Steps steps={this.state.activity.legs} /> : null}
+                        <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker duration" />
+                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 legText endText">
+                          <div className="row">
+                            <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 durationText">{`Duration ${durationText}`}</div>
+                            <div>{this.state.activity.start_address ? <button className=" glyphicon glyphicon-triangle-bottom toggleStepButton" onClick={() => this.toggleSteps()} /> : null}</div>
                           </div>
+                          {this.state.showSteps ? <Steps steps={this.state.activity.legs} /> : null}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -91,7 +91,7 @@ class ActivityLeg extends Component {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       <div className="row">
                         <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 stepMarker">
-                        <img className="stepMarker" src="http://www.iconsdb.com/icons/preview/soylent-red/car-xl.png"/>
+                          <img className="stepMarker" src="https://www.iconsdb.com/icons/preview/soylent-red/car-xl.png" />
                         </div>
                         <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 legText durationText">{`End Drive to ${this.state.name} ${this.props.activity.time.endTime[0]}:${this.props.activity.time.endTime[1]}`}</div>
                       </div>
@@ -102,8 +102,8 @@ class ActivityLeg extends Component {
                   <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div className="row">
                       <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 stepMarker">
-                          <img className="stepMarker" src="http://www.iconsdb.com/icons/preview/caribbean-blue/map-marker-2-xl.png"/>
-                        </div>
+                        <img className="stepMarker" src="https://www.iconsdb.com/icons/preview/caribbean-blue/map-marker-2-xl.png" />
+                      </div>
                       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 legText">{`Stay at ${this.state.name}`} <input className="legHourInput" onChange={(e) => { this.setTimeInput(this.props.activity.name, (+e.target.value * 3600)); }} value={Math.floor(this.state.activity.duration / 3600)} /> hours </div>
                     </div>
                   </div>

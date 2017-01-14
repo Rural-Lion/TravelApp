@@ -50,7 +50,7 @@ class MapContainer extends Component {
 
     if (this.props.waypoints[0]) {
       MapDirections(this.props.waypoints, this.props.startingLocation, this.state.map, this.props.setItinerary);
-    }
+    } else { this.props.clearItinerary(); }
   }
 
   makeEntityMarkers(entities, map, infoWindowCb) {
