@@ -210,7 +210,6 @@ class ResultsPage extends Component {
   }
 
   handleAddToItineraryClick(e, entity) {
-    e.stopPropagation();
     const { coordinates: [lat, lng], name } = entity;
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
@@ -260,7 +259,7 @@ class ResultsPage extends Component {
   }
 
   clearItinerary() {
-    console.log('clear itinerary called');
+    console.log('itinerary', this.state.itinerary);
     this.setState({
       itinerary: false,
       usedBudget: 0,
