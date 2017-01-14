@@ -324,6 +324,7 @@ class ResultsPage extends Component {
                   /> : null}
                 { this.state.selectedTab === 'OptionsContainer' ?
                   <OptionsContainer
+                    selectTab={this.selectTab}
                     setPreferences={this.setPreferences}
                     startingTime={this.state.startingTime}
                     endingTime={this.state.endingTime}
