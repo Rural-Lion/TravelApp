@@ -8,28 +8,6 @@ const Inputs = props => (
   <div className='Optionscontainer'>
     <div className='row'>
       <div className='col optionsInput'>
-      <strong>Budget $$$</strong>
-        <input id='budget' 
-          data-tag="budgetOfTrip"
-          className="lpInput"
-          type="text"
-          onChange={(e) => value=e.target.value}
-          value={props.userQuery.budgetOfTrip}
-        />
-      </div>
-      <div className='col optionsInput'>
-      <strong>Time Length (Days)</strong>
-        <input id='time'
-          data-tag="lengthOfTrip"
-          className="lpInput"
-          type="text"
-          onChange={(e) => value=e.target.value}
-          value={props.userQuery.lengthOfTrip}
-        />
-      </div>
-    </div>
-    <div className='row'>
-      <div className='col optionsInput'>
         <strong>Location</strong>
           <Autocomplete id='location' 
             data-tag="startingLocation"
@@ -52,7 +30,29 @@ const Inputs = props => (
     </div>
     <div className='row'>
       <div className='col optionsInput'>
-          <strong>Wake Up</strong>
+      <strong>Total Budget</strong>
+        <input id='budget' 
+          data-tag="budgetOfTrip"
+          className="lpInput"
+          type="text"
+          onChange={(e) => value=e.target.value}
+          value={props.userQuery.budgetOfTrip}
+        />
+      </div>
+      <div className='col optionsInput'>
+      <strong>Time Length (Days)</strong>
+        <input id='time'
+          data-tag="lengthOfTrip"
+          className="lpInput"
+          type="text"
+          onChange={(e) => value=e.target.value}
+          value={props.userQuery.lengthOfTrip}
+        />
+      </div>
+    </div>
+    <div className='row'>
+      <div className='col optionsInput'>
+          <strong>Start Time</strong>
           <input id='startingTime' 
             data-tag="dayLength1"
             className="lpInput"
@@ -62,7 +62,7 @@ const Inputs = props => (
           />
       </div>
       <div className='col optionsInput'>
-          <strong>Come Back to Camp</strong>
+          <strong>End Time</strong>
           <input id='endingTime' 
             data-tag="dayLength2"
             className="lpInput"
@@ -84,7 +84,7 @@ const Inputs = props => (
           />
       </div>
       <div className='col optionsInput'>
-        <strong>Sleeping Preferences</strong>
+        <strong>Daily Sleeping Budget</strong>
           <input id='nightlyCost' 
             data-tag="sleep preference"
             className="lpInput"
