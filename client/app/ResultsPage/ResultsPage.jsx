@@ -258,7 +258,11 @@ class ResultsPage extends Component {
 
   clearItinerary() {
     console.log('clear itinerary called');
-    this.setState({ itinerary: false }, () => { console.log(this.state.itinerary); });
+    this.setState({
+      itinerary: false,
+      usedBudget: 0,
+      usedTime: 0,
+    }, () => { console.log(this.state.itinerary); });
   }
   downloadInnerHtml(filename, mimeType) {
     const elHtml = this.state.itineraryDom.innerHTML;
@@ -310,6 +314,7 @@ class ResultsPage extends Component {
                     handleEntityClick={this.handleEntityClick}
                     handleAddToItineraryClick={this.handleAddToItineraryClick}
                     waypoints={this.state.waypoints}
+                    downloadInnerHtml={this.downloadInnerHtml}
                   /> : null}
                 { this.state.selectedTab === 'ItineraryContainer' ?
                   <ItineraryContainer
@@ -325,14 +330,6 @@ class ResultsPage extends Component {
                     foodCostPerDay={this.state.foodCostPerDay}
                     nightlyCost={this.state.nightlyCost}
                   /> : null}
-              </div>
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <Button
-                    bsStyle="success" className="finalize-button"
-                    onClick={() => { this.downloadInnerHtml('myItinerary.html'); }}
-                  >
-                    Save My Itinerary
-                  </Button>
               </div>
             </div>
           </div>
