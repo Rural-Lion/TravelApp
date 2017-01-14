@@ -33,7 +33,7 @@ class ItineraryContainer extends Component {
       <div>
 
         <div className="itineraryContainer" ref={(node) => { this.props.setItineraryDom(node); this.setItineraryDom(node); }}>
-          {this.props.itinerary ? <DayLegs itinerary={this.props.itinerary} addTimeToWaypoint={this.props.addTimeToWaypoint} /> : null }
+          {this.props.itinerary ? <DayLegs itinerary={this.props.itinerary} addTimeToWaypoint={this.props.addTimeToWaypoint} /> : <div className="text-center">Add locations to your itinerary to see results!</div> }
         </div>
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
           <div className="finalizeButtonContainer">
