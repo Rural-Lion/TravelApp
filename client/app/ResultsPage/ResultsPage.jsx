@@ -327,9 +327,12 @@ class ResultsPage extends Component {
                   /> : null}
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <FancyBorder color="green">
-                  <Button bsStyle="success" className="finalizeButton" onClick={() => { this.downloadInnerHtml('myItinerary.html'); }}>{'Finalize >'}</Button>
-                </FancyBorder>
+                <Button
+                    bsStyle="success" className="finalize-button"
+                    onClick={() => { this.downloadInnerHtml('myItinerary.html'); }}
+                  >
+                    Save My Itinerary
+                  </Button>
               </div>
             </div>
           </div>
