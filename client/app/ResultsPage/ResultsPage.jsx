@@ -214,7 +214,6 @@ class ResultsPage extends Component {
     const { coordinates: [lat, lng], name } = entity;
     let removeFlag = false;
     const waypoints = this.state.waypoints.slice();
-    console.log('waypoints', waypoints);
     waypoints.forEach(({ waypoint: { location: { lat: insideLat, lng: insideLng } } }, index) => {
       if (insideLat === lat && insideLng === lng) {
         waypoints.splice(index, 1);
