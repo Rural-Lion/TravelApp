@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../../helpers';
 import DayLegs from './DayLegs.jsx';
+import { Button } from 'react-bootstrap';
 
 class ItineraryContainer extends Component {
   constructor(props) {
@@ -19,20 +20,28 @@ class ItineraryContainer extends Component {
   }
 
   setItineraryDom(node) {
-     if (node !== this.state.itineraryDom) {
+    if (node !== this.state.itineraryDom) {
       this.setState({
         itineraryDom: node,
       });
     }
-   }
+  }
 
   render() {
     console.log('itinerary in itinerarycontainer: ', this.props.itinerary);
     return (
-      <div ref={(node) => { this.props.setItineraryDom(node); this.setItineraryDom(node) ;}}>
-        <FancyBorder color="yellow">
+      <div>
+
+        <div className="itineraryContainer" ref={(node) => { this.props.setItineraryDom(node); this.setItineraryDom(node); }}>
           {this.props.itinerary ? <DayLegs itinerary={this.props.itinerary} addTimeToWaypoint={this.props.addTimeToWaypoint} /> : null }
-        </FancyBorder>
+        </div>
+        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+          <div className="finalizeButtonContainer">
+            <FancyBorder color="green">
+              <Button bsStyle="success" className="finalize-button" onClick={() => { this.props.downloadInnerHtml('myItinerary.html'); }}>Save My Itinerary</Button>
+            </FancyBorder>
+          </div>
+        </div>
       </div>
     );
   }

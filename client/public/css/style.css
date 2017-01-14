@@ -119,6 +119,10 @@ a:focus, a:hover {
 }
 
 .finalize-button {
+  width: 95%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color:white;
   border-radius: 5px;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -235,7 +239,7 @@ a:focus, a:hover {
 }
 
 .tabContent {
-  height: 80vh;
+  height: 94vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -613,5 +617,14 @@ ul.nav.nav-tabs.nav-justified.navbar-nav {
 
 a .infoButton:hover {
   color:white;
+}
+
+.finalizeButtonContainer {
+  height: 10vh;
+}
+
+.itineraryContainer {
+  height: 84vh;
+  overflow-y: scroll;
 }
 
