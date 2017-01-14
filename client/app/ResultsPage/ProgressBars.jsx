@@ -18,7 +18,7 @@ const ProgressBars = (props) => {
               <div className="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-progress-bar">
                 <ProgressBar
                   active bsStyle={(timePercent() < 0) ? 'danger' : 'success'}
-                  now={timePercent()} label={`${Math.ceil(props.remainingTime / 3600)} hrs left`}
+                  now={timePercent()} label={`${Math.ceil((props.totalBudget - props.usedBudget) / 3600)} hrs left`}
                 />
               </div>
             </div>

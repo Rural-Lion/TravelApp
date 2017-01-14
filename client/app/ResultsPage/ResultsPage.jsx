@@ -258,7 +258,11 @@ class ResultsPage extends Component {
 
   clearItinerary() {
     console.log('clear itinerary called');
-    this.setState({ itinerary: false }, () => { console.log(this.state.itinerary); });
+    this.setState({
+      itinerary: false,
+      usedBudget: 0,
+      usedTime: 0,
+    }, () => { console.log(this.state.itinerary); });
   }
   downloadInnerHtml(filename, mimeType) {
     const elHtml = this.state.itineraryDom.innerHTML;
