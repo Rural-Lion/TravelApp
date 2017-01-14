@@ -147,6 +147,7 @@ class ResultsPage extends Component {
 
   handleEntityClick(e, entity) {
     const that = this;
+    let entityAddress;
     if (entity.facility) {
       axios.get('/facilityAddress', {
         params: {
@@ -154,43 +155,45 @@ class ResultsPage extends Component {
         },
       })
     .then((facilityAddress) => {
-      axios.get('/trailsAndActivitiesWithinRadiusOfFacility', {
+      entityAddress = facilityAddress;
+      return axios.get('/trailsAndActivitiesWithinRadiusOfFacility', {
         params: {
           facilityID: entity.entityID,
           latitude: entity.coordinates[0],
           longitude: entity.coordinates[1],
         },
-      })
-      .then((facilityDetails) => {
-        that.setState({
-          selectedEntity: generateDetailedEntity(entity, facilityAddress.data, facilityDetails.data),
-          showModal: true,
-        });
       });
-    });
+    })
+    .then((facilityDetails) => {
+      that.setState({
+        selectedEntity: generateDetailedEntity(entity, entityAddress.data, facilityDetails.data),
+        showModal: true,
+      });
+    })
+    .catch(err => console.error('error getting more details on entity', err));
     } else if (entity.recArea) {
       axios.get('/recAddress', {
         params: {
           recAreaID: entity.entityID,
         },
       })
-
-    .then((recAreaAddress) => {
-      axios.get('/trailsAndActivitiesWithinRadiusOfRecAreas', {
-        params: {
-          recAreaID: entity.entityID,
-          latitude: entity.coordinates[0],
-          longitude: entity.coordinates[1],
-        },
+      .then((recAreaAddress) => {
+        entityAddress = recAreaAddress;
+        return axios.get('/trailsAndActivitiesWithinRadiusOfRecAreas', {
+          params: {
+            recAreaID: entity.entityID,
+            latitude: entity.coordinates[0],
+            longitude: entity.coordinates[1],
+          },
+        });
       })
       .then((recAreaDetails) => {
-        that.setState({
-          selectedEntity: generateDetailedEntity(entity, recAreaAddress.data, recAreaDetails.data),
-          showModal: true,
-        });
-      });
-    })
-    .catch(err => console.error('error getting more details on entity', err));
+          that.setState({
+            selectedEntity: generateDetailedEntity(entity, entityAddress.data, recAreaDetails.data),
+            showModal: true,
+          });
+        })
+      .catch(err => console.error('error getting more details on entity', err));
     }
   }
 
