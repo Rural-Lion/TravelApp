@@ -4,7 +4,7 @@ import InterestButton from './InterestButton.jsx';
 
 const InterestButtons = (props) => {
   const buttons = props.interests.map((interest, index) =>
-    (<div className="col-xs-3 col-sm-3 col-md-3 col-lg-3" key={index}>
+    (<div className="col-xs-12 col-sm-6 col-md-3 col-lg-3" key={index}>
       <InterestButton
         interest={{ interest, index }}
         handleInterestButtonClick={props.handleInterestButtonClick}

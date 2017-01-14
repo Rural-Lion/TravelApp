@@ -5,9 +5,9 @@ import Autocomplete from 'react-google-autocomplete';
 
 const Inputs = props => (
   <FancyBorder color="yellow" >
-    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <FancyBorder color="green">
-      What is your budget?
+      <h5 className="landing-page-input-title">What is your budget?</h5>
         <input
           data-tag="budgetOfTrip"
           onChange={e => props.handleChange(setBudget, e.target.value)}
@@ -18,9 +18,9 @@ const Inputs = props => (
         <span className="landing-page-input-examples">(e.g. $"300")</span>
       </FancyBorder>
     </div>
-    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <FancyBorder color="green">
-      How long are you traveling?
+      <h5 className="landing-page-input-title">How long are you traveling?</h5>
         <input
           data-tag="lengthOfTrip"
           onChange={e => props.handleChange(setLength, e.target.value)}
@@ -31,9 +31,9 @@ const Inputs = props => (
         <span className="landing-page-input-examples">(e.g. "3" days)</span>
       </FancyBorder>
     </div>
-    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <FancyBorder color="green">
-      Where are you starting from?
+      <h5 className="landing-page-input-title">Where are you starting from?</h5>
         <Autocomplete
           data-tag="startingLocation"
           onPlaceSelected={place => props.handleChange(setLocation, place.formatted_address)}
@@ -45,9 +45,9 @@ const Inputs = props => (
         <span className="landing-page-input-examples">(e.g. "San Francisco")</span>
       </FancyBorder>
     </div>
-    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <FancyBorder color="green">
-      How far do you want to go?
+      <h5 className="landing-page-input-title">How far do you want to go?</h5>
         <input
           data-tag="distanceOfTrip"
           onChange={e => props.handleChange(setDistance, e.target.value)}

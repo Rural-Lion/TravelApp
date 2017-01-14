@@ -172,12 +172,19 @@ a:focus, a:hover {
   width: 50px;
 }
 
+.landing-page-interest-button:hover {
+  background-color: #0097A7;
+}
+
+.landing-page-interest-button-active:hover {
+  background-color: #00BCD4;
+}
+
 @media screen and (max-width: 1350px) {
   .landing-page-interest-name {
     display: none;
   }
 }
-
 
 .mapContainer {
   margin: 0px;
@@ -257,6 +264,10 @@ a:focus, a:hover {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.landing-page-input-title {
+  font-weight: bold;
 }
 
 .landingPageContainer {
@@ -596,15 +607,36 @@ ul.nav.nav-tabs.nav-justified.navbar-nav {
   font-size: 10px;
 }
 
-.infoButton {
-  height: 20px;
+/*.results-page-icon {
   width: 20px;
-  border-radius: 12px;
-  color: lightslategray;
+  height: 20px;
+}*/
+
+.result-page-plus-sign {
+  font-size: 1.5em;
+  color: #0097A7;
 }
 
-a .infoButton:hover {
+a .result-page-plus-sign:hover {
+  color:#00BCD4;
+}
+
+.result-page-info-sign {
+  font-size: 1.2em;
+  color: #757575;
+}
+
+a .result-page-info-sign:hover {
   color:white;
+}
+
+.result-page-check-sign {
+  font-size: 1.5em;
+  color: #ed8d00;
+}
+
+a .result-page-check-sign:hover {
+  color:#FF9800;
 }
 
 .finalizeButtonContainer {
