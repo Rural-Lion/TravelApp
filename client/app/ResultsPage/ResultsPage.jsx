@@ -267,6 +267,7 @@ class ResultsPage extends Component {
       usedTime: 0,
     }, () => { console.log(this.state.itinerary); });
   }
+
   downloadInnerHtml(filename, mimeType) {
     const elHtml = this.state.itineraryDom.innerHTML;
     const link = document.createElement('a');
@@ -321,6 +322,8 @@ class ResultsPage extends Component {
                   /> : null}
                 { this.state.selectedTab === 'ItineraryContainer' ?
                   <ItineraryContainer
+                    clearItinerary={this.clearItinerary}
+                    downloadInnerHtml={this.downloadInnerHtml}
                     itinerary={this.state.itinerary}
                     addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
                     setItineraryDom={this.setItineraryDom}

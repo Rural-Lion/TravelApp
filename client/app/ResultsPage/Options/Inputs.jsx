@@ -18,7 +18,7 @@ const Inputs = props => (
           />
       </div>
       <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
-        <strong>Distance (KM)</strong>
+        <strong>Distance (km)</strong>
           <input id='distance' 
             data-tag="distanceOfTrip"
             className="options-inputs"
@@ -40,7 +40,7 @@ const Inputs = props => (
         />
       </div>
       <div className='col-xs-12 col-sm-12 col-md-5 col-lg-5 options-input-container'>
-      <strong>Time Length (Days)</strong>
+      <strong>Time Length (days)</strong>
         <input id='time'
           data-tag="lengthOfTrip"
           className="options-inputs"

@@ -33,12 +33,19 @@ class ItineraryContainer extends Component {
       <div>
 
         <div className="itineraryContainer" ref={(node) => { this.props.setItineraryDom(node); this.setItineraryDom(node); }}>
-          {this.props.itinerary ? <DayLegs itinerary={this.props.itinerary} addTimeToWaypoint={this.props.addTimeToWaypoint} /> : <div className="text-center">Add locations to your itinerary to see results!</div> }
+          {this.props.itinerary ? <DayLegs itinerary={this.props.itinerary} addTimeToWaypoint={this.props.addTimeToWaypoint} /> : <div className="text-center itinerary-message">Add locations to your itinerary to see results!</div> }
         </div>
-        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 itinerary-button">
           <div className="finalizeButtonContainer">
             <FancyBorder color="green">
-              <Button bsStyle="success" className="finalize-button" onClick={() => { this.props.downloadInnerHtml('myItinerary.html'); }}>Save My Itinerary</Button>
+              <Button bsStyle="success" className="finalize-button" onClick={() => { this.props.clearItinerary(); }}>Clear Itinerary</Button>
+            </FancyBorder>
+          </div>
+        </div>
+        <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 itinerary-button">
+          <div className="finalizeButtonContainer">
+            <FancyBorder color="green">
+              <Button bsStyle="primary" className="finalize-button" onClick={() => { this.props.downloadInnerHtml('myItinerary.html'); }}>Save Itinerary</Button>
             </FancyBorder>
           </div>
         </div>
