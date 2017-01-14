@@ -103,6 +103,7 @@ const Inputs = props => (
             props.handleChange(setLength, document.getElementById('time').value);
             props.handleChange(setLocation, document.getElementById('location').value);
             props.handleChange(setDistance, document.getElementById('distance').value);
+            props.selectTab('EntityList');
             }
           }
         > Search

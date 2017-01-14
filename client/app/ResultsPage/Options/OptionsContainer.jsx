@@ -13,6 +13,7 @@ const OptionsContainer = (props) => (
     </div>
     <div >
       <InputsContainer 
+        selectTab={props.selectTab}
         setPreferences={props.setPreferences}
         startingTime={props.startingTime}
         endingTime={props.endingTime}
