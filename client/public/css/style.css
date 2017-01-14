@@ -457,11 +457,6 @@ a:focus, a:hover {
   opacity: .5;
 }
 
-.options-planButton {
-  margin-top: 20px;
-  text-align: center;
-}
-
 .options-container {
   float: left;
   margin-left: 65px;
@@ -481,9 +476,17 @@ a:focus, a:hover {
   margin: auto;
   width: 100%;
   border: none;
-  /*border-radius: 5px;
   margin-top: 5px;
-  color: #545454*/
+}
+
+.options-planbutton-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.options-planbutton {
+  height: 40px;
+  width: 100px;
 }
 
 /*******************************/

@@ -94,9 +94,9 @@ const Inputs = props => (
           />
       </div>
     </div>
-    <div className='row options-planButton'>
+    <div className='row options-planbutton-container'>
       <div className='col'>
-        <Button bsStyle='primary' className='planButton2'
+        <Button bsStyle='primary' className='options-planbutton'
           onClick= { (e) => {
             props.setPreferences(+document.getElementById('foodCost').value, +document.getElementById('startingTime').value, +document.getElementById('endingTime').value, +document.getElementById('nightlyCost').value);
             props.handleChange(setBudget, document.getElementById('budget').value);
