@@ -358,6 +358,10 @@ a:focus, a:hover {
   opacity: .5;
 }
 
+.planButton {
+  text-align: center;
+}
+
 .icons, .optionsTitle {
   padding-left: 0px;
 }
@@ -366,12 +370,8 @@ a:focus, a:hover {
   margin-left: -20px;
 }
 
-/*.planButton {
-
-}*/
-
 .optionsInput {
-  margin: 10px;
+  margin: 13px;
   float: left;
 }
 
