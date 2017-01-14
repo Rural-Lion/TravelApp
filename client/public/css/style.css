@@ -172,6 +172,14 @@ a:focus, a:hover {
   width: 50px;
 }
 
+.landing-page-interest-button:hover {
+  background-color: #0097A7;
+}
+
+.landing-page-interest-button-active:hover {
+  background-color: #00BCD4;
+}
+
 @media screen and (max-width: 1350px) {
   .landing-page-interest-name {
     display: none;
