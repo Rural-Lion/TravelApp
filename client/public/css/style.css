@@ -184,7 +184,7 @@ a:focus, a:hover {
   margin-bottom: 30px;
 }
 
-.landing-page-interest-glyph {
+.landing-page-interest-glyphicon {
   height: 50px;
   width: 50px;
 }
@@ -363,14 +363,26 @@ a:focus, a:hover {
   text-align: center;
 }
 
+.icons, .optionsTitle {
+  padding-left: 0px;
+}
+
+.activitiesTitle {
+  margin-left: -20px;
+}
+
+.preferencesTitle {
+  margin-left: -35px;
+}
+
 .Optionscontainer {
   float: left;
-  margin-left: 65px;
+  margin-left: 10px;
 }
 
 .optionsInput {
   text-align: center;
-  margin: 20px;
+  margin: 13px;
   float: left;
 }
 
