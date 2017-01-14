@@ -16,13 +16,8 @@ const EntityPopup = (props) => {
         bsSize="lg" dialogClassName="entityModal"
       >
         <div className="container-fluid">
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <Modal.Body>
-              <TrailsContainer entity={props.entity} />
-            </Modal.Body>
-          </div>
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <Modal.Header closeButton className="text-center">
+          <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <Modal.Header className="text-center">
               <br />
               <Modal.Title>{props.entity.name.toUpperCase()}</Modal.Title>
               <FancyBorder color="blue">
@@ -45,6 +40,11 @@ const EntityPopup = (props) => {
                   <div dangerouslySetInnerHTML={{ __html: props.entity.description }} className="entityModalDescription" />
                 </FancyBorder>
               </div>
+            </Modal.Body>
+          </div>
+          <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <Modal.Body>
+              <TrailsContainer entity={props.entity} />
             </Modal.Body>
           </div>
         </div>

@@ -10,7 +10,7 @@ const ProgressBars = (props) => {
     <FancyBorder color="yellow">
       <div className="container-fluid" >
         <div className="row">
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 progress-bars">
+          <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 progress-bars">
             <div className="row">
               <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-progress-glyph">
                 <Glyphicon glyph="time" />
@@ -23,7 +23,7 @@ const ProgressBars = (props) => {
               </div>
             </div>
           </div>
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 progress-bars">
+          <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 progress-bars">
             <div className="row">
               <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-progress-glyph">
                 <Glyphicon glyph="usd" />
