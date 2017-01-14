@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-const favicons = {
+const glyphicons = {
   'Hiking': require('../../public/images/hiking.png'),
   'Biking': require('../../public/images/biking.png'),
   'Camping': require('../../public/images/camping.png'),
@@ -36,7 +36,7 @@ const InterestButton = props => (
       className={`centered ${(props.interest.interest[1]) ? 'includedInterestButton landing-page-interest-button-active' : 'interestButton landing-page-interest-button'}`}
       onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
     ><img
-      src={`${(!props.interest.interest[1]) ? favicons[props.interest.interest[0]] : favicons[props.interest.interest[0]+'Active']}`}
+      src={`${(!props.interest.interest[1]) ? glyphicons[props.interest.interest[0]] : glyphicons[props.interest.interest[0]+'Active']}`}
       // value={props.interest.index}
       className={`${(props.interest.interest[1]) ? 'landing-page-interest-glyphicon-active' : 'landing-page-interest-glyphicon'}`}
       // onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
