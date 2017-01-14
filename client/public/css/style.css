@@ -113,15 +113,6 @@ a:focus, a:hover {
   opacity: .5;
 }
 
-.optionsFavicon {
-  height: 70px;
-  width: 70px;
-}
-
-img[src]:hover {
-  opacity: .5;
-}
-
 .title {
   text-align: center;
   font-weight: bold;
@@ -147,8 +138,8 @@ img[src]:hover {
 }
 
 .col-centered {
-    float: none;
-    margin: 0 auto;
+  float: none;
+  margin: 0 auto;
 }
 
 .centered {
@@ -219,22 +210,21 @@ img[src]:hover {
 .mapContainer {
   margin: 0px;
   padding: 0px; 
-
 }
 
 .map {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 95vh;
-    margin: 0;
-
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 95vh;
+  margin: 0;
 }
 
 .EntityListEntry:hover {
   cursor: pointer;
   background-color: #c3c3c3;
 }
+
 
 .tabs {
   margin: 0px;
@@ -268,6 +258,7 @@ img[src]:hover {
   display: inline-block;
   padding-left: 5px;
 }
+
 .modalMap {
   height: 45vh;
   margin: 5px;
@@ -343,14 +334,14 @@ img[src]:hover {
   background-color: #0097A7;
   border-width: 0px;
   font-size: 15px;
-    color: white;
+  color: white;
 }
 
 .interestFavicon { 
   margin: 5px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
-  background-color: #b18571;
+  background-color: transparent;
   border-width: 0px;
   font-size: 15px;
   color: black;
@@ -358,16 +349,36 @@ img[src]:hover {
 
 .includedInterestFavicon { 
   margin: 5px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
-  background-color: #667c50;
+  background-color:  #0097A7;
   border-width: 0px;
   font-size: 15px;
   color: white;
 }
 
+.optionsFavicon {
+  height: 45px;
+  width: 45px;
+}
+
+.optionsFavicon:hover {
+  opacity: .5;
+}
+
+.planButton {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.Optionscontainer {
+  float: left;
+  margin-left: 65px;
+}
+
 .optionsInput {
-  margin-left: 20px;
+  text-align: center;
+  margin: 20px;
   float: left;
 }
 
