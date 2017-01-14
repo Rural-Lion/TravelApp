@@ -34,7 +34,7 @@ const InterestFavicon = props => (
     <img
       src={`${(!props.interest.interest[1]) ? favicons[props.interest.interest[0]] : favicons[props.interest.interest[0]+'Active']}`}
       value={props.interest.index}
-      className={`${(props.interest.interest[1]) ? 'includedInterestFavicon' : 'interestFavicon'} optionsFavicon`}
+      className={`${(props.interest.interest[1]) ? 'options-includedinterestfavicon' : 'options-interestfavicon'} options-favicon`}
       onClick={() => { props.handleInterestButtonClick(props.interest.index); }}
     />
   </OverlayTrigger>
