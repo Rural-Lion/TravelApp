@@ -359,6 +359,7 @@ a:focus, a:hover {
 }
 
 .planButton {
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -370,7 +371,17 @@ a:focus, a:hover {
   margin-left: -20px;
 }
 
+.preferencesTitle {
+  margin-left: -35px;
+}
+
+.Optionscontainer {
+  float: left;
+  margin-left: 10px;
+}
+
 .optionsInput {
+  text-align: center;
   margin: 13px;
   float: left;
 }
