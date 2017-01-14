@@ -11,7 +11,7 @@ const OptionsContainer = (props) => (
     <div >
       <InterestsContainer />
     </div>
-    <div className="preferences" >
+    <div >
       <InputsContainer 
         setPreferences={props.setPreferences}
         startingTime={props.startingTime}
