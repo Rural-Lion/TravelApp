@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FancyBorder } from '../helpers.js';
 import { ProgressBar, Button } from 'react-bootstrap';
+import InfoMarker from '../../public/images/infomarker.png';
 
 const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -16,7 +17,7 @@ const EntityListEntry = props => (
       </div>
     </div>
     <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-      <a onClick={e => props.handleEntityClick(e, props.entity)} ><img className="infoButton"src="http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png" alt="" /></a>
+      <a onClick={e => props.handleEntityClick(e, props.entity)} ><img className="infoButton"src={InfoMarker} alt="" /></a>
     </div>
   </div>
   );
