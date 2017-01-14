@@ -37,7 +37,7 @@ class ItineraryContainer extends Component {
         </div>
         <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 itinerary-button">
           <div className="finalizeButtonContainer">
-            <Button bsStyle="primary" className="finalize-button" onClick={() => { this.props.clearItinerary(); }}>Clear Itinerary</Button>
+            <Button bsStyle="primary" className="finalize-button" onClick={() => { this.props.clearItinerary(); this.props.clearWaypoints();}}>Clear Itinerary</Button>
           </div>
         </div>
         <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 itinerary-button">
