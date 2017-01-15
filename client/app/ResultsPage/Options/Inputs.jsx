@@ -104,6 +104,8 @@ const Inputs = props => (
             props.handleChange(setLocation, document.getElementById('location').value);
             props.handleChange(setDistance, document.getElementById('distance').value);
             props.selectTab('EntityList');
+            props.clearItinerary();
+            props.clearWaypoints();
             }
           }
         > Search

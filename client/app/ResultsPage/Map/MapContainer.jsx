@@ -44,6 +44,7 @@ class MapContainer extends Component {
       this.renderEntities(this.state.map, this.props.entities);
     });
   }
+  
   renderEntities(map, entities) {
     const markers = this.makeEntityMarkers(entities, map, this.makeEntityInfoWindows.bind(this));
     new MarkerClusterer(map, markers, { imagePath: './maps/img/m' });

@@ -54,6 +54,7 @@ class ResultsPage extends Component {
     this.downloadInnerHtml = this.downloadInnerHtml.bind(this);
     this.clearItinerary = this.clearItinerary.bind(this);
     this.clearWaypoints = this.clearWaypoints.bind(this);
+    this.clearSelectedEntities = this.clearSelectedEntities.bind(this);
   }
 
   componentWillMount() {
@@ -129,6 +130,7 @@ class ResultsPage extends Component {
       itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime,
       this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost), this.state.waypoints),
     }, () => {
+      console.log('itinerary', this.state.itinerary);
       this.setUsedBudget(this.state.itinerary.totalCost);
       this.setRemainingTime(this.state.itinerary.remainingTime, this.state.itinerary.totalTime);
     });
@@ -265,15 +267,19 @@ class ResultsPage extends Component {
     })
   }
 
-  clearItinerary() {
+  clearSelectedEntities() {
     let entities = this.state.entities.slice();
     entities.forEach((entity) => {entity.isAdded = false});
+    this.setState({
+      entities,
+    })
+  }
 
+  clearItinerary() {
     this.setState({
       itinerary: false,
       usedBudget: 0,
       usedTime: 0,
-      entities,
     }, () => { console.log(this.state.itinerary); });
   }
 
@@ -333,7 +339,7 @@ class ResultsPage extends Component {
                   <ItineraryContainer
                     clearItinerary={this.clearItinerary}
                     clearWaypoints={this.clearWaypoints}
-                    
+                    clearSelectedEntities ={this.clearSelectedEntities}
                     downloadInnerHtml={this.downloadInnerHtml}
                     itinerary={this.state.itinerary}
                     addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
@@ -341,6 +347,9 @@ class ResultsPage extends Component {
                   /> : null}
                 { this.state.selectedTab === 'OptionsContainer' ?
                   <OptionsContainer
+                    clearItinerary={this.clearItinerary}
+                    clearWaypoints={this.clearWaypoints}
+                    clearSelectedEntities ={this.clearSelectedEntities}
                     selectTab={this.selectTab}
                     setPreferences={this.setPreferences}
                     startingTime={this.state.startingTime}
