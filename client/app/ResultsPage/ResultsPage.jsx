@@ -55,6 +55,7 @@ class ResultsPage extends Component {
     this.clearItinerary = this.clearItinerary.bind(this);
     this.clearWaypoints = this.clearWaypoints.bind(this);
     this.clearSelectedEntities = this.clearSelectedEntities.bind(this);
+    this.savedEntities = this.saveSelectedEntities.bind(this);
   }
 
   componentWillMount() {
@@ -95,6 +96,7 @@ class ResultsPage extends Component {
         this.setState({
           entities: generateData(res.data),
         });
+        this.saveSelectedEntities();
       })
       .catch(err => console.error('error loading getEntityList request', err));
   }
@@ -130,7 +132,6 @@ class ResultsPage extends Component {
       itinerary: generateItinerary(results, this.state.startingTime, this.state.endingTime,
       this.props.userQuery.lengthOfTrip, (this.state.foodCostPerDay + this.state.nightlyCost), this.state.waypoints),
     }, () => {
-      console.log('itinerary', this.state.itinerary);
       this.setUsedBudget(this.state.itinerary.totalCost);
       this.setRemainingTime(this.state.itinerary.remainingTime, this.state.itinerary.totalTime);
     });
@@ -275,6 +276,20 @@ class ResultsPage extends Component {
     })
   }
 
+  saveSelectedEntities() {
+    let savedEntities = {};
+    this.state.itinerary.days.forEach((day) => {day.legs.forEach((trip) => {savedEntities[trip.name] = true})});
+    let entities = this.state.entities.slice();
+    entities.forEach((entity) => {
+      if(savedEntities[entity.name]) {
+        entity.isAdded = true; 
+      }
+    })
+    this.setState({
+      entities,
+    })
+  }
+
   clearItinerary() {
     this.setState({
       itinerary: false,
@@ -347,9 +362,6 @@ class ResultsPage extends Component {
                   /> : null}
                 { this.state.selectedTab === 'OptionsContainer' ?
                   <OptionsContainer
-                    clearItinerary={this.clearItinerary}
-                    clearWaypoints={this.clearWaypoints}
-                    clearSelectedEntities ={this.clearSelectedEntities}
                     selectTab={this.selectTab}
                     setPreferences={this.setPreferences}
                     startingTime={this.state.startingTime}

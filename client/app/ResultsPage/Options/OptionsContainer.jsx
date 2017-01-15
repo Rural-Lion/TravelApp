@@ -13,9 +13,6 @@ const OptionsContainer = (props) => (
     </div>
     <div >
       <InputsContainer 
-        clearItinerary={props.clearItinerary}
-        clearWaypoints={props.clearWaypoints}
-        clearSelectedEntities ={props.clearSelectedEntities}
         selectTab={props.selectTab}
         setPreferences={props.setPreferences}
         startingTime={props.startingTime}
