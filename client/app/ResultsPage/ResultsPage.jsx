@@ -54,6 +54,8 @@ class ResultsPage extends Component {
     this.downloadInnerHtml = this.downloadInnerHtml.bind(this);
     this.clearItinerary = this.clearItinerary.bind(this);
     this.clearWaypoints = this.clearWaypoints.bind(this);
+    this.clearSelectedEntities = this.clearSelectedEntities.bind(this);
+    this.savedEntities = this.saveSelectedEntities.bind(this);
   }
 
   componentWillMount() {
@@ -94,6 +96,7 @@ class ResultsPage extends Component {
         this.setState({
           entities: generateData(res.data),
         });
+        this.saveSelectedEntities();
       })
       .catch(err => console.error('error loading getEntityList request', err));
   }
@@ -265,15 +268,33 @@ class ResultsPage extends Component {
     })
   }
 
-  clearItinerary() {
+  clearSelectedEntities() {
     let entities = this.state.entities.slice();
     entities.forEach((entity) => {entity.isAdded = false});
+    this.setState({
+      entities,
+    })
+  }
 
+  saveSelectedEntities() {
+    let savedEntities = {};
+    this.state.itinerary.days.forEach((day) => {day.legs.forEach((trip) => {savedEntities[trip.name] = true})});
+    let entities = this.state.entities.slice();
+    entities.forEach((entity) => {
+      if(savedEntities[entity.name]) {
+        entity.isAdded = true; 
+      }
+    })
+    this.setState({
+      entities,
+    })
+  }
+
+  clearItinerary() {
     this.setState({
       itinerary: false,
       usedBudget: 0,
       usedTime: 0,
-      entities,
     }, () => { console.log(this.state.itinerary); });
   }
 
@@ -333,7 +354,7 @@ class ResultsPage extends Component {
                   <ItineraryContainer
                     clearItinerary={this.clearItinerary}
                     clearWaypoints={this.clearWaypoints}
-                    
+                    clearSelectedEntities ={this.clearSelectedEntities}
                     downloadInnerHtml={this.downloadInnerHtml}
                     itinerary={this.state.itinerary}
                     addTimeToWaypoint={this.debouncedAddTimeToWaypoint}
