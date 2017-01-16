@@ -4,14 +4,14 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('getActivities', function() {
+describe('getActivities', function () {
   this.timeout(5000);
 
-  it ('Should return activities on GET', function(done) {
+  xit('Should return activities on GET', (done) => {
     chai.request('localhost:8000')
     .get('/activities')
-    .query({activity: "DOCUMENTARY SITE"})
-    .end(function(err, res){
+    .query({ activity: 'DOCUMENTARY SITE' })
+    .end((err, res) =>  {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('object');
@@ -19,11 +19,11 @@ describe('getActivities', function() {
     });
   });
 
-  it ('Should return the adequate Activities properties', function(done) {
+  xit('Should return the adequate Activities properties', (done) => {
     chai.request('localhost:8000')
     .get('/activities')
-    .query({activity: "DOCUMENTARY SITE"})
-    .end(function(err, res){
+    .query({ activity: 'DOCUMENTARY SITE' })
+    .end((err, res) =>  {
       res.body.should.have.property('ActivityParentID');
       res.body.should.have.property('ActivityLevel');
       res.body.should.have.property('ActivityName');
@@ -53,14 +53,13 @@ describe('getActivities', function() {
     });
   });
 
-  it ('Should return the correct activity' , function(done) {
+  xit('Should return the correct activity', (done) => {
     chai.request('localhost:8000')
     .get('/activities')
-    .query({activity: "DOCUMENTARY SITE"})
-    .end(function(err, res){
-      res.body.ActivityName.should.equal("DOCUMENTARY SITE");
+    .query({ activity: 'DOCUMENTARY SITE' })
+    .end((err, res) =>  {
+      res.body.ActivityName.should.equal('DOCUMENTARY SITE');
       done();
     });
   });
-
 });

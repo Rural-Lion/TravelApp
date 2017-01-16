@@ -4,14 +4,14 @@ const should = chai.should();
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
-getRecAddressModel = require('../../models.js').getRecAddressModel;
+getFacilityAddressModel = require('../../models.js').getFacilityAddressModel;
 
-describe('getRecAddressModel', () => {
-  const result = getRecAddressModel(6);
+describe('getFacilityAddressModel', () => {
+  const result = getFacilityAddressModel(201792);
 
   it('Should be a function', () => {
-    should.exist(getRecAddressModel);
-    getRecAddressModel.should.be.a('function');
+    should.exist(getFacilityAddressModel);
+    getFacilityAddressModel.should.be.a('function');
   });
 
   it('Should return an object', (done) => {
@@ -26,9 +26,8 @@ describe('getRecAddressModel', () => {
   });
 
   it('Should return the correct RecArea address', (done) => {
-    result.should.eventually.have.property('State').and.equal('AZ');
-    result.should.eventually.have.property('City').and.equal('Morristown');
-    result.should.eventually.have.property('Address').and.equal('Lake Pleasant Regional Park Maricopa County Parks & Recreation 41835 N. Castle Hot Springs Rd.');
-    result.should.eventually.have.property('PostalCode').and.equal('85342').and.notify(done);
+    result.should.eventually.have.property('State').and.equal('WA');
+    result.should.eventually.have.property('City').and.equal('Spokane');
+    result.should.eventually.have.property('PostalCode').and.equal('99212').and.notify(done);
   });
 });
