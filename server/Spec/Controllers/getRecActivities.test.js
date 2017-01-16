@@ -4,14 +4,14 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('getRecActivities', function() {
+describe('getRecActivities', function () {
   this.timeout(5000);
 
-  it ('Should return activities on GET', function(done) {
+  it('Should return activities on GET', (done) => {
     chai.request('localhost:8000')
     .get('/recActivities')
-    .query({recAreaID: 6})
-    .end(function(err, res){
+    .query({ recAreaID: 6 })
+    .end((err, res) => {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('object');
@@ -19,11 +19,11 @@ describe('getRecActivities', function() {
     });
   });
 
-  it ('Should return the adequate Activities properties', function(done) {
+  it('Should return the adequate Activities properties', (done) => {
     chai.request('localhost:8000')
     .get('/recActivities')
-    .query({recAreaID: 6})
-    .end(function(err, res){
+    .query({ recAreaID: 6 })
+    .end((err, res) => {
       res.body.activities[0].should.have.property('ActivityParentID');
       res.body.activities[0].should.have.property('ActivityLevel');
       res.body.activities[0].should.have.property('ActivityName');
@@ -39,15 +39,14 @@ describe('getRecActivities', function() {
     });
   });
 
-  it ('Should return the correct RecArea\'s activities' , function(done) {
+  it('Should return the correct RecArea\'s activities', (done) => {
     chai.request('localhost:8000')
     .get('/recActivities')
-    .query({recAreaID: 6})
-    .end(function(err, res){
+    .query({ recAreaID: 6 })
+    .end((err, res) => {
       res.body.activities.length.should.equal(13);
       res.body.activities[0].entityactivities.EntityID.should.equal(6);
       done();
     });
   });
-
 });

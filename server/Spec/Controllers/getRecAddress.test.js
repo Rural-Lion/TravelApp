@@ -4,13 +4,12 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('getRecAddress', function() {
-  
-  it ('Should return a RecArea address on GET', function(done) {
+describe('getRecAddress', () => {
+  it('Should return a RecArea address on GET', (done) => {
     chai.request('localhost:8000')
     .get('/recAddress')
-    .query({recAreaID: 6})
-    .end(function(err, res){
+    .query({ recAreaID: 6 })
+    .end((err, res) => {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('object');
@@ -18,11 +17,11 @@ describe('getRecAddress', function() {
     });
   });
 
-  it ('Should return the adequate RecArea address properties', function(done) {
+  it('Should return the adequate RecArea address properties', (done) => {
     chai.request('localhost:8000')
     .get('/recAddress')
-    .query({recAreaID: 6})
-    .end(function(err, res){
+    .query({ recAreaID: 6 })
+    .end((err, res) => {
       res.body.should.have.property('State');
       res.body.should.have.property('City');
       res.body.should.have.property('PostalCode');
@@ -31,14 +30,13 @@ describe('getRecAddress', function() {
     });
   });
 
-  it ('Should return the correct RecArea address', function(done) {
+  it('Should return the correct RecArea address', (done) => {
     chai.request('localhost:8000')
     .get('/recAddress')
-    .query({recAreaID: 6})
-    .end(function(err, res){
-      res.body.PostalCode.should.equal('85342'); 
+    .query({ recAreaID: 6 })
+    .end((err, res) => {
+      res.body.PostalCode.should.equal('85342');
       done();
     });
   });
-
 });

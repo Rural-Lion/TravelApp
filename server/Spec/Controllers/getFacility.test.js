@@ -4,13 +4,13 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('getFacility', function() {
+describe('getFacility', function () {
   this.timeout(10000);
-  it ('Should return a Facility on GET', function(done) {
+  it('Should return a Facility on GET', (done) => {
     chai.request('localhost:8000')
     .get('/facility')
-    .query({facilityID: 200001})
-    .end(function(err, res){
+    .query({ facilityID: 200001 })
+    .end((err, res) => {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('object');
@@ -18,11 +18,11 @@ describe('getFacility', function() {
     });
   });
 
-  it ('Should return the adequate Facility properties', function(done) {
+  it('Should return the adequate Facility properties', (done) => {
     chai.request('localhost:8000')
     .get('/facility')
-    .query({facilityID: 200001})
-    .end(function(err, res){
+    .query({ facilityID: 200001 })
+    .end((err, res) => {
       res.body.should.have.property('FacilityDescription');
       res.body.should.have.property('FacilityEmail');
       res.body.should.have.property('FacilityLatitude');
@@ -51,14 +51,13 @@ describe('getFacility', function() {
     });
   });
 
-  it ('Should return the correct Facility', function(done) {
+  it('Should return the correct Facility', (done) => {
     chai.request('localhost:8000')
     .get('/facility')
-    .query({facilityID: 200001})
-    .end(function(err, res){
-      res.body.FacilityID.should.equal(200001); 
+    .query({ facilityID: 200001 })
+    .end((err, res) => {
+      res.body.FacilityID.should.equal(200001);
       done();
     });
   });
-
 });

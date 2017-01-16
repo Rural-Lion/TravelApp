@@ -30,10 +30,6 @@ class TrailsContainer extends Component {
         .split(', ')
         .map(point => point.split(' '))
         .map(item => [+item[1], +item[0]]);
-          // THIS WAS THE FORMAT FOR GOOGLE ELEVATION API
-          // point = point.split(' ');
-          // return { lat: +point[1], lng: +point[0] };
-        // });
       this.getElevationData(trail, index);
       return trail;
     });
@@ -49,15 +45,6 @@ class TrailsContainer extends Component {
     });
   }
   getElevationData(trail, index) {
-    // // MICROSOFT ELEVATION API
-    // axios.post('http://dev.virtualearth.net/REST/v1/Elevation/Polyline', {
-    //   params: {
-    //     key: '',
-    //     points: trail.coordinates.join(','),
-    //     sample: 256,
-    //   },
-    // })
-    // MAPQUEST API:
     let collection = trail.coordinates;
     // handle the long trails
     if (trail.coordinates.length > 250) {
@@ -84,25 +71,8 @@ class TrailsContainer extends Component {
       trail.up = Math.round(up);
       trail.down = Math.round(down);
       trail.profile = res.data;
-      // const newTrail = Object.assign({}, trail, { up, down, profile: res.data });
-      // this.setState({
-      //   trails: this.state.trails.slice(0, index).concat(newTrail).concat(this.state.trails.slice(index + 1)),
-      // }, () => { console.log('NEW TRAILS', this.state.trails); });
     })
     .catch(err => console.log('ERROR FROM ELEVATION API', err));
-
-
-    // GOOGLE ELEVATION API:
-    // const elevator = new google.maps.ElevationService();
-    // elevator.getElevationAlongPath({
-    //   path: trail.coordinates,
-    //   samples: 256,
-    // }, (results, status) => {
-    //   if (status == 'OVER_QUERY_LIMIT') {
-    //   } else {
-    //     console.log('STATUS', status, trail.coordinates.length);
-    //   }
-    // });
   }
 
   filterTrailsByLength(length) {
@@ -155,7 +125,6 @@ class TrailsContainer extends Component {
     );
   }
 }
-
 
 TrailsContainer.propTypes = {
   entity: PropTypes.object,
